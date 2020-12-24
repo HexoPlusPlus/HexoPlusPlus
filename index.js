@@ -31,7 +31,7 @@ const hpp_githubgetinit = {
 }
 
 
-const hpp_loginhtml = '<!DOCTYPE html><html lang="zh-cmn-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"><script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1"></script><link rel="favicon" href="' + hpp_usericon + '"><title>' + hpp_title + '</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ChenYFan-Tester/HexoPP@5f4ed7f/login.css">   </head><body><div id="all"><div class="wrapper"><div class="bg-container"><div class="container"><h1 style="margin: 0;" id="bar">Welcome</h1><form class="form" id="fm"><input id="username" type="text" placeholder="用户名" value name="username" /><input id="password" type="password" placeholder="密码" value name="password" /><button type="button" id="login-button">登陆</button><br /><br /><a id="tips">@HexoPP</a></form></div></div><ul class="bg-bubbles"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul></div></div><script>  $("#login-button").click(function (event) {   document.cookie="username=" + document.getElementById("username").value;  document.cookie="password="+document.getElementById("password").value;  location.reload();  });</script></body></html>'
+const hpp_loginhtml = '<!DOCTYPE html><html lang="zh-cmn-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"><script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1"></script><link rel="favicon" href="' + hpp_usericon + '"><title>' + hpp_title + '</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@'+hpp_CDNver+'/src/login.css">   </head><body><div id="all"><div class="wrapper"><div class="bg-container"><div class="container"><h1 style="margin: 0;" id="bar">Welcome</h1><form class="form" id="fm"><input id="username" type="text" placeholder="用户名" value name="username" /><input id="password" type="password" placeholder="密码" value name="password" /><button type="button" id="login-button">登陆</button><br /><br /><a id="tips">@HexoPP</a></form></div></div><ul class="bg-bubbles"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul></div></div><script>  $("#login-button").click(function (event) {   document.cookie="username=" + document.getElementById("username").value;  document.cookie="password="+document.getElementById("password").value;  location.reload();  });</script></body></html>'
 const hpp_adminhtml = `
 
 <!doctype html>
@@ -46,7 +46,7 @@ const hpp_adminhtml = `
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css">  
 	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ChenYFan-Tester/HexoPP@${hpp_CDNver}/admin.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/src/admin.css">
 	
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/gh/markusslima/bootstrap-filestyle@gh-pages/1.2.3/js/bootstrap-filestyle.min.js"></script>
@@ -274,11 +274,11 @@ const hpp_adminhtml = `
 	document.cookie="username=";  document.cookie="password=";  location.reload();
 	};
 	</script>
-	<script src="https://cdn.jsdelivr.net/gh/ChenYFan-Tester/HexoPP@${hpp_CDNver}/bm.js"></script>
-	<script src="https://cdn.jsdelivr.net/gh/ChenYFan-Tester/HexoPP@${hpp_CDNver}/bm.zh.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/bm.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/bm.zh.js"></script>
 	
 	<script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/gh/ChenYFan-Tester/HexoPP@${hpp_CDNver}/admin.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
 	
 </body>
