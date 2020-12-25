@@ -8,7 +8,7 @@ const hpp_usericon = "https://cdn.jsdelivr.net/gh/ChenYFan/CDN/img/ico/apple-tou
 const hpp_password = ""
 const hpp_username = ""
 const hpp_cors = "*"
-const hpp_CDNver = "827ecf6"
+const hpp_CDNver = "eabdfe6"
 
 const hpp_githubdoctoken = ""
 const hpp_githubimagetoken = hpp_githubdoctoken
