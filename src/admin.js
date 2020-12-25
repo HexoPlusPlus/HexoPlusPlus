@@ -198,8 +198,9 @@ function hpp_update(){
     ajax.open( "get" , '/hpp/admin/api/update' , true );
     ajax.setRequestHeader( "Content-Type" , "test/plain" );
     ajax.onreadystatechange = function () {
+	    const hpp_now = ajax.responseText;
         if( ajax.readyState == 4 ) {
-            if( ajax.status == 288 ) {
+            if( hpp_now == hpp_ver ) {
                 swal({
 title: "成功",
     text: "需要更新，点击确定获取最新代码",
@@ -209,7 +210,7 @@ location.href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@latest/inde
 })
 
 
-            }else if( ajax.status == 299 ){
+            }else{
 			swal({
 title: "成功",
     text: "无需更新，当前已是最新版本",
@@ -219,10 +220,11 @@ title: "成功",
 });
 				
             }
-            else {
+            
+        }
+	    else {
                 sweetAlert("糟糕", "上传图片失败!", "error");
             }
-        }
     }
     ajax.send();
 	};
