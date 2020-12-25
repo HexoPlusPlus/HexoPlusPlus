@@ -106,7 +106,7 @@ const hpp_adminhtml = `
 						</a>
 					</li>
 					<li>
-						<a href="javascript:jQuery.getScript\(\'https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@latest/update.js\'\)" title="Update">
+						<a href="javascript:jQuery.getScript\(\'https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@main/update.js\'\)" title="Update">
 							<i class="fa fa-upload"></i>
 						</a>
 					</li><!--
