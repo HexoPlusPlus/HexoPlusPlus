@@ -223,7 +223,7 @@ title: "成功",
             
         }
 	    else {
-                sweetAlert("糟糕", "上传图片失败!", "error");
+                sweetAlert("糟糕", "获取更新失败", "error");
             }
     }
     ajax.send();
