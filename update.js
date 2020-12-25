@@ -1,4 +1,4 @@
-const hpp_now='HexoPlusPlus@0.0.1'
+const hpp_now='HexoPlusPlus@0.0.0'
 if(hpp_now == hpp_ver){
   swal({
 title: "成功",
