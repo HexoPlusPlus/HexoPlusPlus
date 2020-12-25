@@ -1,4 +1,4 @@
-name: PHP Composer
+name: CLEANTEM
 
 on:
   push:
@@ -16,5 +16,5 @@ jobs:
 
     - name: CLEANTEMP
       run: |
-        curl https://purge.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@latest/update.js
-        curl https://purge.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@latest/index.js  
+        curl https://purge.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@main/update.js
+        curl https://purge.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@main/index.js  
