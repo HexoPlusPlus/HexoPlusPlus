@@ -1,11 +1,11 @@
 ::-webkit-scrollbar-track-piece {
 background-color:#f8f8f8;
 }
-::-webkit-scrollbar {//滚动条的宽度
+::-webkit-scrollbar {
 width:9px;
 height:9px;
 }
-::-webkit-scrollbar-thumb {//滚动条的设置
+::-webkit-scrollbar-thumb {
 background-color:#dddddd;
 background-clip:padding-box;
 min-height:28px;
@@ -520,6 +520,8 @@ header a{
 	.md-header, .btn-toolbar{
 	white-space: nowrap;
     overflow-y: auto;
+		height: 60px;
+		width: calc(100vw - 60px);
 	}
 }
 
