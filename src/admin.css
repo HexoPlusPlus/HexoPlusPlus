@@ -517,12 +517,7 @@ header a{
 	.form-control{
 	width: calc(100vw - 90px - 80px) !important;
 	}
-	.md-header, .btn-toolbar{
-	white-space: nowrap;
-    overflow-y: auto;
-		height: 60px;
-		width: calc(100vw - 60px);
-	}
+
 }
 
 @media only screen and (max-width: 481px) {
