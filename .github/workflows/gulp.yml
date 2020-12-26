@@ -16,9 +16,8 @@ jobs:
 
     - name: install&gulp
       run: |
-        npm install gulp
-        npm install gulp-uglify
-        gulp uglify
+        npm i gulp gulp-terser gulp-minify-css -D && npx gulp
+        gulp 
     - name: Commit
       run: |
         ls
