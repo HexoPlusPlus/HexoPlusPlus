@@ -1,7 +1,7 @@
 var gulp = require('gulp');
-var miner=require("gulp-uglify")
+var miner = require("gulp-uglify")
 gulp.task('default', function(cb) {
-	gulp.start("mi")
+	gulp.watch("mi")
 	cb();
 });
 
