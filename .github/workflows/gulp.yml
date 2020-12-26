@@ -25,7 +25,7 @@ jobs:
         git config --global user.email Hexopp-bot@email.com
         git config --global user.name Hexopp-bot
         git add . -f
-        git commit -m ":zap: Successful minify" -a
+        git commit -m ":zap: Successful minify" -a --force
         
     - name: Push
       uses: ad-m/github-push-action@master
