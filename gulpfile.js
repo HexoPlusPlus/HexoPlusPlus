@@ -1,13 +1,9 @@
 var gulp = require('gulp');
-var miner = require("gulp-uglify")
-gulp.task('default', function(cb) {
-	gulp.watch("mi")
-	cb();
-});
+var uglify = require('gulp-uglify');
 
-gulp.task('mi',function(cb){
-	gulp.src("./src/*.js")
-	.pipe(miner())
-	.pipe(gulp.dest("./dist/"))
-	cb();
+gulp.task("uglify",function(){
+    gulp
+        .src('js/*.js')       
+        .pipe(uglify())          
+        .pipe(gulp.dest('dist')) 
 })
