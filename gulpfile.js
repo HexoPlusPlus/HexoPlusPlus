@@ -1,33 +1,13 @@
-const gulp = require('gulp')
-const uglify = require('gulp-uglify-es').default
-const cleanCSS = require('gulp-clean-css')
-const concat = require('gulp-concat')
+var gulp = require('gulp');
+var miner=require("gulp-uglify")
+gulp.task('default', function(cb) {
+	gulp.start("mi")
+	cb();
+});
 
-const minify_css = () => (
-    gulp.src('src/*.css')
-        .pipe(cleanCSS({ compatibility: 'ie8' }))
-        .pipe(gulp.dest('dist/'))
-);
-
-
-
-const minify_js = () => (
-    gulp.src('src/*.js')
-        .pipe(uglify())
-        .pipe(gulp.dest('dist/js'))
-);
-
-module.exports = {
-    minify_css: minify_css,
-    concat_js: concat_js,
-    minify_js: minify_js
-};
-
-gulp.task('dist', gulp.parallel(
-    minify_css,
-    gulp.series(
-        minify_js
-    )
-))
-
-gulp.task('default', gulp.series('dist'));
+gulp.task('mi',function(cb){
+	gulp.src("./src/*.js")
+	.pipe(miner())
+	.pipe(gulp.dest("./dist/"))
+	cb();
+})
