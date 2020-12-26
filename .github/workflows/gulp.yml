@@ -16,3 +16,5 @@ jobs:
 
     - name: install&gulp
       run: |
+        npm install gulp-uglify
+        gulp script
