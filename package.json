@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/HexoPlusPlus/HexoPlusPlus/issues"
   },
-  "homepage": "https://github.com/HexoPlusPlus/HexoPlusPlus#readme"
+  "homepage": "https://github.com/HexoPlusPlus/HexoPlusPlus#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-terser": "^2.0.0"
+  }
 }
