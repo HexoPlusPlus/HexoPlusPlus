@@ -513,6 +513,9 @@ header a{
 	.md-editor.md-fullscreen-mode .md-header{
      display: none;   
     }
+	.clear-backend {
+		overflow-x: auto;
+	}
 
 }
 
