@@ -20,7 +20,7 @@ jobs:
     - name: Commit
       run: |
         ls
-        rm -rf /node_modules
+        rm -rf node_modules
         git config --global user.email Hexopp-bot@email.com
         git config --global user.name Hexopp-bot
         git add . 
