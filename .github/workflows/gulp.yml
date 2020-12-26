@@ -16,13 +16,14 @@ jobs:
       run: |
         npm i gulp gulp-terser gulp-minify-css -D && npx gulp
         gulp 
+        
     - name: Commit
       run: |
         ls
-        rm -rf node_modules
+        rm -rf /node_modules
         git config --global user.email Hexopp-bot@email.com
         git config --global user.name Hexopp-bot
-        git add . -f
+        git add . 
         git commit -m ":zap: Successful minify" -a
         
     - name: Push
