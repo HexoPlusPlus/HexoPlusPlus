@@ -1,0 +1,23 @@
+{
+  "name": "hexoplusplus",
+  "version": "0.0.1",
+  "description": "A Serverless Hexo Back DashBoard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ChenYFan",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HexoPlusPlus/HexoPlusPlus.git"
+  },
+  "keywords": [
+    "Hexo",
+    "BackDashboard"
+  ],
+  "bugs": {
+    "url": "https://github.com/HexoPlusPlus/HexoPlusPlus/issues"
+  },
+  "homepage": "https://github.com/HexoPlusPlus/HexoPlusPlus#readme"
+}
