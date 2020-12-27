@@ -142,19 +142,6 @@ function hpp_uploadimage(image){
             }
 		else if( ajax.status == 201 ){
 			const ree=ajax.responseText;
-			swal({
-title: "成功",
-    text: "图片已新建,请复制地址",
-    icon: "success",
-  content: {
-    
-    element: "input",
-    attributes: {
-      value: ree,
-      type: "text",
-    },
-  },
-});
 			copyToClip(ree);	
 		    input.disabled=false
             }
@@ -199,5 +186,17 @@ function copyToClip(content) {
     aux.select();
     document.execCommand("copy"); 
     document.body.removeChild(aux);
-    swal('已复制',content,'success');
+    			swal({
+title: "成功",
+    text: "图片已新建,地址已复制",
+    icon: "success",
+  content: {
+    
+    element: "input",
+    attributes: {
+      value: content,
+      type: "text",
+    },
+  },
+});
 }
