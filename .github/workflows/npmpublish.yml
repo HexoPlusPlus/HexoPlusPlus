@@ -14,8 +14,8 @@ jobs:
         with:	
           node-version: 10	
           registry-url: https://registry.npmjs.org/	
-      - run:|	
-        npm version patch	
-        npm publish	
+            - run:|	
+              npm version patch	
+              npm publish	
         env:	
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
