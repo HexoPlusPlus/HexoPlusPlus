@@ -78,7 +78,7 @@ choo.disabled=true
 		mdeditor.disabled=true
 	var ajax = ajaxObject();
     ajax.open( "post" , '/hpp/admin/api/adddoc/'+choo.value , true );
-    ajax.setRequestHeader( "Content-Type" , "application/x-www-form-urlencoded" );
+    ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
@@ -133,7 +133,7 @@ function hpp_uploadimage(image){
 		input.disabled=true
 	var ajax = ajaxObject();
     ajax.open( "post" , '/hpp/admin/api/addimage/'+chooimage.value , true );
-    ajax.setRequestHeader( "Content-Type" , "application/x-www-form-urlencoded" );
+    ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
