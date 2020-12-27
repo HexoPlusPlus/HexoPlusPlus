@@ -1,3 +1,4 @@
+/*此处为后台配置*/
 const hpp_domain = "blogadmin.cyfan.top"
 const hpp_userimage = "https://cdn.jsdelivr.net/gh/ChenYFan/CDN/img/avatar.png"
 const hpp_title = "ChenYFan的后台"
@@ -6,7 +7,7 @@ const hpp_password = ""
 const hpp_username = ""
 const hpp_cors = "*"
 const hpp_CDNver = "6acbbd4"
-
+/*此处为Github配置*/
 const hpp_githubdoctoken = ""
 const hpp_githubimagetoken = hpp_githubdoctoken
 const hpp_githubdocusername = ""
@@ -19,15 +20,21 @@ const hpp_githubimagepath = ""
 const hpp_githubimagebranch = ""
 
 
-
-
-
-const hpp_ver = "HexoPlusPlus@0.0.1"
-const hpp_githubgetinit = {
+const hpp_ver = "HexoPlusPlus@0.0.2"
+const hpp_githubgetimageinit = {
     method: "GET",
     headers: {
         "content-type": "application/json;charset=UTF-8",
         "user-agent": hpp_ver,
+        "Authorization": "token " + hpp_githubimagetoken
+    },
+}
+const hpp_githubgetdocinit = {
+    method: "GET",
+    headers: {
+        "content-type": "application/json;charset=UTF-8",
+        "user-agent": hpp_ver,
+        "Authorization": "token " + hpp_githubdoctoken
     },
 }
 
@@ -328,8 +335,8 @@ async function handleRequest(request) {
             if (path.startsWith("/hpp/admin/api/adddoc/")) {
                 const file = await request.text()
                 const filename = path.substr(("/hpp/admin/api/adddoc/").length)
-                const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents/${hpp_githubdocpath}/${filename}`
-                const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetinit)).text())).sha
+                const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${hpp_githubdocpath}${filename}`
+                const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
                 const hpp_body = {
                     branch: hpp_githubdocbranch, message: `Upload from ${hpp_ver} By ${hpp_githubdocusername}`, content: file, sha: hpp_sha
                 }
@@ -352,11 +359,10 @@ async function handleRequest(request) {
 
             }
             if (path.startsWith("/hpp/admin/api/addimage")) {
-
                 const file = await request.text()
                 const hpp_time = Date.parse(new Date())
                 const filename = path.substr(("/hpp/admin/api/addimage/").length)
-                const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents/${hpp_githubimagepath}/${hpp_time}.${filename}`
+                const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${hpp_githubimagepath}${hpp_time}.${filename}`
                 const hpp_body = {
                     branch: hpp_githubimagebranch, message: `Upload from ${hpp_ver} By ${hpp_githubdocusername}`, content: file
                 }
@@ -372,17 +378,17 @@ async function handleRequest(request) {
                 const hpp_r = await fetch(url, hpp_docputinit)
                 const hpp_r_s = await hpp_r.status
                 if (hpp_r_s == 200 || hpp_r_s == 201) {
-                    return new Response(`https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}/${hpp_githubimagepath}/${hpp_time}.${filename}`, { status: hpp_r_s })
+                    return new Response(`https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}${hpp_githubimagepath}${hpp_time}.${filename}`, { status: hpp_r_s })
                 } else {
                     return new Response(`Fail To Upload Image`, { status: hpp_r_s })
                 }
             }
             if (path.startsWith("/hpp/admin/api/deldoc")) {
                 const filename = path.substr(("/hpp/admin/api/deldoc/").length)
-                const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents/${hpp_githubdocpath}/${filename}`
-                const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetinit)).text())).sha
+                const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${hpp_githubdocpath}${filename}`
+                const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
                 const hpp_body = {
-                   branch: hpp_githubdocbranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
+                    branch: hpp_githubdocbranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
                 }
                 const hpp_docputinit = {
                     body: JSON.stringify(hpp_body),
@@ -404,10 +410,10 @@ async function handleRequest(request) {
             if (path.startsWith("/hpp/admin/api/delimage")) {
 
                 const filename = path.substr(("/hpp/admin/api/delimage/").length)
-                const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents/${hpp_githubimagepath}/${filename}`
-                const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetinit)).text())).sha
+                const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${hpp_githubimagepath}${filename}`
+                const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetimageinit)).text())).sha
                 const hpp_body = {
-                   branch: hpp_githubimagebranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
+                    branch: hpp_githubimagebranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
                 }
                 const hpp_docputinit = {
                     body: JSON.stringify(hpp_body),
@@ -428,11 +434,11 @@ async function handleRequest(request) {
             }
             if (path.startsWith("/hpp/admin/api/getdoc")) {
                 const filename = path.substr(("/hpp/admin/api/getdoc/").length)
-                return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}/${hpp_githubdocpath}/${filename}?ref=${hpp_githubdocbranch}`))
+                return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${hpp_githubdocpath}${filename}?ref=${hpp_githubdocbranch}`))
             }
             if (path == "/hpp/admin/api/getlist") {
-                const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents/${hpp_githubdocpath}?ref=${hpp_githubdocbranch}`
-                const hpp_getlist = await fetch(url, hpp_githubgetinit)
+                const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${hpp_githubdocpath}?ref=${hpp_githubdocbranch}`
+                const hpp_getlist = await fetch(url, hpp_githubgetdocinit)
                 return new Response(await (hpp_getlist).text(), {
                     headers: {
                         "content-type": "application/json;charset=UTF-8",
@@ -476,3 +482,4 @@ async function handleRequest(request) {
     }
     return new Response('ERROR')
 }
+
