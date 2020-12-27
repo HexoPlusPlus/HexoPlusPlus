@@ -20,7 +20,7 @@ const hpp_githubimagepath = ""
 const hpp_githubimagebranch = ""
 
 
-const hpp_ver = "HexoPlusPlus@0.0.2"
+const hpp_ver = "HexoPlusPlus@0.0.3"
 const hpp_githubgetimageinit = {
     method: "GET",
     headers: {
