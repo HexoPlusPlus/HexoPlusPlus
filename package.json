@@ -1,6 +1,6 @@
 {
   "name": "hexoplusplus",
-  "version": "0.0.1",
+  "version": "0.0.",
   "description": "A Serverless Hexo Back DashBoard",
   "main": "index.js",
   "scripts": {
