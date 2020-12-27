@@ -1,6 +1,10 @@
 name: gulp
 
-on: [push]
+on:
+  push:
+    branches: 
+      - main
+      - dev
 
 jobs:
   build:
