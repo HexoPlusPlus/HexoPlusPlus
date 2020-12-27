@@ -78,7 +78,7 @@ choo.disabled=true
 		mdeditor.disabled=true
 	var ajax = ajaxObject();
     ajax.open( "post" , '/hpp/admin/api/adddoc/'+choo.value , true );
-    ajax.setRequestHeader( "Content-Type" , "application/x-www-form-urlencoded" );
+    ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
@@ -133,7 +133,7 @@ function hpp_uploadimage(image){
 		input.disabled=true
 	var ajax = ajaxObject();
     ajax.open( "post" , '/hpp/admin/api/addimage/'+chooimage.value , true );
-    ajax.setRequestHeader( "Content-Type" , "application/x-www-form-urlencoded" );
+    ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
@@ -155,7 +155,7 @@ title: "成功",
     },
   },
 });
-				
+			copyToClip(ree);	
 		    input.disabled=false
             }
             else {
@@ -192,3 +192,12 @@ $(document).ready(function() {
 	getCDNinfo();
     //页面加载完毕就获取CDN信息
 });
+function copyToClip(content) {
+    var aux = document.createElement("input"); 
+    aux.setAttribute("value", content); 
+    document.body.appendChild(aux); 
+    aux.select();
+    document.execCommand("copy"); 
+    document.body.removeChild(aux);
+    swal('已复制',content,'success');
+}
