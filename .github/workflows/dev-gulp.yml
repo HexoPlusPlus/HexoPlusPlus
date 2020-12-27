@@ -3,7 +3,7 @@ name: gulp
 on:
   push:
     branches: 
-      - main
+      - dev
 
 jobs:
   build:
@@ -32,4 +32,4 @@ jobs:
       with:
         github_token: ${{ secrets.token }}
         force: true
-        branch: main
+        branch: dev
