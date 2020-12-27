@@ -1,6 +1,3 @@
-addEventListener("fetch", event => {
-    event.respondWith(handleRequest(event.request))
-})
 const hpp_domain = "blogadmin.cyfan.top"
 const hpp_userimage = "https://cdn.jsdelivr.net/gh/ChenYFan/CDN/img/avatar.png"
 const hpp_title = "ChenYFan的后台"
@@ -8,7 +5,7 @@ const hpp_usericon = "https://cdn.jsdelivr.net/gh/ChenYFan/CDN/img/ico/apple-tou
 const hpp_password = ""
 const hpp_username = ""
 const hpp_cors = "*"
-const hpp_CDNver = "974c46c"
+const hpp_CDNver = "6acbbd4"
 
 const hpp_githubdoctoken = ""
 const hpp_githubimagetoken = hpp_githubdoctoken
@@ -20,6 +17,7 @@ const hpp_githubimageusername = ""
 const hpp_githubimagerepo = ""
 const hpp_githubimagepath = ""
 const hpp_githubimagebranch = ""
+
 
 
 
@@ -289,7 +287,9 @@ const hpp_adminhtml = `
 </body>
 </html>
 `
-
+addEventListener("fetch", event => {
+    event.respondWith(handleRequest(event.request))
+})
 function getCookie(request, name) {
     let result = ""
     const cookieString = request.headers.get("Cookie")
@@ -327,10 +327,11 @@ async function handleRequest(request) {
         if (hpp_logstatus == 1) {
             if (path.startsWith("/hpp/admin/api/adddoc/")) {
                 const file = await request.text()
-                const url = "https://api.github.com/repos/" + hpp_githubdocusername + "/" + hpp_githubdocrepo + "/contents/" + hpp_githubdocpath + path.substr(21) + "?ref=" + hpp_githubdocbranch
+                const filename = path.substr(("/hpp/admin/api/adddoc/").length)
+                const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents/${hpp_githubdocpath}/${filename}`
                 const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetinit)).text())).sha
                 const hpp_body = {
-                    message: "upload from HexoPlusPlus", content: file, sha: hpp_sha
+                    branch: hpp_githubdocbranch, message: `Upload from ${hpp_ver} By ${hpp_githubdocusername}`, content: file, sha: hpp_sha
                 }
                 const hpp_docputinit = {
                     body: JSON.stringify(hpp_body),
@@ -354,10 +355,10 @@ async function handleRequest(request) {
 
                 const file = await request.text()
                 const hpp_time = Date.parse(new Date())
-                const hpp_pic = path.substr(("/hpp/admin/api/addimage/").length)
-                const url = "https://api.github.com/repos/" + hpp_githubimageusername + "/" + hpp_githubimagerepo + "/contents/" + hpp_githubimagepath + "/" + hpp_time + "." + hpp_pic + "?ref=" + hpp_githubimagebranch
+                const filename = path.substr(("/hpp/admin/api/addimage/").length)
+                const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents/${hpp_githubimagepath}/${hpp_time}.${filename}`
                 const hpp_body = {
-                    message: "upload from HexoPlusPlus", content: file
+                    branch: hpp_githubimagebranch, message: `Upload from ${hpp_ver} By ${hpp_githubdocusername}`, content: file
                 }
                 const hpp_docputinit = {
                     body: JSON.stringify(hpp_body),
@@ -371,16 +372,17 @@ async function handleRequest(request) {
                 const hpp_r = await fetch(url, hpp_docputinit)
                 const hpp_r_s = await hpp_r.status
                 if (hpp_r_s == 200 || hpp_r_s == 201) {
-                    return new Response("https://cdn.jsdelivr.net/gh/" + hpp_githubimageusername + "/" + hpp_githubimagerepo + "@" + hpp_githubimagebranch + "/" + hpp_githubimagepath + "/" + hpp_time + "." + hpp_pic, { status: hpp_r_s })
+                    return new Response(`https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}/${hpp_githubimagepath}/${hpp_time}.${filename}`, { status: hpp_r_s })
                 } else {
-                    return new Response('Fail To Update Image', { status: hpp_r_s })
+                    return new Response(`Fail To Upload Image`, { status: hpp_r_s })
                 }
             }
             if (path.startsWith("/hpp/admin/api/deldoc")) {
-                const url = "https://api.github.com/repos/" + hpp_githubdocusername + "/" + hpp_githubdocrepo + "/contents/" + hpp_githubdocpath + path.substr(21) + "?ref=" + hpp_githubdocbranch
+                const filename = path.substr(("/hpp/admin/api/deldoc/").length)
+                const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents/${hpp_githubdocpath}/${filename}`
                 const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetinit)).text())).sha
                 const hpp_body = {
-                    message: "Delete from HexoPlusPlus", sha: hpp_sha
+                   branch: hpp_githubdocbranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
                 }
                 const hpp_docputinit = {
                     body: JSON.stringify(hpp_body),
@@ -401,10 +403,11 @@ async function handleRequest(request) {
             }
             if (path.startsWith("/hpp/admin/api/delimage")) {
 
-                const url = "https://api.github.com/repos/" + hpp_githubimageusername + "/" + hpp_githubimagerepo + "/contents/" + hpp_githubimagepath + path.substr(23) + "?ref=" + hpp_githubimagebranch
+                const filename = path.substr(("/hpp/admin/api/delimage/").length)
+                const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents/${hpp_githubimagepath}/${filename}`
                 const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetinit)).text())).sha
                 const hpp_body = {
-                    message: "Delete from HexoPlusPlus", sha: hpp_sha
+                   branch: hpp_githubimagebranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
                 }
                 const hpp_docputinit = {
                     body: JSON.stringify(hpp_body),
@@ -424,10 +427,11 @@ async function handleRequest(request) {
                 }
             }
             if (path.startsWith("/hpp/admin/api/getdoc")) {
-                return (fetch("https://raw.githubusercontent.com/" + hpp_githubdocusername + "/" + hpp_githubdocrepo + "/" + hpp_githubdocbranch + "/" + hpp_githubdocpath + "/" + path.substr(22)))
+                const filename = path.substr(("/hpp/admin/api/getdoc/").length)
+                return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}/${hpp_githubdocpath}/${filename}?ref=${hpp_githubdocbranch}`))
             }
             if (path == "/hpp/admin/api/getlist") {
-                const url = 'https://api.github.com/repos/' + hpp_githubdocusername + '/' + hpp_githubdocrepo + '/contents/' + hpp_githubdocpath + "?ref=" + hpp_githubdocbranch
+                const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents/${hpp_githubdocpath}?ref=${hpp_githubdocbranch}`
                 const hpp_getlist = await fetch(url, hpp_githubgetinit)
                 return new Response(await (hpp_getlist).text(), {
                     headers: {
@@ -436,11 +440,6 @@ async function handleRequest(request) {
                     }
                 })
             }
-            if (path == "/hpp/admin/api/update") {
-                return (fetch("https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/update.lock"))
-            }
-
-
             return new Response(hpp_adminhtml, {
                 headers: { "content-type": "text/html;charset=UTF-8" }
             })
