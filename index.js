@@ -6,7 +6,7 @@ const hpp_usericon = "https://cdn.jsdelivr.net/gh/ChenYFan/CDN/img/ico/apple-tou
 const hpp_password = ""
 const hpp_username = ""
 const hpp_cors = "*"
-const hpp_CDNver = "6acbbd4"
+const hpp_CDNver = "010b4c5"
 /*此处为Github配置*/
 const hpp_githubdoctoken = ""
 const hpp_githubimagetoken = hpp_githubdoctoken
