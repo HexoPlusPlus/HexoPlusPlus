@@ -155,7 +155,7 @@ title: "成功",
     },
   },
 });
-				
+			copyToClip(ree);	
 		    input.disabled=false
             }
             else {
@@ -192,3 +192,12 @@ $(document).ready(function() {
 	getCDNinfo();
     //页面加载完毕就获取CDN信息
 });
+function copyToClip(content) {
+    var aux = document.createElement("input"); 
+    aux.setAttribute("value", content); 
+    document.body.appendChild(aux); 
+    aux.select();
+    document.execCommand("copy"); 
+    document.body.removeChild(aux);
+    swal('已复制',content,'success');
+}
