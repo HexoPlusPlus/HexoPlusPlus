@@ -47,11 +47,11 @@
 					console.log("加载TweenMax|1/6");
 					$.getScript("https://cdn.jsdelivr.net/npm/gsap@2.1.0/src/minified/plugins/ScrollToPlugin.min.js",function(){  
 					console.log("加载ScrollToPlugin|2/6");
-					$.getScript("/js/masonry.pkgd.js",function(){ 
+					$.getScript("https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@787eece/dist/masonry.pkgd.js",function(){ 
 					console.log("加载masonry|3/6");
 					$.getScript("https://cdn.jsdelivr.net/npm/imagesloaded@4.1.4/imagesloaded.pkgd.min.js",function(){ 
 					console.log("加载imagesloaded|4/6");
-					$.getScript("assets/js/demo.js",function(){
+					$.getScript("https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@787eece/dist/filemanager.js",function(){
 					console.log("加载HexoPlusPlusFileManager文件|5/6");
 					$.getScript("https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js",function(){  
 					console.log("加载sweetalert，所有js加载完毕|6/6");
