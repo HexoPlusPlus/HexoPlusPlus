@@ -102,5 +102,5 @@
 	}
 	ajax.send();};
 	function info(name,path,sha,size,git_url){
-	sweetAlert("文件信息",  `名字:${name}\n路径:${path}\n哈希值:${sha}\n大小:${size}\ngit路径:${git_url}`, "success");
+	sweetAlert("文件信息",  `名字:${name}\n路径:${path}\n哈希值:${sha}\n大小:${size}B\ngit路径:${git_url}`, "success");
 	}
