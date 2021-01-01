@@ -29,10 +29,10 @@
               <h2 style="width:148px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${value.name}<\/h2>
               <p class="date"><span>大小: <\/span>${value.size}B<\/p>
               <ul class="tags">
-                <li><a href="${value.download_url}">原始地址<\/a><\/li>
-                <li><a href="https://cdn.jsdelivr.net/gh/${hpp_githubdocusername}/${hpp_githubdocrepo}@${hpp_githubdocbranch}${hpp_githubdocpath}${value.name}">CDN加速地址<\/a><\/li>
-                <li><a href="${value.html_url}">Github<\/a><\/li>
                 <li><a href="javascript:del(\'${value.name}\');" style="color: red;">删除<\/a><\/li>
+                <li><a href="https://cdn.jsdelivr.net/gh/${hpp_githubdocusername}/${hpp_githubdocrepo}@${hpp_githubdocbranch}${hpp_githubdocpath}${value.name}">CDN加速地址<\/a><\/li>
+		<li><a href="${value.download_url}">原始地址<\/a><\/li>                
+		<li><a href="${value.html_url}">Github<\/a><\/li>
                 <li><a href="javascript:info(\'${value.name}\',\'${value.path}\',\'${value.sha}\',\'${value.size}\',\'${value.git_url}\');">信息<\/a><\/li>
                 <li><a href="#!" class="more" data-click-state="1">+<\/a><\/li>
               <\/ul>
