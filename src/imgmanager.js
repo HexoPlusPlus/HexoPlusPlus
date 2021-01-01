@@ -18,7 +18,7 @@ function ajaxObject() {
     return xmlHttp;
 }
 	
-	var ctJson = "a.json"
+	var ctJson = "/hpp/admin/api/getimglist"
         $.getJSON(ctJson, function (data) {
             $.each(data, function (index, value) {
                 $("#item-all").append(`
@@ -84,7 +84,7 @@ function ajaxObject() {
 	}
 	function delfile(name){
 	var ajax = ajaxObject();
-    ajax.open( "GET" , '/hpp/admin/api/deldoc/'+name , true );
+    ajax.open( "GET" , '/hpp/admin/api/delimage/'+name , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
