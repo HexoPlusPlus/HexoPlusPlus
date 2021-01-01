@@ -22,14 +22,14 @@ function ajaxObject() {
         $.getJSON(ctJson, function (data) {
             $.each(data, function (index, value) {
                 $("#item-all").append(`
-				  <div class="masonry__item" style="background-image: url(https://cdn.jsdelivr.net/gh/${hpp_githubdocusername}/${hpp_githubdocrepo}@${hpp_githubdocbranch}${hpp_githubdocpath}${value.name});zoom: 1;background-repeat: no-repeat;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;background-position: center 0;">
+				  <div class="masonry__item" style="background-image: url(https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}${hpp_githubimagepath}${value.name});zoom: 1;background-repeat: no-repeat;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;background-position: center 0;">
           <figure>
             <figcaption class="content">
               <h2 style="width:148px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${value.name}<\/h2>
               <p class="date"><span>大小: <\/span>${value.size}B<\/p>
               <ul class="tags">
                 
-				 <li><a href="https://cdn.jsdelivr.net/gh/${hpp_githubdocusername}/${hpp_githubdocrepo}@${hpp_githubdocbranch}${hpp_githubdocpath}${value.name}">CDN加速地址<\/a><\/li>
+				 <li><a href="https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}${hpp_githubimagepath}${value.name}">CDN加速地址<\/a><\/li>
 				<li><a href="javascript:del(\'${value.name}\');" style="color: red;">删除此文件<\/a><\/li>
                <li><a href="${value.download_url}">原始地址<\/a><\/li>
                 <li><a href="${value.html_url}">Github<\/a><\/li>
