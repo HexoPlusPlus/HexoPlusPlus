@@ -1,51 +1,4 @@
 
-function textToImg(url) {
-	
-	var ajax = ajaxObject();
-    ajax.open( "GET" , url , true );
-    ajax.setRequestHeader( "Content-Type" , "text/plain" );
-    ajax.onreadystatechange = function () {
-const val=ajax.responseText;
-}
-	ajax.send();
-	
-	
-    var len = 27;/*文字长度*/
-    var i = 0;
-    var fontSize = 12;/*文字大小*/
-    var fontWeight = 'normal';/*normal正常;bold粗*/
-    var txt = val;
-    var canvas = document.createElement("canvas");
-    if (len > txt.length) {
-        len = txt.length;
-    }
-    canvas.width = fontSize * len;
-    canvas.height = fontSize * (3 / 2)
-            * (Math.ceil(txt.length / len) + txt.split('\n').length - 1);
-    var context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = '#333';/*颜色*/
-    context.font = fontWeight + ' ' + fontSize + 'px 微软雅黑';
-    context.textBaseline = 'top';
-    canvas.style.display = 'none';
-    //console.log(txt.length);
-    function fillTxt(text) {
-        while (text.length > len) {
-            var txtLine = text.substring(0, len);
-            text = text.substring(len);
-            context.fillText(txtLine, 0, fontSize * (3 / 2) * i++,
-                    canvas.width);
-        }
-        context.fillText(text, 0, fontSize * (3 / 2) * i, canvas.width);
-    }
-    var txtArray = txt.split('\n');
-    for (var j = 0; j < txtArray.length; j++) {
-        fillTxt(txtArray[j]);
-        context.fillText('\n', 0, fontSize * (3 / 2) * i++, canvas.width);
-    }
-    var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    return canvas.toDataURL("image/png");
-}
 	function ajaxObject() {
     var xmlHttp;
     try {
@@ -69,12 +22,11 @@ const val=ajax.responseText;
 	var ctJson = "/hpp/admin/api/getlist"
         $.getJSON(ctJson, function (data) {
             $.each(data, function (index, value) {
-		    const base=textToImg(`https://cdn.jsdelivr.net/gh/${hpp_githubdocusername}/${hpp_githubdocrepo}@${hpp_githubdocbranch}${hpp_githubdocpath}${value.name}`)
-                $("#item-all").append(`
+		                    $("#item-all").append(`
 				  <div class="masonry__item">
           <figure>
             <figcaption class="content">
-              <h2 style="background-image: url(${base});zoom: 1;background-repeat: no-repeat;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;background-position: center 0;">${value.name}<\/h2>
+              <h2 style="zoom: 1;background-repeat: no-repeat;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;background-position: center 0;">${value.name}<\/h2>
               <p class="date"><span>大小: <\/span>${value.size}B<\/p>
               <ul class="tags">
                 <li><a href="javascript:del(\'${value.name}\');" style="color: red;">删除<\/a><\/li>
