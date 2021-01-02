@@ -22,7 +22,7 @@ function ajaxObject() {
         $.getJSON(ctJson, function (data) {
             $.each(data, function (index, value) {
                 $("#item-all").append(`
-				  <div class="masonry__item" style="background-image:url('https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif');zoom: 1;background-repeat: no-repeat;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;background-position: center 0;" data-src='https://cdn.jsdelivr.net/gh/${hpp_githubdocusername}/${hpp_githubdocrepo}@${hpp_githubdocbranch}${hpp_githubdocpath}${value.name}'><figure>
+				  <div class="masonry__item" style="background-image:url('https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif');zoom: 1;background-repeat: no-repeat;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;background-position: center 0;" data-src='https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}${hpp_githubimagepath}${value.name}'><figure>
             <figcaption class="content">
               <h2 style="width:148px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${value.name}<\/h2>
               <p class="date"><span>大小: <\/span>${value.size}B<\/p>
