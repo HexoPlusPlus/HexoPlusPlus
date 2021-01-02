@@ -55,6 +55,9 @@ function ajaxObject() {
 					console.log("加载HexoPlusPlusFileManager文件|5/6");
 					$.getScript("https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js",function(){  
 					console.log("加载sweetalert，所有js加载完毕|6/6");
+						$(function() {
+        $('.masonry__item').Lazy();
+    });console.log("激活懒加载");
 				});
 				});
 				});
