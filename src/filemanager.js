@@ -26,7 +26,7 @@
 				  <div class="masonry__item">
           <figure>
             <figcaption class="content">
-              <h2 style="zoom: 1;background-repeat: no-repeat;background-size: cover;-webkit-background-size: cover;-o-background-size: cover;background-position: center 0;">${value.name}<\/h2>
+              <h2 style="width:148px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${value.name}<\/h2>
               <p class="date"><span>大小: <\/span>${value.size}B<\/p>
               <ul class="tags">
                 <li><a href="javascript:del(\'${value.name}\');" style="color: red;">删除<\/a><\/li>
