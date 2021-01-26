@@ -106,8 +106,8 @@ var input = document.getElementById("input");
 input.addEventListener('change', readFile, false);
 
 function readFile() {
-	var _inner = document.getElementById('mdeditor').innerHTML;
-	document.getElementById('mdeditor').innerHTML+="\n![\"请输入描述\"](图片尚在上传，请稍等)"
+	var _inner = document.getElementById('mdeditor').value;
+	document.getElementById('mdeditor').value+="\n![\"请输入描述\"](图片尚在上传，请稍等)"
    var file = this.files[0];
 var f_name = file["name"].substring(file["name"].lastIndexOf(".")+1);
     var reader = new FileReader(); 
@@ -121,7 +121,7 @@ var f_name = file["name"].substring(file["name"].lastIndexOf(".")+1);
     }
     reader.onload = function (e) {
         console.log(this.result.substring(this.result.indexOf(',')+1));
-	document.getElementById('mdeditor').innerHTML=_inner+"\n![\"请输入描述\"](\""+hpp_uploadimage(this.result.substring(this.result.indexOf(',')+1),f_name)+"\")";
+	document.getElementById('mdeditor').value=_inner+"\n![\"请输入描述\"](\""+hpp_uploadimage(this.result.substring(this.result.indexOf(',')+1),f_name)+"\")";
     }
     reader.onloadend = function(e){
         console.log('结束了')
@@ -148,7 +148,6 @@ function hpp_uploadimage(image,f_name){
             }
 		else if( ajax.status == 201 ){
 			const ree=ajax.responseText;
-				
 		    input.disabled=false
 			return ree;
             }
