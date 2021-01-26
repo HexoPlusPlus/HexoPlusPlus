@@ -107,7 +107,7 @@ input.addEventListener('change', readFile, false);
 
 function readFile() {
    var file = this.files[0];
-var f_name = file.replace(/.+./,"");
+var f_name = file["name"].substring(file["name"].lastIndexOf(".")+1);
     var reader = new FileReader(); 
     reader.readAsDataURL(file);
     reader.onloadstart = function (e){ 
