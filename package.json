@@ -23,6 +23,6 @@
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-minify-css": "^1.2.4",
-    "gulp-terser": "^2.0.0"
+    "gulp-terser": "^2.0.1"
   }
 }
