@@ -121,7 +121,8 @@ var f_name = file["name"].substring(file["name"].lastIndexOf(".")+1);
     }
     reader.onload = function (e) {
         console.log(this.result.substring(this.result.indexOf(',')+1));
-	document.getElementById('mdeditor').value=_inner+"\n![\"请输入描述\"](\""+await hpp_uploadimage(this.result.substring(this.result.indexOf(',')+1),f_name)+"\")";
+	hpp_uploadimage(this.result.substring(this.result.indexOf(',')+1),f_name,_inner);
+	
     }
     reader.onloadend = function(e){
         console.log('结束了')
@@ -133,7 +134,7 @@ var f_name = file["name"].substring(file["name"].lastIndexOf(".")+1);
 });
 
 
-function hpp_uploadimage(image,f_name){
+function hpp_uploadimage(image,f_name,_inner){
 		input.disabled=true
 	var ajax = ajaxObject();
     ajax.open( "post" , '/hpp/admin/api/addimage/'+f_name , true );
@@ -142,20 +143,16 @@ function hpp_uploadimage(image,f_name){
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
                 sweetAlert("成功",  "图片已更新", "success");
-		    input.disabled=false
-		    const ree="";
-		    return ree;
+		    
             }
 		else if( ajax.status == 201 ){
-			const ree=ajax.responseText;
 		    input.disabled=false
-			return ree;
+			document.getElementById('mdeditor').value=_inner+"\n![\"请输入描述\"](\""+ajax.responseText+"\")";
             }
             else {
                 sweetAlert("糟糕", "上传图片失败!", "error");
 		   input.disabled=false
-		    const ree="网络错误，上传失败";
-		    return ree;
+		   document.getElementById('mdeditor').value=_inner+"\n![\"请输入描述\"](\"上传失败，请重试\")";
             }
         }
     }
