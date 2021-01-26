@@ -1198,6 +1198,7 @@
           callback: function(e) {
             readFile();
           }
+          }
 
             link = prompt(e.__localize('Insert Image Hyperlink'), 'http://');
 
