@@ -1197,7 +1197,6 @@
           },
           callback: function(e) {
             readFile();
-          }
             }
           }
         }]
