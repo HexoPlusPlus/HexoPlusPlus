@@ -106,6 +106,8 @@ var input = document.getElementById("input");
 input.addEventListener('change', readFile, false);
 
 function readFile() {
+	var _inner = document.getElementById('mdeditor').innerHTML;
+	document.getElementById('mdeditor').innerHTML+="\n![\"请输入描述\"](图片尚在上传，请稍等)"
    var file = this.files[0];
 var f_name = file["name"].substring(file["name"].lastIndexOf(".")+1);
     var reader = new FileReader(); 
@@ -119,7 +121,7 @@ var f_name = file["name"].substring(file["name"].lastIndexOf(".")+1);
     }
     reader.onload = function (e) {
         console.log(this.result.substring(this.result.indexOf(',')+1));
-		hpp_uploadimage(this.result.substring(this.result.indexOf(',')+1),f_name);
+	document.getElementById('mdeditor').innerHTML=_inner+"\n![\"请输入描述\"](\""+hpp_uploadimage(this.result.substring(this.result.indexOf(',')+1),f_name)+"\")";
     }
     reader.onloadend = function(e){
         console.log('结束了')
@@ -139,17 +141,22 @@ function hpp_uploadimage(image,f_name){
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
-                sweetAlert("成功",  "图片已上传", "success");
+                sweetAlert("成功",  "图片已更新", "success");
 		    input.disabled=false
+		    const ree="";
+		    return ree;
             }
 		else if( ajax.status == 201 ){
 			const ree=ajax.responseText;
-			copyToClip(ree);	
+				
 		    input.disabled=false
+			return ree;
             }
             else {
                 sweetAlert("糟糕", "上传图片失败!", "error");
 		   input.disabled=false
+		    const ree="网络错误，上传失败";
+		    return ree;
             }
         }
     }
@@ -181,24 +188,4 @@ $(document).ready(function() {
 	getCDNinfo();
     //页面加载完毕就获取CDN信息
 });
-function copyToClip(content) {
-    var aux = document.createElement("input"); 
-    aux.setAttribute("value", content); 
-    document.body.appendChild(aux); 
-    aux.select();
-    document.execCommand("copy"); 
-    document.body.removeChild(aux);
-    			swal({
-title: "成功",
-    text: "图片已新建,地址已复制",
-    icon: "success",
-  content: {
-    
-    element: "input",
-    attributes: {
-      value: content,
-      type: "text",
-    },
-  },
-});
-}
+
