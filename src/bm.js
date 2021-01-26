@@ -1198,23 +1198,6 @@
           callback: function(e) {
             readFile();
           }
-          }
-
-            link = prompt(e.__localize('Insert Image Hyperlink'), 'http://');
-
-            var urlRegex = new RegExp('^((http|https)://|(//))[a-z0-9]', 'i');
-            if (link !== null && link !== '' && link !== 'http://' && urlRegex.test(link)) {
-              var sanitizedLink = $('<div>' + link + '</div>').text();
-
-              // transform selection and set the cursor into chunked text
-              e.replaceSelection('![' + chunk + '](' + sanitizedLink + ' "' + e.__localize('enter image title here') + '")');
-              cursor = selected.start + 2;
-
-              // Set the next tab
-              e.setNextTab(e.__localize('enter image title here'));
-
-              // Set the cursor
-              e.setSelection(cursor, cursor + chunk.length);
             }
           }
         }]
