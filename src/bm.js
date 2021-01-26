@@ -1196,17 +1196,8 @@
             octicons: 'octicon octicon-file-media'
           },
           callback: function(e) {
-            // Give ![] surround the selection and prepend the image link
-            var chunk, cursor, selected = e.getSelection(),
-              content = e.getContent(),
-              link;
-
-            if (selected.length === 0) {
-              // Give extra word
-              chunk = e.__localize('enter image description here');
-            } else {
-              chunk = selected.text;
-            }
+            readFile();
+          }
 
             link = prompt(e.__localize('Insert Image Hyperlink'), 'http://');
 
