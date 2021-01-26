@@ -121,7 +121,7 @@ var f_name = file["name"].substring(file["name"].lastIndexOf(".")+1);
     }
     reader.onload = function (e) {
         console.log(this.result.substring(this.result.indexOf(',')+1));
-	document.getElementById('mdeditor').value=_inner+"\n![\"请输入描述\"](\""+hpp_uploadimage(this.result.substring(this.result.indexOf(',')+1),f_name)+"\")";
+	document.getElementById('mdeditor').value=_inner+"\n![\"请输入描述\"](\""+await hpp_uploadimage(this.result.substring(this.result.indexOf(',')+1),f_name)+"\")";
     }
     reader.onloadend = function(e){
         console.log('结束了')
