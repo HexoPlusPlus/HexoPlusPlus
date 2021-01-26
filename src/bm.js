@@ -1196,8 +1196,7 @@
             octicons: 'octicon octicon-file-media'
           },
           callback: function(e) {
-            readFile();
-            }
+			  $("#input").click();
           }
         }]
       }, {
