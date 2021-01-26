@@ -104,8 +104,10 @@ choo.disabled=true
 		 $('#chooimage').editableSelect();
 var input = document.getElementById("input");
 input.addEventListener('change', readFile, false);
+
 function readFile() {
    var file = this.files[0];
+var f_name = file.replace(/.+./,"");
     var reader = new FileReader(); 
     reader.readAsDataURL(file);
     reader.onloadstart = function (e){ 
@@ -117,7 +119,7 @@ function readFile() {
     }
     reader.onload = function (e) {
         console.log(this.result.substring(this.result.indexOf(',')+1));
-		hpp_uploadimage(this.result.substring(this.result.indexOf(',')+1));
+		hpp_uploadimage(this.result.substring(this.result.indexOf(',')+1),f_name);
     }
     reader.onloadend = function(e){
         console.log('结束了')
@@ -129,10 +131,10 @@ function readFile() {
 });
 
 
-function hpp_uploadimage(image){
+function hpp_uploadimage(image,f_name){
 		input.disabled=true
 	var ajax = ajaxObject();
-    ajax.open( "post" , '/hpp/admin/api/addimage/'+chooimage.value , true );
+    ajax.open( "post" , '/hpp/admin/api/addimage/'+f_name , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
