@@ -1,6 +1,36 @@
-const hpp_CDNver = "9f44f8f"
+const hpp_CDNver = "ab98e49"
 const hpp_ver = "HexoPlusPlus@0.1.0"
-
+let hpp_errorhtml = `
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <title>HexoPlusPlusError</title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/error.css" />
+        <link href='http://fonts.googleapis.com/css?family=Raleway:200,400,800|Clicker+Script' rel='stylesheet' type='text/css'>
+	</head>
+	<body>
+		<div class="container demo-2">
+			<div class="content">
+                <div id="large-header" class="large-header">
+                    <canvas id="demo-canvas"></canvas>
+                    <h1 class="main-title"><span>Error</span></h1>
+                </div>
+                <div class="codrops-header">
+                    <h1>HexoPlusPlus <span>-错误：不知道你的目的是什么</span></h1>
+                    <nav class="codrops-demos">
+                        <a class="current-demo" href="/hpp/admin/dash">仪表盘</a>
+                        <a class="current-demo" href="https://github.com/HexoPlusPlus/HexoPlusPlus">Github</a>
+                    </nav>
+                </div>
+            </div>
+		</div>
+        <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/error.js"></script>
+	</body>
+</html>
+`
 let hpp_loginhtml = `
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
@@ -650,8 +680,8 @@ async function handleRequest(request) {
 
                 const hpp_filemanager_docs = hpp_filemanager_p1 + hpp_filemanager_docs1 + hpp_filemanager_p2 + hpp_filemanager_docs2
                 const hpp_filemanager_img = hpp_filemanager_p1 + hpp_filemanager_img1 + hpp_filemanager_p2 + hpp_filemanager_img2
-if (path == '/hpp/admin/api/kick') {
-    
+                if (path == '/hpp/admin/api/kick') {
+
                     const now = Date.now(new Date())
                     await KVNAME.put("hpp_activetime", now)
                     const hpp_kvwait = Date.now(new Date()) - now
@@ -880,7 +910,11 @@ if (path == '/hpp/admin/api/kick') {
             const hpp_talk = await KVNAME.get("hpp_talk_data");
             return new Response(hpp_talk)
         }
-        return new Response('APIERROR')
+        return new Response(hpp_errorhtml, {
+            headers: { "content-type": "text/html;charset=UTF-8" }
+        })
     }
-    return new Response('ERROR')
+    return new Response(hpp_errorhtml, {
+        headers: { "content-type": "text/html;charset=UTF-8" }
+    })
 }
