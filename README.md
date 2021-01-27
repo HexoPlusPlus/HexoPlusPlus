@@ -1,7 +1,7 @@
 # HexoPlusPlus
-## -A powerful Hexo dashboard
+## A powerful Hexo dashboard
 
-HexoPlusPlus也叫Hexo艹，是一个基于CloudFlareWorkers和CloudFlareKV技术的Hexo后端程序，目的是解决Hexo无后端带来的种种麻烦，支持但不限于Hexo等静态博客。
+HexoPlusPlus~~也叫Hexo艹~~，是一个基于CloudFlareWorkers和CloudFlareKV技术的Hexo后端程序，目的是解决Hexo无后端带来的种种麻烦，支持但不限于Hexo等静态博客；利用CloudFlareWorkers当中间件，有效避免直接上传到Github易失败问题。
 
 **注意，HexoPlusPlus在使用前您的博客必须保证已完成集成部署**
 
@@ -28,18 +28,15 @@ HexoPlusPlus也叫Hexo艹，是一个基于CloudFlareWorkers和CloudFlareKV技�
 
 ## 截图:
 
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/1.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/2.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/3.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/4.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/5.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/6.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/7.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/8.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/9.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/10.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/11.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/12.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/13.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/14.png)
-![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/docs@master/img/15.png)
+![](https://cdn.jsdelivr.net/npm/chenyfan-oss@1.1.12/1.png)
+![](https://cdn.jsdelivr.net/npm/chenyfan-oss@1.1.12/2.png)
+![](https://cdn.jsdelivr.net/npm/chenyfan-oss@1.1.12/3.png)
+![](https://cdn.jsdelivr.net/npm/chenyfan-oss@1.1.12/4.png)
+![](https://cdn.jsdelivr.net/npm/chenyfan-oss@1.1.12/5.png)
+![](https://cdn.jsdelivr.net/npm/chenyfan-oss@1.1.12/6.png)
+![](https://cdn.jsdelivr.net/npm/chenyfan-oss@1.1.12/7.png)
+![](https://cdn.jsdelivr.net/npm/chenyfan-oss@1.1.12/8.png)
+![](https://cdn.jsdelivr.net/npm/chenyfan-oss@1.1.12/9.png)
+![](https://cdn.jsdelivr.net/npm/chenyfan-oss@1.1.12/10.png)
+![](https://cdn.jsdelivr.net/npm/chenyfan-oss@1.1.12/11.png)
+![](https://cdn.jsdelivr.net/npm/chenyfan-oss@1.1.12/12.png)
