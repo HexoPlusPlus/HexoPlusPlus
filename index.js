@@ -1,46 +1,256 @@
-/*此处为后台配置*/
-const hpp_domain = "blogadmin.cyfan.top"
-const hpp_userimage = "https://cdn.jsdelivr.net/gh/ChenYFan/CDN/img/avatar.png"
-const hpp_title = "ChenYFan的后台"
-const hpp_usericon = "https://cdn.jsdelivr.net/gh/ChenYFan/CDN/img/ico/apple-touch-icon.png"
-const hpp_password = ""
-const hpp_username = ""
-const hpp_cors = "*"
-const hpp_CDNver = "b8a6e54"
-/*此处为Github配置*/
-const hpp_githubdoctoken = ""
-const hpp_githubimagetoken = hpp_githubdoctoken
-const hpp_githubdocusername = ""
-const hpp_githubdocrepo = ""
-const hpp_githubdocpath = ""
-const hpp_githubdocbranch = ""
-const hpp_githubimageusername = ""
-const hpp_githubimagerepo = ""
-const hpp_githubimagepath = ""
-const hpp_githubimagebranch = ""
+const hpp_CDNver = "19e30cc"
+const hpp_ver = "HexoPlusPlus@0.1.0"
 
-
-const hpp_ver = "HexoPlusPlus@0.0.5"
-const hpp_githubgetimageinit = {
-    method: "GET",
-    headers: {
-        "content-type": "application/json;charset=UTF-8",
-        "user-agent": hpp_ver,
-        "Authorization": "token " + hpp_githubimagetoken
-    },
+let hpp_loginhtml = `
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+ <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1"></script>
+  <title>后台</title>
+  <style>
+  .rv-root{
+      z-index:999;
+  }
+  a:link { text-decoration: none;color: white}
+　　 a:active { text-decoration:blink}
+　　 a:hover { text-decoration:underline;color: white} 
+　　 a:visited { text-decoration: none;color: white}
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/login.css" /> 
+ </head>
+ <body>
+  <div id="all">
+   <div class="wrapper">
+    <div class="bg-container">
+     <div class="container">
+      <h1 style="margin: 0;" id="bar">Welcome</h1>
+      <form class="form" id="fm">
+       <input id="username" type="text" placeholder="用户名" value="" name="username" />
+       <input id="password" type="password" placeholder="密码" value="" name="password" />
+       <button type="button" id="login-button">登录</button>
+       <br />
+       <br />
+       <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips" style="color: #fff;">@HexoPP</a>
+      </form>
+     </div>
+    </div>
+    <ul class="bg-bubbles">
+     <li></li>
+     <li></li>
+     <li></li>
+     <li></li>
+     <li></li>
+     <li></li>
+     <li></li>
+     <li></li>
+     <li></li>
+     <li></li>
+    </ul>
+   </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.css"/>
+  <script>
+  RVerify.configure({
+  mask: 0.5,
+  maskClosable: true,
+  title: '人机验证',
+  album: ['/hpp/api/captchaimg']
+})
+  $("#login-button").click(function(event) {
+RVerify.action(function(res){
+if(res==1){
+    document.cookie = "username=" + document.getElementById("username").value;
+    document.cookie = "password=" + document.getElementById("password").value;
+    window.location.href = '/hpp/admin/dash';
 }
-const hpp_githubgetdocinit = {
-    method: "GET",
-    headers: {
-        "content-type": "application/json;charset=UTF-8",
-        "user-agent": hpp_ver,
-        "Authorization": "token " + hpp_githubdoctoken
-    },
+});
+
+});
+  </script>
+  </body>
+</html>
+`
+let hpp_installhtml = `<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>${hpp_ver}安装</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/install.css">
+</head>
+<body>
+		<div class="cont_principal">
+			
+		  <div class="cont_join  ">
+		    <div class="cont_letras">
+		      <p>Hexo</p>
+		      <p>Plus</p>
+		      <p>plus</p>
+		    </div>
+
+		    <div class="cont_form_join" style="overflow-x: auto;">
+		      <h2>安装信息</h2>
+			  <h3>基本信息</h3>
+		      <p>域名:</p>    
+		      <input type="text" class="input_text" id="hpp_domain" value="xxx.xxx.com"/>
+		      <p>头像地址:</p>    
+		      <input type="text" class="input_text" id="hpp_userimage" value="https://cdn.jsdelivr.net/gh/ChenYFan/CDN/img/avatar.png"/>
+		      <p>标题:</p>    
+		      <input type="text" class="input_text" id="hpp_title" value="XXX的后台"/>
+		      <p>icon地址:</p>    
+		      <input type="text" class="input_text" id="hpp_usericon" value="https://cdn.jsdelivr.net/gh/ChenYFan/chenyfan.github.io/favicon.ico"/>
+		      <p>跨域请求:</p>    
+			  <input type="text" class="input_text" id="hpp_cors" value="*"/>
+			  <h3>Github信息</h3>
+		      <p>Github文档仓库Token:</p>    
+		      <input type="text" class="input_text" id="hpp_githubdoctoken" value="*********"/>
+			  <p>Github图片仓库Token:</p>    
+		      <input type="text" class="input_text" id="hpp_githubimagetoken" value="*********"/>
+			  <p>Github文档仓库用户名:</p>    
+		      <input type="text" class="input_text" id="hpp_githubdocusername" value="XXX" />
+			  <p>Github图片仓库用户名:</p>    
+		      <input type="text" class="input_text" id="hpp_githubimageusername" value="XXX" />
+			  <p>Github文档仓库名:</p>    
+		      <input type="text" class="input_text" id="hpp_githubdocrepo" value="blog" />
+			  <p>Github图片仓库名:</p>    
+		      <input type="text" class="input_text" id="hpp_githubimagerepo" value="image" />
+			  <p>Github文档仓库路径:</p>    
+		      <input type="text" class="input_text" id="hpp_githubdocpath" value="/source/_posts/" />
+			  <p>Github图片仓库路径:</p>    
+		      <input type="text" class="input_text" id="hpp_githubimagepath" value="/" />
+			  <p>Github文档仓库分支:</p>    
+		      <input type="text" class="input_text" id="hpp_githubdocbranch" value="master" />
+			  <p>Github图片仓库分支:</p>    
+		      <input type="text" class="input_text" id="hpp_githubimagebranch" value="main" />
+			  <h3>附加功能</h3>
+			  <p>是否自动签到【是为True，否为False】:</p>    
+		      <input type="text" class="input_text" id="hpp_autodate" value="False" />
+		    </div>
+		  
+		    <div class="cont_join_form_finish">
+		      <h2>完成</h2>  
+		    </div>
+
+		    <div class="cont_btn_join">
+		      <a href="#" onclick='start()' id="butttt">开始配置</a>
+		    </div>
+		  </div>
+		</div>
+	</div>
+	
+	<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/install.js"></script>
+</body>
+</html>`
+
+function getJsonLength(jsonData) {
+
+    var jsonLength = 0;
+
+    for (var item in jsonData) {
+
+        jsonLength++;
+
+    }
+
+    return jsonLength;
 }
 
+addEventListener("fetch", event => {
+    event.respondWith(handleRequest(event.request))
+})
+function getCookie(request, name) {
+    let result = ""
+    const cookieString = request.headers.get("Cookie")
+    if (cookieString) {
+        const cookies = cookieString.split(";")
+        cookies.forEach(cookie => {
+            const cookiePair = cookie.split("=", 2)
+            const cookieName = cookiePair[0].trim()
+            if (cookieName === name) {
+                const cookieVal = cookiePair[1]
+                result = cookieVal
+            }
+        })
+    }
+    return result
+}
 
-const hpp_loginhtml = '<!DOCTYPE html><html lang="zh-cmn-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"><script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1"></script><link rel="shortcut icon" href="'+hpp_usericon+'" type="image/x-icon" /><title>' + hpp_title + '</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@' + hpp_CDNver + '/dist/login.css">   </head><body><div id="all"><div class="wrapper"><div class="bg-container"><div class="container"><h1 style="margin: 0;" id="bar">Welcome</h1><form class="form" id="fm"><input id="username" type="text" placeholder="用户名" value name="username" /><input id="password" type="password" placeholder="密码" value name="password" /><button type="button" id="login-button">登陆</button><br /><br /><a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips">@HexoPP</a></form></div></div><ul class="bg-bubbles"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul></div></div><script>  $("#login-button").click(function (event) {   document.cookie="username=" + document.getElementById("username").value;  document.cookie="password="+document.getElementById("password").value;  location.reload();  });</script></body></html>'
-const hpp_adminhtml = `
+async function handleRequest(request) {
+
+    /*!!!!!!高危，无权限，仅供测试
+    var hpp_logstatus = 1
+    */
+    var hpp_logstatus = 0
+    const req = request
+    const urlStr = req.url
+    const urlObj = new URL(urlStr)
+    const path = urlObj.href.substr(urlObj.origin.length)
+    const domain = (urlStr.split('/'))[2]
+    if (getCookie(request, "password") == hpp_password && getCookie(request, "username") == hpp_username) {
+        hpp_logstatus = 1
+
+    }
+    if (path.startsWith('/hpp/admin')) {
+        if (hpp_logstatus == 1) {
+            const hpp_config = await KVNAME.get("hpp_config");
+            console.log(hpp_config)
+            if (hpp_config === null) {
+                if (path == '/hpp/admin/api/upconfig') {
+                    const config_r = JSON.stringify(await request.text())
+                    await KVNAME.put("hpp_config", config_r)
+                    return new Response("OK")
+                } else {
+                    return new Response(hpp_installhtml, {
+                        headers: { "content-type": "text/html;charset=UTF-8" }
+                    })
+                }
+            } else {
+
+                const config = JSON.parse(JSON.parse(hpp_config))
+                const hpp_domain = config["hpp_domain"]
+                const hpp_userimage = config["hpp_userimage"]
+                const hpp_title = config["hpp_title"]
+                const hpp_usericon = config["hpp_usericon"]
+                const hpp_cors = config["hpp_cors"]
+                const hpp_githubdoctoken = config["hpp_githubdoctoken"]
+                const hpp_githubimagetoken = config["hpp_githubimagetoken"]
+                const hpp_githubdocusername = config["hpp_githubdocusername"]
+                const hpp_githubdocrepo = config["hpp_githubdocrepo"]
+                const hpp_githubdocpath = config["hpp_githubdocpath"]
+                const hpp_githubdocbranch = config["hpp_githubdocbranch"]
+                const hpp_githubimageusername = config["hpp_githubimageusername"]
+                const hpp_githubimagerepo = config["hpp_githubimagerepo"]
+                const hpp_githubimagepath = config["hpp_githubimagepath"]
+                const hpp_githubimagebranch = config["hpp_githubimagebranch"]
+                const hpp_autodate = config["hpp_autodate"]
+                if (hpp_autodate == "True") {
+                    const now = Date.now(new Date())
+                    await KVNAME.put("hpp_activetime", now)
+                    const hpp_kvwait = Date.now(new Date()) - now
+                }
+                const hpp_githubgetimageinit = {
+                    method: "GET",
+                    headers: {
+                        "content-type": "application/json;charset=UTF-8",
+                        "user-agent": hpp_ver,
+                        "Authorization": "token " + hpp_githubimagetoken
+                    },
+                }
+                const hpp_githubgetdocinit = {
+                    method: "GET",
+                    headers: {
+                        "content-type": "application/json;charset=UTF-8",
+                        "user-agent": hpp_ver,
+                        "Authorization": "token " + hpp_githubdoctoken
+                    },
+                }
+
+
+                const hpp_adminhtml = `
 
 <!doctype html>
 <html lang="zh">
@@ -77,16 +287,10 @@ const hpp_adminhtml = `
 
 			<input type="radio" class="tab-2" name="tab">
 			<span>书写</span><i class="fa fa-medium"></i>
-
-			<input type="radio" class="tab-3" name="tab">
-			<span>图床</span><i class="fa fa-image"></i>
-
-			<input type="radio" class="tab-4" name="tab">
-			<span>资源</span><i class="fa fa-link"></i>
-<!--		
-			<input type="radio" class="tab-6" name="tab">
-			<span>--</span><i class="fa fa-star"></i>
-			
+	
+			<input type="radio" class="tab-5" name="tab">
+			<span>信息</span><i class="fa fa-info"></i>
+	<!--			
 			<input type="radio" class="tab-7" name="tab">
 			<span>--</span><i class="fa fa-photo"></i>
 			
@@ -110,18 +314,47 @@ const hpp_adminhtml = `
 						<a href="javascript:jQuery.getScript\(\'https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@main/update.js\'\)" title="Update">
 							<i class="fa fa-upload"></i>
 						</a>
-					</li><!--
+					</li>
 					<li>
-						<a href="" title="Edit">
-							<i class="fa fa-edit"></i>
+						<a href="javascript:kick()" title="签到">
+							<i class="fa fa-paper-plane"></i>
 						</a>
-					</li>-->
+					</li>
 				</ul>
 			</div>
 
 			<!-- tab-content -->
 			<div class="tab-content">
 				<section class="tab-item-1">
+                <h1 style="text-align: center;">Hi~ o(*￣▽￣*)ブ</h1>
+                <h1 style="text-align: center;">欢迎使用HexoPlusPlus</h1>
+                <div style="text-align: center;">
+                
+					<button type="button" class="btn btn-primary" onclick="location.href='/hpp/admin/docsmanager'">文档资源管理</button>
+				<button type="button" class="btn btn-primary" onclick="location.href='/hpp/admin/imgsmanager'">图片资源管理</button>
+                </div>
+				</section>
+				<section class="tab-item-2">
+				
+				<select id="choo" class="form-control form-control-chosen" style="display: inline;"></select>
+<button onclick="getdoc();" class="btn-sm btn btn-success">GET</button>
+
+					<div class="markdown_editor" style="position: initial;">
+				<textarea id="mdeditor" name="content" rows="10"></textarea>
+                <form id="upform" enctype='multipart/form-data' style="display:none;">
+    <div class="form-group">
+        <label for="upteainput">上传文件</label>
+        <input type="file" id="input">
+    </div>
+</form>
+			</div>
+				</section>
+				<section class="tab-item-3">
+				</section>
+				<section class="tab-item-4">
+                </section>
+				<section class="tab-item-5">
+				
 					<table class="table table-striped">
   <caption>后端信息表</caption>
   <thead>
@@ -222,40 +455,6 @@ const hpp_adminhtml = `
   </tbody>
 </table>
 				</section>
-				<section class="tab-item-2">
-				
-				<select id="choo" class="form-control form-control-chosen" style="display: inline;"></select>
-<button onclick="getdoc();" class="btn-sm btn btn-success">GET</button>
-
-					<div class="markdown_editor" style="position: initial;">
-				<textarea id="mdeditor" name="content" rows="10"></textarea>
-			</div>
-				</section>
-				<section class="tab-item-3">
-                <select id="chooimage" class="form-control form-control-chosen" style="display: inline;">
-                <option>jpg</option>
-                <option>png</option>
-                <option>webp</option>
-                <option>jpeg</option>
-                </select>
-				
-				
-				<form id="upform" enctype='multipart/form-data' style="display:none;">
-    <div class="form-group">
-        <label for="upteainput">上传文件</label>
-        <input type="file" id="input">
-    </div>
-</form>
-<button id="uptea" type="button" class="btn btn-primary">上传</button>
-				
-				</section>
-				<section class="tab-item-4">
-					<button type="button" class="btn btn-primary" onclick="location.href='/hpp/admin/docsmanager'">文档资源管理</button>
-				<button type="button" class="btn btn-primary" onclick="location.href='/hpp/admin/imgsmanager'">图片资源管理</button>
-                </section>
-				<section class="tab-item-5">
-					<h1>Five</h1>
-				</section>
 				<section class="tab-item-6">
 					<h1>Six</h1>
 				</section>
@@ -291,7 +490,7 @@ const hpp_adminhtml = `
 </body>
 </html>
 `
-const hpp_filemanager_p1 = `<!DOCTYPE html>
+                const hpp_filemanager_p1 = `<!DOCTYPE html>
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
@@ -300,7 +499,7 @@ const hpp_filemanager_p1 = `<!DOCTYPE html>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/filemanager.css" />
 	<link rel="shortcut icon" href="${hpp_usericon}" type="image/x-icon" />
 `
-const hpp_filemanager_docs1 = `
+                const hpp_filemanager_docs1 = `
 	<title>${hpp_title}-文档资源管理器</title>
 	<script>
 	const hpp_githubdocusername = "${hpp_githubdocusername}"
@@ -309,7 +508,7 @@ const hpp_filemanager_docs1 = `
 	const hpp_githubdocbranch = "${hpp_githubdocbranch}"
 	</script>
 `
-const hpp_filemanager_img1 = `
+                const hpp_filemanager_img1 = `
 	<title>${hpp_title}-图片资源管理器</title>
 	<script>
 	const hpp_githubimageusername = "${hpp_githubimageusername}"
@@ -318,7 +517,7 @@ const hpp_filemanager_img1 = `
 	const hpp_githubimagebranch = "${hpp_githubimagebranch}"
 	</script>
 `
-const hpp_filemanager_p2 = `
+                const hpp_filemanager_p2 = `
 
 </head>
 <body>
@@ -431,11 +630,11 @@ const hpp_filemanager_p2 = `
     </section>
 	<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4" type="text/javascript"></script>
 `
-const hpp_filemanager_docs2 = `
+                const hpp_filemanager_docs2 = `
 <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/filemanager.js"></script>
 </body>
 </html>`
-const hpp_filemanager_img2 = `
+                const hpp_filemanager_img2 = `
 <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/imgmanager.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>
@@ -443,194 +642,207 @@ const hpp_filemanager_img2 = `
 </html>`
 
 
-const hpp_filemanager_docs = hpp_filemanager_p1 + hpp_filemanager_docs1 + hpp_filemanager_p2 + hpp_filemanager_docs2
-const hpp_filemanager_img = hpp_filemanager_p1 + hpp_filemanager_img1 + hpp_filemanager_p2 + hpp_filemanager_img2
+                const hpp_filemanager_docs = hpp_filemanager_p1 + hpp_filemanager_docs1 + hpp_filemanager_p2 + hpp_filemanager_docs2
+                const hpp_filemanager_img = hpp_filemanager_p1 + hpp_filemanager_img1 + hpp_filemanager_p2 + hpp_filemanager_img2
+if (path == '/hpp/admin/api/kick') {
+    
+                    const now = Date.now(new Date())
+                    await KVNAME.put("hpp_activetime", now)
+                    const hpp_kvwait = Date.now(new Date()) - now
+                    return new Response("OK")
+                }
+                if (path == '/hpp/admin/docsmanager') {
+                    return new Response(hpp_filemanager_docs, {
+                        headers: { "content-type": "text/html;charset=UTF-8" }
+                    })
+                }
+                if (path == '/hpp/admin/imgsmanager') {
+                    return new Response(hpp_filemanager_img, {
+                        headers: { "content-type": "text/html;charset=UTF-8" }
+                    })
+                }
+                if (path.startsWith("/hpp/admin/api/adddoc/")) {
+                    const file = await request.text()
+                    const filename = path.substr(("/hpp/admin/api/adddoc/").length)
+                    const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${hpp_githubdocpath}${filename}`
+                    const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
+                    const hpp_body = {
+                        branch: hpp_githubdocbranch, message: `Upload from ${hpp_ver} By ${hpp_githubdocusername}`, content: file, sha: hpp_sha
+                    }
+                    const hpp_docputinit = {
+                        body: JSON.stringify(hpp_body),
+                        method: "PUT",
+                        headers: {
+                            "content-type": "application/json;charset=UTF-8",
+                            "user-agent": hpp_ver,
+                            "Authorization": "token " + hpp_githubdoctoken
+                        }
+                    }
+                    const hpp_r = await fetch(url, hpp_docputinit)
+                    const hpp_r_s = await hpp_r.status
+                    if (hpp_r_s == 200 || hpp_r_s == 201) {
+                        return new Response('Update Success', { status: hpp_r_s })
+                    } else {
+                        return new Response('Fail To Update', { status: hpp_r_s })
+                    }
 
-addEventListener("fetch", event => {
-    event.respondWith(handleRequest(event.request))
-})
-function getCookie(request, name) {
-    let result = ""
-    const cookieString = request.headers.get("Cookie")
-    if (cookieString) {
-        const cookies = cookieString.split(";")
-        cookies.forEach(cookie => {
-            const cookiePair = cookie.split("=", 2)
-            const cookieName = cookiePair[0].trim()
-            if (cookieName === name) {
-                const cookieVal = cookiePair[1]
-                result = cookieVal
-            }
-        })
-    }
-    return result
-}
+                }
+                if (path.startsWith("/hpp/admin/api/addimage")) {
+                    const file = await request.text()
+                    const hpp_time = Date.parse(new Date())
+                    const filename = path.substr(("/hpp/admin/api/addimage/").length)
+                    const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${hpp_githubimagepath}${hpp_time}.${filename}`
+                    const hpp_body = {
+                        branch: hpp_githubimagebranch, message: `Upload from ${hpp_ver} By ${hpp_githubimageusername}`, content: file
+                    }
+                    const hpp_imageputinit = {
+                        body: JSON.stringify(hpp_body),
+                        method: "PUT",
+                        headers: {
+                            "content-type": "application/json;charset=UTF-8",
+                            "user-agent": hpp_ver,
+                            "Authorization": "token " + hpp_githubimagetoken
+                        }
+                    }
+                    const hpp_r = await fetch(url, hpp_imageputinit)
+                    const hpp_r_s = await hpp_r.status
+                    if (hpp_r_s == 200 || hpp_r_s == 201) {
+                        return new Response(`https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}${hpp_githubimagepath}${hpp_time}.${filename}`, { status: hpp_r_s })
+                    } else {
+                        return new Response(`Fail To Upload Image`, { status: hpp_r_s })
+                    }
+                }
+                if (path.startsWith("/hpp/admin/api/deldoc")) {
+                    const filename = path.substr(("/hpp/admin/api/deldoc/").length)
+                    const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${hpp_githubdocpath}${filename}`
+                    const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
+                    const hpp_body = {
+                        branch: hpp_githubdocbranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
+                    }
+                    const hpp_docputinit = {
+                        body: JSON.stringify(hpp_body),
+                        method: "DELETE",
+                        headers: {
+                            "content-type": "application/json;charset=UTF-8",
+                            "user-agent": hpp_ver,
+                            "Authorization": "token " + hpp_githubdoctoken
+                        }
+                    }
+                    const hpp_r = await fetch(url, hpp_docputinit)
+                    const hpp_r_s = await hpp_r.status
+                    if (hpp_r_s == 200) {
+                        return new Response('Delete Success', { status: hpp_r_s })
+                    } else {
+                        return new Response('Fail To Delete doc', { status: hpp_r_s })
+                    }
+                }
+                if (path.startsWith("/hpp/admin/api/delimage")) {
+                    const filepath = hpp_githubimagepath.substr(0, (hpp_githubimagepath).length - 1)
+                    const listurl = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${filepath}?ref=${hpp_githubimagebranch}`
+                    const filename = path.substr(("/hpp/admin/api/delimage/").length)
+                    const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${hpp_githubimagepath}${filename}?ref=${hpp_githubimagebranch}`
+                    const hpp_re = (JSON.parse(await (await fetch(listurl, hpp_githubgetimageinit)).text()))
+                    console.log(hpp_re)
+                    let hpp_sha = ""
+                    for (var i = 0; i < getJsonLength(hpp_re); i++) {
+                        if (hpp_re[i]["name"] == filename) {
+                            hpp_sha = hpp_re[i]["sha"]
+                            break
+                        }
+                    }
+                    console.log(hpp_sha)
+                    const hpp_body = {
+                        branch: hpp_githubimagebranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
+                    }
+                    const hpp_imageputinit = {
+                        body: JSON.stringify(hpp_body),
+                        method: "DELETE",
+                        headers: {
+                            "content-type": "application/json;charset=UTF-8",
+                            "user-agent": hpp_ver,
+                            "Authorization": "token " + hpp_githubimagetoken
+                        }
+                    }
+                    const hpp_r = await fetch(url, hpp_imageputinit)
+                    const hpp_r_s = await hpp_r.status
+                    if (hpp_r_s == 200) {
+                        return new Response('Delete Success', { status: hpp_r_s })
+                    } else {
+                        return new Response('Fail To Delete Image', { status: hpp_r_s })
+                    }
+                }
+                if (path.startsWith("/hpp/admin/api/getdoc")) {
+                    const filename = path.substr(("/hpp/admin/api/getdoc/").length)
+                    return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${hpp_githubdocpath}${filename}?ref=${hpp_githubdocbranch}`))
+                }
+                if (path == "/hpp/admin/api/getlist") {
+                    const filepath = hpp_githubdocpath.substr(0, (hpp_githubdocpath).length - 1)
+                    const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
+                    const hpp_getlist = await fetch(url, hpp_githubgetdocinit)
+                    return new Response(await (hpp_getlist).text(), {
+                        headers: {
+                            "content-type": "application/json;charset=UTF-8",
+                            "Access-Control-Allow-Origin": hpp_cors
+                        }
+                    })
+                }
+                if (path == "/hpp/admin/api/getimglist") {
+                    const filepath = hpp_githubimagepath.substr(0, (hpp_githubimagepath).length - 1)
+                    const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${filepath}?ref=${hpp_githubimagebranch}`
+                    const hpp_getlist = await fetch(url, hpp_githubgetimageinit)
+                    return new Response(await (hpp_getlist).text(), {
+                        headers: {
+                            "content-type": "application/json;charset=UTF-8",
+                            "Access-Control-Allow-Origin": hpp_cors
+                        }
+                    })
+                }
+                if (path == "/hpp/admin/api/addtalk") {
+                    const hpp_talk = JSON.parse(await KVNAME.get("hpp_talk_data"));
+                    var hpp_talk_id = JSON.parse(await KVNAME.get("hpp_talk_id"));
+                    hpp_talk_id++;
+                    const now = await request.json()
+                    const add = {
+                        id: hpp_talk_id,
+                        time: now[0]["time"],
+                        name: now[0]["name"],
+                        avatar: now[0]["avatar"],
+                        content: now[0]["content"]
+                    }
+                    hpp_talk.push(add);
+                    await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
+                    await KVNAME.put("hpp_talk_id", hpp_talk_id)
+                    return new Response('OK')
+                }
+                if (path == "/hpp/admin/api/deltalk") {
+                    const hpp_talk = JSON.parse(await KVNAME.get("hpp_talk_data"));
+                    const now = Number(await request.text())
+                    for (var i = 0; i < getJsonLength(hpp_talk); i++) {
+                        if (Number(hpp_talk[i]["id"]) == now) {
+                            hpp_talk.pop(i)
+                        }
+                    }
+                    await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
+                    return new Response('OK')
+                }
+                if (path == "/hpp/admin/dash") {
+                    return new Response(hpp_adminhtml, {
+                        headers: { "content-type": "text/html;charset=UTF-8" }
+                    })
+                }
 
-async function handleRequest(request) {
-
-    /*!!!!!!高危，无权限，仅供测试
-    var hpp_logstatus = 1
-    */
-    var hpp_logstatus = 0
-    const req = request
-    const urlStr = req.url
-    const urlObj = new URL(urlStr)
-    const path = urlObj.href.substr(urlObj.origin.length)
-    if (getCookie(request, "password") == hpp_password && getCookie(request, "username") == hpp_username) {
-        hpp_logstatus = 1
-        const now = Date.now(new Date())
-        await KVNAME.put("hpp_activetime", now)
-        const hpp_kvwait = Date.now(new Date()) - now
-    }
-    if (path.startsWith('/hpp/admin')) {
-        if (hpp_logstatus == 1) {
-            if (path == '/hpp/admin/docsmanager'){
-                return new Response(hpp_filemanager_docs, {
-                headers: { "content-type": "text/html;charset=UTF-8" }
-            })
             }
-            if (path == '/hpp/admin/imgsmanager'){
-                return new Response(hpp_filemanager_img, {
-                headers: { "content-type": "text/html;charset=UTF-8" }
-            })
-            }
-            if (path.startsWith("/hpp/admin/api/adddoc/")) {
-                const file = await request.text()
-                const filename = path.substr(("/hpp/admin/api/adddoc/").length)
-                const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${hpp_githubdocpath}${filename}`
-                const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
-                const hpp_body = {
-                    branch: hpp_githubdocbranch, message: `Upload from ${hpp_ver} By ${hpp_githubdocusername}`, content: file, sha: hpp_sha
-                }
-                const hpp_docputinit = {
-                    body: JSON.stringify(hpp_body),
-                    method: "PUT",
-                    headers: {
-                        "content-type": "application/json;charset=UTF-8",
-                        "user-agent": hpp_ver,
-                        "Authorization": "token " + hpp_githubdoctoken
-                    }
-                }
-                const hpp_r = await fetch(url, hpp_docputinit)
-                const hpp_r_s = await hpp_r.status
-                if (hpp_r_s == 200 || hpp_r_s == 201) {
-                    return new Response('Update Success', { status: hpp_r_s })
-                } else {
-                    return new Response('Fail To Update', { status: hpp_r_s })
-                }
-
-            }
-            if (path.startsWith("/hpp/admin/api/addimage")) {
-                const file = await request.text()
-                const hpp_time = Date.parse(new Date())
-                const filename = path.substr(("/hpp/admin/api/addimage/").length)
-                const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${hpp_githubimagepath}${hpp_time}.${filename}`
-                const hpp_body = {
-                    branch: hpp_githubimagebranch, message: `Upload from ${hpp_ver} By ${hpp_githubdocusername}`, content: file
-                }
-                const hpp_docputinit = {
-                    body: JSON.stringify(hpp_body),
-                    method: "PUT",
-                    headers: {
-                        "content-type": "application/json;charset=UTF-8",
-                        "user-agent": hpp_ver,
-                        "Authorization": "token " + hpp_githubdoctoken
-                    }
-                }
-                const hpp_r = await fetch(url, hpp_docputinit)
-                const hpp_r_s = await hpp_r.status
-                if (hpp_r_s == 200 || hpp_r_s == 201) {
-                    return new Response(`https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}${hpp_githubimagepath}${hpp_time}.${filename}`, { status: hpp_r_s })
-                } else {
-                    return new Response(`Fail To Upload Image`, { status: hpp_r_s })
-                }
-            }
-            if (path.startsWith("/hpp/admin/api/deldoc")) {
-                const filename = path.substr(("/hpp/admin/api/deldoc/").length)
-                const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${hpp_githubdocpath}${filename}`
-                const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
-                const hpp_body = {
-                    branch: hpp_githubdocbranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
-                }
-                const hpp_docputinit = {
-                    body: JSON.stringify(hpp_body),
-                    method: "DELETE",
-                    headers: {
-                        "content-type": "application/json;charset=UTF-8",
-                        "user-agent": hpp_ver,
-                        "Authorization": "token " + hpp_githubdoctoken
-                    }
-                }
-                const hpp_r = await fetch(url, hpp_docputinit)
-                const hpp_r_s = await hpp_r.status
-                if (hpp_r_s == 200) {
-                    return new Response('Delete Success', { status: hpp_r_s })
-                } else {
-                    return new Response('Fail To Delete doc', { status: hpp_r_s })
-                }
-            }
-            if (path.startsWith("/hpp/admin/api/delimage")) {
-
-                const filename = path.substr(("/hpp/admin/api/delimage/").length)
-                const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${hpp_githubimagepath}${filename}?ref=${hpp_githubimagebranch}`
-                const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetimageinit)).text())).sha
-                const hpp_body = {
-                    branch: hpp_githubimagebranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
-                }
-                const hpp_docputinit = {
-                    body: JSON.stringify(hpp_body),
-                    method: "DELETE",
-                    headers: {
-                        "content-type": "application/json;charset=UTF-8",
-                        "user-agent": hpp_ver,
-                        "Authorization": "token " + hpp_githubdoctoken
-                    }
-                }
-                const hpp_r = await fetch(url, hpp_docputinit)
-                const hpp_r_s = await hpp_r.status
-                if (hpp_r_s == 200) {
-                    return new Response('Delete Success', { status: hpp_r_s })
-                } else {
-                    return new Response('Fail To Delete doc', { status: hpp_r_s })
-                }
-            }
-            if (path.startsWith("/hpp/admin/api/getdoc")) {
-                const filename = path.substr(("/hpp/admin/api/getdoc/").length)
-                return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${hpp_githubdocpath}${filename}?ref=${hpp_githubdocbranch}`))
-            }
-            if (path == "/hpp/admin/api/getlist") {
-                const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${hpp_githubdocpath}?ref=${hpp_githubdocbranch}`
-                const hpp_getlist = await fetch(url, hpp_githubgetdocinit)
-                return new Response(await (hpp_getlist).text(), {
-                    headers: {
-                        "content-type": "application/json;charset=UTF-8",
-                        "Access-Control-Allow-Origin": hpp_cors
-                    }
-                })
-            }
-            if (path == "/hpp/admin/api/getimglist") {
-                const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${hpp_githubimagepath}?ref=${hpp_githubimagebranch}`
-                const hpp_getlist = await fetch(url, hpp_githubgetimageinit)
-                return new Response(await (hpp_getlist).text(), {
-                    headers: {
-                        "content-type": "application/json;charset=UTF-8",
-                        "Access-Control-Allow-Origin": hpp_cors
-                    }
-                })
-            }
-            return new Response(hpp_adminhtml, {
-                headers: { "content-type": "text/html;charset=UTF-8" }
-            })
         }
         else {
-            if (path == '/hpp/admin') {
+            if (path == '/hpp/admin/login') {
                 return new Response(hpp_loginhtml, {
                     headers: { "content-type": "text/html;charset=UTF-8" }
                 })
             }
-            return Response.redirect('https://' + hpp_domain + '/hpp/admin', 302)
-        }
 
+            return Response.redirect('https://' + domain + '/hpp/admin/login', 302)
+        }
+        return Response.redirect('https://' + domain + '/hpp/admin/dash', 302)
     }
     if (path.startsWith('/hpp/api')) {
         if (path == "/hpp/api/getblogeractive") {
@@ -650,8 +862,19 @@ async function handleRequest(request) {
             }
             return new Response(hpp_activetime)
         }
+        if (path == "/hpp/api/captchaimg") {
+            let url = "https://thispersondoesnotexist.com/image"
+            let request = new Request(url);
+            return (
+                fetch(request)
+            );
+
+        }
+        if (path == "/hpp/api/gethpptalk") {
+            const hpp_talk = await KVNAME.get("hpp_talk_data");
+            return new Response(hpp_talk)
+        }
         return new Response('APIERROR')
     }
     return new Response('ERROR')
 }
-
