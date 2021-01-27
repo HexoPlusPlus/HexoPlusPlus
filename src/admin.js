@@ -184,4 +184,22 @@ $(document).ready(function() {
 	getCDNinfo();
     //页面加载完毕就获取CDN信息
 });
+function kick(){
+	var ajax = ajaxObject();
+    ajax.open( "get" , '/hpp/admin/api/kick', true );
+    ajax.setRequestHeader( "Content-Type" , "text/plain" );
+    ajax.onreadystatechange = function () {
+        if( ajax.readyState == 4 ) {
+            if( ajax.status == 200 ) {
+                sweetAlert("成功",  "已签到", "success");
+		    
+            }
+            else {
+                sweetAlert("糟糕", "签到失败", "error");
+            }
+        }
+    }
+    ajax.send();
+}
+
 
