@@ -20,20 +20,6 @@ const js = function () {
 js.displayName = 'minifyjs'
 task(js)
 
-const copyIndex = function () {
-    return src('index.js')
-        .pipe(dest('dist'))
-}
-copyIndex.displayName = 'copyindexjs'
-task(copyIndex)
 
-const copyUpdate = function () {
-    return src('update.js')
-        .pipe(dest('dist'))
-}
-copyUpdate.displayName = 'copyupdatejs'
-task(copyUpdate)
 
-task('copy', series(['copyindexjs','copyupdatejs']))
-
-task('default', series(['minifycss','minifyjs', 'copy']))
+task('default', series(['minifycss','minifyjs']))
