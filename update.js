@@ -1,4 +1,4 @@
-if(hpp_ver == 'HexoPlusPlus@0.0.5'){
+if(hpp_ver == 'HexoPlusPlus@0.1.0'){
   swal({
 title: "成功",
     text: "无需更新，当前已是最新版本",
