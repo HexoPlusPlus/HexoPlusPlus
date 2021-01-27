@@ -17,4 +17,4 @@ jobs:
     - name: CLEANTEMP
       run: |
         curl https://purge.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@main/update.js
-        curl https://purge.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@main/index.js  
+        curl https://purge.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@main/dist/index.js  
