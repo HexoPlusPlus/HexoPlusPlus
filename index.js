@@ -1,4 +1,4 @@
-const hpp_CDNver = "19e30cc"
+const hpp_CDNver = "9f44f8f"
 const hpp_ver = "HexoPlusPlus@0.1.0"
 
 let hpp_loginhtml = `
@@ -332,6 +332,12 @@ async function handleRequest(request) {
                 
 					<button type="button" class="btn btn-primary" onclick="location.href='/hpp/admin/docsmanager'">文档资源管理</button>
 				<button type="button" class="btn btn-primary" onclick="location.href='/hpp/admin/imgsmanager'">图片资源管理</button>
+                </div>
+<div style="text-align: center;">
+                
+					<button type="button" class="btn btn-warning" onclick="location.href='https://github.com/HexoPlusPlus/HexoPlusPlus'">Github</button>
+				<button type="button" class="btn btn-warning" onclick="location.href='https://hexoplusplus.js.org/'">文档</button>
+                <button type="button" class="btn btn-success" onclick="location.href='https://jq.qq.com/?_wv=1027&k=rAcnhzqK'">QQ群</button>
                 </div>
 				</section>
 				<section class="tab-item-2">
