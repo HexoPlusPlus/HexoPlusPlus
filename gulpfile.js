@@ -3,7 +3,7 @@ const minifycss = require('gulp-minify-css')
 const terser = require('gulp-terser')
 
 const css = function () {
-    return src('src/*.css')
+    return src(['src/*.css'])
         .pipe(minifycss())
         .pipe(dest('dist'))
         .pipe(minifycss())
@@ -12,7 +12,7 @@ css.displayName = 'minifycss'
 task(css);
 
 const js = function () {
-    return src(['src/**/*.js'])
+    return src(['src/**/*.js','index.js'])
         .pipe(terser())
         .pipe(dest('dist'))
         .pipe(terser())
