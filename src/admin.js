@@ -104,8 +104,12 @@ choo.disabled=true
 		 $('#chooimage').editableSelect();
 var input = document.getElementById("input");
 input.addEventListener('change', readFile, false);
+
 function readFile() {
+	var _inner = document.getElementById('mdeditor').value;
+	document.getElementById('mdeditor').value+="\n![\"请输入描述\"](图片尚在上传，请稍等)"
    var file = this.files[0];
+var f_name = file["name"].substring(file["name"].lastIndexOf(".")+1);
     var reader = new FileReader(); 
     reader.readAsDataURL(file);
     reader.onloadstart = function (e){ 
@@ -117,7 +121,8 @@ function readFile() {
     }
     reader.onload = function (e) {
         console.log(this.result.substring(this.result.indexOf(',')+1));
-		hpp_uploadimage(this.result.substring(this.result.indexOf(',')+1));
+	hpp_uploadimage(this.result.substring(this.result.indexOf(',')+1),f_name,_inner);
+	
     }
     reader.onloadend = function(e){
         console.log('结束了')
@@ -129,25 +134,25 @@ function readFile() {
 });
 
 
-function hpp_uploadimage(image){
+function hpp_uploadimage(image,f_name,_inner){
 		input.disabled=true
 	var ajax = ajaxObject();
-    ajax.open( "post" , '/hpp/admin/api/addimage/'+chooimage.value , true );
+    ajax.open( "post" , '/hpp/admin/api/addimage/'+f_name , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
-                sweetAlert("成功",  "图片已上传", "success");
-		    input.disabled=false
+                sweetAlert("成功",  "图片已更新", "success");
+		    
             }
 		else if( ajax.status == 201 ){
-			const ree=ajax.responseText;
-			copyToClip(ree);	
 		    input.disabled=false
+			document.getElementById('mdeditor').value=_inner+"\n![\"请输入描述\"](\""+ajax.responseText+"\")";
             }
             else {
                 sweetAlert("糟糕", "上传图片失败!", "error");
 		   input.disabled=false
+		   document.getElementById('mdeditor').value=_inner+"\n![\"请输入描述\"](\"上传失败，请重试\")";
             }
         }
     }
@@ -179,24 +184,22 @@ $(document).ready(function() {
 	getCDNinfo();
     //页面加载完毕就获取CDN信息
 });
-function copyToClip(content) {
-    var aux = document.createElement("input"); 
-    aux.setAttribute("value", content); 
-    document.body.appendChild(aux); 
-    aux.select();
-    document.execCommand("copy"); 
-    document.body.removeChild(aux);
-    			swal({
-title: "成功",
-    text: "图片已新建,地址已复制",
-    icon: "success",
-  content: {
-    
-    element: "input",
-    attributes: {
-      value: content,
-      type: "text",
-    },
-  },
-});
+function kick(){
+	var ajax = ajaxObject();
+    ajax.open( "get" , '/hpp/admin/api/kick', true );
+    ajax.setRequestHeader( "Content-Type" , "text/plain" );
+    ajax.onreadystatechange = function () {
+        if( ajax.readyState == 4 ) {
+            if( ajax.status == 200 ) {
+                sweetAlert("成功",  "已签到", "success");
+		    
+            }
+            else {
+                sweetAlert("糟糕", "签到失败", "error");
+            }
+        }
+    }
+    ajax.send();
 }
+
+
