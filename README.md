@@ -18,7 +18,7 @@ HexoPlusPlus~~也叫Hexo艹~~，是一个基于CloudFlareWorkers和CloudFlareKV�
 - [x] Github图床支持
 - [x] 文件管理
 - [x] 活跃时间统计
-- [ ] 说说功能
+- [x] 说说功能
 - [ ] Twikoo加强
 - [ ] Imgur图床+镜像支持
 - [ ] 7bu图床支持
