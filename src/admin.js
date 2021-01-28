@@ -1,4 +1,5 @@
-	function base64Encode(input){
+
+function base64Encode(input){
                 var rv;
                 rv = encodeURIComponent(input);
                 rv = unescape(rv);
@@ -180,10 +181,6 @@ getCDNinfo = function() {
 		}
 	})
 }
-$(document).ready(function() {
-	getCDNinfo();
-    //页面加载完毕就获取CDN信息
-});
 function kick(){
 	var ajax = ajaxObject();
     ajax.open( "get" , '/hpp/admin/api/kick', true );
@@ -202,4 +199,35 @@ function kick(){
     ajax.send();
 }
 
-
+$(function(){
+$(".tab-3").click(function(){
+if($(this).is(":checked")){
+document.getElementById("talk").src="/hpp/admin/talk"
+}else{
+}
+})
+})
+$(function(){
+$(".tab-6").click(function(){
+if($(this).is(":checked")){
+document.getElementById("imgman").src="/hpp/admin/imgsmanager"
+}else{
+}
+})
+})
+$(function(){
+$(".tab-7").click(function(){
+if($(this).is(":checked")){
+document.getElementById("docman").src="/hpp/admin/docsmanager"
+}else{
+}
+})
+})
+$(function(){
+$(".tab-5").click(function(){
+if($(this).is(":checked")){
+getCDNinfo();
+}else{
+}
+})
+})
