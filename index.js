@@ -1,5 +1,18 @@
-const hpp_CDNver = "d89d2c6"
-const hpp_ver = "HexoPlusPlus@0.1.1"
+const hpp_CDNver = "92c36fd"
+const hpp_ver = "HexoPlusPlus@0.1.2"
+let hpp_talkhtml = `
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/talk.css" /> 
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/talk.js"></script>
+<div id="hpp_talk"></div>
+<script>
+new hpp_talk({
+id:"hpp_talk",
+back: "/hpp/api/gethpptalk"
+})
+</script>
+`
+
 let hpp_errorhtml = `
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -209,7 +222,7 @@ function getCookie(request, name) {
     }
     return result
 }
-!function(n){"use strict";function d(n,t){var r=(65535&n)+(65535&t);return(n>>16)+(t>>16)+(r>>16)<<16|65535&r}function f(n,t,r,e,o,u){return d((c=d(d(t,n),d(e,u)))<<(f=o)|c>>>32-f,r);var c,f}function l(n,t,r,e,o,u,c){return f(t&r|~t&e,n,t,o,u,c)}function v(n,t,r,e,o,u,c){return f(t&e|r&~e,n,t,o,u,c)}function g(n,t,r,e,o,u,c){return f(t^r^e,n,t,o,u,c)}function m(n,t,r,e,o,u,c){return f(r^(t|~e),n,t,o,u,c)}function i(n,t){var r,e,o,u;n[t>>5]|=128<<t%32,n[14+(t+64>>>9<<4)]=t;for(var c=1732584193,f=-271733879,i=-1732584194,a=271733878,h=0;h<n.length;h+=16)c=l(r=c,e=f,o=i,u=a,n[h],7,-680876936),a=l(a,c,f,i,n[h+1],12,-389564586),i=l(i,a,c,f,n[h+2],17,606105819),f=l(f,i,a,c,n[h+3],22,-1044525330),c=l(c,f,i,a,n[h+4],7,-176418897),a=l(a,c,f,i,n[h+5],12,1200080426),i=l(i,a,c,f,n[h+6],17,-1473231341),f=l(f,i,a,c,n[h+7],22,-45705983),c=l(c,f,i,a,n[h+8],7,1770035416),a=l(a,c,f,i,n[h+9],12,-1958414417),i=l(i,a,c,f,n[h+10],17,-42063),f=l(f,i,a,c,n[h+11],22,-1990404162),c=l(c,f,i,a,n[h+12],7,1804603682),a=l(a,c,f,i,n[h+13],12,-40341101),i=l(i,a,c,f,n[h+14],17,-1502002290),c=v(c,f=l(f,i,a,c,n[h+15],22,1236535329),i,a,n[h+1],5,-165796510),a=v(a,c,f,i,n[h+6],9,-1069501632),i=v(i,a,c,f,n[h+11],14,643717713),f=v(f,i,a,c,n[h],20,-373897302),c=v(c,f,i,a,n[h+5],5,-701558691),a=v(a,c,f,i,n[h+10],9,38016083),i=v(i,a,c,f,n[h+15],14,-660478335),f=v(f,i,a,c,n[h+4],20,-405537848),c=v(c,f,i,a,n[h+9],5,568446438),a=v(a,c,f,i,n[h+14],9,-1019803690),i=v(i,a,c,f,n[h+3],14,-187363961),f=v(f,i,a,c,n[h+8],20,1163531501),c=v(c,f,i,a,n[h+13],5,-1444681467),a=v(a,c,f,i,n[h+2],9,-51403784),i=v(i,a,c,f,n[h+7],14,1735328473),c=g(c,f=v(f,i,a,c,n[h+12],20,-1926607734),i,a,n[h+5],4,-378558),a=g(a,c,f,i,n[h+8],11,-2022574463),i=g(i,a,c,f,n[h+11],16,1839030562),f=g(f,i,a,c,n[h+14],23,-35309556),c=g(c,f,i,a,n[h+1],4,-1530992060),a=g(a,c,f,i,n[h+4],11,1272893353),i=g(i,a,c,f,n[h+7],16,-155497632),f=g(f,i,a,c,n[h+10],23,-1094730640),c=g(c,f,i,a,n[h+13],4,681279174),a=g(a,c,f,i,n[h],11,-358537222),i=g(i,a,c,f,n[h+3],16,-722521979),f=g(f,i,a,c,n[h+6],23,76029189),c=g(c,f,i,a,n[h+9],4,-640364487),a=g(a,c,f,i,n[h+12],11,-421815835),i=g(i,a,c,f,n[h+15],16,530742520),c=m(c,f=g(f,i,a,c,n[h+2],23,-995338651),i,a,n[h],6,-198630844),a=m(a,c,f,i,n[h+7],10,1126891415),i=m(i,a,c,f,n[h+14],15,-1416354905),f=m(f,i,a,c,n[h+5],21,-57434055),c=m(c,f,i,a,n[h+12],6,1700485571),a=m(a,c,f,i,n[h+3],10,-1894986606),i=m(i,a,c,f,n[h+10],15,-1051523),f=m(f,i,a,c,n[h+1],21,-2054922799),c=m(c,f,i,a,n[h+8],6,1873313359),a=m(a,c,f,i,n[h+15],10,-30611744),i=m(i,a,c,f,n[h+6],15,-1560198380),f=m(f,i,a,c,n[h+13],21,1309151649),c=m(c,f,i,a,n[h+4],6,-145523070),a=m(a,c,f,i,n[h+11],10,-1120210379),i=m(i,a,c,f,n[h+2],15,718787259),f=m(f,i,a,c,n[h+9],21,-343485551),c=d(c,r),f=d(f,e),i=d(i,o),a=d(a,u);return[c,f,i,a]}function a(n){for(var t="",r=32*n.length,e=0;e<r;e+=8)t+=String.fromCharCode(n[e>>5]>>>e%32&255);return t}function h(n){var t=[];for(t[(n.length>>2)-1]=void 0,e=0;e<t.length;e+=1)t[e]=0;for(var r=8*n.length,e=0;e<r;e+=8)t[e>>5]|=(255&n.charCodeAt(e/8))<<e%32;return t}function e(n){for(var t,r="0123456789abcdef",e="",o=0;o<n.length;o+=1)t=n.charCodeAt(o),e+=r.charAt(t>>>4&15)+r.charAt(15&t);return e}function r(n){return unescape(encodeURIComponent(n))}function o(n){return a(i(h(t=r(n)),8*t.length));var t}function u(n,t){return function(n,t){var r,e,o=h(n),u=[],c=[];for(u[15]=c[15]=void 0,16<o.length&&(o=i(o,8*n.length)),r=0;r<16;r+=1)u[r]=909522486^o[r],c[r]=1549556828^o[r];return e=i(u.concat(h(t)),512+8*t.length),a(i(c.concat(e),640))}(r(n),r(t))}function t(n,t,r){return t?r?u(t,n):e(u(t,n)):r?o(n):e(o(n))}"function"==typeof define&&define.amd?define(function(){return t}):"object"==typeof module&&module.exports?module.exports=t:n.md5=t}(this);
+!function (n) { "use strict"; function d(n, t) { var r = (65535 & n) + (65535 & t); return (n >> 16) + (t >> 16) + (r >> 16) << 16 | 65535 & r } function f(n, t, r, e, o, u) { return d((c = d(d(t, n), d(e, u))) << (f = o) | c >>> 32 - f, r); var c, f } function l(n, t, r, e, o, u, c) { return f(t & r | ~t & e, n, t, o, u, c) } function v(n, t, r, e, o, u, c) { return f(t & e | r & ~e, n, t, o, u, c) } function g(n, t, r, e, o, u, c) { return f(t ^ r ^ e, n, t, o, u, c) } function m(n, t, r, e, o, u, c) { return f(r ^ (t | ~e), n, t, o, u, c) } function i(n, t) { var r, e, o, u; n[t >> 5] |= 128 << t % 32, n[14 + (t + 64 >>> 9 << 4)] = t; for (var c = 1732584193, f = -271733879, i = -1732584194, a = 271733878, h = 0; h < n.length; h += 16)c = l(r = c, e = f, o = i, u = a, n[h], 7, -680876936), a = l(a, c, f, i, n[h + 1], 12, -389564586), i = l(i, a, c, f, n[h + 2], 17, 606105819), f = l(f, i, a, c, n[h + 3], 22, -1044525330), c = l(c, f, i, a, n[h + 4], 7, -176418897), a = l(a, c, f, i, n[h + 5], 12, 1200080426), i = l(i, a, c, f, n[h + 6], 17, -1473231341), f = l(f, i, a, c, n[h + 7], 22, -45705983), c = l(c, f, i, a, n[h + 8], 7, 1770035416), a = l(a, c, f, i, n[h + 9], 12, -1958414417), i = l(i, a, c, f, n[h + 10], 17, -42063), f = l(f, i, a, c, n[h + 11], 22, -1990404162), c = l(c, f, i, a, n[h + 12], 7, 1804603682), a = l(a, c, f, i, n[h + 13], 12, -40341101), i = l(i, a, c, f, n[h + 14], 17, -1502002290), c = v(c, f = l(f, i, a, c, n[h + 15], 22, 1236535329), i, a, n[h + 1], 5, -165796510), a = v(a, c, f, i, n[h + 6], 9, -1069501632), i = v(i, a, c, f, n[h + 11], 14, 643717713), f = v(f, i, a, c, n[h], 20, -373897302), c = v(c, f, i, a, n[h + 5], 5, -701558691), a = v(a, c, f, i, n[h + 10], 9, 38016083), i = v(i, a, c, f, n[h + 15], 14, -660478335), f = v(f, i, a, c, n[h + 4], 20, -405537848), c = v(c, f, i, a, n[h + 9], 5, 568446438), a = v(a, c, f, i, n[h + 14], 9, -1019803690), i = v(i, a, c, f, n[h + 3], 14, -187363961), f = v(f, i, a, c, n[h + 8], 20, 1163531501), c = v(c, f, i, a, n[h + 13], 5, -1444681467), a = v(a, c, f, i, n[h + 2], 9, -51403784), i = v(i, a, c, f, n[h + 7], 14, 1735328473), c = g(c, f = v(f, i, a, c, n[h + 12], 20, -1926607734), i, a, n[h + 5], 4, -378558), a = g(a, c, f, i, n[h + 8], 11, -2022574463), i = g(i, a, c, f, n[h + 11], 16, 1839030562), f = g(f, i, a, c, n[h + 14], 23, -35309556), c = g(c, f, i, a, n[h + 1], 4, -1530992060), a = g(a, c, f, i, n[h + 4], 11, 1272893353), i = g(i, a, c, f, n[h + 7], 16, -155497632), f = g(f, i, a, c, n[h + 10], 23, -1094730640), c = g(c, f, i, a, n[h + 13], 4, 681279174), a = g(a, c, f, i, n[h], 11, -358537222), i = g(i, a, c, f, n[h + 3], 16, -722521979), f = g(f, i, a, c, n[h + 6], 23, 76029189), c = g(c, f, i, a, n[h + 9], 4, -640364487), a = g(a, c, f, i, n[h + 12], 11, -421815835), i = g(i, a, c, f, n[h + 15], 16, 530742520), c = m(c, f = g(f, i, a, c, n[h + 2], 23, -995338651), i, a, n[h], 6, -198630844), a = m(a, c, f, i, n[h + 7], 10, 1126891415), i = m(i, a, c, f, n[h + 14], 15, -1416354905), f = m(f, i, a, c, n[h + 5], 21, -57434055), c = m(c, f, i, a, n[h + 12], 6, 1700485571), a = m(a, c, f, i, n[h + 3], 10, -1894986606), i = m(i, a, c, f, n[h + 10], 15, -1051523), f = m(f, i, a, c, n[h + 1], 21, -2054922799), c = m(c, f, i, a, n[h + 8], 6, 1873313359), a = m(a, c, f, i, n[h + 15], 10, -30611744), i = m(i, a, c, f, n[h + 6], 15, -1560198380), f = m(f, i, a, c, n[h + 13], 21, 1309151649), c = m(c, f, i, a, n[h + 4], 6, -145523070), a = m(a, c, f, i, n[h + 11], 10, -1120210379), i = m(i, a, c, f, n[h + 2], 15, 718787259), f = m(f, i, a, c, n[h + 9], 21, -343485551), c = d(c, r), f = d(f, e), i = d(i, o), a = d(a, u); return [c, f, i, a] } function a(n) { for (var t = "", r = 32 * n.length, e = 0; e < r; e += 8)t += String.fromCharCode(n[e >> 5] >>> e % 32 & 255); return t } function h(n) { var t = []; for (t[(n.length >> 2) - 1] = void 0, e = 0; e < t.length; e += 1)t[e] = 0; for (var r = 8 * n.length, e = 0; e < r; e += 8)t[e >> 5] |= (255 & n.charCodeAt(e / 8)) << e % 32; return t } function e(n) { for (var t, r = "0123456789abcdef", e = "", o = 0; o < n.length; o += 1)t = n.charCodeAt(o), e += r.charAt(t >>> 4 & 15) + r.charAt(15 & t); return e } function r(n) { return unescape(encodeURIComponent(n)) } function o(n) { return a(i(h(t = r(n)), 8 * t.length)); var t } function u(n, t) { return function (n, t) { var r, e, o = h(n), u = [], c = []; for (u[15] = c[15] = void 0, 16 < o.length && (o = i(o, 8 * n.length)), r = 0; r < 16; r += 1)u[r] = 909522486 ^ o[r], c[r] = 1549556828 ^ o[r]; return e = i(u.concat(h(t)), 512 + 8 * t.length), a(i(c.concat(e), 640)) }(r(n), r(t)) } function t(n, t, r) { return t ? r ? u(t, n) : e(u(t, n)) : r ? o(n) : e(o(n)) } "function" == typeof define && define.amd ? define(function () { return t }) : "object" == typeof module && module.exports ? module.exports = t : n.md5 = t }(this);
 async function handleRequest(request) {
 
     /*!!!!!!高危，无权限，仅供测试
@@ -221,9 +234,14 @@ async function handleRequest(request) {
     const urlObj = new URL(urlStr)
     const path = urlObj.href.substr(urlObj.origin.length)
     const domain = (urlStr.split('/'))[2]
-    if (getCookie(request, "password") == md5(hpp_password) && getCookie(request, "username") == md5(hpp_username)) {
-        hpp_logstatus = 1
+    const username=hpp_username.split(",");
+    const password=hpp_password.split(",");
+    for (var i = 0; i < getJsonLength(username); i++) {
+        if (getCookie(request, "password") == md5(password[i]) && getCookie(request, "username") == md5(username[i])) {
+            hpp_logstatus = 1
+        }
     }
+
     if (path.startsWith('/hpp/admin')) {
         if (hpp_logstatus == 1) {
             const hpp_config = await KVNAME.get("hpp_config");
@@ -316,13 +334,17 @@ async function handleRequest(request) {
 
 			<input type="radio" class="tab-2" name="tab">
 			<span>书写</span><i class="fa fa-medium"></i>
-	
+	<input type="radio" class="tab-3" name="tab">
+			<span>说说</span><i class="fa fa-wechat"></i>
 			<input type="radio" class="tab-5" name="tab">
 			<span>信息</span><i class="fa fa-info"></i>
-	<!--			
-			<input type="radio" class="tab-7" name="tab">
-			<span>--</span><i class="fa fa-photo"></i>
+            <input type="radio" class="tab-6" name="tab">
+			<span>图片</span><i class="fa fa-photo"></i>
+            <input type="radio" class="tab-7" name="tab">
+			<span>文档</span><i class="fa fa-book"></i>
+		
 			
+		<!--			
 			<input type="radio" class="tab-8" name="tab">
 			<span>--</span><i class="fa fa-line-chart"></i>
 			
@@ -359,8 +381,6 @@ async function handleRequest(request) {
                 <h1 style="text-align: center;">欢迎使用HexoPlusPlus</h1>
                 <div style="text-align: center;">
                 
-					<button type="button" class="btn btn-primary" onclick="location.href='/hpp/admin/docsmanager'">文档资源管理</button>
-				<button type="button" class="btn btn-primary" onclick="location.href='/hpp/admin/imgsmanager'">图片资源管理</button>
                 </div>
 <div style="text-align: center;">
                 
@@ -385,11 +405,9 @@ async function handleRequest(request) {
 			</div>
 				</section>
 				<section class="tab-item-3">
+                <iframe id="talk" src="" style=" width: 100%;    height: 100%;    border: medium none;"></iframe>
 				</section>
-				<section class="tab-item-4">
-                </section>
 				<section class="tab-item-5">
-				
 					<table class="table table-striped">
   <caption>后端信息表</caption>
   <thead>
@@ -490,20 +508,12 @@ async function handleRequest(request) {
   </tbody>
 </table>
 				</section>
-				<section class="tab-item-6">
-					<h1>Six</h1>
+				
+                <section class="tab-item-6">
+                <iframe id="imgman" src="" style=" width: 100%;    height: 100%;    border: medium none;"></iframe>
 				</section>
-				<section class="tab-item-7">
-					<h1>Sever</h1>
-				</section>
-				<section class="tab-item-8">
-					<h1>Eight</h1>
-				</section>
-				<section class="tab-item-9">
-					<h1>Nine</h1>
-				</section>
-				<section class="tab-item-10">
-					<h1>Ten</h1>
+                <section class="tab-item-7">
+                <iframe id="docman" src="" style=" width: 100%;    height: 100%;    border: medium none;"></iframe>
 				</section>
 			</div>
 		</div>
@@ -533,6 +543,23 @@ async function handleRequest(request) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/filemanager.css" />
 	<link rel="shortcut icon" href="${hpp_usericon}" type="image/x-icon" />
+    <style>
+    ::-webkit-scrollbar-track-piece {
+background-color:#f8f8f8;
+}
+::-webkit-scrollbar {
+width:9px;
+height:9px;
+}
+::-webkit-scrollbar-thumb {
+background-color:#dddddd;
+background-clip:padding-box;
+min-height:28px;
+}
+::-webkit-scrollbar-thumb:hover {
+background-color:#bbb;
+}
+</style>
 `
                 const hpp_filemanager_docs1 = `
 	<title>${hpp_title}-文档资源管理器</title>
@@ -562,12 +589,6 @@ async function handleRequest(request) {
         <div></div>
       </div>
     </div>
-
-    <aside class="sidebar">
-      <div class="logo">
-        <a href="/hpp/admin">←</a>
-      </div>
-    </aside>
     <section class="grid-holder">
       <div class="grid-list-layout">
         <nav class="navigation">
@@ -679,6 +700,39 @@ async function handleRequest(request) {
 
                 const hpp_filemanager_docs = hpp_filemanager_p1 + hpp_filemanager_docs1 + hpp_filemanager_p2 + hpp_filemanager_docs2
                 const hpp_filemanager_img = hpp_filemanager_p1 + hpp_filemanager_img1 + hpp_filemanager_p2 + hpp_filemanager_img2
+                let hpp_admintalkhtml = `
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/talk.css" />
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css"> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/bm.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/bm.zh.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
+<div id="hpp_talk"></div>
+<div class="markdown_editor" style="position: initial;">
+<textarea id="mdeditor" name="content" rows="10"></textarea>
+               <form id="upform" enctype='multipart/form-data' style="display:none;">
+    <div class="form-group">
+        <label for="upteainput">上传文件</label>
+        <input type="file" id="input">
+    </div>
+</form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/talk_admin.js"></script>
+<script>
+var avatar="${hpp_userimage}";
+var username="${username[0]}";
+new hpp_talk({
+id:"hpp_talk",
+back: "/hpp/api/gethpptalk"
+});
+$(function(){
+		$("#mdeditor").markdown({language:'zh'})
+});
+</script>
+`
                 if (path == '/hpp/admin/api/kick') {
 
                     const now = Date.now(new Date())
@@ -693,6 +747,11 @@ async function handleRequest(request) {
                 }
                 if (path == '/hpp/admin/imgsmanager') {
                     return new Response(hpp_filemanager_img, {
+                        headers: { "content-type": "text/html;charset=UTF-8" }
+                    })
+                }
+                if (path == '/hpp/admin/talk') {
+                    return new Response(hpp_admintalkhtml, {
                         headers: { "content-type": "text/html;charset=UTF-8" }
                     })
                 }
@@ -839,10 +898,10 @@ async function handleRequest(request) {
                     const now = await request.json()
                     const add = {
                         id: hpp_talk_id,
-                        time: now[0]["time"],
-                        name: now[0]["name"],
-                        avatar: now[0]["avatar"],
-                        content: now[0]["content"]
+                        time: now["time"],
+                        name: now["name"],
+                        avatar: now["avatar"],
+                        content: now["content"]
                     }
                     hpp_talk.push(add);
                     await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
@@ -907,9 +966,16 @@ async function handleRequest(request) {
         }
         if (path == "/hpp/api/gethpptalk") {
             const hpp_talk = await KVNAME.get("hpp_talk_data");
-            return new Response(hpp_talk)
+            return new Response(hpp_talk, {
+                headers: {
+                    "content-type": "application/json;charset=UTF-8",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            })
         }
-        return new Response(hpp_errorhtml, {
+    }
+    if (path == "/hpp/previewtalk") {
+        return new Response(hpp_talkhtml, {
             headers: { "content-type": "text/html;charset=UTF-8" }
         })
     }
