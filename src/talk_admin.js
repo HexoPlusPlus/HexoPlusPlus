@@ -160,7 +160,7 @@ function hpp_uploadimage(image,f_name,_inner){
             }
 		else if( ajax.status == 201 ){
 		    input.disabled=false
-			document.getElementById('mdeditor').value=_inner+"\n![\"请输入描述\"](\""+ajax.responseText+"\")";
+			document.getElementById('mdeditor').value=_inner+"\n![\"请输入描述\"]("+ajax.responseText+")";
             }
             else {
                 sweetAlert("糟糕", "上传图片失败!", "error");
