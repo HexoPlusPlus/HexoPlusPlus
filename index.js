@@ -1,5 +1,5 @@
-const hpp_CDNver = "92c36fd"
-const hpp_ver = "HexoPlusPlus@0.1.2"
+const hpp_CDNver = "5d46239"
+const hpp_ver = "HexoPlusPlus@0.1.3"
 let hpp_talkhtml = `
 <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/talk.css" /> 
@@ -173,9 +173,19 @@ let hpp_installhtml = `<!doctype html>
 			  <h3>附加功能</h3>
 			  <p>是否自动签到【是为True，否为False】:</p>    
 		      <input type="text" class="input_text" id="hpp_autodate" value="False" />
+              <h3>CloudFlare访问功能</h3>
+			  <p>Global API Key:</p>    
+		      <input type="text" class="input_text" id="hpp_CF_Auth_Key" value="***" />
+              <p>目标Workers名称:</p>    
+		      <input type="text" class="input_text" id="hpp_script_name" value="HexoPlusPlus" />
+              <p>Workers账户ID:</p>    
+		      <input type="text" class="input_text" id="hpp_account_identifier" value="***" />
+              <p>账户登录邮箱:</p>    
+		      <input type="text" class="input_text" id="hpp_Auth_Email" value="ABC@DEF.com" />
+
 		    </div>
 		  
-		    <div class="cont_join_form_finish">
+		    <div class="cont_join_form_finish" style="display:none">
 		      <h2>完成</h2>  
 		    </div>
 
@@ -234,8 +244,8 @@ async function handleRequest(request) {
     const urlObj = new URL(urlStr)
     const path = urlObj.href.substr(urlObj.origin.length)
     const domain = (urlStr.split('/'))[2]
-    const username=hpp_username.split(",");
-    const password=hpp_password.split(",");
+    const username = hpp_username.split(",");
+    const password = hpp_password.split(",");
     for (var i = 0; i < getJsonLength(username); i++) {
         if (getCookie(request, "password") == md5(password[i]) && getCookie(request, "username") == md5(username[i])) {
             hpp_logstatus = 1
@@ -274,6 +284,10 @@ async function handleRequest(request) {
                 const hpp_githubimagepath = config["hpp_githubimagepath"]
                 const hpp_githubimagebranch = config["hpp_githubimagebranch"]
                 const hpp_autodate = config["hpp_autodate"]
+                const hpp_account_identifier = config["hpp_account_identifier"]
+                const hpp_script_name = config["hpp_script_name"]
+                const hpp_CF_Auth_Key = config["hpp_CF_Auth_Key"]
+                const hpp_Auth_Email = config["hpp_Auth_Email"]
                 if (hpp_autodate == "True") {
                     const now = Date.now(new Date())
                     await KVNAME.put("hpp_activetime", now)
@@ -362,7 +376,7 @@ async function handleRequest(request) {
 						</a>
 					</li>
 					<li>
-						<a href="javascript:jQuery.getScript\(\'https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@main/update.js\'\)" title="Update">
+						<a href="javascript:jQuery.getScript\(\'/hpp/admin/api/checkupdate'\)" title="Update">
 							<i class="fa fa-upload"></i>
 						</a>
 					</li>
@@ -709,7 +723,7 @@ background-color:#bbb;
 <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/bm.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/bm.zh.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
-<div id="hpp_talk"></div>
+
 <div class="markdown_editor" style="position: initial;">
 <textarea id="mdeditor" name="content" rows="10"></textarea>
                <form id="upform" enctype='multipart/form-data' style="display:none;">
@@ -719,7 +733,7 @@ background-color:#bbb;
     </div>
 </form>
 </div>
-
+<div id="hpp_talk"></div>
 <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/talk_admin.js"></script>
 <script>
 var avatar="${hpp_userimage}";
@@ -913,11 +927,29 @@ $(function(){
                     const now = Number(await request.text())
                     for (var i = 0; i < getJsonLength(hpp_talk); i++) {
                         if (Number(hpp_talk[i]["id"]) == now) {
-                            hpp_talk.pop(i)
+                            hpp_talk.splice(i, 1)
                         }
                     }
                     await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
                     return new Response('OK')
+                }
+                if (path == "/hpp/admin/api/update") {
+                    const update_script = await (await fetch('https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/dist/index.js')).text()
+                    const up_init = {
+                        body: update_script,
+                        method: "PUT",
+                        headers: {
+                            "content-type": "application/javascript",
+                            "X-Auth-Key": hpp_CF_Auth_Key,
+                            "X-Auth-Email": hpp_Auth_Email
+                        }
+                    }
+                    const update_resul = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${hpp_account_identifier}/workers/scripts/${hpp_script_name}`, up_init)).text()
+                    return new Response(JSON.parse(update_resul)["success"])
+                }
+                if (path.startsWith("/hpp/admin/api/checkupdate")) {
+                    const update_check_script = await (await fetch('https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/update.js')).text()
+                    return new Response(update_check_script, { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
                 }
                 if (path == "/hpp/admin/dash") {
                     return new Response(hpp_adminhtml, {
