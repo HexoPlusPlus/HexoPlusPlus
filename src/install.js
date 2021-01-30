@@ -79,7 +79,11 @@ function start() {
 			"hpp_githubimagerepo":document.getElementById("hpp_githubimagerepo").value,
 			"hpp_githubimagepath":document.getElementById("hpp_githubimagepath").value,			
 			"hpp_githubimagebranch":document.getElementById("hpp_githubimagebranch").value,
-			"hpp_autodate":document.getElementById("hpp_autodate").value	
+			"hpp_autodate":document.getElementById("hpp_autodate").value,
+			"hpp_account_identifier":document.getElementById("hpp_account_identifier").value,
+			"hpp_script_name":document.getElementById("hpp_script_name").value,			
+			"hpp_CF_Auth_Key":document.getElementById("hpp_CF_Auth_Key").value,
+			"hpp_Auth_Email":document.getElementById("hpp_Auth_Email").value	
 			};
         var ajax = ajaxObject();
         ajax.open("post", '/hpp/admin/api/upconfig', true);
@@ -93,7 +97,7 @@ function start() {
                     500);
 					t++;
 					document.querySelector('.cont_form_join').style.bottom = '-420px';
-					setTimeout(window.location.reload(),3000)
+					setTimeout(window.location.reload(),5000)
                 } else {
 document.getElementById("butttt").innerHTML = "配置上传失败，请重试"
 }
