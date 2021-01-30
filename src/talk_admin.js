@@ -36,9 +36,18 @@ body=JSON.stringify(body)
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
-                sweetAlert("成功",  "说说已上传", "success");
-		mdeditor.disabled=false;
-		window.location.reload();
+                swal("成功上传说说", {
+  icon: "success",
+  buttons: {
+    yes: "是"
+  },
+})
+.then((value) => {
+  switch (value) {
+    default:
+	  window.location.reload();
+  }
+});
             }
             else {
                 sweetAlert("糟糕", "上传说说失败!", "error");
@@ -114,7 +123,18 @@ var ajax = ajaxObject();
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
-		if( ajax.status == 200 ) {sweetAlert("成功",  "说说已删除", "success");window.location.reload();}}}
+		if( ajax.status == 200 ) {swal("已删除！", {
+  icon: "success",
+  buttons: {
+    yes: "是"
+  },
+})
+.then((value) => {
+  switch (value) {
+    default:
+	  window.location.reload();
+  }
+});}}}
 	ajax.send(id)
 }
 
