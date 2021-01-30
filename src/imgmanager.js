@@ -91,8 +91,18 @@ function ajaxObject() {
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
-            sweetAlert("成功！",  "文件已删除", "success");
-			window.location.reload();
+            swal("已删除！", {
+  icon: "success",
+  buttons: {
+    yes: "是"
+  },
+})
+.then((value) => {
+  switch (value) {
+    default:
+	  window.location.reload();
+  }
+});
             }
 		else{
 			swal({
