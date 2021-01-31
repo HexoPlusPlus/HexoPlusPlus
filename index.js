@@ -1,5 +1,5 @@
-const hpp_CDNver = "5d46239"
-const hpp_ver = "HexoPlusPlus@0.1.3"
+const hpp_CDNver = "810cd1e"
+const hpp_ver = "HexoPlusPlus@0.1.4"
 let hpp_talkhtml = `
 <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/talk.css" /> 
