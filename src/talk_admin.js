@@ -22,7 +22,7 @@ function hpp_uploadmarkdown(){
 mdeditor.disabled=true;
 let con=document.getElementById("mdeditor").value;
 let date = new Date();
-let time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+let time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +date.getHours()+":"+date.getMinutes();
 let body={
 "time": time,
 "content": con,
