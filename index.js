@@ -1,5 +1,5 @@
 const hpp_CDNver = "810cd1e"
-const hpp_ver = "HexoPlusPlus@0.1.4"
+const hpp_ver = "HexoPlusPlus@0.1.5"
 let hpp_logstatus = 0
 
 function getJsonLength(jsonData) {
