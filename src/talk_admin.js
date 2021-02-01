@@ -22,7 +22,7 @@ function hpp_uploadmarkdown(){
 mdeditor.disabled=true;
 let con=document.getElementById("mdeditor").value;
 let date = new Date();
-let time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+let time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +date.getHours()+":"+date.getMinutes();
 let body={
 "time": time,
 "content": con,
@@ -90,10 +90,9 @@ var ajax = ajaxObject();
 document.getElementById("hpp_talk_list").innerHTML+=`<div id="${res[i]["id"]}" class="comment-body comment-parent comment-odd comment-by-user"> 
      <a class="pull-left thumb-sm avatar m-l-n-md"> <img nogallery="" src="${res[i]["avatar"]}" class="img-40px photo img-square normal-shadow"> <\/a> 
      <div class="time-machine m-l-lg panel box-shadow-wrap-normal"> 
-      <div class="panel-heading pos-rlt b-b b-light"> 
-       <span class="arrow left"><strong>  ${res[i]["name"]}</strong><\/span>
-       <span class="text-muted m-l-sm pull-right" datetime="${res[i]["time"]}">${res[i]["time"]}<\/span> 
-      <\/div> 
+      <div class="panel-heading pos-rlt b-b b-light">
+       <span class="text-muted m-l-sm pull-right" datetime="${res[i]["time"]}"><strong class="talk_mobile_hide">  ${res[i]["name"]}·</strong>${res[i]["time"]}<\/span> 
+      <\/div>
       <div class="panel-body comment-content-true"> 
        <p>${mark_content}<\/p> 
       <\/div> 
