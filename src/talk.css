@@ -349,7 +349,6 @@ ol {
     -moz-box-shadow: 0 8px 10px rgba(255,112,173,0.35);
 }
 .panel {
-    cursor: pointer;
     transition: all 0.6s;
 }
 
