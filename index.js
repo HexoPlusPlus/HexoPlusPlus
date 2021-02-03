@@ -180,7 +180,7 @@ async function handleRequest(request) {
                 const hpp_Auth_Email = config["hpp_Auth_Email"]
                 const hpp_twikoo_envId = config["hpp_twikoo-envId"]
 				const hpp_OwO = config["hpp_OwO"]
-                const hpp_twikoo_envId = config["hpp_back"]
+                const hpp_back = config["hpp_back"]
                 if (hpp_autodate == "True") {
                     const now = Date.now(new Date())
                     await KVNAME.put("hpp_activetime", now)
