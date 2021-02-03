@@ -1048,7 +1048,7 @@ if(res==1){
         }
         if (path == "/hpp/api/twikoo") {
             const hpp_config = await JSON.parse(await JSON.parse(await KVNAME.get("hpp_config")));
-            const env_id = hpp_config["hpp_twikoo-envId"]
+            const env_id = hpp_config["hpp_twikoo_envId"]
             const hpp_cors = hpp_config["hpp_cors"]
             const url = "https://tcb-api.tencentcloudapi.com/web?env=" + env_id
             async function get_refresh_token() {
@@ -1119,7 +1119,8 @@ if(res==1){
             let refresh_token = await KVNAME.get("hpp_comment_refresh_token")
             let access_token = await KVNAME.get("hpp_comment_access_token")
             let val = await get_comment(access_token, path, before)
-            if (await JSON.parse(val)['code'] == 'CHECK_LOGIN_FAILED') {
+			let twikoo_code=await JSON.parse(val)['code']
+            if (twikoo_code == 'CHECK_LOGIN_FAILED' | twikoo_code == 'INVALID_PARAM') {
                 refresh_token = await get_refresh_token()
                 await KVNAME.put("hpp_comment_refresh_token", refresh_token)
                 access_token = await get_access_token(refresh_token)
