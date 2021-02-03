@@ -1,5 +1,6 @@
-const hpp_CDNver = "94bebad"
-const hpp_ver = "HexoPlusPlus@0.2.0"
+const hpp_CDNver = "4aa102e"
+const hpp_ver = "HexoPlusPlus@1.0.0"
+const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
 function getJsonLength(jsonData) {
@@ -67,7 +68,7 @@ async function handleRequest(request) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>${hpp_ver}安装</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/install.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/install.css">
 </head>
 <body>
 		<div class="cont_principal">
@@ -92,6 +93,11 @@ async function handleRequest(request) {
 		      <input type="text" class="input_text" id="hpp_usericon" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/chenyfan.github.io/favicon.ico"/>
 		      <p>跨域请求:</p>    
 			  <input type="text" class="input_text" id="hpp_cors" placeholder="*"/>
+			  <h3 style="color:#fff">面板配置</h3>
+			  <p>OwOJSON地址:</p>    
+              <input type="text" class="input_text" id="hpp_OwO" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/CDN@ca3ea6c/assets/list.json" />
+			  <p>面板背景图片:</p>    
+              <input type="text" class="input_text" id="hpp_back" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg" />
 			  <h3 style="color:#fff">Github信息</h3>
 		      <p>Github文档仓库Token:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdoctoken" placeholder="*********"/>
@@ -127,7 +133,8 @@ async function handleRequest(request) {
 		      <input type="text" class="input_text" id="hpp_Auth_Email" placeholder="ABC@DEF.com" />
               <h3 style="color:#fff">Twikoo加强</h3>
               <p>Twikoo环境ID:</p>    
-              <input type="text" class="input_text" id="hpp_twikoo-envId" placeholder="xxx" />
+              <input type="text" class="input_text" id="hpp_twikoo_envId" placeholder="xxx" />
+			  
 		    </div>
 		  
 		    <div class="cont_join_form_finish" style="display:none">
@@ -141,7 +148,7 @@ async function handleRequest(request) {
 		</div>
 	</div>
 	
-	<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/install.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/install.js"></script>
 </body>
 </html>`
                     return new Response(hpp_installhtml, {
@@ -172,6 +179,8 @@ async function handleRequest(request) {
                 const hpp_CF_Auth_Key = config["hpp_CF_Auth_Key"]
                 const hpp_Auth_Email = config["hpp_Auth_Email"]
                 const hpp_twikoo_envId = config["hpp_twikoo-envId"]
+				const hpp_OwO = config["hpp_OwO"]
+                const hpp_twikoo_envId = config["hpp_back"]
                 if (hpp_autodate == "True") {
                     const now = Date.now(new Date())
                     await KVNAME.put("hpp_activetime", now)
@@ -193,467 +202,509 @@ async function handleRequest(request) {
                         "Authorization": "token " + hpp_githubdoctoken
                     },
                 }
-
-
-                const hpp_adminhtml = `
-
-<!doctype html>
-<html lang="zh">
-<head>
-	<meta charset="UTF-8">                                  
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>${hpp_title}</title>
-	<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
-	<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.4.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css">  
-	<link rel="shortcut icon" href="${hpp_usericon}" type="image/x-icon" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/admin.css">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/gh/markusslima/bootstrap-filestyle@gh-pages/1.2.3/js/bootstrap-filestyle.min.js"></script>
-	
-		</head>
-<body>
-	
-		<div class="container pb30">
-			<div class="clear-backend">
-			<div class="avatar">
-				<div>
-					<a href="/" target="_blank">
-						<img src="${hpp_userimage}" alt="">
-					</a>
-				</div>
-			</div>
-
-			<!-- tab-menu -->
-			<input type="radio" class="tab-1" name="tab" checked="checked">
-			<span>主页</span><i class="fa fa-home"></i>
-
-			<input type="radio" class="tab-2" name="tab">
-			<span>书写</span><i class="fa fa-medium"></i>
-	<input type="radio" class="tab-3" name="tab">
-			<span>说说</span><i class="fa fa-wechat"></i>
-			<input type="radio" class="tab-5" name="tab">
-			<span>信息</span><i class="fa fa-info"></i>
-            <input type="radio" class="tab-6" name="tab">
-			<span>图片</span><i class="fa fa-photo"></i>
-            <input type="radio" class="tab-7" name="tab">
-			<span>文档</span><i class="fa fa-book"></i>
-		
-			
-		<!--			
-			<input type="radio" class="tab-8" name="tab">
-			<span>--</span><i class="fa fa-line-chart"></i>
-			
-			<input type="radio" class="tab-9" name="tab">
-			<span>--</span><i class="fa fa-link"></i>
-			
-			<input type="radio" class="tab-10" name="tab">
-			<span>--</span><i class="fa fa-cog"></i>
--->
-			<div class="top-bar">
-				<ul>
-					<li>
-						<a href="javascript:hpp_logout()" title="Log Out">
-							<i class="fa fa-sign-out"></i>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:jQuery.getScript\(\'/hpp/admin/api/checkupdate'\)" title="Update">
-							<i class="fa fa-upload"></i>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:kick()" title="签到">
-							<i class="fa fa-paper-plane"></i>
-						</a>
-					</li>
-				</ul>
-			</div>
-
-			<!-- tab-content -->
-			<div class="tab-content">
-				<section class="tab-item-1">
-                <h1 style="text-align: center;">Hi~ o(*￣▽￣*)ブ</h1>
-                <h1 style="text-align: center;">欢迎使用HexoPlusPlus</h1>
-                <div style="text-align: center;">
-                <button type="button" class="btn btn-primary" onclick="artitalk_into_hpptalk()">从Artitalk迁入</button>
-                <button type="button" class="btn btn-danger" onclick="del_all()">重新安装</button>
+                /*主面板*/
+                if (path.startsWith("/hpp/admin/dash")) {
+                    let hpp_home_act = ""
+                    let hpp_edit_act = ""
+                    let hpp_talk_act = ""
+                    let hpp_docs_man_act = ""
+                    let hpp_img_man_act = ""
+                    let hpp_set_act = ""
+                    let hpp_js = ""
+                    let hpp_init = `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`
+                    if (path == "/hpp/admin/dash/home") {
+                        hpp_home_act = " active"
+                        hpp_init = `<div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-file"></i>
+                  </div>
+                  <p class="card-category">总文档数</p>
+                  <h3 class="card-title" id="document_all">NaN
+                    <small>个</small>
+                  </h3>
                 </div>
-<div style="text-align: center;">
-                
-					<button type="button" class="btn btn-warning" onclick="location.href='https://github.com/HexoPlusPlus/HexoPlusPlus'">Github</button>
-				<button type="button" class="btn btn-warning" onclick="location.href='https://hexoplusplus.js.org/'">文档</button>
-                <button type="button" class="btn btn-success" onclick="location.href='https://jq.qq.com/?_wv=1027&k=rAcnhzqK'">QQ群</button>
+                <div class="card-footer">
+				<div class="stats">
+                    <a href="/hpp/admin/dash/edit"><i class="fa fa-pencil"></i>前往管理</a>
+                  </div>
                 </div>
-				</section>
-				<section class="tab-item-2">
-				
-				<select id="choo" class="form-control form-control-chosen" style="display: inline;"></select>
-<button onclick="getdoc();" class="btn-sm btn btn-success">GET</button>
-
-					<div class="markdown_editor" style="position: initial;">
-				<textarea id="mdeditor" name="content" rows="10"></textarea>
-                <form id="upform" enctype='multipart/form-data' style="display:none;">
-    <div class="form-group">
-        <label for="upteainput">上传文件</label>
-        <input type="file" id="input">
-    </div>
-</form>
-			</div>
-				</section>
-				<section class="tab-item-3">
-                <iframe id="talk" src="" style=" width: 100%;    height: 100%;    border: medium none;"></iframe>
-				</section>
-				<section class="tab-item-5">
-					<table class="table table-striped">
-  <caption>后端信息表</caption>
-  <thead>
-    <tr>
-      <th>目标</th>
-      <th>键值</th>
-    </tr>
-  </thead>
-  <tbody>
-  <tr>
-      <td>当前版本</td>
-      <td>${hpp_ver}</td>
-    </tr>
-    <tr>
-      <td>绑定的域名</td>
-      <td>${hpp_domain}</td>
-    </tr>
-    <tr>
-      <td>用户头像</td>
-      <td>${hpp_userimage}</td>
-    </tr>
-    <tr>
-      <td>用户icon</td>
-      <td>${hpp_usericon}</td>
-    </tr>
-    <tr>
-      <td>跨域</td>
-      <td>${hpp_cors}</td>
-    </tr>
-    <tr>
-      <td>CDN版本</td>
-      <td>${hpp_CDNver}</td>
-    </tr>
-    <tr>
-      <td>Github文档存储用户名</td>
-      <td>${hpp_githubdocusername}</td>
-    </tr>
-    <tr>
-      <td>Github文档存储仓库名</td>
-      <td>${hpp_githubdocrepo}</td>
-    </tr>
-    <tr>
-      <td>Github文档存储路径</td>
-      <td>${hpp_githubdocpath}</td>
-    </tr>
-    <tr>
-      <td>Github文档存储分支</td>
-      <td>${hpp_githubdocbranch}</td>
-    </tr>
-    <tr>
-      <td>Github图片存储用户名</td>
-      <td>${hpp_githubimageusername}</td>
-    </tr>
-    <tr>
-      <td>Github图片存储仓库名</td>
-      <td>${hpp_githubimagerepo}</td>
-    </tr>
-    <tr>
-      <td>Github图片存储路径</td>
-      <td>${hpp_githubimagepath}</td>
-    </tr>
-    <tr>
-      <td>Github图片存储分支</td>
-      <td>${hpp_githubimagebranch}</td>
-    </tr>
-    <tr>
-      <td>CDN节点位置</td>
-      <td id="cdn"></td>
-    </tr>
-     <tr>
-      <td>用户IP</td>
-      <td id="ip"></td>
-    </tr>
-    <tr>
-      <td>User-Agent</td>
-      <td id="uag"></td>
-    </tr>
-    <tr>
-      <td>是否以HTTPS方式连接</td>
-      <td id="httpos"></td>
-    </tr>
-    <tr>
-      <td>HTTP连接版本</td>
-      <td id="http"></td>
-    </tr>
-    <tr>
-      <td>用户所处地区</td>
-      <td id="loc"></td>
-    </tr>
-    <tr>
-      <td>SSL版本</td>
-      <td id="tls"></td>
-    </tr>
-    <tr>
-      <td>是否使用Warp</td>
-      <td id="warp"></td>
-    </tr>
-  </tbody>
-</table>
-				</section>
-				
-                <section class="tab-item-6">
-                <iframe id="imgman" src="" style=" width: 100%;    height: 100%;    border: medium none;"></iframe>
-				</section>
-                <section class="tab-item-7">
-                <iframe id="docman" src="" style=" width: 100%;    height: 100%;    border: medium none;"></iframe>
-				</section>
-			</div>
-		</div>
-	
-	<script>
-    const hpp_now= '${hpp_ver}';
-    const hpp_ver = '${hpp_ver}';
-	function hpp_logout(){
-	document.cookie="username=";  document.cookie="password=";  location.reload();
-	};
-	</script>
-	<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/bm.js"></script>
-	<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/bm.zh.js"></script>
-	
-	<script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/admin.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
-	
-</body>
-</html>
-`
-                const hpp_filemanager_p1 = `<!DOCTYPE html>
-<html lang="zh">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/filemanager.css" />
-	<link rel="shortcut icon" href="${hpp_usericon}" type="image/x-icon" />
-    <style>
-    ::-webkit-scrollbar-track-piece {
-background-color:#f8f8f8;
-}
-::-webkit-scrollbar {
-width:9px;
-height:9px;
-}
-::-webkit-scrollbar-thumb {
-background-color:#dddddd;
-background-clip:padding-box;
-min-height:28px;
-}
-::-webkit-scrollbar-thumb:hover {
-background-color:#bbb;
-}
-</style>
-`
-                const hpp_filemanager_docs1 = `
-	<title>${hpp_title}-文档资源管理器</title>
-	<script>
-	const hpp_githubdocusername = "${hpp_githubdocusername}"
-	const hpp_githubdocrepo = "${hpp_githubdocrepo}"
-	const hpp_githubdocpath = "${hpp_githubdocpath}"
-	const hpp_githubdocbranch = "${hpp_githubdocbranch}"
-	</script>
-`
-                const hpp_filemanager_img1 = `
-	<title>${hpp_title}-图片资源管理器</title>
-	<script>
-	const hpp_githubimageusername = "${hpp_githubimageusername}"
-	const hpp_githubimagerepo = "${hpp_githubimagerepo}"
-	const hpp_githubimagepath = "${hpp_githubimagepath}"
-	const hpp_githubimagebranch = "${hpp_githubimagebranch}"
-	</script>
-`
-                const hpp_filemanager_p2 = `
-
-</head>
-<body>
-    <div class="loader">
-      <div class="lds-ripple">
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-    <section class="grid-holder">
-      <div class="grid-list-layout">
-        <nav class="navigation">
-        </nav>
-        
-        <div class="grid-list-holder">
-          <span class="grid-layout active">
-          <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-      viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-          <g>
-            <g>
-              <path d="M176.792,0H59.208C26.561,0,0,26.561,0,59.208v117.584C0,209.439,26.561,236,59.208,236h117.584
-                C209.439,236,236,209.439,236,176.792V59.208C236,26.561,209.439,0,176.792,0z M196,176.792c0,10.591-8.617,19.208-19.208,19.208
-                H59.208C48.617,196,40,187.383,40,176.792V59.208C40,48.617,48.617,40,59.208,40h117.584C187.383,40,196,48.617,196,59.208
-                V176.792z"/>
-            </g>
-          </g>
-          <g>
-            <g>
-              <path d="M452,0H336c-33.084,0-60,26.916-60,60v116c0,33.084,26.916,60,60,60h116c33.084,0,60-26.916,60-60V60
-                C512,26.916,485.084,0,452,0z M472,176c0,11.028-8.972,20-20,20H336c-11.028,0-20-8.972-20-20V60c0-11.028,8.972-20,20-20h116
-                c11.028,0,20,8.972,20,20V176z"/>
-            </g>
-          </g>
-          <g>
-            <g>
-              <path d="M176.792,276H59.208C26.561,276,0,302.561,0,335.208v117.584C0,485.439,26.561,512,59.208,512h117.584
-                C209.439,512,236,485.439,236,452.792V335.208C236,302.561,209.439,276,176.792,276z M196,452.792
-                c0,10.591-8.617,19.208-19.208,19.208H59.208C48.617,472,40,463.383,40,452.792V335.208C40,324.617,48.617,316,59.208,316h117.584
-                c10.591,0,19.208,8.617,19.208,19.208V452.792z"/>
-            </g>
-          </g>
-          <g>
-            <g>
-              <path d="M452,276H336c-33.084,0-60,26.916-60,60v116c0,33.084,26.916,60,60,60h116c33.084,0,60-26.916,60-60V336
-                C512,302.916,485.084,276,452,276z M472,452c0,11.028-8.972,20-20,20H336c-11.028,0-20-8.972-20-20V336c0-11.028,8.972-20,20-20
-                h116c11.028,0,20,8.972,20,20V452z"/>
-            </g>
-          </g>
-          <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g>
-          </svg>
-        </span>
-          <span class="list-layout">
-          <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-      viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-    <g>
-      <g>
-        <path d="M100.923,0C64.276,0,34.462,29.814,34.462,66.462s29.814,66.462,66.462,66.462c36.647,0,66.462-29.814,66.462-66.462
-          S137.57,0,100.923,0z M100.923,103.385C80.563,103.385,64,86.821,64,66.462s16.563-36.923,36.923-36.923
-          c20.36,0,36.923,16.563,36.923,36.923S121.283,103.385,100.923,103.385z"/>
-      </g>
-    </g>
-    <g>
-      <g>
-        <path d="M462.769,22.154h-256c-8.157,0-14.769,6.613-14.769,14.769V96c0,8.157,6.613,14.769,14.769,14.769h256
-          c8.157,0,14.769-6.613,14.769-14.769V36.923C477.538,28.767,470.926,22.154,462.769,22.154z M448,81.231H221.538V51.692H448
-          V81.231z"/>
-      </g>
-    </g>
-    <g>
-      <g>
-        <path d="M100.923,189.538c-36.647,0-66.462,29.814-66.462,66.462s29.814,66.462,66.462,66.462
-          c36.647,0,66.462-29.814,66.462-66.462S137.57,189.538,100.923,189.538z M100.923,292.923C80.563,292.923,64,276.36,64,256
-          s16.563-36.923,36.923-36.923c20.36,0,36.923,16.563,36.923,36.923S121.283,292.923,100.923,292.923z"/>
-      </g>
-    </g>
-    <g>
-      <g>
-        <path d="M462.769,211.692h-256c-8.157,0-14.769,6.613-14.769,14.769v59.077c0,8.157,6.613,14.769,14.769,14.769h256
-          c8.157,0,14.769-6.613,14.769-14.769v-59.077C477.538,218.305,470.926,211.692,462.769,211.692z M448,270.769H221.538v-29.538H448
-          V270.769z"/>
-      </g>
-    </g>
-    <g>
-      <g>
-        <path d="M100.923,379.077c-36.647,0-66.462,29.814-66.462,66.462S64.276,512,100.923,512c36.647,0,66.462-29.814,66.462-66.462
-          S137.57,379.077,100.923,379.077z M100.923,482.462c-20.36,0-36.923-16.563-36.923-36.923c0-20.36,16.563-36.923,36.923-36.923
-          c20.36,0,36.923,16.563,36.923,36.923C137.846,465.898,121.283,482.462,100.923,482.462z"/>
-      </g>
-    </g>
-    <g>
-      <g>
-        <path d="M462.769,401.231h-256c-8.157,0-14.769,6.613-14.769,14.769v59.077c0,8.157,6.613,14.769,14.769,14.769h256
-          c8.157,0,14.769-6.613,14.769-14.769V416C477.538,407.843,470.926,401.231,462.769,401.231z M448,460.308H221.538v-29.538H448
-          V460.308z"/>
-      </g>
-    </g>
-    <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g> <g></g>
-          </svg>
-        </span>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-image"></i>
+                  </div>
+                  <p class="card-category">总图片数</p>
+                  <h3 class="card-title" id="img_all">NaN
+                    <small>张</small>
+                  </h3>
+                </div>
+                <div class="card-footer">
+				<div class="stats">
+                    <a href="/hpp/admin/dash/img_man"><i class="fa fa-upload"></i>前往管理</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md- col-sm-6">
+              <a href="javascript:jQuery.getScript('/hpp/admin/api/checkupdate');">
+              <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-upload"></i>
+                  </div>
+                  <p class="card-category">当前版本</p>
+                  <h3 class="card-title">${hpp_ver}</h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons">update</i>点击更新
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <a href="javascript:hpp_del_all()">
+              <div class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-close"></i>
+                  </div>
+                  <h3 class="card-title">销毁配置</h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons text-danger">warning</i>高危操作
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+			
+			<div class="col-lg-6 col-md-6 col-sm-6">
+              <a href="javascript:hpp_artitalk_into_hpptalk()">
+              <div class="card card-stats">
+                <div class="card-header card-header-primary card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-download"></i>
+                  </div>
+                  <h3 class="card-title">从Artitalk中导入</h3>
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+            </a>
+            </div>
+			
+			<div class="col-lg-6 col-md-6 col-sm-6">
+              <a href="https://jq.qq.com/?_wv=1027&k=rAcnhzqK" target="_blank">
+              <div class="card card-stats">
+                <div class="card-header card-header-normal card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-qq"></i>
+                  </div>
+                  <h3 class="card-title">QQ群聊天去？</h3>
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+            </a>
+            </div>
+			
+			<div class="col-lg-6 col-md-6 col-sm-6">
+              <a href="https://hexoplusplus.js.org" target="_blank">
+              <div class="card card-stats">
+                <div class="card-header card-header-normal card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-book"></i>
+                  </div>
+                  <h3 class="card-title">文档地址</h3>
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+            </a>
+            </div>
+			
+          </div>
         </div>
-      </div>
-      <div class="grid masonry" id="item-all">     
-      </div>
-    </section>
-	<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4" type="text/javascript"></script>
-`
-                const hpp_filemanager_docs2 = `
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/filemanager.js"></script>
-</body>
-</html>`
-                const hpp_filemanager_img2 = `
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/imgmanager.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>
-</body>
-</html>`
-
-
-                const hpp_filemanager_docs = hpp_filemanager_p1 + hpp_filemanager_docs1 + hpp_filemanager_p2 + hpp_filemanager_docs2
-                const hpp_filemanager_img = hpp_filemanager_p1 + hpp_filemanager_img1 + hpp_filemanager_p2 + hpp_filemanager_img2
-                let hpp_admintalkhtml = `
-<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/talk.css" />
-<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css"> 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/bm.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/bm.zh.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
-<div class="markdown_editor" style="position: initial;">
-<textarea id="mdeditor" name="content" rows="10"></textarea>
-               <form id="upform" enctype='multipart/form-data' style="display:none;">
+      </div>`
+                        hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/home.js'></script>`
+                    }
+                    if (path == "/hpp/admin/dash/edit") {
+                        hpp_edit_act = " active"
+                        hpp_init = `<div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">书写</h4>
+                  <p class="card-category">Wrtie</p>
+                </div>
+              </br>
+                <div class="card-body">
+                          <div class="col-md-8">
+                              <label class="bmd-label-floating">文件选择</label>
+                              <select id="choo" class="form-control form-control-chosen" style="display: inline;"></select>
+							  <button type="submit" class="btn btn-success" onclick="javascript:hpp_get_md()">获取</button>
+                          </div>
+                        
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>内容</label>
+                              <div class="form-group"id="md-editor">
+                                <textarea id="doc_editor" type="text" name="type"></textarea>
+								
+                              </div><div class="OwO"></div>
+                            </div>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right" onclick="javascript:hpp_upload_md()">Upload</button>
+                        <div class="clearfix"></div>
+						<form id="upform" enctype='multipart/form-data' style="display:none;">
     <div class="form-group">
         <label for="upteainput">上传文件</label>
         <input type="file" id="input">
     </div>
 </form>
-</div>
-<div id="hpp_talk"></div>
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/talk_admin.js"></script>
-<script>
-var avatar="${hpp_userimage}";
-var username="${username[0]}";
-new hpp_talk({
-id:"hpp_talk",
-domain: window.location.host,
-limit: 10,
-start: 0
-});
-$(function(){
-		$("#mdeditor").markdown({language:'zh'})
-});
-</script>
-`
-                if (path == '/hpp/admin/api/kick') {
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`
+                        hpp_js = `<script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/editor.md/editormd.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/edit.js'></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
+                    }
+                    if (path == "/hpp/admin/dash/talk") {
+                        hpp_talk_act = " active"
+                        hpp_init = `<div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">说说</h4>
+                  <p class="card-category">Talk</p>
+                </div>
+              </br>
+                <div class="card-body">
+                          
+                        
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>书写</label>
+                              <div class="form-group"id="md-editor">
+                                <textarea id="doc_editor" type="text" name="type"></textarea>
+                              </div><div class="OwO"></div>
+                            </div>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right" onclick="javascript:hpp_upload_md()">Upload</button>
+                        <div class="clearfix"></div>
+						<form id="upform" enctype='multipart/form-data' style="display:none;">
+    <div class="form-group">
+        <label for="upteainput">上传文件</label>
+        <input type="file" id="input">
+    </div>
+</form><div id="hpp_talk"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`
+                        hpp_js = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.css" /><script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/editor.md/editormd.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.js'></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
+                    }
+                    if (path == "/hpp/admin/dash/docs_man") {
+                        hpp_docs_man_act = " active"
+                        hpp_init = `
+<div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">文章列表</h4>
+                  <p class="card-category">这里列出了你所有文章</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          名称
+                        </th>
+                        <th>
+                          大小
+                        </th>
+                        <th></th>
+                        <th></th><th></th><th></th>
+                      </thead>
+                      <tbody id="tbody_doc">
+						
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`
+                        hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/doc_man.js'></script>`
 
-                    const now = Date.now(new Date())
-                    await KVNAME.put("hpp_activetime", now)
-                    const hpp_kvwait = Date.now(new Date()) - now
-                    return new Response("OK")
-                }
-                if (path == '/hpp/admin/docsmanager') {
-                    return new Response(hpp_filemanager_docs, {
+                    }
+                    if (path == "/hpp/admin/dash/img_man") {
+                        hpp_img_man_act = " active"
+                        hpp_init = `<div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">图片列表</h4>
+                  <p class="card-category">这里列出了你所有图片</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          名称
+                        </th>
+                        <th>
+                          大小
+                        </th><th>预览</th>
+                        <th></th>
+                        <th></th><th></th><th></th>
+                      </thead>
+                      <tbody id="tbody_img">
+						
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`
+                        hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/img_man.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>`
+
+                    }
+					if (path == "/hpp/admin/dash/set") {
+                        hpp_set_act = " active"
+                        hpp_init = `<div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">配置</h4>
+                  <p class="card-category">请根据需要修改配置</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          键值
+                        </th>
+                        <th>
+                          内容
+                        </th><th>操作</th>
+                      </thead>
+                      <tbody id="tbody_config">
+						
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`
+						hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/config.js'></script>`
+					}
+                    let hpp_dash_head = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="${hpp_usericon}">
+  <link rel="icon" type="image/png" href="${hpp_usericon}">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>${hpp_title}</title>
+  <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/font.css" />
+  <link href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/admin_all.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/editor.md/css/editormd.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/${dev_mode_branch}/jquery-editable-select.min.css">
+  <script>
+  //这个脚本的用途是前端变量传递
+  const hpp_ver="${hpp_ver}";
+  const hpp_OwO="${hpp_OwO}";
+  const avatar="${hpp_userimage}";
+  const username="${username[0]}";
+  const hpp_githubdocusername = "${hpp_githubdocusername}"
+  const hpp_githubdocrepo ="${hpp_githubdocrepo}"
+  const hpp_githubdocbranch ="${hpp_githubdocbranch}"
+  const hpp_githubdocpath ="${hpp_githubdocpath}"
+  const hpp_githubimageusername = "${hpp_githubimageusername}"
+  const hpp_githubimagerepo ="${hpp_githubimagerepo}"
+  const hpp_githubimagebranch ="${hpp_githubimagebranch}"
+  const hpp_githubimagepath ="${hpp_githubimagepath}"
+  </script>
+</head>
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="${hpp_back}">
+      <div class="logo"><a class="simple-text logo-normal">${hpp_title}</a></div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item${hpp_home_act}">
+            <a class="nav-link" href="/hpp/admin/dash/home">
+              <i class="material-icons">dashboard</i>
+              <p>主页</p>
+            </a>
+          </li>
+          <li class="nav-item${hpp_edit_act}">
+            <a class="nav-link" href="/hpp/admin/dash/edit">
+              <i class="material-icons">create</i>
+              <p>书写</p>
+            </a>
+          </li>
+          <li class="nav-item${hpp_talk_act}">
+            <a class="nav-link" href="/hpp/admin/dash/talk">
+              <i class="material-icons">chat</i>
+              <p>说说</p>
+            </a>
+          </li>
+          <li class="nav-item${hpp_docs_man_act}">
+            <a class="nav-link" href="/hpp/admin/dash/docs_man">
+              <i class="material-icons">descriptionoutlined</i>
+              <p>文档管理</p>
+            </a>
+          </li>
+		  <li class="nav-item${hpp_img_man_act}">
+            <a class="nav-link" href="/hpp/admin/dash/img_man">
+              <i class="material-icons">imagerounded</i>
+              <p>图片管理</p>
+            </a>
+          </li>
+		  <li class="nav-item${hpp_set_act}">
+            <a class="nav-link" href="/hpp/admin/dash/set">
+              <i class="material-icons">settings</i>
+              <p>设置</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:;">HexoPlusPlus后台</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src="${hpp_userimage}" style="width: 30px;border-radius: 50%;border: 0;">
+                  <p class="d-lg-none d-md-block">
+                    Account
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                  <a class="dropdown-item" href="javascript:kick()">签到</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="javascript:hpp_logout()">退出</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar --> 
+
+<!--innerHTMLSTART-->`
+                    let hpp_dash_foot = `
+					<!--innerHTMLEND-->
+</div>
+</div>
+<!--
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap-material-design.min.js"></script>
+<script src="/static/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<script src="/static/js/plugins/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert/${dev_mode_branch}/sweetalert.min.js"></script>
+<script src="/static/js/plugins/jquery.validate.min.js"></script>
+<script src="/static/js/plugins/jquery.bootstrap-wizard.js"></script>
+<script src="/static/js/plugins/bootstrap-selectpicker.js"></script>
+<script src="/static/js/plugins/bootstrap-datetimepicker.min.js"></script>
+<script src="/static/js/plugins/jquery.dataTables.min.js"></script>
+<script src="/static/js/plugins/bootstrap-tagsinput.js"></script>
+<script src="/static/js/plugins/jasny-bootstrap.min.js"></script>
+<script src="/static/js/plugins/fullcalendar.min.js"></script>
+<script src="/static/js/plugins/jquery-jvectormap.js"></script>
+<script src="/static/js/plugins/nouislider.min.js"></script>
+<script src="/static/js/plugins/arrive.min.js"></script>
+<script src="/static/js/plugins/chartist.min.js"></script>
+<script src="/static/js/plugins/bootstrap-notify.js"></script>
+<script src="/static/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+<script src="/static/js/main.js"></script>我不知道原模板这么多js干什么，我只需要底下几个-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/admin_all.js"></script>
+	${hpp_js}
+
+</body>
+
+</html>`
+                    let hpp_dash = `${hpp_dash_head}${hpp_init}${hpp_dash_foot}`
+                    return new Response(hpp_dash, {
                         headers: { "content-type": "text/html;charset=UTF-8" }
                     })
-                }
-                if (path == '/hpp/admin/imgsmanager') {
-                    return new Response(hpp_filemanager_img, {
-                        headers: { "content-type": "text/html;charset=UTF-8" }
-                    })
-                }
-                if (path == '/hpp/admin/talk') {
-                    return new Response(hpp_admintalkhtml, {
-                        headers: { "content-type": "text/html;charset=UTF-8" }
-                    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 }
                 if (path.startsWith("/hpp/admin/api/adddoc/")) {
                     const file = await request.text()
@@ -824,7 +875,7 @@ $(function(){
                     return new Response('OK')
                 }
                 if (path == "/hpp/admin/api/update") {
-                    const update_script = await (await fetch('https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/dist/index.js')).text()
+                    const update_script = await (await fetch('https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/${dev_mode_branch}/index.js')).text()
                     const up_init = {
                         body: update_script,
                         method: "PUT",
@@ -871,12 +922,17 @@ $(function(){
                     await KVNAME.delete("hpp_config")
                     return new Response('OK')
                 }
-                if (path == "/hpp/admin/dash") {
-                    return new Response(hpp_adminhtml, {
-                        headers: { "content-type": "text/html;charset=UTF-8" }
-                    })
+				if (path == "/hpp/admin/api/get_config"){return new Response(await JSON.parse(hpp_config))}
+				if (path == "/hpp/admin/api/edit_config"){
+                    let req_con=await JSON.parse(await request.text())
+                    let _index=req_con["index"]
+                    let _value=req_con["value"]
+                    let k=await JSON.parse(await JSON.parse(hpp_config))
+                    k[_index]=_value
+                    k=await JSON.stringify(k)
+                    await KVNAME.put("hpp_config", await JSON.stringify(k))
+                    return new Response('OK')
                 }
-
             }
         }
         else {
@@ -899,7 +955,7 @@ $(function(){
 　　 a:hover { text-decoration:underline;color: white} 
 　　 a:visited { text-decoration: none;color: white}
   </style>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/login.css" /> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/login.css" /> 
  </head>
  <body>
   <div id="all">
@@ -931,9 +987,9 @@ $(function(){
     </ul>
    </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/md5.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.css"/>
+  <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/md5.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/${dev_mode_branch}/RVerify.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/${dev_mode_branch}/RVerify.min.css"/>
   <script>
   RVerify.configure({
   mask: 0.5,
@@ -946,7 +1002,7 @@ RVerify.action(function(res){
 if(res==1){
     document.cookie = "username=" + md5(document.getElementById("username").value);
     document.cookie = "password=" + md5(document.getElementById("password").value);
-    window.location.href = '/hpp/admin/dash';
+    window.location.href = '/hpp/admin/dash/home';
 }
 });
 
@@ -1104,8 +1160,8 @@ if(res==1){
     if (path == "/hpp/previewtalk") {
         let hpp_talkhtml = `
 <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/talk.css" /> 
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/talk.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.css" /> 
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.js"></script>
 <div id="hpp_talk"></div>
 <script>
 new hpp_talk({
@@ -1130,7 +1186,7 @@ start: 0
         <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <title>HexoPlusPlusError</title>
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/error.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/error.css" />
         <link href='http://fonts.googleapis.com/css?family=Raleway:200,400,800|Clicker+Script' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
@@ -1143,13 +1199,13 @@ start: 0
                 <div class="codrops-header">
                     <h1>HexoPlusPlus <span>-错误：不知道你的目的是什么</span></h1>
                     <nav class="codrops-demos">
-                        <a class="current-demo" href="/hpp/admin/dash">仪表盘</a>
+                        <a class="current-demo" href="/hpp/admin/dash/home">仪表盘</a>
                         <a class="current-demo" href="https://github.com/HexoPlusPlus/HexoPlusPlus">Github</a>
                     </nav>
                 </div>
             </div>
 		</div>
-        <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/dist/error.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/error.js"></script>
 	</body>
 </html>
 `

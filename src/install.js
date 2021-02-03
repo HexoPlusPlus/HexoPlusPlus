@@ -84,7 +84,9 @@ function start() {
 			"hpp_script_name":document.getElementById("hpp_script_name").value,			
 			"hpp_CF_Auth_Key":document.getElementById("hpp_CF_Auth_Key").value,
 			"hpp_Auth_Email":document.getElementById("hpp_Auth_Email").value,
-			"hpp_twikoo-envId":document.getElementById("hpp_twikoo-envId").value
+			"hpp_twikoo_envId":document.getElementById("hpp_twikoo_envId").value,
+			"hpp_OwO":document.getElementById("hpp_OwO").value,
+			"hpp_back":document.getElementById("hpp_back").value
 			};
         var ajax = ajaxObject();
         ajax.open("post", '/hpp/admin/api/upconfig', true);
