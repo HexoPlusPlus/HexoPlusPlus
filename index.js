@@ -1,4 +1,4 @@
-const hpp_CDNver = "94b54ea"
+const hpp_CDNver = "f5c1def"
 const hpp_ver = "HexoPlusPlus@1.0.1"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
@@ -682,8 +682,8 @@ async function handleRequest(request) {
 <script src="/static/js/main.js"></script>我不知道原模板这么多js干什么，我只需要底下几个-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
-<!--<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/admin_all.js"></script>
--->	<script src="https://static.cyfan.workers.dev/admin_all.js"></script>${hpp_js}
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/admin_all.js"></script>
+${hpp_js}
 
 </body>
 
