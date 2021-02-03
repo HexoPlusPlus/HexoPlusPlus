@@ -160,6 +160,7 @@ $(function() {
         var editor = editormd("md-editor", {
             width  : "100%",
 			markdown:content,
+			placeholder:"",
             toolbarIcons : function() {
             return ["undo", "redo", "|", "preview", "watch", "|", "upimage"]
 			},
@@ -182,6 +183,7 @@ $(function() {
         var editor = editormd("md-editor", {
             width  : "100%",
 			markdown:document.getElementById("doc_editor").value+'\n'+content,
+			placeholder:"",
             toolbarIcons : function() {
             return ["undo", "redo", "|", "preview", "watch", "|", "upimage"]
 			},
