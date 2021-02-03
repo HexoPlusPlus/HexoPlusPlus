@@ -1,0 +1,35 @@
+name: gulp
+
+on:
+  push:
+    branches: 
+      - dev
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: install&gulp
+      run: |
+        npm i gulp gulp-terser gulp-minify-css -D && npx gulp
+        gulp 
+        
+    - name: Commit
+      run: |
+        ls
+        rm -rf node_modules
+        git config --global user.email Hexopp-bot@email.com
+        git config --global user.name Hexopp-bot
+        git add . 
+        git commit -m ":zap: Successful minify" -a
+        
+    - name: Push
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.token }}
+        force: true
+        branch: dev
