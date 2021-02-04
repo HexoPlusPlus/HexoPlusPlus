@@ -1,4 +1,4 @@
-const hpp_CDNver = "9821525"
+const hpp_CDNver = "a9bc1d8"
 const hpp_ver = "HexoPlusPlus@1.0.2"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
@@ -179,9 +179,9 @@ async function handleRequest(request) {
                 const hpp_CF_Auth_Key = config["hpp_CF_Auth_Key"]
                 const hpp_Auth_Email = config["hpp_Auth_Email"]
                 const hpp_twikoo_envId = config["hpp_twikoo-envId"]
-				const hpp_OwO = config["hpp_OwO"]
+                const hpp_OwO = config["hpp_OwO"]
                 const hpp_back = config["hpp_back"]
-				
+
                 if (hpp_autodate == "True") {
                     const now = Date.now(new Date())
                     await KVNAME.put("hpp_activetime", now)
@@ -508,7 +508,7 @@ async function handleRequest(request) {
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>`
 
                     }
-					if (path == "/hpp/admin/dash/set") {
+                    if (path == "/hpp/admin/dash/set") {
                         hpp_set_act = " active"
                         hpp_init = `<div class="content">
         <div class="container-fluid">
@@ -541,8 +541,8 @@ async function handleRequest(request) {
           </div>
         </div>
       </div>`
-						hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/config.js'></script>`
-					}
+                        hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/config.js'></script>`
+                    }
                     let hpp_dash_head = `<!DOCTYPE html>
 <html lang="en">
 
@@ -923,16 +923,22 @@ ${hpp_js}
                     await KVNAME.delete("hpp_config")
                     return new Response('OK')
                 }
-				if (path == "/hpp/admin/api/get_config"){return new Response(await JSON.parse(hpp_config))}
-				if (path == "/hpp/admin/api/edit_config"){
-                    let req_con=await JSON.parse(await request.text())
-                    let _index=req_con["index"]
-                    let _value=req_con["value"]
-                    let k=await JSON.parse(await JSON.parse(hpp_config))
-                    k[_index]=_value
-                    k=await JSON.stringify(k)
+                if (path == "/hpp/admin/api/get_config") { return new Response(await JSON.parse(hpp_config)) }
+                if (path == "/hpp/admin/api/edit_config") {
+                    let req_con = await JSON.parse(await request.text())
+                    let _index = req_con["index"]
+                    let _value = req_con["value"]
+                    let k = await JSON.parse(await JSON.parse(hpp_config))
+                    k[_index] = _value
+                    k = await JSON.stringify(k)
                     await KVNAME.put("hpp_config", await JSON.stringify(k))
                     return new Response('OK')
+                }
+                if (path == '/hpp/admin/api/kick') {
+                    const now = Date.now(new Date())
+                    await KVNAME.put("hpp_activetime", now)
+                    const hpp_kvwait = Date.now(new Date()) - now
+                    return new Response("OK")
                 }
             }
         }
@@ -1119,7 +1125,7 @@ if(res==1){
             let refresh_token = await KVNAME.get("hpp_comment_refresh_token")
             let access_token = await KVNAME.get("hpp_comment_access_token")
             let val = await get_comment(access_token, path, before)
-			let twikoo_code=await JSON.parse(val)['code']
+            let twikoo_code = await JSON.parse(val)['code']
             if (twikoo_code == 'CHECK_LOGIN_FAILED' | twikoo_code == 'INVALID_PARAM') {
                 refresh_token = await get_refresh_token()
                 await KVNAME.put("hpp_comment_refresh_token", refresh_token)
