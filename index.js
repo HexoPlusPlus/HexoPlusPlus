@@ -1,4 +1,4 @@
-const hpp_CDNver = "cac3799"
+const hpp_CDNver = "63e55ae"
 const hpp_ver = "HexoPlusPlus@1.0.3"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
@@ -66,7 +66,7 @@ async function handleRequest(request) {
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
 	<title>${hpp_ver}安装</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/install.css">
 </head>
@@ -550,7 +550,7 @@ async function handleRequest(request) {
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="${hpp_usericon}">
   <link rel="icon" type="image/png" href="${hpp_usericon}">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
   <title>${hpp_title}</title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/font.css" />
@@ -1167,7 +1167,7 @@ if(res==1){
     }
     if (path == "/hpp/previewtalk") {
         let hpp_talkhtml = `
-<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.css" /> 
 <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.js"></script>
 <div id="hpp_talk"></div>
