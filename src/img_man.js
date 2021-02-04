@@ -1,6 +1,7 @@
 
 var ctJson = "/hpp/admin/api/getimglist"
         $.getJSON(ctJson, function (data) {
+document.getElementById("tbody_img").innerHTML="";
             $.each(data, function (index, value) {
                 $("#tbody_img").append(`
 				<tr>
@@ -11,7 +12,7 @@ var ctJson = "/hpp/admin/api/getimglist"
                             ${value.size}B
                           <\/td>
 						  <td>
-                            <img data-src="https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}${hpp_githubimagepath}${value.name}" class="lazy_img" style="width:100px" src="https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif">
+                            <img src="https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}${hpp_githubimagepath}${value.name}" style="width:100px">
                           <\/td>
                           <td>
                             <a href="https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}${hpp_githubimagepath}${value.name}">CDN链接<\/a>
@@ -27,7 +28,7 @@ var ctJson = "/hpp/admin/api/getimglist"
                           <\/td>
                         <\/tr>
                 `);
-            });$('.lazy_img').Lazy();});
+            });});
 			function del(name){
 	swal({
   title: "确定！",
