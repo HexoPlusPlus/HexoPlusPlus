@@ -1,7 +1,7 @@
 const hpp_CDNver = "9821525"
-const hpp_ver = "HexoPlusPlus@1.0.1"
+const hpp_ver = "HexoPlusPlus@1.0.2"
 const dev_mode_branch = "dist"
-let hpp_logstatus = 0
+let hpp_logstatus = 1
 
 function getJsonLength(jsonData) {
 
@@ -710,7 +710,7 @@ ${hpp_js}
                 if (path.startsWith("/hpp/admin/api/adddoc/")) {
                     const file = await request.text()
                     const filename = path.substr(("/hpp/admin/api/adddoc/").length)
-                    const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${hpp_githubdocpath}${filename}`
+                    const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${hpp_githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
                     const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
                     const hpp_body = {
                         branch: hpp_githubdocbranch, message: `Upload from ${hpp_ver} By ${hpp_githubdocusername}`, content: file, sha: hpp_sha
@@ -760,7 +760,7 @@ ${hpp_js}
                 }
                 if (path.startsWith("/hpp/admin/api/deldoc")) {
                     const filename = path.substr(("/hpp/admin/api/deldoc/").length)
-                    const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${hpp_githubdocpath}${filename}`
+                    const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${hpp_githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
                     const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
                     const hpp_body = {
                         branch: hpp_githubdocbranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
