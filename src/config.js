@@ -1,6 +1,7 @@
 
 var ctJson = "/hpp/admin/api/get_config"
         $.getJSON(ctJson, function (data) {
+		document.getElementById("tbody_config").innerHTML="";
             $.each(data, function (index, value) {
                 $("#tbody_config").append(`
 				<tr>
