@@ -876,7 +876,7 @@ ${hpp_js}
                     return new Response('OK')
                 }
                 if (path == "/hpp/admin/api/update") {
-                    const update_script = await (await fetch('https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/${dev_mode_branch}/index.js')).text()
+                    const update_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/${dev_mode_branch}/index.js`)).text()
                     const up_init = {
                         body: update_script,
                         method: "PUT",
@@ -916,7 +916,7 @@ ${hpp_js}
                     return new Response(JSON.stringify(hpp_talk))
                 }
                 if (path.startsWith("/hpp/admin/api/checkupdate")) {
-                    const update_check_script = await (await fetch('https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/update.js')).text()
+                    const update_check_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/update.js`)).text()
                     return new Response(update_check_script, { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
                 }
                 if (path == "/hpp/admin/api/del_all") {
