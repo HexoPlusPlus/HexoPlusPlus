@@ -1,3 +1,24 @@
+function ajaxObject() {
+    var xmlHttp;
+    try {
+        // Firefox, Opera 8.0+, Safari
+        xmlHttp = new XMLHttpRequest();
+        } 
+    catch (e) {
+        // Internet Explorer
+        try {
+                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+            try {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e) {
+                sweetAlert("糟糕", "你的浏览器不能上传文件", "error");
+                return false;
+            }
+        }
+    }
+    return xmlHttp;
+};
 function getCookie(name)
 {
 var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
