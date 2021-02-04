@@ -1,5 +1,5 @@
-const hpp_CDNver = "26df774"
-const hpp_ver = "HexoPlusPlus@1.0.3-β-patch-1"
+const hpp_CDNver = "a9bc1d8"
+const hpp_ver = "HexoPlusPlus@1.0.3"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -504,7 +504,8 @@ async function handleRequest(request) {
           </div>
         </div>
       </div>`
-                        hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/img_man.js'></script>`
+                        hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/img_man.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>`
 
                     }
                     if (path == "/hpp/admin/dash/set") {
@@ -682,7 +683,6 @@ async function handleRequest(request) {
 <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/admin_all.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/turbolinks@5.2.0/dist/turbolinks.js"></script>
 ${hpp_js}
 
 </body>

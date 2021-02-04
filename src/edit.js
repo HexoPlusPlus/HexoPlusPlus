@@ -170,8 +170,6 @@ $(function() {
 			toolbarHandlers : {
             upimage : function() {$("#input").click();}
 			},
-			atLink    : false,
-			emailLink : false,
             height : 440,
             path   : "https://cdn.jsdelivr.net/npm/editor.md/lib/",
             htmlDecode : true,
@@ -195,8 +193,6 @@ $(function() {
 			toolbarHandlers : {
             upimage : function() {$("#input").click();}
 			},
-			atLink    : false,
-			emailLink : false,
             height : 440,
             path   : "https://cdn.jsdelivr.net/npm/editor.md/lib/",
             htmlDecode : true,
