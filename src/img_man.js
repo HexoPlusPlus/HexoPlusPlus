@@ -1,4 +1,3 @@
-
 var ctJson = "/hpp/admin/api/getimglist"
         $.getJSON(ctJson, function (data) {
             $.each(data, function (index, value) {

@@ -1,6 +1,7 @@
 
 var ctJson = "/hpp/admin/api/getlist"
         $.getJSON(ctJson, function (data) {
+		document.getElementById("tbody_doc").innerHTML="";
             $.each(data, function (index, value) {
                 $("#tbody_doc").append(`
 				<tr>
