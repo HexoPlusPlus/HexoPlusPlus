@@ -1030,16 +1030,16 @@ if(res==1){
       const hpp_activetime = await KVNAME.get("hpp_activetime")
       var k = (Date.parse(new Date()) - hpp_activetime) / 1000
       if (k < 30) {
-        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主刚刚还在这儿呢\'', { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
+        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主刚刚还在这儿呢\';', { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
       }
       else if (k < 60) {
-        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在' + k + '秒前离开这儿\'', { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
+        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在 ' + k + ' 秒前离开这儿\';', { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
       }
       else if (k < 3600) {
-        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在' + Math.round(k / 60) + '分钟前偷偷瞄了一眼博客\'', { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
+        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在 ' + Math.round(k / 60) + ' 分钟前偷偷瞄了一眼博客\';', { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
       }
       else {
-        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在' + Math.round(k / 3600) + '小时前活跃了一次\'', { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
+        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在 ' + Math.round(k / 3600) + ' 小时前活跃了一次\';', { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
       }
     }
     if (path == "/hpp/api/captchaimg") {
