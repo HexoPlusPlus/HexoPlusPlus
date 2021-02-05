@@ -33,7 +33,7 @@ if( ajax.readyState == 4 ) {
     ajax.send();
 }
 function hpp_del_all(){
-var ajax = ajaxObject();
+swal({title:"你真的要删除数据吗？",text:"第一遍确认",icon:"warning",buttons:["没有", "是的！"],}).then((value) => {if(value){swal({title:"你真的要删除数据吗？",text:"第二遍确认",icon:"warning",buttons:["没有", "是的！"],}).then((value) => {if(value){swal({title:"你真的要删除数据吗？",text:"第三遍确认",icon:"warning",buttons:["没有", "是的！"],}).then((value) => {if(value){var ajax = ajaxObject();
     ajax.open( "get" , '/hpp/admin/api/del_all' , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
@@ -46,7 +46,8 @@ var ajax = ajaxObject();
             }
         }
     }
-    ajax.send();
+    ajax.send();}else{hpp_no()}})}else{hpp_no()}})}else{hpp_no()}})
+function hpp_no(){swal("您放弃了销毁数据","您的数据是安全的","success")}
 }
 function hpp_artitalk_into_hpptalk(){
 var slider = document.createElement("textarea");
