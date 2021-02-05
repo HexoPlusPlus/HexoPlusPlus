@@ -1,5 +1,5 @@
-const hpp_CDNver = "daf72a0"
-const hpp_ver = "HexoPlusPlus@1.0.5"
+const hpp_CDNver = "f5466a4"
+const hpp_ver = "HexoPlusPlus@1.0.6"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -385,8 +385,7 @@ async function handleRequest(request) {
           </div>
         </div>
       </div>`
-            hpp_js = `<script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/editor.md/editormd.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/edit.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+            hpp_js = `<script src="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/editormd.min.js"></script><script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"><script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/edit.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
           }
           if (path == "/hpp/admin/dash/talk") {
@@ -428,7 +427,7 @@ async function handleRequest(request) {
           </div>
         </div>
       </div>`
-            hpp_js = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/talk.css" /><script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/editor.md/editormd.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/talk.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
+            hpp_js = `<script src="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/editormd.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/talk.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"><script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/talk.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
           }
           if (path == "/hpp/admin/dash/docs_man") {
             hpp_docs_man_act = " active"
@@ -994,8 +993,8 @@ ${hpp_js}
    </div>
   </div>
   <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/md5.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/RVerify.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/RVerify.min.css"/>
+  <script src="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.css"/>
   <script>
   RVerify.configure({
   mask: 0.5,

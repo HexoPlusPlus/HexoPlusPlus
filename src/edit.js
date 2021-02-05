@@ -173,55 +173,11 @@ function base64Encode(input){
                 rv = window.btoa(rv);
                 return rv;
 }
-function hpp_replace_mark(content,add){
+function hpp_replace_mark(content){
 if(content===undefined){content=""}
-$(function() {
-        var editor = editormd("md-editor", {
-            width  : "100%",
-			markdown:content,
-			placeholder:"",
-            toolbarIcons : function() {
-            return ["undo", "redo", "|", "preview", "watch", "|", "upimage"]
-			},
-			toolbarIconsClass : {
-            upimage : "fa-image" 
-			},
-			toolbarHandlers : {
-            upimage : function() {$("#input").click();}
-			},
-			atLink    : false,
-			emailLink : false,
-            height : 440,
-            path   : "https://cdn.jsdelivr.net/gh/HexoPlusPlus/editor.md/lib/",
-            htmlDecode : true,
-			saveHTMLToTextarea : true
-        });
-    });
 }
 function hpp_add_mark(content){
 if(content===undefined){content=""}
-$(function() {
-        var editor = editormd("md-editor", {
-            width  : "100%",
-			markdown:document.getElementById("doc_editor").value+'\n'+content,
-			placeholder:"",
-            toolbarIcons : function() {
-            return ["undo", "redo", "|", "preview", "watch", "|", "upimage"]
-			},
-			toolbarIconsClass : {
-            upimage : "fa-image" 
-			},
-			toolbarHandlers : {
-            upimage : function() {$("#input").click();}
-			},
-			atLink    : false,
-			emailLink : false,
-            height : 440,
-            path   : "https://cdn.jsdelivr.net/gh/HexoPlusPlus/editor.md/lib/",
-            htmlDecode : true,
-			saveHTMLToTextarea : true
-        });
-    });
 }
 function hpp_get_list(){
 var ctJson = "/hpp/admin/api/getlist"
