@@ -278,7 +278,7 @@ ol {
 }
 
 .hpp_talk_img {
-    width: 70% !important
+    max-width: 70% !important
 }
 .panel{
 background-color: #90939920;

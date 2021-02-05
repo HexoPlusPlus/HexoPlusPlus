@@ -2,6 +2,8 @@
 Enhancement:
 1.表情懒加载
 2.表情添加以`![]()`为主
+3.彻底更新开发dist方式，路径重修
 BugFix:
 1.修复meta头部不能用`;`问题
-2.修复CodeMirror版本问题导致在手机端使用缺陷
+Will:
+1.修复CodeMirror版本问题导致在手机端使用缺陷
