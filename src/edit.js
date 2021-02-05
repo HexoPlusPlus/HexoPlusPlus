@@ -35,7 +35,6 @@
             xhr.open('get', option.api, true);
             xhr.send(null);
         }
-
         init(option) {
             this.packages = Object.keys(this.odata);
 
@@ -43,17 +42,26 @@
             let html = `
             <div class="OwO-logo"><span>${option.logo}<\/span><\/div>
             <div class="OwO-body" style="width: ${option.width}">`;
-            
+            let icon=""
+			let src=""
             for (let i = 0; i < this.packages.length; i++) {
 
                 html += `
                 <ul class="OwO-items OwO-items-${this.odata[this.packages[i]].type}" style="max-height: ${parseInt(option.maxHeight) - 53 + 'px'};">`;
 
                 let opackage = this.odata[this.packages[i]].container;
-                for (let i = 0; i < opackage.length; i++) {
-
+                for (let j = 0; j < opackage.length; j++) {
+					
+					
+					var regex = /src=[\'\"]?([^\'\"]*)[\'\"]?/;
+					src = regex.exec(opackage[j].icon);
+					try{
+					src=src[1]
+					//console.log(src)
+					icon = `<img src="" data-src="${src}" class="hpp_emo_${this.packages[i]}">`
+					}catch(e){/*console.log(e);*/icon=opackage[j].icon}
                     html += `
-                    <li class="OwO-item" title="${opackage[i].text}">${opackage[i].icon}<\/li>`;
+                    <li class="OwO-item" title="${opackage[j].text}">${icon}<\/li>`;
 
                 }
 
@@ -120,6 +128,7 @@
         }
 
         tab(index) {
+			let inn=""
             const itemsShow = this.container.getElementsByClassName('OwO-items-show')[0];
             if (itemsShow) {
                 itemsShow.classList.remove('OwO-items-show');
@@ -127,6 +136,7 @@
             this.container.getElementsByClassName('OwO-items')[index].classList.add('OwO-items-show');
 
             const packageActive = this.container.getElementsByClassName('OwO-package-active')[0];
+			$(`.hpp_emo_${this.packages[index]}`).Lazy();
             if (packageActive) {
                 packageActive.classList.remove('OwO-package-active');
             }
