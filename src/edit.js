@@ -92,7 +92,7 @@
             this.logo.addEventListener('click', () => {
                 this.toggle();
             });
-
+			let r_src=""
             this.container.getElementsByClassName('OwO-body')[0].addEventListener('click', (e)=> {
 			let target = null;
                 if (e.target.classList.contains('OwO-item')) {
@@ -102,7 +102,16 @@
                     target = e.target.parentNode;
                 }
                 if (target) {
-                    hpp_add_mark(target.innerHTML)
+                    
+					var regex = /src=[\'\"]?([^\'\"]*)[\'\"]?/;
+					r_src = regex.exec(target.innerHTML);
+					try{
+					r_src=r_src[1]
+					icon = `![](${r_src})`
+					}catch(e){icon=target.innerHTML;console.log(icon+"ERROR")}
+					hpp_add_mark(icon)
+					
+					
                 }
             });
 
