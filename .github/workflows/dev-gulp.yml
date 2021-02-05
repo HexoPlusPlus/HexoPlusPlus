@@ -22,6 +22,7 @@ jobs:
       run: |
         ls
         rm -rf node_modules
+        git credential-manager uninstall
         
     - name: Deploy
       uses: s0/git-publish-subdir-action@develop
