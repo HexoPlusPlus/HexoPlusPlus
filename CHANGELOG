@@ -4,3 +4,4 @@ Enhancement:
 2.表情添加以`![]()`为主
 BugFix:
 1.修复meta头部不能用`;`问题
+2.修复CodeMirror版本问题导致在手机端使用缺陷
