@@ -22,15 +22,15 @@ jobs:
       run: |
         ls
         rm -rf node_modules
-        git config --global user.email Hexopp-bot@email.com
-        git config --global user.name Hexopp-bot
+        git config --global user.email chen2778754364@foxmail.com
+        git config --global user.name ChenYFan
         git add . 
-        git commit -m ":zap: Successful minify" -a
+        git commit -m ":zap: 已压缩" -a
         
-    - name: Push
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.token }}
-        force: true
-        branch: dist
-        directory: ./dist
+    - name: Deploy
+      uses: s0/git-publish-subdir-action@develop
+      env:
+        REPO: self
+        BRANCH: dist
+        FOLDER: /dist
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
