@@ -1,5 +1,5 @@
-const hpp_CDNver = "218fd9e"
-const hpp_ver = "HexoPlusPlus@1.0.4"
+const hpp_CDNver = "f780aa3"
+const hpp_ver = "HexoPlusPlus@1.0.5"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -386,7 +386,8 @@ async function handleRequest(request) {
         </div>
       </div>`
             hpp_js = `<script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/editor.md/editormd.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/edit.js'></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
+<script src="https://cdn.jsdelivr.net/npm/editor.md/editormd.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/edit.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
           }
           if (path == "/hpp/admin/dash/talk") {
             hpp_talk_act = " active"
@@ -427,8 +428,7 @@ async function handleRequest(request) {
           </div>
         </div>
       </div>`
-            hpp_js = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.css" /><script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/editor.md/editormd.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.js'></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
+            hpp_js = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.css" /><script src="https://cdn.jsdelivr.net/npm/editor.md/editormd.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
           }
           if (path == "/hpp/admin/dash/docs_man") {
             hpp_docs_man_act = " active"
