@@ -192,7 +192,7 @@ $(function() {
 			atLink    : false,
 			emailLink : false,
             height : 440,
-            path   : "https://cdn.jsdelivr.net/npm/editor.md/lib/",
+            path   : "https://cdn.jsdelivr.net/gh/HexoPlusPlus/editor.md/lib/",
             htmlDecode : true,
 			saveHTMLToTextarea : true
         });
@@ -217,7 +217,7 @@ $(function() {
 			atLink    : false,
 			emailLink : false,
             height : 440,
-            path   : "https://cdn.jsdelivr.net/npm/editor.md/lib/",
+            path   : "https://cdn.jsdelivr.net/gh/HexoPlusPlus/editor.md/lib/",
             htmlDecode : true,
 			saveHTMLToTextarea : true
         });
