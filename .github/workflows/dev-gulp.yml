@@ -22,13 +22,11 @@ jobs:
       run: |
         ls
         rm -rf node_modules
-        git add . 
-        git commit -m ":zap: 已压缩" -a
         
     - name: Deploy
       uses: s0/git-publish-subdir-action@develop
       env:
         REPO: self
         BRANCH: dist
-        FOLDER: ./dist
+        FOLDER: /dist
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
