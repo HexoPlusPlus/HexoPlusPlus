@@ -33,4 +33,4 @@ jobs:
         github_token: ${{ secrets.token }}
         force: true
         branch: dist
-directory: dist
+        directory: dist
