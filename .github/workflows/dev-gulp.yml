@@ -22,8 +22,6 @@ jobs:
       run: |
         ls
         rm -rf node_modules
-        git config --global user.email chen2778754364@foxmail.com
-        git config --global user.name ChenYFan
         git add . 
         git commit -m ":zap: 已压缩" -a
         
