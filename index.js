@@ -1,4 +1,4 @@
-const hpp_CDNver = "f780aa3"
+const hpp_CDNver = "ae23a18"
 const hpp_ver = "HexoPlusPlus@1.0.5"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
@@ -66,7 +66,7 @@ async function handleRequest(request) {
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 	<title>${hpp_ver}安装</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/install.css">
 </head>
@@ -551,7 +551,7 @@ async function handleRequest(request) {
   <link rel="apple-touch-icon" sizes="76x76" href="${hpp_usericon}">
   <link rel="icon" type="image/png" href="${hpp_usericon}">
   <title>${hpp_title}</title>
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/font.css" />
   <link href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/admin_all.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/editor.md/css/editormd.css" />
@@ -1166,7 +1166,7 @@ if(res==1){
   }
   if (path == "/hpp/previewtalk") {
     let hpp_talkhtml = `
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.css" /> 
 <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk_user.js"></script>
 <div id="hpp_talk"></div>
