@@ -1,5 +1,5 @@
-const hpp_CDNver = "218fd9e"
-const hpp_ver = "HexoPlusPlus@1.0.4"
+const hpp_CDNver = "daf72a0"
+const hpp_ver = "HexoPlusPlus@1.0.5"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -66,9 +66,9 @@ async function handleRequest(request) {
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 	<title>${hpp_ver}安装</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/install.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/install.css">
 </head>
 <body>
 		<div class="cont_principal">
@@ -148,7 +148,7 @@ async function handleRequest(request) {
 		</div>
 	</div>
 	
-	<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/install.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/install.js"></script>
 </body>
 </html>`
           return new Response(hpp_installhtml, {
@@ -339,7 +339,7 @@ async function handleRequest(request) {
           </div>
         </div>
       </div>`
-            hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/home.js'></script>`
+            hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/home.js'></script>`
           }
           if (path == "/hpp/admin/dash/edit") {
             hpp_edit_act = " active"
@@ -386,7 +386,8 @@ async function handleRequest(request) {
         </div>
       </div>`
             hpp_js = `<script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/editor.md/editormd.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/edit.js'></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/editor.md/editormd.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/edit.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
           }
           if (path == "/hpp/admin/dash/talk") {
             hpp_talk_act = " active"
@@ -427,8 +428,7 @@ async function handleRequest(request) {
           </div>
         </div>
       </div>`
-            hpp_js = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.css" /><script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/editor.md/editormd.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.js'></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
+            hpp_js = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/talk.css" /><script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/editor.md/editormd.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/talk.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
           }
           if (path == "/hpp/admin/dash/docs_man") {
             hpp_docs_man_act = " active"
@@ -466,7 +466,7 @@ async function handleRequest(request) {
           </div>
         </div>
       </div>`
-            hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/doc_man.js'></script>`
+            hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/doc_man.js'></script>`
 
           }
           if (path == "/hpp/admin/dash/img_man") {
@@ -504,7 +504,7 @@ async function handleRequest(request) {
           </div>
         </div>
       </div>`
-            hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/img_man.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+            hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/img_man.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>`
 
           }
@@ -541,7 +541,7 @@ async function handleRequest(request) {
           </div>
         </div>
       </div>`
-            hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/config.js'></script>`
+            hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/config.js'></script>`
           }
           let hpp_dash_head = `<!DOCTYPE html>
 <html lang="en">
@@ -551,11 +551,11 @@ async function handleRequest(request) {
   <link rel="apple-touch-icon" sizes="76x76" href="${hpp_usericon}">
   <link rel="icon" type="image/png" href="${hpp_usericon}">
   <title>${hpp_title}</title>
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/font.css" />
-  <link href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/admin_all.css" rel="stylesheet" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/font.css" />
+  <link href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin_all.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/editor.md/css/editormd.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/${dev_mode_branch}/jquery-editable-select.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
   <script>
   //这个脚本的用途是前端变量传递
   const hpp_ver="${hpp_ver}";
@@ -663,7 +663,7 @@ async function handleRequest(request) {
 <script src="/static/js/bootstrap-material-design.min.js"></script>
 <script src="/static/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 <script src="/static/js/plugins/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert/${dev_mode_branch}/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert/sweetalert.min.js"></script>
 <script src="/static/js/plugins/jquery.validate.min.js"></script>
 <script src="/static/js/plugins/jquery.bootstrap-wizard.js"></script>
 <script src="/static/js/plugins/bootstrap-selectpicker.js"></script>
@@ -681,7 +681,7 @@ async function handleRequest(request) {
 <script src="/static/js/main.js"></script>我不知道原模板这么多js干什么，我只需要底下几个-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/admin_all.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin_all.js"></script>
 ${hpp_js}
 
 </body>
@@ -875,7 +875,7 @@ ${hpp_js}
           return new Response('OK')
         }
         if (path == "/hpp/admin/api/update") {
-          const update_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/${dev_mode_branch}/index.js`)).text()
+          const update_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/index.js`)).text()
           const up_init = {
             body: update_script,
             method: "PUT",
@@ -961,7 +961,7 @@ ${hpp_js}
 　　 a:hover { text-decoration:underline;color: white} 
 　　 a:visited { text-decoration: none;color: white}
   </style>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/login.css" /> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/login.css" /> 
  </head>
  <body>
   <div id="all">
@@ -993,9 +993,9 @@ ${hpp_js}
     </ul>
    </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/md5.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/${dev_mode_branch}/RVerify.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/${dev_mode_branch}/RVerify.min.css"/>
+  <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/md5.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/RVerify.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/RVerify.min.css"/>
   <script>
   RVerify.configure({
   mask: 0.5,
@@ -1166,9 +1166,9 @@ if(res==1){
   }
   if (path == "/hpp/previewtalk") {
     let hpp_talkhtml = `
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk.css" /> 
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/talk_user.js"></script>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/talk.css" /> 
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/talk_user.js"></script>
 <div id="hpp_talk"></div>
 <script>
 new hpp_talk({
@@ -1193,7 +1193,7 @@ start: 0
         <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" /> 
         <title>HexoPlusPlusError</title>
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/error.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/error.css" />
 	</head>
 	<body>
 		<div class="container demo-2">
@@ -1211,7 +1211,7 @@ start: 0
                 </div>
             </div>
 		</div>
-        <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/${dev_mode_branch}/error.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/error.js"></script>
 	</body>
 </html>
 `
