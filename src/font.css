@@ -357,3 +357,14 @@
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
+div.black2{padding:7px;margin:3px;text-align:center;}
+div.black2 a{border:0px;border-radius: 10px;padding:2px 5px;margin:2px;color:#000000;text-decoration:none;}
+div.black2 a:hover{border:0px;color:#000;background-color:rgba(241,241,241,.98);}
+div.black2 a:active{border:0px;color:#000;background-color:rgba(241,241,241,.98);}
+div.black2 span.current{border:0px;padding:2px 5px;font-weight:bold;margin:2px;color:#000;background-color:rgba(241,241,241,.98);}
+div.black2 span.disabled{border:0px;padding:2px 5px;margin:2px;color:#ddd;}
+
+img.hpp_pre{
+max-width:60%;
+border-radius:20px;
+}
