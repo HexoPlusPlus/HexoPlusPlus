@@ -60,13 +60,33 @@ document.getElementById("text_hpp_doc_editor").value=c
 }
 
 function hpp_backup(data_name,ele){
-if(localStorage.getItem("hpp_editor_autobackup")=="True"){
+if(localStorage.getItem("hpp_editor_autobackup")=="1"){
 var notyf = new Notyf();
 localStorage.setItem(`hpp_${data_name}_backup`,document.getElementById(`text_${ele}`).value);
 notyf.success('自动备份成功！')
 }
+else if(localStorage.getItem("hpp_editor_autobackup")=="2"){
+var notyf = new Notyf();
+localStorage.setItem(`hpp_${data_name}_backup`,document.getElementById(`text_${ele}`).value);
+}else {
+localStorage.setItem(`hpp_${data_name}_backup`,"");
 }
-function hpp_start_or_stop_backup(){var notyf = new Notyf();if(localStorage.getItem("hpp_editor_autobackup")=="True"){localStorage.setItem("hpp_editor_autobackup","False");notyf.error('嘿！你关闭了自动备份！注意数据安全！');}else{localStorage.setItem("hpp_editor_autobackup","True");notyf.success('自动备份打开成功！'); }}
+};
+function hpp_start_or_stop_backup(){
+var notyf = new Notyf();
+if(localStorage.getItem("hpp_editor_autobackup")=="2"){
+localStorage.setItem("hpp_editor_autobackup","0");
+notyf.error('嘿！你关闭了自动备份！注意数据安全！');
+}
+else if(localStorage.getItem("hpp_editor_autobackup")=="0"){
+localStorage.setItem("hpp_editor_autobackup","1");
+notyf.success('自动备份打开成功！自动备份提醒打开成功！'); 
+}
+else{
+localStorage.setItem("hpp_editor_autobackup","2");
+notyf.success('自动备份打开成功！自动备份提醒关闭成功！'); 
+}
+};
 function hpp_upload_photo(){}
 function hpp_upload_file(){}
 function hpp_preview(ele,data_name){
