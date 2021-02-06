@@ -26,5 +26,17 @@ HexoPlusPlus~~也叫Hexo艹~~，是一个基于CloudFlareWorkers和CloudFlareKV�
 - [ ] 7bu图床支持
 - [ ] i8n国际化
 
+![](https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@master/doc_img/b_1.png)
+
 完整文档请前往[https://hexoplusplus.js.org/](https://hexoplusplus.js.org/)
 
+# 依赖
+
+HexoPlusPlus的诞生离不开以下项目的支持：
+
+- jquery
+- bootstrap
+- material-dashboard
+- marked.js
+- sweetalert
+- notyf

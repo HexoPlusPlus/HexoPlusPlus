@@ -66,11 +66,8 @@ localStorage.setItem(`hpp_${data_name}_backup`,document.getElementById(`text_${e
 notyf.success('自动备份成功！')
 }
 else if(localStorage.getItem("hpp_editor_autobackup")=="2"){
-var notyf = new Notyf();
 localStorage.setItem(`hpp_${data_name}_backup`,document.getElementById(`text_${ele}`).value);
-}else {
-localStorage.setItem(`hpp_${data_name}_backup`,"");
-}
+}else{console.log("自动备份功能没开！")}
 };
 function hpp_start_or_stop_backup(){
 var notyf = new Notyf();
