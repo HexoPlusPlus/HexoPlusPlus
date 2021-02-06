@@ -1,5 +1,5 @@
 const hpp_CDNver = "4de6665"
-const hpp_ver = "HexoPlusPlus@1.0.7_β_5"
+const hpp_ver = "HexoPlusPlus@1.0.7_β_6"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -1195,26 +1195,6 @@ if(res==1){
         })
       }
     }
-  }
-  if (path == "/hpp/previewtalk") {
-    let hpp_talkhtml = `
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/talk.css" /> 
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/talk_user.js"></script>
-<div id="hpp_talk"></div>
-<script>
-new hpp_talk({
-id:"hpp_talk",
-domain: window.location.host,
-limit: 10,
-start: 0
-})
-</script>
-`
-
-    return new Response(hpp_talkhtml, {
-      headers: { "content-type": "text/html;charset=UTF-8" }
-    })
   }
 
   let hpp_errorhtml = `

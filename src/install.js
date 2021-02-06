@@ -63,12 +63,20 @@ function start() {
         document.getElementById("butttt").innerHTML = "提交配置"
     } else {
         document.getElementById("butttt").innerHTML = "配置上传中"
+		let hpp_domain=document.getElementById("hpp_domain").value==""?window.location.host:document.getElementById("hpp_domain").value;
+		let hpp_username=document.getElementById("hpp_userimage").value==""?"https://cdn.jsdelivr.net/gh/ChenYFan/CDN@master/img/hpp_upload/1612610340000.jpg":document.getElementById("hpp_userimage").value;
+		let hpp_title=document.getElementById("hpp_title").value==""?"HexoPlusPlus小飞机":document.getElementById("hpp_title").value;
+		let hpp_usericon=document.getElementById("hpp_usericon").value==""?"https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@master/doc_img/icon.png":document.getElementById("hpp_usericon").value;
+		let hpp_cors=document.getElementById("hpp_cors").value==""?"*":document.getElementById("hpp_cors").value
+		let hpp_autodate=document.getElementById("hpp_autodate").value==""?"False":document.getElementById("hpp_autodate").value
+		let hpp_OwO=document.getElementById("hpp_OwO").value==""?"https://cdn.jsdelivr.net/gh/ChenYFan/CDN@master/assets/list.json":document.getElementById("hpp_OwO").value
+		let hpp_back=document.getElementById("hpp_back").value==""?"https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg":document.getElementById("hpp_back").value
 		const config={
-			"hpp_domain":document.getElementById("hpp_domain").value,
-			"hpp_userimage":document.getElementById("hpp_userimage").value,
-			"hpp_title":document.getElementById("hpp_title").value,
-			"hpp_usericon":document.getElementById("hpp_usericon").value,
-			"hpp_cors":document.getElementById("hpp_cors").value,
+			"hpp_domain":hpp_domain,
+			"hpp_userimage":hpp_username,
+			"hpp_title":hpp_title,
+			"hpp_usericon":hpp_usericon,
+			"hpp_cors":hpp_cors,
 			"hpp_githubdoctoken":document.getElementById("hpp_githubdoctoken").value,
 			"hpp_githubimagetoken":document.getElementById("hpp_githubimagetoken").value,
 			"hpp_githubdocusername":document.getElementById("hpp_githubdocusername").value,
@@ -79,14 +87,14 @@ function start() {
 			"hpp_githubimagerepo":document.getElementById("hpp_githubimagerepo").value,
 			"hpp_githubimagepath":document.getElementById("hpp_githubimagepath").value,			
 			"hpp_githubimagebranch":document.getElementById("hpp_githubimagebranch").value,
-			"hpp_autodate":document.getElementById("hpp_autodate").value,
+			"hpp_autodate":hpp_autodate,
 			"hpp_account_identifier":document.getElementById("hpp_account_identifier").value,
 			"hpp_script_name":document.getElementById("hpp_script_name").value,			
 			"hpp_CF_Auth_Key":document.getElementById("hpp_CF_Auth_Key").value,
 			"hpp_Auth_Email":document.getElementById("hpp_Auth_Email").value,
 			"hpp_twikoo_envId":document.getElementById("hpp_twikoo_envId").value,
-			"hpp_OwO":document.getElementById("hpp_OwO").value,
-			"hpp_back":document.getElementById("hpp_back").value
+			"hpp_OwO":hpp_OwO,
+			"hpp_back":hpp_back
 			};
         var ajax = ajaxObject();
         ajax.open("post", '/hpp/admin/api/upconfig', true);
