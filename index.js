@@ -285,7 +285,7 @@ async function handleRequest(request) {
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons text-danger">warning</i>高危操作
+                    <i class="material-icons text-danger">warning</i>高危操作，你知道会发生什么的
                   </div>
                 </div>
               </div>
@@ -301,7 +301,7 @@ async function handleRequest(request) {
                   </div>
                   <h3 class="card-title">从Artitalk中导入</h3>
                 </div>
-                <div class="card-footer">
+                <div class="card-footer">这不是抢生意啊喂
                 </div>
               </div>
             </a>
@@ -310,13 +310,14 @@ async function handleRequest(request) {
 			<div class="col-lg-6 col-md-6 col-sm-6">
               <a href="https://jq.qq.com/?_wv=1027&k=rAcnhzqK" target="_blank">
               <div class="card card-stats">
-                <div class="card-header card-header-normal card-header-icon">
+                <div class="card-header card-header-success card-header-icon">
                   <div class="card-icon">
                     <i class="fa fa-qq"></i>
                   </div>
                   <h3 class="card-title">QQ群聊天去？</h3>
                 </div>
                 <div class="card-footer">
+				诚聘小白鼠(bushi
                 </div>
               </div>
             </a>
@@ -331,7 +332,23 @@ async function handleRequest(request) {
                   </div>
                   <h3 class="card-title">文档地址</h3>
                 </div>
+                <div class="card-footer">有多少人没看文档来提issues？
+                </div>
+              </div>
+            </a>
+            </div>
+			
+			<div class="col-lg-6 col-md-6 col-sm-6">
+              <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" target="_blank">
+              <div class="card card-stats">
+                <div class="card-header card-header-primary card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-github"></i>
+                  </div>
+                  <h3 class="card-title">Github</h3>
+                </div>
                 <div class="card-footer">
+				欢迎PR
                 </div>
               </div>
             </a>
@@ -877,6 +894,20 @@ ${hpp_js}
         }
         if (path == "/hpp/admin/api/update") {
           const update_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/index.js`)).text()
+          const up_init = {
+            body: update_script,
+            method: "PUT",
+            headers: {
+              "content-type": "application/javascript",
+              "X-Auth-Key": hpp_CF_Auth_Key,
+              "X-Auth-Email": hpp_Auth_Email
+            }
+          }
+          const update_resul = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${hpp_account_identifier}/workers/scripts/${hpp_script_name}`, up_init)).text()
+          return new Response(JSON.parse(update_resul)["success"])
+        }
+        if (path == "/hpp/admin/api/small_white_mouse_update") {
+          const update_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/dev/index.js`)).text()
           const up_init = {
             body: update_script,
             method: "PUT",
