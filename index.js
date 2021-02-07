@@ -1,5 +1,5 @@
-const hpp_CDNver = "5ed3864"
-const hpp_ver = "HexoPlusPlus@1.0.9_β_6"
+const hpp_CDNver = "d03a3b2"
+const hpp_ver = "HexoPlusPlus@1.0.9_β_8"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -1215,8 +1215,11 @@ if(res==1){
         const start = (await JSON.parse(req_r))["start"]
         const hpp_talk = await JSON.parse(await KVNAME.get("hpp_talk_data"));
         let hpp_talk_res = []
+		let hpp_vi=""
+		
         for (var i = getJsonLength(hpp_talk) - start - 1; i > getJsonLength(hpp_talk) - start - limit; i--) {
-			if(hpp_talk[i]["visible"]!="False"){
+			try{hpp_vi=hpp_talk[i]["visible"]}catch(e){hpp_vi=null}
+			if(hpp_vi!="False"){
           hpp_talk_res.push(await JSON.stringify(hpp_talk[i]))
 			}
         }

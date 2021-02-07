@@ -353,17 +353,7 @@ var ajax = ajaxObject();
             if( ajax.status == 200 ) {
 				document.getElementById(id).innerHTML=`<div class="hppt_streamline hppt_b-l hppt_m-l-lg hppt_m-b hppt_padder-v">
    <ol id="hpp_talk_list"><\/ol> 
-   <button onclick="hpp_loadmore('${id}','${domain}',${limit})" style="	width: 270px;
-	height: 40px;
-	border-width: 0px; 
-	border-radius: 3px; 
-	background: #90939920; 
-	cursor: pointer; 
-	outline: none;
-	font-family: Microsoft YaHei;
-	font-size: 17px; 
-	margin: .2rem auto 0;
-    display: block;">下一页</button>
+   <button onclick="hpp_loadmore('${id}','${domain}',${limit})" class="hppt_button_nextpage">下一页</button>
   <\/div>`
             console.log("OK");
 			console.log(ajax.responseText);

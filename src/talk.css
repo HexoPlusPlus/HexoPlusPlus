@@ -350,3 +350,16 @@ border: 1px solid transparent!important;
 .hppt_streamline{
 	border: 0px;
 }
+.hppt_button_nextpage{
+	width: 270px;
+	height: 40px;
+	border-width: 0px; 
+	border-radius: 3px; 
+	background: #90939920; 
+	cursor: pointer; 
+	outline: none;
+	font-family: Microsoft YaHei;
+	font-size: 17px; 
+	margin: .2rem auto 0;
+    display: block;	
+}
