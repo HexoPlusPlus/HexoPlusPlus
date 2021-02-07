@@ -36,7 +36,7 @@ start: Number(getCookie("hpp_start"))
 })
 };
 function hpp_talk({id,domain,limit,start}){
-document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">加载HexoPlusPlus_Talk中</p></div>`
+document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">加载 HexoPlusPlus_Talk 中</p></div>`
 	function getJsonLength(jsonData) {
 
     var jsonLength = 0;

@@ -337,7 +337,7 @@ function hpp_talk({id,domain,limit,start}){
     return jsonLength;
 }
 console.log(id);
-document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">加载HexoPlusPlus_Talk中</p></div>`
+document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">加载 HexoPlusPlus_Talk_管理员模式 中</p></div>`
 
   back='https://'+domain+'/hpp/admin/api/gethpptalk'
 var ajax = ajaxObject();
