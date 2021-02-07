@@ -1,5 +1,5 @@
 const hpp_CDNver = "5ed3864"
-const hpp_ver = "HexoPlusPlus@1.0.9_β_5"
+const hpp_ver = "HexoPlusPlus@1.0.9_β_6"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -898,7 +898,7 @@ ${hpp_js}
           const now = await request.text()
           for (var i = 0; i < getJsonLength(hpp_talk); i++) {
             if (hpp_talk[i]["id"] == now) {
-				hpp_talk[i]["visible"]=hpp_talk[i]["visible"]=="True"?"False":"True"
+				hpp_talk[i]["visible"]=hpp_talk[i]["visible"]=="False"?"True":"False"
             }
           }
           await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
