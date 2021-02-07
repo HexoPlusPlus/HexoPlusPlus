@@ -302,7 +302,7 @@ var ajax = ajaxObject();
 .then((value) => {
   switch (value) {
     default:
-	  //window.location.reload();
+	  window.location.reload();
   }
 });}}}
 	ajax.send(id)
