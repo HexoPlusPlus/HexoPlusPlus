@@ -1216,7 +1216,6 @@ if(res==1){
         const hpp_talk = await JSON.parse(await KVNAME.get("hpp_talk_data"));
         let hpp_talk_res = []
 		let hpp_vi=""
-		
         for (var i = getJsonLength(hpp_talk) - start - 1; i > getJsonLength(hpp_talk) - start - limit; i--) {
 			try{hpp_vi=hpp_talk[i]["visible"]}catch(e){hpp_vi=null}
 			if(hpp_vi!="False"){

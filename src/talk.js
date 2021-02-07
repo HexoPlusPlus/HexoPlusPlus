@@ -105,7 +105,7 @@ document.getElementById(`hpp_eye_${ele}`).innerHTML=`<i class="fa fa-eye fa-2x">
     class OwO {
         constructor(option) {
             const defaultOption = {
-				logo: "😀",
+				logo: `<svg t="1612669041308" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2519" width="32" height="32"><path d="M512 512m-511.982387 0a511.982387 511.982387 0 1 0 1023.964774 0 511.982387 511.982387 0 1 0-1023.964774 0Z" fill="#F9C228" p-id="2520"></path><path d="M917.619539 199.639491C761.536154-3.082215 483.485105-56.554248 265.951152 62.930031a531.620502 531.620502 0 0 0-166.598142 387.161472c0 294.430822 238.686756 533.099966 533.099966 533.099966a535.424837 535.424837 0 0 0 101.219951-9.598899 514.289646 514.289646 0 0 0 90.705195-55.973031C1048.393533 745.138768 1090.223598 423.672515 917.619539 199.639491z" fill="#FCDC22" p-id="2521"></path><path d="M972.042656 550.272308c-111.329618 114.904988-252.600757 198.670795-415.482628 260.033299 0 0 55.867355 156.664603 207.829377 101.53698 250.628139-90.846096 207.653251-361.570279 207.653251-361.570279z" fill="#FC9B88" p-id="2522"></path><path d="M522.690884 570.08655a80.119986 64.145304 90 1 0 128.290609 0 80.119986 64.145304 90 1 0-128.290609 0Z" fill="#282828" p-id="2523"></path><path d="M860.519298 429.449467a80.119986 54.881046 90 1 0 109.762092 0 80.119986 54.881046 90 1 0-109.762092 0Z" fill="#282828" p-id="2524"></path><path d="M953.813553 724.584795a261.319023 261.319023 0 0 0-116.014585-59.988717C754.121225 723.616099 659.699759 771.434469 556.560028 810.305607c0 0 55.867355 156.664603 207.829377 101.53698 110.959752-40.209701 164.361335-115.64472 189.424148-187.257792z" fill="#EA0F1A" p-id="2525"></path></svg>`,
                 container: document.getElementsByClassName('OwO')[0],
                 position: 'down',
                 width: '100%',
@@ -337,12 +337,7 @@ function hpp_talk({id,domain,limit,start}){
     return jsonLength;
 }
 console.log(id);
-document.getElementById(id).innerHTML=`<div class="hpp_talk_load">
-  <div><\/div>
-  <div><\/div>
-  <div><\/div>
-  <div><\/div>
-<\/div>`
+document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">加载HexoPlusPlus_Talk中</p></div>`
 
   back='https://'+domain+'/hpp/admin/api/gethpptalk'
 var ajax = ajaxObject();
@@ -351,9 +346,10 @@ var ajax = ajaxObject();
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
+				document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">渲染说说中...</p></div>`
 				document.getElementById(id).innerHTML=`<div class="hppt_streamline hppt_b-l hppt_m-l-lg hppt_m-b hppt_padder-v">
    <ol id="hpp_talk_list"><\/ol> 
-   <button onclick="hpp_loadmore('${id}','${domain}',${limit})" class="hppt_button_nextpage">下一页</button>
+   <a href="javascript:hpp_loadmore('${id}','${domain}',${limit})" class="hppt_button_nextpage">下一页</a>
   <\/div>`
             console.log("OK");
 			console.log(ajax.responseText);
