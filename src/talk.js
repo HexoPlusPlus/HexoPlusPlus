@@ -105,7 +105,7 @@ document.getElementById(`hpp_eye_${ele}`).innerHTML=`<i class="fa fa-eye fa-2x">
     class OwO {
         constructor(option) {
             const defaultOption = {
-				logo: "😀",
+				logo: `<svg t="1612669041308" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2519" width="32" height="32"><path d="M512 512m-511.982387 0a511.982387 511.982387 0 1 0 1023.964774 0 511.982387 511.982387 0 1 0-1023.964774 0Z" fill="#F9C228" p-id="2520"></path><path d="M917.619539 199.639491C761.536154-3.082215 483.485105-56.554248 265.951152 62.930031a531.620502 531.620502 0 0 0-166.598142 387.161472c0 294.430822 238.686756 533.099966 533.099966 533.099966a535.424837 535.424837 0 0 0 101.219951-9.598899 514.289646 514.289646 0 0 0 90.705195-55.973031C1048.393533 745.138768 1090.223598 423.672515 917.619539 199.639491z" fill="#FCDC22" p-id="2521"></path><path d="M972.042656 550.272308c-111.329618 114.904988-252.600757 198.670795-415.482628 260.033299 0 0 55.867355 156.664603 207.829377 101.53698 250.628139-90.846096 207.653251-361.570279 207.653251-361.570279z" fill="#FC9B88" p-id="2522"></path><path d="M522.690884 570.08655a80.119986 64.145304 90 1 0 128.290609 0 80.119986 64.145304 90 1 0-128.290609 0Z" fill="#282828" p-id="2523"></path><path d="M860.519298 429.449467a80.119986 54.881046 90 1 0 109.762092 0 80.119986 54.881046 90 1 0-109.762092 0Z" fill="#282828" p-id="2524"></path><path d="M953.813553 724.584795a261.319023 261.319023 0 0 0-116.014585-59.988717C754.121225 723.616099 659.699759 771.434469 556.560028 810.305607c0 0 55.867355 156.664603 207.829377 101.53698 110.959752-40.209701 164.361335-115.64472 189.424148-187.257792z" fill="#EA0F1A" p-id="2525"></path></svg>`,
                 container: document.getElementsByClassName('OwO')[0],
                 position: 'down',
                 width: '100%',
@@ -286,6 +286,27 @@ var ajax = ajaxObject();
 });}}}
 	ajax.send(id)
 };
+function hpp_vi(id){
+
+var ajax = ajaxObject();
+    ajax.open( "post" , "/hpp/admin/api/visibletalk" , true );
+    ajax.setRequestHeader( "Content-Type" , "text/plain" );
+    ajax.onreadystatechange = function () {
+        if( ajax.readyState == 4 ) {
+		if( ajax.status == 200 ) {swal("已修改可见性！", {
+  icon: "success",
+  buttons: {
+    yes: "是"
+  },
+})
+.then((value) => {
+  switch (value) {
+    default:
+	  window.location.reload();
+  }
+});}}}
+	ajax.send(id)
+};
 function getCookie(name)
 {
 var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
@@ -316,54 +337,42 @@ function hpp_talk({id,domain,limit,start}){
     return jsonLength;
 }
 console.log(id);
-document.getElementById(id).innerHTML=`<div class="hpp_talk_load">
-  <div><\/div>
-  <div><\/div>
-  <div><\/div>
-  <div><\/div>
-<\/div>`
+document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">加载 HexoPlusPlus_Talk_管理员模式 中</p></div>`
 
-  back='https://'+domain+'/hpp/api/gethpptalk'
+  back='https://'+domain+'/hpp/admin/api/gethpptalk'
 var ajax = ajaxObject();
     ajax.open( "post" , back , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
-				document.getElementById(id).innerHTML=`<div class="streamline b-l m-l-lg m-b padder-v">
+				document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">渲染说说中...</p></div>`
+				document.getElementById(id).innerHTML=`<div class="hppt_streamline hppt_b-l hppt_m-l-lg hppt_m-b hppt_padder-v">
    <ol id="hpp_talk_list"><\/ol> 
-   <button onclick="hpp_loadmore('${id}','${domain}',${limit})" style="	width: 270px;
-	height: 40px;
-	border-width: 0px; 
-	border-radius: 3px; 
-	background: #90939920; 
-	cursor: pointer; 
-	outline: none;
-	font-family: Microsoft YaHei;
-	font-size: 17px; 
-	margin: .2rem auto 0;
-    display: block;">下一页</button>
+   <a href="javascript:hpp_loadmore('${id}','${domain}',${limit})" class="hppt_button_nextpage">下一页</a>
   <\/div>`
             console.log("OK");
 			console.log(ajax.responseText);
 			let res=JSON.parse(ajax.responseText)
+			let vi=""
 			document.getElementById("hpp_talk_list").innerHTML=``;
 			for(var i=0;i<getJsonLength(res);i++){
 				if(res[i]==null){document.cookie="hpp_start=0";break;}
 				let q=JSON.parse(res[i]);
+				vi=q["visible"]=="False"?`<svg t="1612656293849" class="hppt_icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8311" width="20" height="20"><path d="M246.4 258.304l-83.84-83.84 46.464-46.4L309.12 228.288A543.04 543.04 0 0 1 512 190.72c211.968 0 382.592 107.136 512 321.28-58.688 98.56-126.464 174.464-203.456 227.648l109.888 109.888-46.4 46.4-121.408-121.408a517.504 517.504 0 0 1-1.088 0.576l-68.224-68.224 1.216-0.512-117.312-117.312-0.896 0.832L435.2 448.832l0.768-0.96L313.6 325.376a435.968 435.968 0 0 0-1.152 0.576L245.376 258.944l1.088-0.64z m509.248 416.448c60.8-37.76 115.456-91.712 164.48-162.432-108.736-155.136-242.88-229.76-408.128-229.76-46.08 0-89.728 5.76-131.072 17.472l112.32 112.32c6.144-1.28 12.48-1.92 19.008-1.92 54.272 0 98.368 45.696 98.368 102.016 0 5.44-0.448 10.816-1.28 16l146.304 146.304z m-566.4-379.2L253.44 359.808c-54.592 37.12-104.32 87.808-149.632 152.512 107.2 154.688 241.28 229.12 408.128 229.12 38.72 0 75.712-3.968 111.04-12.096l73.6 73.6A553.984 553.984 0 0 1 512 833.28c-213.888 0-384.512-107.136-512-321.28 55.488-91.84 118.592-163.968 189.248-216.448zM508.032 614.4L414.144 520.448c3.84 51.2 44.096 91.776 93.888 93.952z" fill="#1296db" p-id="8312"></path></svg>`:`<svg t="1612656197741" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7951" width="20" height="20"><path d="M512 283.456c-165.248 0-299.392 74.304-408.128 228.864 107.2 154.112 241.28 228.224 408.128 228.224 166.848 0 300.928-74.112 408.128-228.224C811.392 357.76 677.248 283.52 512 283.52zM512 832c-213.888 0-384.512-106.688-512-320 129.408-213.312 300.032-320 512-320 211.968 0 382.592 106.688 512 320-127.488 213.312-298.112 320-512 320z m0-137.152a182.848 182.848 0 1 0 0-365.696 182.848 182.848 0 0 0 0 365.696zM512 576a64 64 0 1 1 0-128 64 64 0 0 1 0 128z" fill="#1296db" p-id="7952"></path></svg>`
 			let mark_content=marked(q["content"]);
-document.getElementById("hpp_talk_list").innerHTML+=`<div id="${q["id"]}" class="comment-body comment-parent comment-odd comment-by-user"> <div id="item">
-     <a class="pull-left thumb-sm avatar m-l-n-md"> <img nogallery="" src="${q["avatar"]}" class="img-40px photo img-square normal-shadow"> <\/a> 
-     <div class="time-machine m-l-lg panel box-shadow-wrap-normal"> 
-      <div class="panel-heading pos-rlt b-b b-light">
-       <span class="text-muted m-l-sm pull-right" datetime="${q["time"]}"><strong class="talk_mobile_hide">  ${q["name"]}·<\/strong>${q["time"]}<\/span> 
+document.getElementById("hpp_talk_list").innerHTML+=`<div id="${q["id"]}" class="hppt_comment-body hppt_comment-parent hppt_comment-odd hppt_comment-by-user"> <div id="item">
+     <a class="hppt_pull-left hppt_thumb-sm hppt_avatar hppt_m-l-n-md"> <img nogallery="" src="${q["avatar"]}" class="hppt_img-40px hppt_photo hppt_img-square hppt_normal-shadow"> <\/a> 
+     <div class="hppt_time-machine hppt_m-l-lg hppt_panel hppt_box-shadow-wrap-normal"> 
+      <div class="hppt_panel-heading hppt_pos-rlt hppt_b-b hppt_b-light">
+       <span class="hppt_text-muted hppt_m-l-sm hppt_pull-right" datetime="${q["time"]}"><strong class="talk_mobile_hide">  ${q["name"]}·<\/strong>${q["time"]}<\/span> 
       <\/div> 
-      <div class="panel-body comment-content-true"> 
+      <div class="hppt_panel-body hppt_comment-content-true"> 
        <p>${mark_content}<\/p> 
       <\/div> 
-      <div class="panel-footer"> 
-       <div class="say_footer">
-<a href="javascript:hpp_del(${q["id"]});"><svg t="1611833138243" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2021" width="20" height="20"><path d="M832.192 296.96c0.768 10.112 1.28 20.288 1.28 30.656l0 506.112c0 83.264-41.664 158.208-130.432 158.208L311.552 991.936c-88.704 0-130.368-74.944-130.368-158.208L181.184 327.616c0-10.304 0.768-20.544 1.984-30.656l-67.2 0L115.968 170.432l195.648-0.128L311.616 145.92c0-56.32 53.44-102.08 119.36-102.08l152.832 0c65.92 0 119.232 45.76 119.232 102.08l0 23.552 195.712 0.832L898.752 296.96 832.192 296.96 832.192 296.96zM637.76 145.92c0-21.056-24.64-38.784-54.016-38.784L430.912 107.136c-29.312 0-54.08 17.792-54.08 38.784l0 24.32 260.928 0L637.76 145.92 637.76 145.92zM768.192 327.616c0-10.56-0.704-20.8-2.112-30.656L248.512 296.96C247.168 306.816 246.4 317.12 246.4 327.616l0 506.112c0 48.512 12.48 94.976 65.152 94.976l391.488 0c52.864 0 65.216-46.528 65.216-94.976L768.256 327.616 768.192 327.616zM311.552 865.664 311.552 359.936l65.28 0 0 505.728L311.552 865.664 311.552 865.664zM474.688 865.664 474.688 359.936l65.152 0 0 505.728L474.688 865.664 474.688 865.664zM637.76 865.664 637.76 359.936l65.28 0 0 505.728L637.76 865.664 637.76 865.664z" p-id="2022" fill="#1296db"><\/path><\/svg><\/a>	   
+      <div class="hppt_panel-footer"> 
+       <div class="hppt_say_footer">
+<a href="javascript:hpp_del(${q["id"]});"><svg t="1611833138243" class="hppt_icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2021" width="20" height="20"><path d="M832.192 296.96c0.768 10.112 1.28 20.288 1.28 30.656l0 506.112c0 83.264-41.664 158.208-130.432 158.208L311.552 991.936c-88.704 0-130.368-74.944-130.368-158.208L181.184 327.616c0-10.304 0.768-20.544 1.984-30.656l-67.2 0L115.968 170.432l195.648-0.128L311.616 145.92c0-56.32 53.44-102.08 119.36-102.08l152.832 0c65.92 0 119.232 45.76 119.232 102.08l0 23.552 195.712 0.832L898.752 296.96 832.192 296.96 832.192 296.96zM637.76 145.92c0-21.056-24.64-38.784-54.016-38.784L430.912 107.136c-29.312 0-54.08 17.792-54.08 38.784l0 24.32 260.928 0L637.76 145.92 637.76 145.92zM768.192 327.616c0-10.56-0.704-20.8-2.112-30.656L248.512 296.96C247.168 306.816 246.4 317.12 246.4 327.616l0 506.112c0 48.512 12.48 94.976 65.152 94.976l391.488 0c52.864 0 65.216-46.528 65.216-94.976L768.256 327.616 768.192 327.616zM311.552 865.664 311.552 359.936l65.28 0 0 505.728L311.552 865.664 311.552 865.664zM474.688 865.664 474.688 359.936l65.152 0 0 505.728L474.688 865.664 474.688 865.664zM637.76 865.664 637.76 359.936l65.28 0 0 505.728L637.76 865.664 637.76 865.664z" p-id="2022" fill="#1296db"><\/path><\/svg><\/a> | <a href="javascript:hpp_vi(${q["id"]});">${vi}</a>
 	   <\/div> 
       <\/div> 
      <\/div> 

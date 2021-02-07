@@ -36,6 +36,7 @@ start: Number(getCookie("hpp_start"))
 })
 };
 function hpp_talk({id,domain,limit,start}){
+document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">加载 HexoPlusPlus_Talk 中</p></div>`
 	function getJsonLength(jsonData) {
 
     var jsonLength = 0;
@@ -49,12 +50,7 @@ function hpp_talk({id,domain,limit,start}){
     return jsonLength;
 }
 console.log(id);
-document.getElementById(id).innerHTML=`<div class="hpp_talk_load">
-  <div><\/div>
-  <div><\/div>
-  <div><\/div>
-  <div><\/div>
-<\/div>`
+
 
   back='https://'+domain+'/hpp/api/gethpptalk'
 var ajax = ajaxObject();
@@ -63,19 +59,10 @@ var ajax = ajaxObject();
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
-				document.getElementById(id).innerHTML=`<div class="streamline b-l m-l-lg m-b padder-v">
+				document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">渲染说说中...</p></div>`
+				document.getElementById(id).innerHTML=`<div class="hppt_streamline hppt_b-l hppt_m-l-lg hppt_m-b hppt_padder-v">
    <ol id="hpp_talk_list"><\/ol> 
-   <button onclick="hpp_loadmore('${id}','${domain}',${limit})" style="	width: 270px;
-	height: 40px;
-	border-width: 0px; 
-	border-radius: 3px; 
-	background: #90939920; 
-	cursor: pointer; 
-	outline: none;
-	font-family: Microsoft YaHei;
-	font-size: 17px; 
-	margin: .2rem auto 0;
-    display: block;">下一页</button>
+   <a href="javascript:hpp_loadmore('${id}','${domain}',${limit})" class="hppt_button_nextpage">下一页</a>
   <\/div>`
             console.log("OK");
 			console.log(ajax.responseText);
@@ -85,17 +72,17 @@ var ajax = ajaxObject();
 				if(res[i]==null){document.cookie="hpp_start=0";break;}
 				let q=JSON.parse(res[i]);
 			let mark_content=marked(q["content"]);
-document.getElementById("hpp_talk_list").innerHTML+=`<div id="${q["id"]}" class="comment-body comment-parent comment-odd comment-by-user"> <div id="item">
-     <a class="pull-left thumb-sm avatar m-l-n-md"> <img nogallery="" src="${q["avatar"]}" class="img-40px photo img-square normal-shadow"> <\/a> 
-     <div class="time-machine m-l-lg panel box-shadow-wrap-normal"> 
-      <div class="panel-heading pos-rlt b-b b-light">
-       <span class="text-muted m-l-sm pull-right" datetime="${q["time"]}"><strong class="talk_mobile_hide">  ${q["name"]}·<\/strong>${q["time"]}<\/span> 
+document.getElementById("hpp_talk_list").innerHTML+=`<div id="${q["id"]}" class="hppt_comment-body hppt_comment-parent hppt_comment-odd hppt_comment-by-user"> <div id="item">
+     <a class="hppt_pull-left hppt_thumb-sm hppt_avatar hppt_m-l-n-md"> <img nogallery="" src="${q["avatar"]}" class="hppt_img-40px hppt_photo hppt_img-square hppt_normal-shadow"> <\/a> 
+     <div class="hppt_time-machine hppt_m-l-lg hppt_panel hppt_box-shadow-wrap-normal"> 
+      <div class="hppt_panel-heading hppt_pos-rlt hppt_b-b hppt_b-light">
+       <span class="hppt_text-muted hppt_m-l-sm hppt_pull-right" datetime="${q["time"]}"><strong class="talk_mobile_hide">  ${q["name"]}·<\/strong>${q["time"]}<\/span> 
       <\/div> 
-      <div class="panel-body comment-content-true"> 
+      <div class="hppt_panel-body hppt_comment-content-true"> 
        <p>${mark_content}<\/p> 
       <\/div> 
-      <div class="panel-footer"> 
-       <div class="say_footer">	   
+      <div class="hppt_panel-footer"> 
+       <div class="hppt_say_footer">	   
 	   <\/div> 
       <\/div> 
      <\/div> 
