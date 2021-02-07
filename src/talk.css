@@ -336,21 +336,21 @@ min-height:100px;
   left: 0%;
   top: 0%;
   animation: rotate-one 1s linear infinite;
-  border-bottom: 3px solid rgb(0 0 0 / 69%);
+  border-bottom: 3px solid #888;
 }
 
 .hppt_inner.two {
   right: 0%;
   top: 0%;
   animation: rotate-two 1s linear infinite;
-  border-right: 3px solid rgb(0 0 0 / 69%);
+  border-right: 3px solid #888;
 }
 
 .hppt_inner.three {
   right: 0%;
   bottom: 0%;
   animation: rotate-three 1s linear infinite;
-  border-top: 3px solid rgb(0 0 0 / 69%);
+  border-top: 3px solid #888;
 }
 
 @keyframes rotate-one {

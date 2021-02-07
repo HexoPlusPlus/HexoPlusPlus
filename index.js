@@ -181,8 +181,8 @@ async function handleRequest(request) {
         const hpp_twikoo_envId = config["hpp_twikoo-envId"]
         const hpp_OwO = config["hpp_OwO"]
         const hpp_back = config["hpp_back"]
-		const githubdocpath=encodeURI(hpp_githubdocpath)
-		const githubimagepath=encodeURI(hpp_githubimagepath)
+        const githubdocpath = encodeURI(hpp_githubdocpath)
+        const githubimagepath = encodeURI(hpp_githubimagepath)
         if (hpp_autodate == "True") {
           const now = Date.now(new Date())
           await KVNAME.put("hpp_activetime", now)
@@ -753,7 +753,7 @@ ${hpp_js}
           const file = await request.text()
           const hpp_time = Date.parse(new Date())
           const filename = path.substr(("/hpp/admin/api/addimage/").length)
-		  
+
           const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${githubimagepath}${hpp_time}.${filename}`
           const hpp_body = {
             branch: hpp_githubimagebranch, message: `Upload from ${hpp_ver} By ${hpp_githubimageusername}`, content: file
@@ -875,7 +875,7 @@ ${hpp_js}
             name: now["name"],
             avatar: now["avatar"],
             content: now["content"],
-			visible: "True"
+            visible: "True"
           }
           hpp_talk.push(add);
           await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
@@ -893,12 +893,12 @@ ${hpp_js}
           await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
           return new Response('OK')
         }
-		if (path == "/hpp/admin/api/visibletalk") {
+        if (path == "/hpp/admin/api/visibletalk") {
           const hpp_talk = JSON.parse(await KVNAME.get("hpp_talk_data"));
           const now = await request.text()
           for (var i = 0; i < getJsonLength(hpp_talk); i++) {
             if (hpp_talk[i]["id"] == now) {
-				hpp_talk[i]["visible"]=hpp_talk[i]["visible"]=="False"?"True":"False"
+              hpp_talk[i]["visible"] = hpp_talk[i]["visible"] == "False" ? "True" : "False"
             }
           }
           await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
@@ -951,7 +951,7 @@ ${hpp_js}
               name: username[0],
               avatar: now[i]["avatar"],
               content: now[i]["atContentHtml"],
-			  visible: "True"
+              visible: "True"
             }
             hpp_talk.push(talk_init)
           }
@@ -984,30 +984,30 @@ ${hpp_js}
           const hpp_kvwait = Date.now(new Date()) - now
           return new Response("OK")
         }
-		if (path == "/hpp/admin/api/gethpptalk") {
-      const req_r = await request.text()
-      if (req_r != "") {
-        const limit = (await JSON.parse(req_r))["limit"]
-        const start = (await JSON.parse(req_r))["start"]
-        const hpp_talk = await JSON.parse(await KVNAME.get("hpp_talk_data"));
-        let hpp_talk_res = []
-        for (var i = getJsonLength(hpp_talk) - start - 1; i > getJsonLength(hpp_talk) - start - limit; i--) {
-          hpp_talk_res.push(await JSON.stringify(hpp_talk[i]))
+        if (path == "/hpp/admin/api/gethpptalk") {
+          const req_r = await request.text()
+          if (req_r != "") {
+            const limit = (await JSON.parse(req_r))["limit"]
+            const start = (await JSON.parse(req_r))["start"]
+            const hpp_talk = await JSON.parse(await KVNAME.get("hpp_talk_data"));
+            let hpp_talk_res = []
+            for (var i = getJsonLength(hpp_talk) - start - 1; i > getJsonLength(hpp_talk) - start - limit; i--) {
+              hpp_talk_res.push(await JSON.stringify(hpp_talk[i]))
+            }
+            return new Response(JSON.stringify(hpp_talk_res), {
+              headers: {
+                "content-type": "application/json;charset=UTF-8",
+                "Access-Control-Allow-Origin": "*"
+              }
+            })
+          } else {
+            return new Response("ERROR", {
+              headers: {
+                "Access-Control-Allow-Origin": "*"
+              }
+            })
+          }
         }
-        return new Response(JSON.stringify(hpp_talk_res), {
-          headers: {
-            "content-type": "application/json;charset=UTF-8",
-            "Access-Control-Allow-Origin": "*"
-          }
-        })
-      } else {
-        return new Response("ERROR", {
-          headers: {
-            "Access-Control-Allow-Origin": "*"
-          }
-        })
-      }
-    }
       }
     }
     else {
@@ -1215,12 +1215,12 @@ if(res==1){
         const start = (await JSON.parse(req_r))["start"]
         const hpp_talk = await JSON.parse(await KVNAME.get("hpp_talk_data"));
         let hpp_talk_res = []
-		let hpp_vi=""
+        let hpp_vi = ""
         for (var i = getJsonLength(hpp_talk) - start - 1; i > getJsonLength(hpp_talk) - start - limit; i--) {
-			try{hpp_vi=hpp_talk[i]["visible"]}catch(e){hpp_vi=null}
-			if(hpp_vi!="False"){
-          hpp_talk_res.push(await JSON.stringify(hpp_talk[i]))
-			}
+          try { hpp_vi = hpp_talk[i]["visible"] } catch (e) { hpp_vi = null }
+          if (hpp_vi != "False") {
+            hpp_talk_res.push(await JSON.stringify(hpp_talk[i]))
+          }
         }
         return new Response(JSON.stringify(hpp_talk_res), {
           headers: {
