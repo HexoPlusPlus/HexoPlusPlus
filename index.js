@@ -1,4 +1,4 @@
-const hpp_CDNver = "39709e8"
+const hpp_CDNver = "478d606"
 const hpp_ver = "HexoPlusPlus@1.1.0_β_1"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
@@ -99,25 +99,25 @@ async function handleRequest(request) {
 			  <p>面板背景图片:</p>    
               <input type="text" class="input_text" id="hpp_back" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg" />
 			  <h3 style="color:#fff">Github信息</h3>
-		      <p>Github文档仓库Token:</p>    
+		      <p>Github Hexo源代码仓库Token:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdoctoken" placeholder="*********"/>
-			  <p>Github图片仓库Token:</p>    
+			  <p>Github 图片仓库Token:</p>    
 		      <input type="text" class="input_text" id="hpp_githubimagetoken" placeholder="*********"/>
-			  <p>Github文档仓库用户名:</p>    
+			  <p>Github Hexo源代码仓库用户名:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdocusername" placeholder="XXX" />
-			  <p>Github图片仓库用户名:</p>    
+			  <p>Github 图片仓库用户名:</p>    
 		      <input type="text" class="input_text" id="hpp_githubimageusername" placeholder="XXX" />
-			  <p>Github文档仓库名:</p>    
+			  <p>Github Hexo源代码仓库名:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdocrepo" placeholder="blog" />
-			  <p>Github图片仓库名:</p>    
+			  <p>Github 图片仓库名:</p>    
 		      <input type="text" class="input_text" id="hpp_githubimagerepo" placeholder="image" />
-			  <p>Github文档仓库路径:</p>    
+			  <p>Github Hexo源代码路径:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdocpath" placeholder="/source/_posts/" />
-			  <p>Github图片仓库路径:</p>    
+			  <p>Github 图片仓库路径:</p>    
 		      <input type="text" class="input_text" id="hpp_githubimagepath" placeholder="/" />
-			  <p>Github文档仓库分支:</p>    
+			  <p>Github Hexo源代码仓库分支:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdocbranch" placeholder="master" />
-			  <p>Github图片仓库分支:</p>    
+			  <p>Github 图片仓库分支:</p>    
 		      <input type="text" class="input_text" id="hpp_githubimagebranch" placeholder="main" />
 			  <h3 style="color:#fff">附加功能</h3>
 			  <p>是否自动签到【是为True，否为False】:</p>    
@@ -726,7 +726,7 @@ ${hpp_js}
         if (path.startsWith("/hpp/admin/api/adddoc/")) {
           const file = await request.text()
           const filename = path.substr(("/hpp/admin/api/adddoc/").length)
-          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
+          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}source/_posts/${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
           const hpp_body = {
             branch: hpp_githubdocbranch, message: `Upload from ${hpp_ver} By ${hpp_githubdocusername}`, content: file, sha: hpp_sha
@@ -777,7 +777,7 @@ ${hpp_js}
         }
         if (path.startsWith("/hpp/admin/api/deldoc")) {
           const filename = path.substr(("/hpp/admin/api/deldoc/").length)
-          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
+          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}source/_posts/${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
           const hpp_body = {
             branch: hpp_githubdocbranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
@@ -836,7 +836,7 @@ ${hpp_js}
         }
         if (path.startsWith("/hpp/admin/api/getdoc")) {
           const filename = path.substr(("/hpp/admin/api/getdoc/").length)
-          return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
+          return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocpath}source/_posts/${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
         }
         if (path == "/hpp/admin/api/getlist") {
           const filepath = githubdocpath.substr(0, (githubdocpath).length - 1)

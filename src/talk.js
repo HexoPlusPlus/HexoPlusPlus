@@ -337,7 +337,7 @@ function hpp_talk({id,domain,limit,start}){
     return jsonLength;
 }
 console.log(id);
-document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">加载 HexoPlusPlus_Talk_管理员模式 中</p></div>`
+document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div style="display: flex;justify-content: center;"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div></div><p style="text-align:center;">加载 HexoPlusPlus_Talk_管理员模式 中</p></div>`
 
   back='https://'+domain+'/hpp/admin/api/gethpptalk'
 var ajax = ajaxObject();
@@ -346,7 +346,6 @@ var ajax = ajaxObject();
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
-				document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">渲染说说中...</p></div>`
 				document.getElementById(id).innerHTML=`<div class="hppt_streamline hppt_b-l hppt_m-l-lg hppt_m-b hppt_padder-v">
    <ol id="hpp_talk_list"><\/ol> 
    <a href="javascript:hpp_loadmore('${id}','${domain}',${limit})" class="hppt_button_nextpage">下一页</a>
