@@ -31,7 +31,7 @@
         background-position:0% 31%
     }
 }
-.md-editor{display:block;border:1px solid #ddd}.md-editor .md-footer,.md-editor>.md-header{display:block;padding:6px 4px;background:#f5f5f5}.md-editor>.md-header{margin:0}.md-editor>.md-pview{background:#fff;border-top:1px dashed #ddd;border-bottom:1px dashed #ddd;min-height:10px;overflow:auto}.md-editor>textarea{font-family:Menlo,Monaco,Consolas,"Courier New",monospace;font-size:14px;outline:0;margin:0;display:block;padding:0;width:100%;border:0;border-top:1px dashed #ddd;border-bottom:1px dashed #ddd;border-radius:0;box-shadow:none;background:#eee}.md-editor>textarea:focus{box-shadow:none;background:#fff}.md-editor.active{border-color:#66afe9;outline:0;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)}.md-editor .md-controls{float:right;padding:3px}.md-editor .md-controls .md-control{right:5px;color:#bebebe;padding:3px 3px 3px 10px}.md-editor .md-controls .md-control:hover{color:#333}.md-editor.md-fullscreen-mode{width:100%;height:100%;position:fixed;top:0;left:0;z-index:99999;padding:60px 30px 15px;background:#fff!important;border:0!important}.md-editor.md-fullscreen-mode .md-footer{display:none}.md-editor.md-fullscreen-mode .md-input,.md-editor.md-fullscreen-mode .md-preview{margin:0 auto!important;height:100%!important;font-size:20px!important;padding:40px 20px 20px 22px;color:#999;line-height:1.6em!important;resize:none!important;box-shadow:none!important;background:#fff!important;border:0!important}.md-editor.md-fullscreen-mode .md-preview{color:#333;overflow:auto}.md-editor.md-fullscreen-mode .md-input:focus,.md-editor.md-fullscreen-mode .md-input:hover{color:#333;background:#fff!important}.md-editor.md-fullscreen-mode .md-header{background:0 0;text-align:center;position:fixed;width:100%;top:20px}.md-editor.md-fullscreen-mode .btn-group{float:none}.md-editor.md-fullscreen-mode .btn{border:0;background:0 0;color:#b3b3b3}.md-editor.md-fullscreen-mode .btn.active,.md-editor.md-fullscreen-mode .btn:active,.md-editor.md-fullscreen-mode .btn:focus,.md-editor.md-fullscreen-mode .btn:hover{box-shadow:none;color:#333}.md-editor.md-fullscreen-mode .md-fullscreen-controls{position:absolute;top:20px;right:20px;text-align:right;z-index:1002;display:block}.md-editor.md-fullscreen-mode .md-fullscreen-controls a{color:#b3b3b3;clear:right;margin:10px;width:30px;height:30px;text-align:center}.md-editor.md-fullscreen-mode .md-fullscreen-controls a:hover{color:#333;text-decoration:none}.md-editor.md-fullscreen-mode .md-editor{height:100%!important;position:relative}.md-editor .md-fullscreen-controls{display:none}.md-nooverflow{overflow:hidden;position:fixed;width:100%}
+
 .hppt_padder-v {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -100,11 +100,7 @@ ol {
     margin-inline-end: 0px;
     padding-inline-start: 40px;
 }
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+
 .hppt_comment-list {
     margin-bottom: 0!important;
     padding-left: 0;
@@ -224,11 +220,6 @@ ol {
     z-index: 10;
     border-width: 9px;
 }
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
 .hppt_m-l-sm {
     margin-left: 10px;
 }
@@ -241,11 +232,7 @@ ol {
 .hppt_text-muted {
     color: #777;
 }
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+
 .hppt_comment-content-true {
     display: block;
 }
@@ -317,7 +304,6 @@ min-height:100px;
 .hppt_loader {
   background-color: #90939920;
   position: absolute;
-  left: calc(50% - 32px);
   width: 64px;
   height: 64px;
   border-radius: 50%;
@@ -337,6 +323,7 @@ min-height:100px;
   top: 0%;
   animation: rotate-one 1s linear infinite;
   border-bottom: 3px solid #888;
+  position: absolute;
 }
 
 .hppt_inner.two {
@@ -344,6 +331,7 @@ min-height:100px;
   top: 0%;
   animation: rotate-two 1s linear infinite;
   border-right: 3px solid #888;
+  position: absolute;
 }
 
 .hppt_inner.three {
@@ -351,6 +339,7 @@ min-height:100px;
   bottom: 0%;
   animation: rotate-three 1s linear infinite;
   border-top: 3px solid #888;
+  position: absolute;
 }
 
 @keyframes rotate-one {

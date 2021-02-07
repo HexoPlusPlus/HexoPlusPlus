@@ -63,11 +63,13 @@ function hpp_backup(data_name,ele){
 if(localStorage.getItem("hpp_editor_autobackup")=="1"){
 var notyf = new Notyf();
 localStorage.setItem(`hpp_${data_name}_backup`,document.getElementById(`text_${ele}`).value);
+localStorage.setItem(`hpp_${data_name}_choo_backup`,document.getElementById(`choo`).value);
 notyf.success('自动备份成功！')
 }
 else if(localStorage.getItem("hpp_editor_autobackup")=="2"){
 localStorage.setItem(`hpp_${data_name}_backup`,document.getElementById(`text_${ele}`).value);
-}else{console.log("自动备份功能没开！")}
+localStorage.setItem(`hpp_${data_name}_choo_backup`,document.getElementById(`choo`).value);
+}else{}
 };
 function hpp_start_or_stop_backup(){
 var notyf = new Notyf();
@@ -282,7 +284,8 @@ var ctJson = "/hpp/admin/api/getlist"
             });
 			console.log('get!')
 			 $('#choo').editableSelect();
-		choo.value = "选择一个文件或直接新增一个文件"
+		choo.placeholder = "选择一个文件或直接新增一个文件"
+		choo.value=localStorage.getItem(`hpp_hpp_docs_choo_backup`);
         });
 }
 var input = document.getElementById("input");
@@ -344,6 +347,7 @@ function hpp_upload_md(){
             if( ajax.status == 200 ) {
                 sweetAlert("成功",  "文件已上传", "success");
 				localStorage.setItem("hpp_hpp_docs_backup","");
+				localStorage.setItem("hpp_hpp_docs_choo_backup","");
             }
 		else if( ajax.status == 201 ){
                 sweetAlert("成功",  "文件已新建", "success");

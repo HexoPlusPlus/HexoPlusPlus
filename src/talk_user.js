@@ -19,6 +19,15 @@ function ajaxObject() {
     }
     return xmlHttp;
 };
+function loadStyle(url){
+var link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = url;
+    var head = document.getElementsByTagName('head')[0];
+    head.appendChild(link);
+}
+
 function getCookie(name)
 {
 var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
@@ -35,7 +44,8 @@ limit: limit,
 start: Number(getCookie("hpp_start"))
 })
 };
-function hpp_talk({id,domain,limit,start}){
+function hpp_talk({id,domain,limit,start,themecss}){
+if(themecss!=undefined){loadStyle(themecss)};
 document.getElementById(id).innerHTML=`<div class="hpp_talk_loading"><div class="hpp_talk_part"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div><p style="text-align:center;">加载 HexoPlusPlus_Talk 中</p></div>`
 	function getJsonLength(jsonData) {
 
