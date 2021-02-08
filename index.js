@@ -187,6 +187,8 @@ async function handleRequest(request) {
         const hpp_back = config["hpp_back"]
 		const hpp_lazy_img = config["hpp_lazy_img"]
 		const hpp_highlight_style = config["hpp_highlight_style"]
+		const hpp_plugin_js = config["hpp_plugin_js"]
+		const hpp_plugin_css = config["hpp_plugin_css"]
 		const hpp_githubdocpath = hpp_githubdocroot + "source/_posts/"
 		const hpp_githubdocdraftpath = hpp_githubdocroot + "source/_drafts/"
 		const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
@@ -574,6 +576,9 @@ async function handleRequest(request) {
       </div>`
             hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/config.js'></script>`
           }
+		  let hpp_plugin=""
+		  if(hpp_plugin_css!=undefined){hpp_plugin+=`<link rel="stylesheet" type="text/css" href="${hpp_plugin_css}" />`}
+		  if(hpp_plugin_js!=undefined){hpp_plugin+=`<script src="${hpp_plugin_js}"></script>`}
           let hpp_dash_head = `<!DOCTYPE html>
 <html lang="en">
 
@@ -583,6 +588,7 @@ async function handleRequest(request) {
   <link rel="icon" type="image/png" href="${hpp_usericon}">
   <title>${hpp_title}</title>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  ${hpp_plugin}
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/font.css" />
   <link href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin_all.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/editor.md/css/editormd.css" />
