@@ -124,7 +124,7 @@ swal({title:"你真的要删除此键值？",text:"我相信你是手滑了",ico
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
-                sweetAlert("成功", "该键值已删除！", "success");		    
+                sweetAlert("成功", "该键值已删除！", "success").then((value) => {window.location.reload();}	)	    
             }
             else {
                 sweetAlert("糟糕", "删除配置失败！", "error");

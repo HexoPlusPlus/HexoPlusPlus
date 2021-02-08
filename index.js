@@ -1,5 +1,5 @@
 const hpp_CDNver = "48e07b1"
-const hpp_ver = "HexoPlusPlus@1.0.10_β_8"
+const hpp_ver = "HexoPlusPlus@1.0.10_β_9"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -100,6 +100,8 @@ async function handleRequest(request) {
               <input type="text" class="input_text" id="hpp_back" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg" />
 			  <p>懒加载图片:</p>    
               <input type="text" class="input_text" id="hpp_lazy_img" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif" />
+			  <p>高亮样式:</p>    
+              <input type="text" class="input_text" id="hpp_highlight_style" placeholder="github" />
 			  <h3 style="color:#fff">Github信息</h3>
 		      <p>Github文档仓库Token:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdoctoken" placeholder="*********"/>
@@ -184,6 +186,7 @@ async function handleRequest(request) {
         const hpp_OwO = config["hpp_OwO"]
         const hpp_back = config["hpp_back"]
 		const hpp_lazy_img = config["hpp_lazy_img"]
+		const hpp_highlight_style = config["hpp_highlight_style"]
 		const hpp_githubdocpath = hpp_githubdocroot + "source/_posts/"
 		const hpp_githubdocdraftpath = hpp_githubdocroot + "source/_drafts/"
 		const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
@@ -412,7 +415,11 @@ async function handleRequest(request) {
         </div>
       </div>`
             hpp_js = `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> 
-<script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/edit.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
+<script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/edit.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/highlight.min.js"></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${hpp_highlight_style}.min.css' /> 
+
+`
           }
           if (path == "/hpp/admin/dash/talk") {
             hpp_talk_act = " active"
@@ -596,6 +603,7 @@ async function handleRequest(request) {
   const hpp_githubimagepath ="${hpp_githubimagepath}"
   const hpp_githubdocdraftpath ="${hpp_githubdocdraftpath}"
   const hpp_lazy_img = "${hpp_lazy_img}"
+  const hpp_highlight_style = "${hpp_highlight_style}"
   </script>
 </head>
 <body class="">
