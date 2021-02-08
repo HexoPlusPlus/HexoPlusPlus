@@ -300,6 +300,9 @@ function del_same(_arr){
         console.log(_arr);
 }
 let arr_list=[]
+let arr_path=""
+let hpp_arr_githubdocpath=hpp_githubdocpath.substr(1,hpp_githubdocpath.length-1)
+let hpp_arr_draft_githubdocpath=hpp_githubdocdraftpath.substr(1,hpp_githubdocdraftpath.length-1)
 var ajax = ajaxObject();
     ajax.open( "post" , '/hpp/admin/api/getlist' , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
@@ -307,7 +310,12 @@ var ajax = ajaxObject();
         if( ajax.readyState == 4 ) {
             if( ajax.status == 200 ) {
                 for(var i=0;i<getJsonLength(JSON.parse(ajax.responseText));i++){
-					try{arr_list.push(JSON.parse(ajax.responseText)[i]["name"])}catch(e){}
+					try{
+						arr_path=JSON.parse(ajax.responseText)[i]["path"]
+						arr_path=arr_path.split(hpp_arr_githubdocpath)[1]
+						if(arr_path!=undefined)arr_list.push(arr_path)
+						
+					}catch(e){}
 				}
 				var ajax2 = ajaxObject();
     ajax2.open( "post" , '/hpp/admin/api/get_draftlist' , true );
@@ -316,9 +324,14 @@ var ajax = ajaxObject();
         if( ajax2.readyState == 4 ) {
             if( ajax2.status == 200 ) {
                 for(var j=0;j<getJsonLength(JSON.parse(ajax2.responseText));j++){
-					try{arr_list.push(JSON.parse(ajax2.responseText)[j]["name"])}catch(e){}
+					try{
+						arr_path=JSON.parse(ajax2.responseText)[j]["path"]
+						arr_path=arr_path.split(hpp_arr_draft_githubdocpath)[1]
+						if(arr_path!=undefined)arr_list.push(arr_path)
+						
+					}catch(e){}
 				}
-				del_same(arr_list)
+				//del_same(arr_list)
 				for(var i=0;i<getJsonLength(arr_list);i++){
 					document.getElementById("choo").innerHTML+=`<option>${arr_list[i]}</option>`
 				}

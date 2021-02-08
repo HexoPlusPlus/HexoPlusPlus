@@ -591,7 +591,6 @@ async function handleRequest(request) {
   ${hpp_plugin}
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/font.css" />
   <link href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin_all.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/editor.md/css/editormd.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
   <script>
   //这个脚本的用途是前端变量传递
@@ -913,11 +912,21 @@ ${hpp_js}
           const filename = path.substr(("/hpp/admin/api/getdoc/").length)
           return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
         }
+		async function fetch_bfs(arr,url,getinit){
+			const hpp_getlist = await JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())
+			for(var i=0;i<getJsonLength(hpp_getlist);i++){
+				if(hpp_getlist[i]["type"]=="file"){
+					arr.push(hpp_getlist[i])
+				}else{
+				await fetch_bfs(arr,hpp_getlist[i]["_links"]["self"],getinit)
+				}
+			}
+			return arr;
+		}
         if (path == "/hpp/admin/api/getlist") {
           const filepath = githubdocpath.substr(0, (githubdocpath).length - 1)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
-          const hpp_getlist = await fetch(url, hpp_githubgetdocinit)
-          return new Response(await (hpp_getlist).text(), {
+          return new Response(await JSON.stringify(await fetch_bfs([],url,hpp_githubgetdocinit)), {
             headers: {
               "content-type": "application/json;charset=UTF-8",
               "Access-Control-Allow-Origin": hpp_cors
@@ -930,10 +939,8 @@ ${hpp_js}
         }
         if (path == "/hpp/admin/api/get_draftlist") {
           const filepath = githubdocdraftpath.substr(0, (githubdocdraftpath).length - 1)
-		  console.log(filepath)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
-          const hpp_getlist = await fetch(url, hpp_githubgetdocinit)
-          return new Response(await (hpp_getlist).text(), {
+          return new Response(await JSON.stringify(await fetch_bfs([],url,hpp_githubgetdocinit)), {
             headers: {
               "content-type": "application/json;charset=UTF-8",
               "Access-Control-Allow-Origin": hpp_cors
@@ -943,8 +950,7 @@ ${hpp_js}
         if (path == "/hpp/admin/api/getimglist") {
           const filepath = githubimagepath.substr(0, (githubimagepath).length - 1)
           const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${filepath}?ref=${hpp_githubimagebranch}`
-          const hpp_getlist = await fetch(url, hpp_githubgetimageinit)
-          return new Response(await (hpp_getlist).text(), {
+          return new Response(await JSON.stringify(await fetch_bfs([],url,hpp_githubgetimageinit)), {
             headers: {
               "content-type": "application/json;charset=UTF-8",
               "Access-Control-Allow-Origin": hpp_cors
