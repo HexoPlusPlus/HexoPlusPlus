@@ -316,6 +316,14 @@ var ajax = ajaxObject();
                 for(var j=0;j<getJsonLength(JSON.parse(ajax2.responseText));j++){
 					try{arr_list.push(JSON.parse(ajax2.responseText)[j]["name"])}catch(e){}
 				}
+				del_same(arr_list)
+				for(var i=0;i<getJsonLength(arr_list);i++){
+					document.getElementById("choo").innerHTML+=`<option>${arr_list[i]}</option>`
+				}
+				$('#choo').editableSelect();
+				choo.placeholder = "选择一个文件或直接新增一个文件"
+				choo.value=localStorage.getItem(`hpp_hpp_docs_choo_backup`);
+
             }
             else {
 			sweetAlert("糟糕", "拉取文件失败！", "error")
@@ -330,10 +338,6 @@ ajax2.send();
         }
     }
 ajax.send();
-del_same(arr_list)
-for(var i=0;i<getJsonLength(arr_list);i++){
-	document.getElementById("choo").innerHTML+=arr_list[i]
-}
 
 
 }
@@ -411,7 +415,7 @@ function hpp_upload_md(){
 function hpp_get_md(){
 hpp_replace_mark("正在获取"+choo.value+"中")
 var ajax = ajaxObject();
-    ajax.open( "get" , '/hpp/admin/api/getdoc/'+choo.value , true );
+    ajax.open( "post" , '/hpp/admin/api/getdoc/'+choo.value , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
@@ -450,7 +454,7 @@ function hpp_upload_draft(){
 function hpp_get_draft(){
 hpp_replace_mark("正在获取"+choo.value+"中")
 var ajax = ajaxObject();
-    ajax.open( "get" , '/hpp/admin/api/getdraft/'+choo.value , true );
+    ajax.open( "post" , '/hpp/admin/api/getdraft/'+choo.value , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
@@ -467,9 +471,7 @@ var ajax = ajaxObject();
 
 
 hpp_get_list();
-$('#choo').editableSelect();
-choo.placeholder = "选择一个文件或直接新增一个文件"
-choo.value=localStorage.getItem(`hpp_hpp_docs_choo_backup`);
+
 new hpp_md_editor({
 	ele: "hpp_doc_editor",
 	data_name: "hpp_docs",

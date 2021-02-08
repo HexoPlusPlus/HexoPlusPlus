@@ -1,5 +1,5 @@
-const hpp_CDNver = "4e220a1"
-const hpp_ver = "HexoPlusPlus@1.0.10_β_4"
+const hpp_CDNver = "55cba39"
+const hpp_ver = "HexoPlusPlus@1.0.10_β_5"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -183,6 +183,7 @@ async function handleRequest(request) {
         const hpp_twikoo_envId = config["hpp_twikoo-envId"]
         const hpp_OwO = config["hpp_OwO"]
         const hpp_back = config["hpp_back"]
+		const hpp_lazy_img = config["hpp_lazy_img"]
 		const hpp_githubdocpath = hpp_githubdocroot + "source/_posts/"
 		const hpp_githubdocdraftpath = hpp_githubdocroot + "source/_drafts/"
 		const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
@@ -594,6 +595,7 @@ async function handleRequest(request) {
   const hpp_githubimagebranch ="${hpp_githubimagebranch}"
   const hpp_githubimagepath ="${hpp_githubimagepath}"
   const hpp_githubdocdraftpath ="${hpp_githubdocdraftpath}"
+  const hpp_lazy_img = "${hpp_lazy_img}"
   </script>
 </head>
 <body class="">
