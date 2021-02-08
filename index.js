@@ -1,5 +1,5 @@
-const hpp_CDNver = "c4dbf77"
-const hpp_ver = "HexoPlusPlus@1.1.1_β_3"
+const hpp_CDNver = "f246ce5"
+const hpp_ver = "HexoPlusPlus@1.1.1_β_4"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -748,7 +748,7 @@ ${hpp_js}
 
         }
         if (path.startsWith("/hpp/admin/api/adddoc/")) {
-			await KVNAME.delete("hpp_doc_list_index")
+          await KVNAME.delete("hpp_doc_list_index")
           const file = await request.text()
           const filename = path.substr(("/hpp/admin/api/adddoc/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
@@ -775,7 +775,7 @@ ${hpp_js}
 
         }
         if (path.startsWith("/hpp/admin/api/adddraft/")) {
-			await KVNAME.delete("hpp_doc_draft_list_index")
+          await KVNAME.delete("hpp_doc_draft_list_index")
           const file = await request.text()
           const filename = path.substr(("/hpp/admin/api/adddraft/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
@@ -828,7 +828,7 @@ ${hpp_js}
           }
         }
         if (path.startsWith("/hpp/admin/api/deldoc")) {
-			await KVNAME.delete("hpp_doc_list_index")
+          await KVNAME.delete("hpp_doc_list_index")
           const filename = path.substr(("/hpp/admin/api/deldoc/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
@@ -854,7 +854,7 @@ ${hpp_js}
         }
 
         if (path.startsWith("/hpp/admin/api/deldraft")) {
-			await KVNAME.delete("hpp_doc_draft_list_index")
+          await KVNAME.delete("hpp_doc_draft_list_index")
           const filename = path.substr(("/hpp/admin/api/deldraft/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
@@ -919,7 +919,7 @@ ${hpp_js}
           return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
         }
         async function fetch_bfs(arr, url, getinit) {
-          const hpp_getlist = await JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())
+          try{const hpp_getlist = await JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())
           for (var i = 0; i < getJsonLength(hpp_getlist); i++) {
             if (hpp_getlist[i]["type"] == "file") {
               arr.push(hpp_getlist[i])
@@ -927,7 +927,7 @@ ${hpp_js}
               await fetch_bfs(arr, hpp_getlist[i]["_links"]["self"], getinit)
             }
           }
-          return arr;
+          return arr;}catch(e){return {}}
         }
         if (path == "/hpp/admin/api/getlist") {
           let hpp_doc_list_index = await KVNAME.get("hpp_doc_list_index")
@@ -935,7 +935,7 @@ ${hpp_js}
             const filepath = githubdocpath.substr(0, (githubdocpath).length - 1)
             const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
             hpp_doc_list_index = await JSON.stringify(await fetch_bfs([], url, hpp_githubgetdocinit))
-			await KVNAME.put("hpp_doc_list_index",hpp_doc_list_index)
+            await KVNAME.put("hpp_doc_list_index", hpp_doc_list_index)
           }
           return new Response(hpp_doc_list_index, {
             headers: {
@@ -954,7 +954,7 @@ ${hpp_js}
             const filepath = githubdocdraftpath.substr(0, (githubdocdraftpath).length - 1)
             const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
             hpp_doc_draft_list_index = await JSON.stringify(await fetch_bfs([], url, hpp_githubgetdocinit))
-			await KVNAME.put("hpp_doc_draft_list_index",hpp_doc_draft_list_index)
+            await KVNAME.put("hpp_doc_draft_list_index", hpp_doc_draft_list_index)
           }
           return new Response(hpp_doc_draft_list_index, {
             headers: {
@@ -973,13 +973,13 @@ ${hpp_js}
             }
           })
         }
-		
-		if(path == "/hpp/admin/api/index_del"){
-			await KVNAME.delete("hpp_doc_draft_list_index")
-			await KVNAME.delete("hpp_doc_list_index")
-			return new Response("OK")
-		}
-		
+
+        if (path == "/hpp/admin/api/index_del") {
+          await KVNAME.delete("hpp_doc_draft_list_index")
+          await KVNAME.delete("hpp_doc_list_index")
+          return new Response("OK")
+        }
+
         if (path == "/hpp/admin/api/addtalk") {
           let hpp_talk_re = await KVNAME.get("hpp_talk_data")
           if (hpp_talk_re === null) { hpp_talk_re = "[]" }
