@@ -88,10 +88,11 @@ function hpp_upload_photo(){}
 function hpp_upload_file(){}
 function hpp_preview(ele,data_name){
 if(document.getElementById(`text_${ele}`).style.display != "none"){
-document.getElementById(`div_${ele}`).innerHTML=marked(document.getElementById(`text_${ele}`).value)
 document.getElementById(`div_${ele}`).style.display = "block";
 document.getElementById(`text_${ele}`).style.display = "none";
 document.getElementById(`hpp_eye_${ele}`).innerHTML=`<i class="fa fa-eye-slash fa-2x"><\/i>`
+document.getElementById(`div_${ele}`).innerHTML="正在渲染markdown文本中..."
+document.getElementById(`div_${ele}`).innerHTML=marked(document.getElementById(`text_${ele}`).value)
 }else{
 document.getElementById(`div_${ele}`).style.display = "none";
 document.getElementById(`text_${ele}`).style.display = "block";
@@ -504,6 +505,6 @@ marked.setOptions({
     smartLists: true,
     smartypants: false,
     highlight: function (code) {
-    return highlight.highlightAuto(code).value;
+    return hljs.highlightAuto(code).value;
   }
 });

@@ -90,10 +90,12 @@ function hpp_upload_photo(){}
 function hpp_upload_file(){}
 function hpp_preview(ele,data_name){
 if(document.getElementById(`text_${ele}`).style.display != "none"){
-document.getElementById(`div_${ele}`).innerHTML=marked(document.getElementById(`text_${ele}`).value)
 document.getElementById(`div_${ele}`).style.display = "block";
 document.getElementById(`text_${ele}`).style.display = "none";
 document.getElementById(`hpp_eye_${ele}`).innerHTML=`<i class="fa fa-eye-slash fa-2x"><\/i>`
+document.getElementById(`div_${ele}`).innerHTML="正在渲染markdown文本中..."
+document.getElementById(`div_${ele}`).innerHTML=marked(document.getElementById(`text_${ele}`).value)
+
 }else{
 document.getElementById(`div_${ele}`).style.display = "none";
 document.getElementById(`text_${ele}`).style.display = "block";
@@ -413,6 +415,9 @@ function hpp_upload_md(){
     ajax.send(base64Encode(document.getElementById("text_hpp_doc_editor").value));
 }
 function hpp_get_md(){
+document.getElementById(`div_hpp_doc_editor`).style.display = "none";
+document.getElementById(`text_hpp_doc_editor`).style.display = "block";
+document.getElementById(`hpp_eye_hpp_doc_editor`).innerHTML=`<i class="fa fa-eye fa-2x"><\/i>`
 hpp_replace_mark("正在获取"+choo.value+"中")
 var ajax = ajaxObject();
     ajax.open( "post" , '/hpp/admin/api/getdoc/'+choo.value , true );
@@ -452,6 +457,9 @@ function hpp_upload_draft(){
     ajax.send(base64Encode(document.getElementById("text_hpp_doc_editor").value));
 }
 function hpp_get_draft(){
+document.getElementById(`div_hpp_doc_editor`).style.display = "none";
+document.getElementById(`text_hpp_doc_editor`).style.display = "block";
+document.getElementById(`hpp_eye_hpp_doc_editor`).innerHTML=`<i class="fa fa-eye fa-2x"><\/i>`
 hpp_replace_mark("正在获取"+choo.value+"中")
 var ajax = ajaxObject();
     ajax.open( "post" , '/hpp/admin/api/getdraft/'+choo.value , true );
@@ -481,7 +489,7 @@ marked.setOptions({
     smartLists: true,
     smartypants: false,
     highlight: function (code) {
-    return highlight.highlightAuto(code).value;
+    return hljs.highlightAuto(code).value;
   }
 });
 new hpp_md_editor({

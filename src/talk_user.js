@@ -125,6 +125,6 @@ marked.setOptions({
     smartLists: true,
     smartypants: false,
     highlight: function (code) {
-    return highlight.highlightAuto(code).value;
+    return hljs.highlightAuto(code).value;
   }
 });
