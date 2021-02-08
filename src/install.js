@@ -71,6 +71,8 @@ function start() {
 		let hpp_autodate=document.getElementById("hpp_autodate").value==""?"False":document.getElementById("hpp_autodate").value
 		let hpp_OwO=document.getElementById("hpp_OwO").value==""?"https://cdn.jsdelivr.net/gh/ChenYFan/CDN@master/assets/list.json":document.getElementById("hpp_OwO").value
 		let hpp_back=document.getElementById("hpp_back").value==""?"https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg":document.getElementById("hpp_back").value
+		let hpp_lazy_img=document.getElementById("hpp_lazy_img").value==""?"https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif":document.getElementById("hpp_lazy_img").value
+		let hpp_highlight_style=document.getElementById("hpp_highlight_style").value==""?"github":document.getElementById("hpp_highlight_style").value
 		const config={
 			"hpp_domain":hpp_domain,
 			"hpp_userimage":hpp_username,
@@ -81,7 +83,7 @@ function start() {
 			"hpp_githubimagetoken":document.getElementById("hpp_githubimagetoken").value,
 			"hpp_githubdocusername":document.getElementById("hpp_githubdocusername").value,
 			"hpp_githubdocrepo":document.getElementById("hpp_githubdocrepo").value,
-			"hpp_githubdocpath":document.getElementById("hpp_githubdocpath").value,			
+			"hpp_githubdocroot":document.getElementById("hpp_githubdocroot").value,			
 			"hpp_githubdocbranch":document.getElementById("hpp_githubdocbranch").value,
 			"hpp_githubimageusername":document.getElementById("hpp_githubimageusername").value,
 			"hpp_githubimagerepo":document.getElementById("hpp_githubimagerepo").value,
@@ -94,7 +96,9 @@ function start() {
 			"hpp_Auth_Email":document.getElementById("hpp_Auth_Email").value,
 			"hpp_twikoo_envId":document.getElementById("hpp_twikoo_envId").value,
 			"hpp_OwO":hpp_OwO,
-			"hpp_back":hpp_back
+			"hpp_back":hpp_back,
+			"hpp_lazy_img":hpp_lazy_img,
+			"hpp_highlight_style":hpp_highlight_style
 			};
         var ajax = ajaxObject();
         ajax.open("post", '/hpp/admin/api/upconfig', true);

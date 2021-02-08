@@ -1,5 +1,5 @@
-const hpp_CDNver = "e1f87e4"
-const hpp_ver = "HexoPlusPlus@1.0.9"
+const hpp_CDNver = "8eff261"
+const hpp_ver = "HexoPlusPlus@1.0.10"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -98,6 +98,10 @@ async function handleRequest(request) {
               <input type="text" class="input_text" id="hpp_OwO" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/CDN@ca3ea6c/assets/list.json" />
 			  <p>面板背景图片:</p>    
               <input type="text" class="input_text" id="hpp_back" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg" />
+			  <p>懒加载图片:</p>    
+              <input type="text" class="input_text" id="hpp_lazy_img" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif" />
+			  <p>高亮样式:</p>    
+              <input type="text" class="input_text" id="hpp_highlight_style" placeholder="github" />
 			  <h3 style="color:#fff">Github信息</h3>
 		      <p>Github文档仓库Token:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdoctoken" placeholder="*********"/>
@@ -111,8 +115,8 @@ async function handleRequest(request) {
 		      <input type="text" class="input_text" id="hpp_githubdocrepo" placeholder="blog" />
 			  <p>Github图片仓库名:</p>    
 		      <input type="text" class="input_text" id="hpp_githubimagerepo" placeholder="image" />
-			  <p>Github文档仓库路径:</p>    
-		      <input type="text" class="input_text" id="hpp_githubdocpath" placeholder="/source/_posts/" />
+			  <p>Github文档仓库根目录:</p>    
+		      <input type="text" class="input_text" id="hpp_githubdocroot" placeholder="/" />
 			  <p>Github图片仓库路径:</p>    
 		      <input type="text" class="input_text" id="hpp_githubimagepath" placeholder="/" />
 			  <p>Github文档仓库分支:</p>    
@@ -167,7 +171,7 @@ async function handleRequest(request) {
         const hpp_githubimagetoken = config["hpp_githubimagetoken"]
         const hpp_githubdocusername = config["hpp_githubdocusername"]
         const hpp_githubdocrepo = config["hpp_githubdocrepo"]
-        const hpp_githubdocpath = config["hpp_githubdocpath"]
+        const hpp_githubdocroot = config["hpp_githubdocroot"]
         const hpp_githubdocbranch = config["hpp_githubdocbranch"]
         const hpp_githubimageusername = config["hpp_githubimageusername"]
         const hpp_githubimagerepo = config["hpp_githubimagerepo"]
@@ -181,6 +185,13 @@ async function handleRequest(request) {
         const hpp_twikoo_envId = config["hpp_twikoo-envId"]
         const hpp_OwO = config["hpp_OwO"]
         const hpp_back = config["hpp_back"]
+		const hpp_lazy_img = config["hpp_lazy_img"]
+		const hpp_highlight_style = config["hpp_highlight_style"]
+		const hpp_plugin_js = config["hpp_plugin_js"]
+		const hpp_plugin_css = config["hpp_plugin_css"]
+		const hpp_githubdocpath = hpp_githubdocroot + "source/_posts/"
+		const hpp_githubdocdraftpath = hpp_githubdocroot + "source/_drafts/"
+		const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
         const githubdocpath = encodeURI(hpp_githubdocpath)
         const githubimagepath = encodeURI(hpp_githubimagepath)
         if (hpp_autodate == "True") {
@@ -375,7 +386,8 @@ async function handleRequest(request) {
                           <div class="col-md-8">
                               <label class="bmd-label-floating">文件选择</label>
                               <select id="choo" class="form-control form-control-chosen" style="display: inline;"></select>
-							  <button type="submit" class="btn btn-success" onclick="javascript:hpp_get_md()">获取</button>
+							  <button type="submit" class="btn btn-success" onclick="javascript:hpp_get_md()">获取文章</button>
+							  <button type="submit" class="btn btn-normal" onclick="javascript:hpp_get_draft()">获取艹稿</button>
                           </div>
                         
                         <div class="row">
@@ -388,8 +400,8 @@ async function handleRequest(request) {
                             </div>
                           </div>
                         </div>
-						
-                        <button type="submit" class="btn btn-primary pull-right" onclick="javascript:hpp_upload_md()">Upload</button>
+						<button type="submit" class="btn btn-normal pull-right" onclick="javascript:hpp_upload_draft()">发布艹稿</button>
+                        <button type="submit" class="btn btn-primary pull-right" onclick="javascript:hpp_upload_md()">发布文件</button>
                         <div class="clearfix"></div>
 						<input type="file" name="upload" id="upload_md" style="display:none"/>
 						<form id="upform" enctype='multipart/form-data' style="display:none;">
@@ -405,7 +417,11 @@ async function handleRequest(request) {
         </div>
       </div>`
             hpp_js = `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> 
-<script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/edit.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">`
+<script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/edit.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DIYgod/OwO@master/dist/OwO.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/highlight.min.js"></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${hpp_highlight_style}.min.css' /> 
+
+`
           }
           if (path == "/hpp/admin/dash/talk") {
             hpp_talk_act = " active"
@@ -469,7 +485,7 @@ async function handleRequest(request) {
                         <th>
                           大小
                         </th>
-                        <th></th>
+                        <th>发布状态</th><th></th>
                         <th></th><th></th><th></th>
                       </thead>
                       <tbody id="tbody_doc">
@@ -508,7 +524,7 @@ async function handleRequest(request) {
                           大小
                         </th><th>预览</th>
                         <th></th>
-                        <th></th><th></th><th></th>
+                        <th></th><th></th><th></th><th></th>
                       </thead>
                       <tbody id="tbody_img">
 						
@@ -560,6 +576,9 @@ async function handleRequest(request) {
       </div>`
             hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/config.js'></script>`
           }
+		  let hpp_plugin=""
+		  if(hpp_plugin_css!=undefined){hpp_plugin+=`<link rel="stylesheet" type="text/css" href="${hpp_plugin_css}" />`}
+		  if(hpp_plugin_js!=undefined){hpp_plugin+=`<script src="${hpp_plugin_js}"></script>`}
           let hpp_dash_head = `<!DOCTYPE html>
 <html lang="en">
 
@@ -569,6 +588,7 @@ async function handleRequest(request) {
   <link rel="icon" type="image/png" href="${hpp_usericon}">
   <title>${hpp_title}</title>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  ${hpp_plugin}
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/font.css" />
   <link href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin_all.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/editor.md/css/editormd.css" />
@@ -587,6 +607,9 @@ async function handleRequest(request) {
   const hpp_githubimagerepo ="${hpp_githubimagerepo}"
   const hpp_githubimagebranch ="${hpp_githubimagebranch}"
   const hpp_githubimagepath ="${hpp_githubimagepath}"
+  const hpp_githubdocdraftpath ="${hpp_githubdocdraftpath}"
+  const hpp_lazy_img = "${hpp_lazy_img}"
+  const hpp_highlight_style = "${hpp_highlight_style}"
   </script>
 </head>
 <body class="">
@@ -749,6 +772,32 @@ ${hpp_js}
           }
 
         }
+		if (path.startsWith("/hpp/admin/api/adddraft/")) {
+          const file = await request.text()
+          const filename = path.substr(("/hpp/admin/api/adddraft/").length)
+          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
+          const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
+          const hpp_body = {
+            branch: hpp_githubdocbranch, message: `Upload darft from ${hpp_ver} By ${hpp_githubdocusername}`, content: file, sha: hpp_sha
+          }
+          const hpp_docputinit = {
+            body: JSON.stringify(hpp_body),
+            method: "PUT",
+            headers: {
+              "content-type": "application/json;charset=UTF-8",
+              "user-agent": hpp_ver,
+              "Authorization": "token " + hpp_githubdoctoken
+            }
+          }
+          const hpp_r = await fetch(url, hpp_docputinit)
+          const hpp_r_s = await hpp_r.status
+          if (hpp_r_s == 200 || hpp_r_s == 201) {
+            return new Response('Update Success', { status: hpp_r_s })
+          } else {
+            return new Response('Fail To Update', { status: hpp_r_s })
+          }
+
+        }
         if (path.startsWith("/hpp/admin/api/addimage")) {
           const file = await request.text()
           const hpp_time = Date.parse(new Date())
@@ -799,6 +848,32 @@ ${hpp_js}
             return new Response('Fail To Delete doc', { status: hpp_r_s })
           }
         }
+		
+		if (path.startsWith("/hpp/admin/api/deldraft")) {
+          const filename = path.substr(("/hpp/admin/api/deldraft/").length)
+          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
+          const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
+          const hpp_body = {
+            branch: hpp_githubdocbranch, message: `Delete draft from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
+          }
+          const hpp_docputinit = {
+            body: JSON.stringify(hpp_body),
+            method: "DELETE",
+            headers: {
+              "content-type": "application/json;charset=UTF-8",
+              "user-agent": hpp_ver,
+              "Authorization": "token " + hpp_githubdoctoken
+            }
+          }
+          const hpp_r = await fetch(url, hpp_docputinit)
+          const hpp_r_s = await hpp_r.status
+          if (hpp_r_s == 200) {
+            return new Response('Delete Success', { status: hpp_r_s })
+          } else {
+            return new Response('Fail To Delete doc', { status: hpp_r_s })
+          }
+        }
+		
         if (path.startsWith("/hpp/admin/api/delimage")) {
           const filepath = githubimagepath.substr(0, (githubimagepath).length - 1)
           const listurl = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${filepath}?ref=${hpp_githubimagebranch}`
@@ -840,6 +915,22 @@ ${hpp_js}
         }
         if (path == "/hpp/admin/api/getlist") {
           const filepath = githubdocpath.substr(0, (githubdocpath).length - 1)
+          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
+          const hpp_getlist = await fetch(url, hpp_githubgetdocinit)
+          return new Response(await (hpp_getlist).text(), {
+            headers: {
+              "content-type": "application/json;charset=UTF-8",
+              "Access-Control-Allow-Origin": hpp_cors
+            }
+          })
+        }
+		if (path.startsWith("/hpp/admin/api/getdraft")) {
+          const filename = path.substr(("/hpp/admin/api/getdraft/").length)
+          return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
+        }
+        if (path == "/hpp/admin/api/get_draftlist") {
+          const filepath = githubdocdraftpath.substr(0, (githubdocdraftpath).length - 1)
+		  console.log(filepath)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
           const hpp_getlist = await fetch(url, hpp_githubgetdocinit)
           return new Response(await (hpp_getlist).text(), {
@@ -978,6 +1069,13 @@ ${hpp_js}
           await KVNAME.put("hpp_config", await JSON.stringify(k))
           return new Response('OK')
         }
+		if (path == "/hpp/admin/api/del_config") {
+          let _index = await request.text()
+          let k = await JSON.parse(await JSON.parse(hpp_config))
+          delete k[_index]
+          await KVNAME.put("hpp_config", await JSON.stringify(await JSON.stringify(k)))
+          return new Response('OK')
+        }
         if (path == '/hpp/admin/api/kick') {
           const now = Date.now(new Date())
           await KVNAME.put("hpp_activetime", now)
@@ -1012,7 +1110,10 @@ ${hpp_js}
     }
     else {
       if (path == '/hpp/admin/login') {
-
+		  let hpp_captcha_html=""
+		  let hpp_captcha_no_1=""
+		  let hpp_captcha_no_2=""
+if(hpp_captcha!="True"){hpp_captcha_html="//";hpp_captcha_no_1="<!--";hpp_captcha_no_2="-->"}
         let hpp_loginhtml = `
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
@@ -1063,23 +1164,23 @@ ${hpp_js}
    </div>
   </div>
   <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/md5.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.css"/>
+  ${hpp_captcha_no_1}<script src="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.js"></script>${hpp_captcha_no_2}
+	  ${hpp_captcha_no_1}<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.css"/>${hpp_captcha_no_2}
   <script>
-  RVerify.configure({
-  mask: 0.5,
-  maskClosable: true,
-  title: '人机验证',
-  album: ['/hpp/api/captchaimg']
-})
+${hpp_captcha_html}  RVerify.configure({
+${hpp_captcha_html}   mask: 0.5,
+${hpp_captcha_html}   maskClosable: true,
+${hpp_captcha_html}   title: '人机验证',
+${hpp_captcha_html}   album: ['/hpp/api/captchaimg']
+${hpp_captcha_html} })
   $("#login-button").click(function(event) {
-RVerify.action(function(res){
-if(res==1){
+${hpp_captcha_html} RVerify.action(function(res){
+${hpp_captcha_html} if(res==1){
     document.cookie = "username=" + md5(document.getElementById("username").value);
     document.cookie = "password=" + md5(document.getElementById("password").value);
     window.location.href = '/hpp/admin/dash/home';
-}
-});
+${hpp_captcha_html} }
+${hpp_captcha_html}});
 
 });
   </script>
