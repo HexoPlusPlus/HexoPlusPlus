@@ -1110,7 +1110,10 @@ ${hpp_js}
     }
     else {
       if (path == '/hpp/admin/login') {
-
+		  let hpp_captcha_html=""
+		  let hpp_captcha_no_1=""
+		  let hpp_captcha_no_2=""
+if(hpp_captcha!="True"){hpp_captcha_html="//";hpp_captcha_no_1="<!--";hpp_captcha_no_2="-->"}
         let hpp_loginhtml = `
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
@@ -1161,23 +1164,23 @@ ${hpp_js}
    </div>
   </div>
   <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/md5.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.css"/>
+  ${hpp_captcha_no_1}<script src="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.js"></script>${hpp_captcha_no_2}
+	  ${hpp_captcha_no_1}<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.css"/>${hpp_captcha_no_2}
   <script>
-  RVerify.configure({
-  mask: 0.5,
-  maskClosable: true,
-  title: '人机验证',
-  album: ['/hpp/api/captchaimg']
-})
+${hpp_captcha_html}  RVerify.configure({
+${hpp_captcha_html}   mask: 0.5,
+${hpp_captcha_html}   maskClosable: true,
+${hpp_captcha_html}   title: '人机验证',
+${hpp_captcha_html}   album: ['/hpp/api/captchaimg']
+${hpp_captcha_html} })
   $("#login-button").click(function(event) {
-RVerify.action(function(res){
-if(res==1){
+${hpp_captcha_html} RVerify.action(function(res){
+${hpp_captcha_html} if(res==1){
     document.cookie = "username=" + md5(document.getElementById("username").value);
     document.cookie = "password=" + md5(document.getElementById("password").value);
     window.location.href = '/hpp/admin/dash/home';
-}
-});
+${hpp_captcha_html} }
+${hpp_captcha_html}});
 
 });
   </script>
