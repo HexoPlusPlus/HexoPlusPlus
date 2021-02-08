@@ -332,12 +332,9 @@ ajax2.send();
 ajax.send();
 del_same(arr_list)
 for(var i=0;i<getJsonLength(arr_list);i++){
-	document.getElementById(choo).innerHTML+=arr_list[i]
+	document.getElementById("choo").innerHTML+=arr_list[i]
 }
-			 $('#choo').editableSelect();
-		choo.placeholder = "选择一个文件或直接新增一个文件"
-		choo.value=localStorage.getItem(`hpp_hpp_docs_choo_backup`);
-	
+
 
 }
 var input = document.getElementById("input");
@@ -470,6 +467,9 @@ var ajax = ajaxObject();
 
 
 hpp_get_list();
+$('#choo').editableSelect();
+choo.placeholder = "选择一个文件或直接新增一个文件"
+choo.value=localStorage.getItem(`hpp_hpp_docs_choo_backup`);
 new hpp_md_editor({
 	ele: "hpp_doc_editor",
 	data_name: "hpp_docs",

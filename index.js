@@ -1,5 +1,5 @@
-const hpp_CDNver = "9bf1085"
-const hpp_ver = "HexoPlusPlus@1.0.10_β_3"
+const hpp_CDNver = "4e220a1"
+const hpp_ver = "HexoPlusPlus@1.0.10_β_4"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -98,6 +98,8 @@ async function handleRequest(request) {
               <input type="text" class="input_text" id="hpp_OwO" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/CDN@ca3ea6c/assets/list.json" />
 			  <p>面板背景图片:</p>    
               <input type="text" class="input_text" id="hpp_back" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg" />
+			  <p>懒加载图片:</p>    
+              <input type="text" class="input_text" id="hpp_lazy_img" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif" />
 			  <h3 style="color:#fff">Github信息</h3>
 		      <p>Github文档仓库Token:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdoctoken" placeholder="*********"/>
