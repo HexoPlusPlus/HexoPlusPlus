@@ -4,6 +4,7 @@ Enhancement：
 2.外置说说css
 3.新建草稿功能
 4.代码高亮【pending】
+5.新增删除配置功能
 BugFix：
 1.修复说说CSS渗透、加载动画问题
 

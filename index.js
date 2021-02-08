@@ -515,7 +515,7 @@ async function handleRequest(request) {
                           大小
                         </th><th>预览</th>
                         <th></th>
-                        <th></th><th></th><th></th>
+                        <th></th><th></th><th></th><th></th>
                       </thead>
                       <tbody id="tbody_img">
 						
@@ -1052,6 +1052,13 @@ ${hpp_js}
           let k = await JSON.parse(await JSON.parse(hpp_config))
           k[_index] = _value
           k = await JSON.stringify(k)
+          await KVNAME.put("hpp_config", await JSON.stringify(k))
+          return new Response('OK')
+        }
+		if (path == "/hpp/admin/api/del_config") {
+          let _index = await request.text()
+          let k = await JSON.parse(await JSON.parse(hpp_config))
+          delete k[_index]
           await KVNAME.put("hpp_config", await JSON.stringify(k))
           return new Response('OK')
         }
