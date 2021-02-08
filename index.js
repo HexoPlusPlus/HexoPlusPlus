@@ -1,5 +1,5 @@
-const hpp_CDNver = "31d2340"
-const hpp_ver = "HexoPlusPlus@1.0.10_β_6"
+const hpp_CDNver = "48e07b1"
+const hpp_ver = "HexoPlusPlus@1.0.10_β_8"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -1059,7 +1059,7 @@ ${hpp_js}
           let _index = await request.text()
           let k = await JSON.parse(await JSON.parse(hpp_config))
           delete k[_index]
-          await KVNAME.put("hpp_config", await JSON.stringify(k))
+          await KVNAME.put("hpp_config", await JSON.stringify(await JSON.stringify(k)))
           return new Response('OK')
         }
         if (path == '/hpp/admin/api/kick') {
