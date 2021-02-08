@@ -1,5 +1,5 @@
-const hpp_CDNver = "8eff261"
-const hpp_ver = "HexoPlusPlus@1.1.1_β_1"
+const hpp_CDNver = "c4dbf77"
+const hpp_ver = "HexoPlusPlus@1.1.1_β_3"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -185,13 +185,13 @@ async function handleRequest(request) {
         const hpp_twikoo_envId = config["hpp_twikoo-envId"]
         const hpp_OwO = config["hpp_OwO"]
         const hpp_back = config["hpp_back"]
-		const hpp_lazy_img = config["hpp_lazy_img"]
-		const hpp_highlight_style = config["hpp_highlight_style"]
-		const hpp_plugin_js = config["hpp_plugin_js"]
-		const hpp_plugin_css = config["hpp_plugin_css"]
-		const hpp_githubdocpath = hpp_githubdocroot + "source/_posts/"
-		const hpp_githubdocdraftpath = hpp_githubdocroot + "source/_drafts/"
-		const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
+        const hpp_lazy_img = config["hpp_lazy_img"]
+        const hpp_highlight_style = config["hpp_highlight_style"]
+        const hpp_plugin_js = config["hpp_plugin_js"]
+        const hpp_plugin_css = config["hpp_plugin_css"]
+        const hpp_githubdocpath = hpp_githubdocroot + "source/_posts/"
+        const hpp_githubdocdraftpath = hpp_githubdocroot + "source/_drafts/"
+        const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
         const githubdocpath = encodeURI(hpp_githubdocpath)
         const githubimagepath = encodeURI(hpp_githubimagepath)
         if (hpp_autodate == "True") {
@@ -388,6 +388,7 @@ async function handleRequest(request) {
                               <select id="choo" class="form-control form-control-chosen" style="display: inline;"></select>
 							  <button type="submit" class="btn btn-success" onclick="javascript:hpp_get_md()">获取文章</button>
 							  <button type="submit" class="btn btn-normal" onclick="javascript:hpp_get_draft()">获取艹稿</button>
+							  <button type="submit" class="btn btn-danger" onclick="javascript:hpp_del_index()">徒手清索引</button>
                           </div>
                         
                         <div class="row">
@@ -576,9 +577,9 @@ async function handleRequest(request) {
       </div>`
             hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/config.js'></script>`
           }
-		  let hpp_plugin=""
-		  if(hpp_plugin_css!=undefined){hpp_plugin+=`<link rel="stylesheet" type="text/css" href="${hpp_plugin_css}" />`}
-		  if(hpp_plugin_js!=undefined){hpp_plugin+=`<script src="${hpp_plugin_js}"></script>`}
+          let hpp_plugin = ""
+          if (hpp_plugin_css != undefined) { hpp_plugin += `<link rel="stylesheet" type="text/css" href="${hpp_plugin_css}" />` }
+          if (hpp_plugin_js != undefined) { hpp_plugin += `<script src="${hpp_plugin_js}"></script>` }
           let hpp_dash_head = `<!DOCTYPE html>
 <html lang="en">
 
@@ -592,6 +593,7 @@ async function handleRequest(request) {
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/font.css" />
   <link href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin_all.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
   <script>
   //这个脚本的用途是前端变量传递
   const hpp_ver="${hpp_ver}";
@@ -746,6 +748,7 @@ ${hpp_js}
 
         }
         if (path.startsWith("/hpp/admin/api/adddoc/")) {
+			await KVNAME.delete("hpp_doc_list_index")
           const file = await request.text()
           const filename = path.substr(("/hpp/admin/api/adddoc/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
@@ -771,7 +774,8 @@ ${hpp_js}
           }
 
         }
-		if (path.startsWith("/hpp/admin/api/adddraft/")) {
+        if (path.startsWith("/hpp/admin/api/adddraft/")) {
+			await KVNAME.delete("hpp_doc_draft_list_index")
           const file = await request.text()
           const filename = path.substr(("/hpp/admin/api/adddraft/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
@@ -824,6 +828,7 @@ ${hpp_js}
           }
         }
         if (path.startsWith("/hpp/admin/api/deldoc")) {
+			await KVNAME.delete("hpp_doc_list_index")
           const filename = path.substr(("/hpp/admin/api/deldoc/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
@@ -847,8 +852,9 @@ ${hpp_js}
             return new Response('Fail To Delete doc', { status: hpp_r_s })
           }
         }
-		
-		if (path.startsWith("/hpp/admin/api/deldraft")) {
+
+        if (path.startsWith("/hpp/admin/api/deldraft")) {
+			await KVNAME.delete("hpp_doc_draft_list_index")
           const filename = path.substr(("/hpp/admin/api/deldraft/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
@@ -872,7 +878,7 @@ ${hpp_js}
             return new Response('Fail To Delete doc', { status: hpp_r_s })
           }
         }
-		
+
         if (path.startsWith("/hpp/admin/api/delimage")) {
           const filepath = githubimagepath.substr(0, (githubimagepath).length - 1)
           const listurl = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${filepath}?ref=${hpp_githubimagebranch}`
@@ -912,35 +918,45 @@ ${hpp_js}
           const filename = path.substr(("/hpp/admin/api/getdoc/").length)
           return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
         }
-		async function fetch_bfs(arr,url,getinit){
-			const hpp_getlist = await JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())
-			for(var i=0;i<getJsonLength(hpp_getlist);i++){
-				if(hpp_getlist[i]["type"]=="file"){
-					arr.push(hpp_getlist[i])
-				}else{
-				await fetch_bfs(arr,hpp_getlist[i]["_links"]["self"],getinit)
-				}
-			}
-			return arr;
-		}
+        async function fetch_bfs(arr, url, getinit) {
+          const hpp_getlist = await JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())
+          for (var i = 0; i < getJsonLength(hpp_getlist); i++) {
+            if (hpp_getlist[i]["type"] == "file") {
+              arr.push(hpp_getlist[i])
+            } else {
+              await fetch_bfs(arr, hpp_getlist[i]["_links"]["self"], getinit)
+            }
+          }
+          return arr;
+        }
         if (path == "/hpp/admin/api/getlist") {
-          const filepath = githubdocpath.substr(0, (githubdocpath).length - 1)
-          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
-          return new Response(await JSON.stringify(await fetch_bfs([],url,hpp_githubgetdocinit)), {
+          let hpp_doc_list_index = await KVNAME.get("hpp_doc_list_index")
+          if (hpp_doc_list_index === null) {
+            const filepath = githubdocpath.substr(0, (githubdocpath).length - 1)
+            const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
+            hpp_doc_list_index = await JSON.stringify(await fetch_bfs([], url, hpp_githubgetdocinit))
+			await KVNAME.put("hpp_doc_list_index",hpp_doc_list_index)
+          }
+          return new Response(hpp_doc_list_index, {
             headers: {
               "content-type": "application/json;charset=UTF-8",
               "Access-Control-Allow-Origin": hpp_cors
             }
           })
         }
-		if (path.startsWith("/hpp/admin/api/getdraft")) {
+        if (path.startsWith("/hpp/admin/api/getdraft")) {
           const filename = path.substr(("/hpp/admin/api/getdraft/").length)
           return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
         }
         if (path == "/hpp/admin/api/get_draftlist") {
-          const filepath = githubdocdraftpath.substr(0, (githubdocdraftpath).length - 1)
-          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
-          return new Response(await JSON.stringify(await fetch_bfs([],url,hpp_githubgetdocinit)), {
+          let hpp_doc_draft_list_index = await KVNAME.get("hpp_doc_draft_list_index")
+          if (hpp_doc_draft_list_index === null) {
+            const filepath = githubdocdraftpath.substr(0, (githubdocdraftpath).length - 1)
+            const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
+            hpp_doc_draft_list_index = await JSON.stringify(await fetch_bfs([], url, hpp_githubgetdocinit))
+			await KVNAME.put("hpp_doc_draft_list_index",hpp_doc_draft_list_index)
+          }
+          return new Response(hpp_doc_draft_list_index, {
             headers: {
               "content-type": "application/json;charset=UTF-8",
               "Access-Control-Allow-Origin": hpp_cors
@@ -950,13 +966,20 @@ ${hpp_js}
         if (path == "/hpp/admin/api/getimglist") {
           const filepath = githubimagepath.substr(0, (githubimagepath).length - 1)
           const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${filepath}?ref=${hpp_githubimagebranch}`
-          return new Response(await JSON.stringify(await fetch_bfs([],url,hpp_githubgetimageinit)), {
+          return new Response(await JSON.stringify(await fetch_bfs([], url, hpp_githubgetimageinit)), {
             headers: {
               "content-type": "application/json;charset=UTF-8",
               "Access-Control-Allow-Origin": hpp_cors
             }
           })
         }
+		
+		if(path == "/hpp/admin/api/index_del"){
+			await KVNAME.delete("hpp_doc_draft_list_index")
+			await KVNAME.delete("hpp_doc_list_index")
+			return new Response("OK")
+		}
+		
         if (path == "/hpp/admin/api/addtalk") {
           let hpp_talk_re = await KVNAME.get("hpp_talk_data")
           if (hpp_talk_re === null) { hpp_talk_re = "[]" }
@@ -1075,7 +1098,7 @@ ${hpp_js}
           await KVNAME.put("hpp_config", await JSON.stringify(k))
           return new Response('OK')
         }
-		if (path == "/hpp/admin/api/del_config") {
+        if (path == "/hpp/admin/api/del_config") {
           let _index = await request.text()
           let k = await JSON.parse(await JSON.parse(hpp_config))
           delete k[_index]
@@ -1116,10 +1139,10 @@ ${hpp_js}
     }
     else {
       if (path == '/hpp/admin/login') {
-		  let hpp_captcha_html=""
-		  let hpp_captcha_no_1=""
-		  let hpp_captcha_no_2=""
-if(hpp_captcha!="True"){hpp_captcha_html="//";hpp_captcha_no_1="<!--";hpp_captcha_no_2="-->"}
+        let hpp_captcha_html = ""
+        let hpp_captcha_no_1 = ""
+        let hpp_captcha_no_2 = ""
+        if (hpp_captcha != "True") { hpp_captcha_html = "//"; hpp_captcha_no_1 = "<!--"; hpp_captcha_no_2 = "-->" }
         let hpp_loginhtml = `
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">

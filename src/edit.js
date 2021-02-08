@@ -489,7 +489,22 @@ var ajax = ajaxObject();
     }
 	ajax.send();
 }
-
+function hpp_del_index(){
+	var ajax = ajaxObject();
+    ajax.open( "post" , '/hpp/admin/api/index_del' , true );
+    ajax.setRequestHeader( "Content-Type" , "text/plain" );
+    ajax.onreadystatechange = function () {
+        if( ajax.readyState == 4 ) {
+            if( ajax.status == 200 ) {
+                sweetAlert("成功",  "索引已清除！", "success");
+            }
+            else {
+                sweetAlert("糟糕", "索引清除失败！", "error");
+            }
+        }
+    }
+    ajax.send();
+}
 
 hpp_get_list();
 marked.setOptions({
