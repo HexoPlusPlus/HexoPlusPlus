@@ -1,13 +1,20 @@
+function round(number, precision) {
+    return Math.round(+number + 'e' + precision) / Math.pow(10, precision);
+}
+
+let imgsize=0
 var ctJson = "/hpp/admin/api/getimglist"
         $.getJSON(ctJson, function (data) {
+			document.getElementById("tbody_img").innerHTML=""
             $.each(data, function (index, value) {
+				imgsize=round(value.size/1024, 2)
                 $("#tbody_img").append(`
 				<tr>
                           <td>
                            ${value.name}
                           <\/td>
                           <td>
-                            ${value.size}B
+                            ${imgsize}KB
                           <\/td>
 						  <td>
                             <img data-src="https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}${hpp_githubimagepath}${value.name}" class="lazy_img" style="width:100px" src="https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif">

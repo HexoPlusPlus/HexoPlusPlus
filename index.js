@@ -1,5 +1,5 @@
-const hpp_CDNver = "478d606"
-const hpp_ver = "HexoPlusPlus@1.1.0_β_1"
+const hpp_CDNver = "9bf1085"
+const hpp_ver = "HexoPlusPlus@1.0.10_β_3"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -99,25 +99,25 @@ async function handleRequest(request) {
 			  <p>面板背景图片:</p>    
               <input type="text" class="input_text" id="hpp_back" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg" />
 			  <h3 style="color:#fff">Github信息</h3>
-		      <p>Github Hexo源代码仓库Token:</p>    
+		      <p>Github文档仓库Token:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdoctoken" placeholder="*********"/>
-			  <p>Github 图片仓库Token:</p>    
+			  <p>Github图片仓库Token:</p>    
 		      <input type="text" class="input_text" id="hpp_githubimagetoken" placeholder="*********"/>
-			  <p>Github Hexo源代码仓库用户名:</p>    
+			  <p>Github文档仓库用户名:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdocusername" placeholder="XXX" />
-			  <p>Github 图片仓库用户名:</p>    
+			  <p>Github图片仓库用户名:</p>    
 		      <input type="text" class="input_text" id="hpp_githubimageusername" placeholder="XXX" />
-			  <p>Github Hexo源代码仓库名:</p>    
+			  <p>Github文档仓库名:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdocrepo" placeholder="blog" />
-			  <p>Github 图片仓库名:</p>    
+			  <p>Github图片仓库名:</p>    
 		      <input type="text" class="input_text" id="hpp_githubimagerepo" placeholder="image" />
-			  <p>Github Hexo源代码路径:</p>    
-		      <input type="text" class="input_text" id="hpp_githubdocpath" placeholder="/source/_posts/" />
-			  <p>Github 图片仓库路径:</p>    
+			  <p>Github文档仓库根目录:</p>    
+		      <input type="text" class="input_text" id="hpp_githubdocroot" placeholder="/" />
+			  <p>Github图片仓库路径:</p>    
 		      <input type="text" class="input_text" id="hpp_githubimagepath" placeholder="/" />
-			  <p>Github Hexo源代码仓库分支:</p>    
+			  <p>Github文档仓库分支:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdocbranch" placeholder="master" />
-			  <p>Github 图片仓库分支:</p>    
+			  <p>Github图片仓库分支:</p>    
 		      <input type="text" class="input_text" id="hpp_githubimagebranch" placeholder="main" />
 			  <h3 style="color:#fff">附加功能</h3>
 			  <p>是否自动签到【是为True，否为False】:</p>    
@@ -167,7 +167,7 @@ async function handleRequest(request) {
         const hpp_githubimagetoken = config["hpp_githubimagetoken"]
         const hpp_githubdocusername = config["hpp_githubdocusername"]
         const hpp_githubdocrepo = config["hpp_githubdocrepo"]
-        const hpp_githubdocpath = config["hpp_githubdocpath"]
+        const hpp_githubdocroot = config["hpp_githubdocroot"]
         const hpp_githubdocbranch = config["hpp_githubdocbranch"]
         const hpp_githubimageusername = config["hpp_githubimageusername"]
         const hpp_githubimagerepo = config["hpp_githubimagerepo"]
@@ -181,6 +181,9 @@ async function handleRequest(request) {
         const hpp_twikoo_envId = config["hpp_twikoo-envId"]
         const hpp_OwO = config["hpp_OwO"]
         const hpp_back = config["hpp_back"]
+		const hpp_githubdocpath = hpp_githubdocroot + "source/_posts/"
+		const hpp_githubdocdraftpath = hpp_githubdocroot + "source/_drafts/"
+		const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
         const githubdocpath = encodeURI(hpp_githubdocpath)
         const githubimagepath = encodeURI(hpp_githubimagepath)
         if (hpp_autodate == "True") {
@@ -375,7 +378,8 @@ async function handleRequest(request) {
                           <div class="col-md-8">
                               <label class="bmd-label-floating">文件选择</label>
                               <select id="choo" class="form-control form-control-chosen" style="display: inline;"></select>
-							  <button type="submit" class="btn btn-success" onclick="javascript:hpp_get_md()">获取</button>
+							  <button type="submit" class="btn btn-success" onclick="javascript:hpp_get_md()">获取文章</button>
+							  <button type="submit" class="btn btn-normal" onclick="javascript:hpp_get_draft()">获取艹稿</button>
                           </div>
                         
                         <div class="row">
@@ -388,8 +392,8 @@ async function handleRequest(request) {
                             </div>
                           </div>
                         </div>
-						
-                        <button type="submit" class="btn btn-primary pull-right" onclick="javascript:hpp_upload_md()">Upload</button>
+						<button type="submit" class="btn btn-normal pull-right" onclick="javascript:hpp_upload_draft()">发布艹稿</button>
+                        <button type="submit" class="btn btn-primary pull-right" onclick="javascript:hpp_upload_md()">发布文件</button>
                         <div class="clearfix"></div>
 						<input type="file" name="upload" id="upload_md" style="display:none"/>
 						<form id="upform" enctype='multipart/form-data' style="display:none;">
@@ -469,7 +473,7 @@ async function handleRequest(request) {
                         <th>
                           大小
                         </th>
-                        <th></th>
+                        <th>发布状态</th><th></th>
                         <th></th><th></th><th></th>
                       </thead>
                       <tbody id="tbody_doc">
@@ -587,6 +591,7 @@ async function handleRequest(request) {
   const hpp_githubimagerepo ="${hpp_githubimagerepo}"
   const hpp_githubimagebranch ="${hpp_githubimagebranch}"
   const hpp_githubimagepath ="${hpp_githubimagepath}"
+  const hpp_githubdocdraftpath ="${hpp_githubdocdraftpath}"
   </script>
 </head>
 <body class="">
@@ -726,10 +731,36 @@ ${hpp_js}
         if (path.startsWith("/hpp/admin/api/adddoc/")) {
           const file = await request.text()
           const filename = path.substr(("/hpp/admin/api/adddoc/").length)
-          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}source/_posts/${filename}?ref=${hpp_githubdocbranch}`
+          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
           const hpp_body = {
             branch: hpp_githubdocbranch, message: `Upload from ${hpp_ver} By ${hpp_githubdocusername}`, content: file, sha: hpp_sha
+          }
+          const hpp_docputinit = {
+            body: JSON.stringify(hpp_body),
+            method: "PUT",
+            headers: {
+              "content-type": "application/json;charset=UTF-8",
+              "user-agent": hpp_ver,
+              "Authorization": "token " + hpp_githubdoctoken
+            }
+          }
+          const hpp_r = await fetch(url, hpp_docputinit)
+          const hpp_r_s = await hpp_r.status
+          if (hpp_r_s == 200 || hpp_r_s == 201) {
+            return new Response('Update Success', { status: hpp_r_s })
+          } else {
+            return new Response('Fail To Update', { status: hpp_r_s })
+          }
+
+        }
+		if (path.startsWith("/hpp/admin/api/adddraft/")) {
+          const file = await request.text()
+          const filename = path.substr(("/hpp/admin/api/adddraft/").length)
+          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
+          const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
+          const hpp_body = {
+            branch: hpp_githubdocbranch, message: `Upload darft from ${hpp_ver} By ${hpp_githubdocusername}`, content: file, sha: hpp_sha
           }
           const hpp_docputinit = {
             body: JSON.stringify(hpp_body),
@@ -777,7 +808,7 @@ ${hpp_js}
         }
         if (path.startsWith("/hpp/admin/api/deldoc")) {
           const filename = path.substr(("/hpp/admin/api/deldoc/").length)
-          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}source/_posts/${filename}?ref=${hpp_githubdocbranch}`
+          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
           const hpp_body = {
             branch: hpp_githubdocbranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
@@ -799,6 +830,32 @@ ${hpp_js}
             return new Response('Fail To Delete doc', { status: hpp_r_s })
           }
         }
+		
+		if (path.startsWith("/hpp/admin/api/deldraft")) {
+          const filename = path.substr(("/hpp/admin/api/deldraft/").length)
+          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
+          const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
+          const hpp_body = {
+            branch: hpp_githubdocbranch, message: `Delete draft from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
+          }
+          const hpp_docputinit = {
+            body: JSON.stringify(hpp_body),
+            method: "DELETE",
+            headers: {
+              "content-type": "application/json;charset=UTF-8",
+              "user-agent": hpp_ver,
+              "Authorization": "token " + hpp_githubdoctoken
+            }
+          }
+          const hpp_r = await fetch(url, hpp_docputinit)
+          const hpp_r_s = await hpp_r.status
+          if (hpp_r_s == 200) {
+            return new Response('Delete Success', { status: hpp_r_s })
+          } else {
+            return new Response('Fail To Delete doc', { status: hpp_r_s })
+          }
+        }
+		
         if (path.startsWith("/hpp/admin/api/delimage")) {
           const filepath = githubimagepath.substr(0, (githubimagepath).length - 1)
           const listurl = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${filepath}?ref=${hpp_githubimagebranch}`
@@ -836,10 +893,26 @@ ${hpp_js}
         }
         if (path.startsWith("/hpp/admin/api/getdoc")) {
           const filename = path.substr(("/hpp/admin/api/getdoc/").length)
-          return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocpath}source/_posts/${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
+          return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
         }
         if (path == "/hpp/admin/api/getlist") {
           const filepath = githubdocpath.substr(0, (githubdocpath).length - 1)
+          const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
+          const hpp_getlist = await fetch(url, hpp_githubgetdocinit)
+          return new Response(await (hpp_getlist).text(), {
+            headers: {
+              "content-type": "application/json;charset=UTF-8",
+              "Access-Control-Allow-Origin": hpp_cors
+            }
+          })
+        }
+		if (path.startsWith("/hpp/admin/api/getdraft")) {
+          const filename = path.substr(("/hpp/admin/api/getdraft/").length)
+          return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
+        }
+        if (path == "/hpp/admin/api/get_draftlist") {
+          const filepath = githubdocdraftpath.substr(0, (githubdocdraftpath).length - 1)
+		  console.log(filepath)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
           const hpp_getlist = await fetch(url, hpp_githubgetdocinit)
           return new Response(await (hpp_getlist).text(), {

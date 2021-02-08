@@ -275,18 +275,70 @@ function base64Encode(input){
                 return rv;
 }
 function hpp_get_list(){
-var ctJson = "/hpp/admin/api/getlist"
- $.getJSON(ctJson, function (data) {
-            $.each(data, function (index, value) {
-                $("#choo").append(`
-				  <option>${value.name}<\/option>
-                `);
-            });
-			console.log('get!')
+function getJsonLength(jsonData) {
+
+  var jsonLength = 0;
+
+  for (var item in jsonData) {
+
+    jsonLength++;
+
+  }
+
+  return jsonLength;
+}
+function del_same(_arr){
+        for(n=0;n<_arr.length-1;n++){
+            for(i=n+1; i<_arr.length;i++){
+                if(_arr[n]==_arr[i]){
+                    _arr.splice(i--,1);
+                }
+            }
+        }
+        console.log(_arr);
+}
+let arr_list=[]
+var ajax = ajaxObject();
+    ajax.open( "post" , '/hpp/admin/api/getlist' , true );
+    ajax.setRequestHeader( "Content-Type" , "text/plain" );
+    ajax.onreadystatechange = function () {
+        if( ajax.readyState == 4 ) {
+            if( ajax.status == 200 ) {
+                for(var i=0;i<getJsonLength(JSON.parse(ajax.responseText));i++){
+					try{arr_list.push(JSON.parse(ajax.responseText)[i]["name"])}catch(e){}
+				}
+				var ajax2 = ajaxObject();
+    ajax2.open( "post" , '/hpp/admin/api/get_draftlist' , true );
+    ajax2.setRequestHeader( "Content-Type" , "text/plain" );
+    ajax2.onreadystatechange = function () {
+        if( ajax2.readyState == 4 ) {
+            if( ajax2.status == 200 ) {
+                for(var j=0;j<getJsonLength(JSON.parse(ajax2.responseText));j++){
+					try{arr_list.push(JSON.parse(ajax2.responseText)[j]["name"])}catch(e){}
+				}
+            }
+            else {
+			sweetAlert("糟糕", "拉取文件失败！", "error")
+            }
+        }
+    }
+ajax2.send();
+            }
+            else {
+			sweetAlert("糟糕", "拉取文件失败！", "error")
+            }
+        }
+    }
+ajax.send();
+del_same(arr_list)
+for(var i=0;i<getJsonLength(arr_list);i++){
+	document.getElementById(choo).innerHTML+=arr_list[i]
+}
 			 $('#choo').editableSelect();
 		choo.placeholder = "选择一个文件或直接新增一个文件"
 		choo.value=localStorage.getItem(`hpp_hpp_docs_choo_backup`);
-        });
+	
+
 }
 var input = document.getElementById("input");
 input.addEventListener('change', readFile, false);
@@ -376,6 +428,47 @@ var ajax = ajaxObject();
     }
 	ajax.send();
 }
+
+function hpp_upload_draft(){
+	var ajax = ajaxObject();
+    ajax.open( "post" , '/hpp/admin/api/adddraft/'+choo.value , true );
+    ajax.setRequestHeader( "Content-Type" , "text/plain" );
+    ajax.onreadystatechange = function () {
+        if( ajax.readyState == 4 ) {
+            if( ajax.status == 200 ) {
+                sweetAlert("成功",  "文件已上传", "success");
+				localStorage.setItem("hpp_hpp_docs_backup","");
+				localStorage.setItem("hpp_hpp_docs_choo_backup","");
+            }
+		else if( ajax.status == 201 ){
+                sweetAlert("成功",  "文件已新建", "success");
+            }
+            else {
+                sweetAlert("糟糕", "上传文件失败!", "error");
+            }
+        }
+    }
+    ajax.send(base64Encode(document.getElementById("text_hpp_doc_editor").value));
+}
+function hpp_get_draft(){
+hpp_replace_mark("正在获取"+choo.value+"中")
+var ajax = ajaxObject();
+    ajax.open( "get" , '/hpp/admin/api/getdraft/'+choo.value , true );
+    ajax.setRequestHeader( "Content-Type" , "text/plain" );
+    ajax.onreadystatechange = function () {
+        if( ajax.readyState == 4 ) {
+            if( ajax.status == 200 ) {
+            hpp_replace_mark(ajax.responseText)
+            }
+            else {
+			hpp_replace_mark("# 获取文件失败！")
+            }
+        }
+    }
+	ajax.send();
+}
+
+
 hpp_get_list();
 new hpp_md_editor({
 	ele: "hpp_doc_editor",

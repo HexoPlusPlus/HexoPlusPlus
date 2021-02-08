@@ -81,7 +81,7 @@ function start() {
 			"hpp_githubimagetoken":document.getElementById("hpp_githubimagetoken").value,
 			"hpp_githubdocusername":document.getElementById("hpp_githubdocusername").value,
 			"hpp_githubdocrepo":document.getElementById("hpp_githubdocrepo").value,
-			"hpp_githubdocpath":document.getElementById("hpp_githubdocpath").value,			
+			"hpp_githubdocroot":document.getElementById("hpp_githubdocroot").value,			
 			"hpp_githubdocbranch":document.getElementById("hpp_githubdocbranch").value,
 			"hpp_githubimageusername":document.getElementById("hpp_githubimageusername").value,
 			"hpp_githubimagerepo":document.getElementById("hpp_githubimagerepo").value,
