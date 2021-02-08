@@ -1,5 +1,5 @@
 const hpp_CDNver = "8eff261"
-const hpp_ver = "HexoPlusPlus@1.1.0"
+const hpp_ver = "HexoPlusPlus@1.1.1_β_1"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -1167,21 +1167,29 @@ if(hpp_captcha!="True"){hpp_captcha_html="//";hpp_captcha_no_1="<!--";hpp_captch
   ${hpp_captcha_no_1}<script src="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.js"></script>${hpp_captcha_no_2}
 	  ${hpp_captcha_no_1}<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zpfz/RVerify.js/dist/RVerify.min.css"/>${hpp_captcha_no_2}
   <script>
+document.onkeydown=keyListener;
 ${hpp_captcha_html}  RVerify.configure({
 ${hpp_captcha_html}   mask: 0.5,
 ${hpp_captcha_html}   maskClosable: true,
 ${hpp_captcha_html}   title: '人机验证',
 ${hpp_captcha_html}   album: ['/hpp/api/captchaimg']
 ${hpp_captcha_html} })
-  $("#login-button").click(function(event) {
+function login(){
 ${hpp_captcha_html} RVerify.action(function(res){
 ${hpp_captcha_html} if(res==1){
-    document.cookie = "username=" + md5(document.getElementById("username").value);
-    document.cookie = "password=" + md5(document.getElementById("password").value);
-    window.location.href = '/hpp/admin/dash/home';
+document.cookie = "username=" + md5(document.getElementById("username").value);
+document.cookie = "password=" + md5(document.getElementById("password").value);
+window.location.href = '/hpp/admin/dash/home';
 ${hpp_captcha_html} }
 ${hpp_captcha_html}});
-
+}
+function keyListener(e){
+    if(e.keyCode == 13){
+        login();
+    }
+}
+$("#login-button").click(function(event) {
+login();
 });
   </script>
   </body>

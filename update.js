@@ -26,7 +26,7 @@ var ajax = ajaxObject();
     ajax.send();
 }
 
-if(hpp_ver == 'HexoPlusPlus@1.1.0'){
+if(hpp_ver == 'HexoPlusPlus@1.1.1'){
   swal({
 title: "成功",
     text: "无需更新，当前已是最新版本",
