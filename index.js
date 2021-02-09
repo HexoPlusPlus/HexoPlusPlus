@@ -1,5 +1,5 @@
 const hpp_CDNver = "b56c61b"
-const hpp_ver = "HexoPlusPlus@1.1.1_β_11"
+const hpp_ver = "HexoPlusPlus@1.1.1_β_12"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -1147,7 +1147,8 @@ ${hpp_js}
         let hpp_captcha_html = ""
         let hpp_captcha_no_1 = ""
         let hpp_captcha_no_2 = ""
-        if (hpp_captcha != "True") { hpp_captcha_html = "//"; hpp_captcha_no_1 = "<!--"; hpp_captcha_no_2 = "-->" }
+		try{captcha=hpp_captcha}catch(e){captcha="Flase"}
+        if (captcha != "True") { hpp_captcha_html = "//"; hpp_captcha_no_1 = "<!--"; hpp_captcha_no_2 = "-->" }
         let hpp_loginhtml = `
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">

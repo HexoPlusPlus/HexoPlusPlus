@@ -10,10 +10,12 @@ HexoPlusPlus~~也叫Hexo艹~~，是一个基于CloudFlareWorkers和CloudFlareKV�
 - [x] 免费
 - [x] 易上手
 - [x] 图形化安装，KV数据库
-- [x] EditorMD编辑器
+- [x] 高度自适应编辑器,手机端流畅写作,支持代码高亮,支持草稿写作,支持随时备份,允许上传文件,高度适配自带图床
 - [x] 登录验证码
 - [x] 全主题适配
 - [x] Material Dashboard，细腻书写新体验
+- [x] 快,服务端处理不超过10ms[主要是CloudFlare的限制，很多高负荷运算只能拉到前端处理]
+
 
 ## 功能
 - [x] 文章在线编辑
