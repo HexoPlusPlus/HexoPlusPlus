@@ -92,13 +92,14 @@ function del(name){
 });
 	}
 function delfile(name){
+	swal({title: "\n删除中...",icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@db63c79/loading.gif",text:"\n",button: false,closeModal: false,});
 	var ajax = ajaxObject();
     ajax.open( "GET" , '/hpp/admin/api/deldoc/'+name , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
-            if( ajax.status == 200 ) {
-            swal("已删除！", {
+            if( ajax.status == 200 ) {swal.close()
+            swal("已删除！","", {
   icon: "success",
   buttons: {
     yes: "是"
@@ -111,7 +112,7 @@ function delfile(name){
   }
 });
             }
-		else{
+		else{swal.close()
 			swal({
 				title: "失败！",
 				text: "文件删除失败，请确定您是否有权限删除，或者该文件是否存在",
@@ -143,13 +144,14 @@ function del_dr(name){
 });
 	}
 function deldraft(name){
+	swal({title: "\n删除中...",icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@db63c79/loading.gif",text:"\n",button: false,closeModal: false,});
 	var ajax = ajaxObject();
     ajax.open( "GET" , '/hpp/admin/api/deldraft/'+name , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
         if( ajax.readyState == 4 ) {
-            if( ajax.status == 200 ) {
-            swal("已删除！", {
+            if( ajax.status == 200 ) {swal.close();
+            swal("已删除！","", {
   icon: "success",
   buttons: {
     yes: "是"
@@ -162,7 +164,7 @@ function deldraft(name){
   }
 });
             }
-		else{
+		else{swal.close()
 			swal({
 				title: "失败！",
 				text: "文件删除失败，请确定您是否有权限删除，或者该文件是否存在",

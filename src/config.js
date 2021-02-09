@@ -25,11 +25,12 @@ function edit_config(index){
 .then((value) => {
 if(value!="" & value!=null){
 t_body={index:index,value:value}
+swal({title: "\n修改中...",icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@db63c79/loading.gif",text:"\n",button: false,closeModal: false,});
 var ajax = ajaxObject();
     ajax.open( "POST" , '/hpp/admin/api/edit_config' , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
-        if( ajax.readyState == 4 ) {
+        if( ajax.readyState == 4 ) {swal.close()
             if( ajax.status == 200 ) {
             swal("已更改配置！", {
   icon: "success",
@@ -80,11 +81,12 @@ swal({
 .then((value2) => {
 if(value1!="" & value1!=null & value2!="" & value2!=null){
 t_body={index:value1,value:value2}
+swal({title: "\n添加中...",icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@db63c79/loading.gif",text:"\n",button: false,closeModal: false,});
 var ajax = ajaxObject();
     ajax.open( "POST" , '/hpp/admin/api/edit_config' , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
-        if( ajax.readyState == 4 ) {
+        if( ajax.readyState == 4 ) {swal.close()
             if( ajax.status == 200 ) {
             swal("已更改配置！", {
   icon: "success",
@@ -118,11 +120,11 @@ else{swal("配置修改已取消！","您输入了空值","success")}})
 
 
 function del_config(index){
-swal({title:"你真的要删除此键值？",text:"我相信你是手滑了",icon:"warning",buttons:["没有", "是的！"],dangerMode: true}).then((value) => {if(value){swal({title:"你真的要删除数据吗？",text:"我寻思你也不想再配置一遍",icon:"warning",buttons:["我放弃了", "爷肯定了"],dangerMode: true}).then((value) => {if(value){swal({title:"你真的要重来啦？",text:"我觉得也不是不可以(bushi",icon:"warning",buttons:["我萎了", "视死如归"],dangerMode: true}).then((value) => {if(value){var ajax = ajaxObject();
+swal({title:"你真的要删除此键值？",text:"我相信你是手滑了",icon:"warning",buttons:["没有", "是的！"],dangerMode: true}).then((value) => {if(value){swal({title:"你真的要删除数据吗？",text:"我寻思你也不想再配置一遍",icon:"warning",buttons:["我放弃了", "爷肯定了"],dangerMode: true}).then((value) => {if(value){swal({title:"你真的要重来啦？",text:"我觉得也不是不可以(bushi",icon:"warning",buttons:["我萎了", "视死如归"],dangerMode: true}).then((value) => {if(value){var ajax = ajaxObject();swal({title: "\n删除中...",icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@db63c79/loading.gif",text:"\n",button: false,closeModal: false,});
     ajax.open( "post" , '/hpp/admin/api/del_config' , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
-        if( ajax.readyState == 4 ) {
+        if( ajax.readyState == 4 ) {swal.close()
             if( ajax.status == 200 ) {
                 sweetAlert("成功", "该键值已删除！", "success").then((value) => {window.location.reload();}	)	    
             }
