@@ -1,9 +1,10 @@
 function hpp_update(){
+swal({title: "\n更新中...",icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@db63c79/loading.gif",text:"\n",button: false,closeModal: false,});
 var ajax = ajaxObject();
     ajax.open( "get" , '/hpp/admin/api/update' , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
     ajax.onreadystatechange = function () {
-        if( ajax.readyState == 4 ) {
+        if( ajax.readyState == 4 ) {swal.close();
             if( ajax.responseText == "true" ) {
                 swal("更新完毕！", {
   icon: "success",
@@ -33,7 +34,7 @@ title: "成功",
     icon: "success",
 });
 }else{
-swal("存在更新，是否更新？", {
+swal("存在1.1.1更新，是否更新？", {
   icon: "warning",
   buttons: {
     cancel: "否",
