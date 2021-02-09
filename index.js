@@ -538,7 +538,7 @@ async function handleRequest(request) {
           </div>
         </div>
       </div>`
-            hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/img_man.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+            hpp_js = `<style>.grid {column-count: 2;column-gap: 1rem;}</style><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/img_man.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>`
 
           }
@@ -579,7 +579,7 @@ async function handleRequest(request) {
           }
           let hpp_plugin = ""
           if (hpp_plugin_css != undefined) { hpp_plugin += `<link rel="stylesheet" type="text/css" href="${hpp_plugin_css}" />` }
-          if (hpp_plugin_js != undefined) { hpp_plugin += `<script src="${hpp_plugin_js}"></script>` }
+          if (hpp_plugin_js != undefined) { hpp_js += `<script src="${hpp_plugin_js}"></script>` }
           let hpp_dash_head = `<!DOCTYPE html>
 <html lang="en">
 
