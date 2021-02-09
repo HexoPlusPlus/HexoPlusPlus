@@ -1,5 +1,5 @@
 const hpp_CDNver = "ea0a940"
-const hpp_ver = "HexoPlusPlus@1.1.1"
+const hpp_ver = "HexoPlusPlus@1.1.2_β_1"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -748,7 +748,7 @@ ${hpp_js}
 
         }
         if (path.startsWith("/hpp/admin/api/adddoc/")) {
-          
+
           const file = await request.text()
           const filename = path.substr(("/hpp/admin/api/adddoc/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
@@ -768,7 +768,7 @@ ${hpp_js}
           const hpp_r = await fetch(url, hpp_docputinit)
           const hpp_r_s = await hpp_r.status
           if (hpp_r_s == 200 || hpp_r_s == 201) {
-			if(hpp_r_s == 201){await KVNAME.delete("hpp_doc_list_index")}
+            if (hpp_r_s == 201) { await KVNAME.delete("hpp_doc_list_index") }
             return new Response('Update Success', { status: hpp_r_s })
           } else {
             return new Response('Fail To Update', { status: hpp_r_s })
@@ -776,7 +776,7 @@ ${hpp_js}
 
         }
         if (path.startsWith("/hpp/admin/api/adddraft/")) {
-          
+
           const file = await request.text()
           const filename = path.substr(("/hpp/admin/api/adddraft/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
@@ -796,7 +796,7 @@ ${hpp_js}
           const hpp_r = await fetch(url, hpp_docputinit)
           const hpp_r_s = await hpp_r.status
           if (hpp_r_s == 200 || hpp_r_s == 201) {
-			if(hpp_r_s == 201){await KVNAME.delete("hpp_doc_draft_list_index")}
+            if (hpp_r_s == 201) { await KVNAME.delete("hpp_doc_draft_list_index") }
             return new Response('Update Success', { status: hpp_r_s })
           } else {
             return new Response('Fail To Update', { status: hpp_r_s })
@@ -830,7 +830,7 @@ ${hpp_js}
           }
         }
         if (path.startsWith("/hpp/admin/api/deldoc")) {
-          
+
           const filename = path.substr(("/hpp/admin/api/deldoc/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
@@ -849,7 +849,7 @@ ${hpp_js}
           const hpp_r = await fetch(url, hpp_docputinit)
           const hpp_r_s = await hpp_r.status
           if (hpp_r_s == 200) {
-			await KVNAME.delete("hpp_doc_list_index")
+            await KVNAME.delete("hpp_doc_list_index")
             return new Response('Delete Success', { status: hpp_r_s })
           } else {
             return new Response('Fail To Delete doc', { status: hpp_r_s })
@@ -857,7 +857,7 @@ ${hpp_js}
         }
 
         if (path.startsWith("/hpp/admin/api/deldraft")) {
-          
+
           const filename = path.substr(("/hpp/admin/api/deldraft/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
@@ -876,7 +876,7 @@ ${hpp_js}
           const hpp_r = await fetch(url, hpp_docputinit)
           const hpp_r_s = await hpp_r.status
           if (hpp_r_s == 200) {
-			await KVNAME.delete("hpp_doc_draft_list_index")
+            await KVNAME.delete("hpp_doc_draft_list_index")
             return new Response('Delete Success', { status: hpp_r_s })
           } else {
             return new Response('Fail To Delete doc', { status: hpp_r_s })
@@ -922,17 +922,19 @@ ${hpp_js}
           const filename = path.substr(("/hpp/admin/api/getdoc/").length)
           return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
         }
-		//他名字叫bfs，他就叫bfs/doge
+        //他名字叫bfs，他就叫bfs/doge
         async function fetch_bfs(arr, url, getinit) {
-          try{const hpp_getlist = await JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())
-          for (var i = 0; i < getJsonLength(hpp_getlist); i++) {
-            if (hpp_getlist[i]["type"] != "dir") {
-              arr.push(hpp_getlist[i])
-            } else {
-              await fetch_bfs(arr, hpp_getlist[i]["_links"]["self"], getinit)
+          try {
+            const hpp_getlist = await JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())
+            for (var i = 0; i < getJsonLength(hpp_getlist); i++) {
+              if (hpp_getlist[i]["type"] != "dir") {
+                arr.push(hpp_getlist[i])
+              } else {
+                await fetch_bfs(arr, hpp_getlist[i]["_links"]["self"], getinit)
+              }
             }
-          }
-          return arr;}catch(e){return {}}
+            return arr;
+          } catch (e) { return {} }
         }
         if (path == "/hpp/admin/api/getlist") {
           let hpp_doc_list_index = await KVNAME.get("hpp_doc_list_index")
@@ -1147,7 +1149,7 @@ ${hpp_js}
         let hpp_captcha_html = ""
         let hpp_captcha_no_1 = ""
         let hpp_captcha_no_2 = ""
-		try{captcha=hpp_captcha}catch(e){captcha="Flase"}
+        try { captcha = hpp_captcha } catch (e) { captcha = "Flase" }
         if (captcha != "True") { hpp_captcha_html = "//"; hpp_captcha_no_1 = "<!--"; hpp_captcha_no_2 = "-->" }
         let hpp_loginhtml = `
 <!DOCTYPE html>
@@ -1243,17 +1245,23 @@ login();
     if (path == "/hpp/api/getblogeractive") {
       const hpp_activetime = await KVNAME.get("hpp_activetime")
       var k = (Date.parse(new Date()) - hpp_activetime) / 1000
+      const hpp_re_active_init = {
+        headers: {
+          "content-type": "application/javascript; charset=utf-8",
+          "Access-Control-Allow-Origin": "*"
+        }
+      }
       if (k < 30) {
-        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主刚刚还在这儿呢\'', { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
+        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主刚刚还在这儿呢\'', hpp_re_active_init)
       }
       else if (k < 60) {
-        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在' + k + '秒前离开这儿\'', { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
+        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在' + k + '秒前离开这儿\'', hpp_re_active_init)
       }
       else if (k < 3600) {
-        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在' + Math.round(k / 60) + '分钟前偷偷瞄了一眼博客\'', { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
+        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在' + Math.round(k / 60) + '分钟前偷偷瞄了一眼博客\'', hpp_re_active_init)
       }
       else {
-        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在' + Math.round(k / 3600) + '小时前活跃了一次\'', { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
+        return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在' + Math.round(k / 3600) + '小时前活跃了一次\'', hpp_re_active_init)
       }
     }
     if (path == "/hpp/api/captchaimg") {
