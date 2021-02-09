@@ -1,5 +1,5 @@
 const hpp_CDNver = "b545b4a"
-const hpp_ver = "HexoPlusPlus@1.1.1_β_5"
+const hpp_ver = "HexoPlusPlus@1.1.1_β_7"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -748,7 +748,7 @@ ${hpp_js}
 
         }
         if (path.startsWith("/hpp/admin/api/adddoc/")) {
-          await KVNAME.delete("hpp_doc_list_index")
+          
           const file = await request.text()
           const filename = path.substr(("/hpp/admin/api/adddoc/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
@@ -768,6 +768,7 @@ ${hpp_js}
           const hpp_r = await fetch(url, hpp_docputinit)
           const hpp_r_s = await hpp_r.status
           if (hpp_r_s == 200 || hpp_r_s == 201) {
+			if(hpp_r_s == 201){await KVNAME.delete("hpp_doc_list_index")}
             return new Response('Update Success', { status: hpp_r_s })
           } else {
             return new Response('Fail To Update', { status: hpp_r_s })
@@ -775,7 +776,7 @@ ${hpp_js}
 
         }
         if (path.startsWith("/hpp/admin/api/adddraft/")) {
-          await KVNAME.delete("hpp_doc_draft_list_index")
+          
           const file = await request.text()
           const filename = path.substr(("/hpp/admin/api/adddraft/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
@@ -795,6 +796,7 @@ ${hpp_js}
           const hpp_r = await fetch(url, hpp_docputinit)
           const hpp_r_s = await hpp_r.status
           if (hpp_r_s == 200 || hpp_r_s == 201) {
+			if(hpp_r_s == 201){await KVNAME.delete("hpp_doc_draft_list_index")}
             return new Response('Update Success', { status: hpp_r_s })
           } else {
             return new Response('Fail To Update', { status: hpp_r_s })
@@ -828,7 +830,7 @@ ${hpp_js}
           }
         }
         if (path.startsWith("/hpp/admin/api/deldoc")) {
-          await KVNAME.delete("hpp_doc_list_index")
+          
           const filename = path.substr(("/hpp/admin/api/deldoc/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
@@ -847,6 +849,7 @@ ${hpp_js}
           const hpp_r = await fetch(url, hpp_docputinit)
           const hpp_r_s = await hpp_r.status
           if (hpp_r_s == 200) {
+			await KVNAME.delete("hpp_doc_list_index")
             return new Response('Delete Success', { status: hpp_r_s })
           } else {
             return new Response('Fail To Delete doc', { status: hpp_r_s })
@@ -854,7 +857,7 @@ ${hpp_js}
         }
 
         if (path.startsWith("/hpp/admin/api/deldraft")) {
-          await KVNAME.delete("hpp_doc_draft_list_index")
+          
           const filename = path.substr(("/hpp/admin/api/deldraft/").length)
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
@@ -873,6 +876,7 @@ ${hpp_js}
           const hpp_r = await fetch(url, hpp_docputinit)
           const hpp_r_s = await hpp_r.status
           if (hpp_r_s == 200) {
+			await KVNAME.delete("hpp_doc_draft_list_index")
             return new Response('Delete Success', { status: hpp_r_s })
           } else {
             return new Response('Fail To Delete doc', { status: hpp_r_s })
@@ -918,10 +922,11 @@ ${hpp_js}
           const filename = path.substr(("/hpp/admin/api/getdoc/").length)
           return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
         }
+		//他名字叫bfs，他就叫bfs/doge
         async function fetch_bfs(arr, url, getinit) {
           try{const hpp_getlist = await JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())
           for (var i = 0; i < getJsonLength(hpp_getlist); i++) {
-            if (hpp_getlist[i]["type"] == "file") {
+            if (hpp_getlist[i]["type"] != "dir") {
               arr.push(hpp_getlist[i])
             } else {
               await fetch_bfs(arr, hpp_getlist[i]["_links"]["self"], getinit)

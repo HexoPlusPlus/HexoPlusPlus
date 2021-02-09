@@ -1,10 +1,4 @@
 
-    window.onload = function() {
-        /**
-         * 上传函数
-         * @param fileInput DOM对象
-         * @param callback 回调函数
-         */
         var getFileContent = function (fileInput, callback) {
             if (fileInput.files && fileInput.files.length > 0 && fileInput.files[0].size > 0) {
                 var file = fileInput.files[0];
@@ -15,7 +9,7 @@
                             callback(evt.target.result);
                         }
                     };
-                    reader.readAsText(file, 'gbk');
+                    reader.readAsText(file, "UTF-8");
                 }
             }
         };
@@ -27,7 +21,6 @@
                 content.value = str;
             });
         };
-    };
 function hpp_md_editor({ele,data_name,owo,backuptime}){
 var notyf = new Notyf();
 

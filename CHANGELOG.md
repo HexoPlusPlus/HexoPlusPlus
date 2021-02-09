@@ -5,3 +5,4 @@ Enhancement：
 
 BugFix：
 1.修复不能多文件夹嵌套获取
+2.修复UTF-8格式问题
