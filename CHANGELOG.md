@@ -7,3 +7,4 @@ BugFix：
 Enhancement：
 1.支持异常信息输出
 2.说说使用LocalStorage存储，更加规范化
+3.增加说说预览界面
