@@ -42,3 +42,6 @@ HexoPlusPlus的诞生离不开以下项目的支持：
 - marked.js
 - sweetalert
 - notyf
+
+
+![](https://starchart.cc/HexoPlusPlus/HexoPlusPlus.svg)
