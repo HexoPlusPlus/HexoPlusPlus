@@ -1,5 +1,5 @@
-const hpp_CDNver = "61778f4"
-const hpp_ver = "HexoPlusPlus@1.1.2_β_2"
+const hpp_CDNver = "968ff6b"
+const hpp_ver = "HexoPlusPlus@1.1.2_β_3"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -480,7 +480,7 @@ async function handleRequest(request) {
                   <div class="table-responsive">
 				  <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索文章...">
                     <table class="table" id="hpp_table">
-                      <thead class=" text-primary">
+                      <thead class="text-primary">
                         <th>
                           名称
                         </th>
