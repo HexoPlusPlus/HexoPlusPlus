@@ -478,7 +478,8 @@ async function handleRequest(request) {
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table">
+				  <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索文章...">
+                    <table class="table" id="hpp_table">
                       <thead class=" text-primary">
                         <th>
                           名称
@@ -516,7 +517,8 @@ async function handleRequest(request) {
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table">
+				  <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索图片...">
+                    <table class="table" id="hpp_table">
                       <thead class=" text-primary">
                         <th>
                           名称
@@ -555,7 +557,8 @@ async function handleRequest(request) {
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table">
+				  <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索配置...">
+                    <table class="table" id="hpp_table">
                       <thead class=" text-primary">
                         <th>
                           键值
