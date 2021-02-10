@@ -1,5 +1,5 @@
-const hpp_CDNver = "50a0990"
-const hpp_ver = "HexoPlusPlus@1.1.2_β_9"
+const hpp_CDNver = "ae35af1"
+const hpp_ver = "HexoPlusPlus@1.1.2_β_10"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
