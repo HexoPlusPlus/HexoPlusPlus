@@ -1,4 +1,4 @@
-1.1.1：
+1.1.2：
 BugFix：
 1.修复签到功能跨域问题
 2.修复FireFox无法更新问题
@@ -6,3 +6,4 @@ BugFix：
 
 Enhancement：
 1.支持异常信息输出
+2.说说使用LocalStorage存储，更加规范化
