@@ -78,6 +78,6 @@ blockquote.hpp_blockquote p {
     width: 100%;
     font-size: 16px;
     padding: 12px 20px 12px 40px;
-    border: 1px solid #ddd;
+    border: 0px;
     margin-bottom: 12px; 
 }
