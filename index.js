@@ -1,5 +1,5 @@
-const hpp_CDNver = "ea0a940"
-const hpp_ver = "HexoPlusPlus@1.1.2_β_1"
+const hpp_CDNver = "61778f4"
+const hpp_ver = "HexoPlusPlus@1.1.2_β_2"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -267,7 +267,7 @@ async function handleRequest(request) {
               </div>
             </div>
             <div class="col-lg-6 col-md- col-sm-6">
-              <a href="javascript:jQuery.getScript('/hpp/admin/api/checkupdate');">
+              <a href="javascript:checkUpdate()">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                   <div class="card-icon">

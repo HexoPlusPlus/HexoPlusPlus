@@ -338,7 +338,7 @@ var ajax = ajaxObject();
             }
         }
     }
-ajax2.send();
+ajax2.send(new Date().getTime());
             }
             else {
 			sweetAlert("糟糕", "拉取文件失败！", "error")
