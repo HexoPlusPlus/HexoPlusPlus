@@ -1,5 +1,5 @@
-const hpp_CDNver = "ccb354c"
-const hpp_ver = "HexoPlusPlus@1.1.2_β_4"
+const hpp_CDNver = "3b5446b"
+const hpp_ver = "HexoPlusPlus@1.1.2_β_5"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -785,7 +785,7 @@ ${hpp_js}
           const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
           const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
           const hpp_body = {
-            branch: hpp_githubdocbranch, message: `Upload darft from ${hpp_ver} By ${hpp_githubdocusername}`, content: file, sha: hpp_sha
+            branch: hpp_githubdocbranch, message: `Upload draft from ${hpp_ver} By ${hpp_githubdocusername}`, content: file, sha: hpp_sha
           }
           const hpp_docputinit = {
             body: JSON.stringify(hpp_body),
