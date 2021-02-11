@@ -1,5 +1,5 @@
 const hpp_CDNver = "ae35af1"
-const hpp_ver = "HexoPlusPlus@1.1.2_β_10"
+const hpp_ver = "HexoPlusPlus@1.1.2"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -1404,8 +1404,8 @@ login();
 <title>HexoPlusPlus_Talk预览页面</title>
 </head>
 <body>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@1.1.0/talk.css" /> 
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@1.1.0/talk_user.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/talk.css" /> 
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/talk_user.js"></script>
 <div id="hpp_talk"></div>
 <script>
 new hpp_talk({
