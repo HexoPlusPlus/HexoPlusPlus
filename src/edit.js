@@ -338,14 +338,14 @@ var ajax = ajaxObject();
             }
         }
     }
-ajax2.send();
+ajax2.send(new Date().getTime());
             }
             else {
 			sweetAlert("糟糕", "拉取文件失败！", "error")
             }
         }
     }
-ajax.send();
+ajax.send(new Date().getTime());
 
 
 }
@@ -450,7 +450,7 @@ var ajax = ajaxObject();
             }
         }
     }
-	ajax.send();
+	ajax.send(new Date().getTime());
 }
 
 function hpp_upload_draft(){
@@ -499,7 +499,7 @@ var ajax = ajaxObject();
             }
         }
     }
-	ajax.send();
+	ajax.send(new Date().getTime());
 }
 function hpp_del_index(){
 	swal({title: "\n加载中...",icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@db63c79/loading.gif",text:"\n",button: false,closeModal: false,});
@@ -518,7 +518,7 @@ function hpp_del_index(){
             }
         }
     }
-    ajax.send();
+    ajax.send(new Date().getTime());
 }
 
 hpp_get_list();

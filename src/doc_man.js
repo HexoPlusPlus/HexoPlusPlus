@@ -121,7 +121,7 @@ function delfile(name){
 			}
 	}
 	}
-ajax.send();};
+ajax.send(new Date().getTime());};
 
 
 
@@ -173,4 +173,4 @@ function deldraft(name){
 			}
 	}
 	}
-ajax.send();};
+ajax.send(new Date().getTime());};

@@ -84,4 +84,4 @@ var ctJson = "/hpp/admin/api/getimglist"
 			}
 	}
 	}
-	ajax.send();};
+	ajax.send(new Date().getTime());};
