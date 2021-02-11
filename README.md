@@ -44,4 +44,6 @@ HexoPlusPlus的诞生离不开以下项目的支持：
 - notyf
 
 
+> 由于仍处于快速迭代期,HPP尚未使用NPM发包,请使用Jsdelivr+Github访问静态资源
+
 ![](https://starchart.cc/HexoPlusPlus/HexoPlusPlus.svg)
