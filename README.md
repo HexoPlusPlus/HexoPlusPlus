@@ -47,3 +47,17 @@ HexoPlusPlus的诞生离不开以下项目的支持：
 > 由于仍处于快速迭代期,HPP尚未使用NPM发包,请使用Jsdelivr+Github访问静态资源
 
 ![](https://starchart.cc/HexoPlusPlus/HexoPlusPlus.svg)
+
+
+# 对于开发者来说
+
+```shell
+npm i @cloudflare/wrangler -g
+npm i
+```
+
+修改`wrangler.toml`
+
+```shell
+wrangler dev
+```

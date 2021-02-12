@@ -1,3 +1,4 @@
+const md5=require ('md5')
 const hpp_CDNver = "a02d199"
 const hpp_ver = "HexoPlusPlus@1.1.3_β_4"
 const dev_mode_branch = "dist"

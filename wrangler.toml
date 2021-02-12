@@ -1,0 +1,8 @@
+name = "hexopp"
+type = "webpack"
+workers_dev = true
+account_id = "6ef5ebe823f216ddea9235af103a41ad"
+zone_id = "94655e90b5a66c426133e8262083478d"
+kv_namespaces = [
+    { binding = "KVNAME", preview_id = "1d06c6a9114c458fbed42462aca871a5", id = "1d06c6a9114c458fbed42462aca871a5" }
+]
