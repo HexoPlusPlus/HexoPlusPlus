@@ -31,6 +31,38 @@ background-color:#bbb;
     display: block;
 }
 
+
+/* OwO dark */
+.OwO .OwO-body .OwO-items {
+  background-color: #282c3f;
+}
+
+.OwO .OwO-body .OwO-bar .OwO-packages {
+  background-color: #202940;
+  color: #ffffff8a;
+}
+
+.OwO .OwO-body .OwO-bar .OwO-packages li:hover {
+  background: #5f667b;
+}
+
+.OwO .OwO-body .OwO-bar .OwO-packages .OwO-package-active {
+  background: #3a4155;
+}
+
+.OwO .OwO-body .OwO-items .OwO-item:hover {
+  background: #526390;
+}
+
+.OwO .OwO-body .OwO-items .OwO-item {
+  background: #f7f7f717;
+}
+
+.OwO .OwO-body {
+  border: 1px solid #5f667b;
+}
+
+
 /*!
 
  =========================================================
