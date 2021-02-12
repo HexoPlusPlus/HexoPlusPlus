@@ -1,7 +1,10 @@
 const hpp_CDNver = "ae35af1"
-const hpp_ver = "HexoPlusPlus@1.1.3"
+const hpp_ver = "HexoPlusPlus@1.1.3_β_1"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
+
+const hpp_color="azure"
+const hpp_bg_color="black"
 
 function getJsonLength(jsonData) {
 
@@ -223,6 +226,7 @@ async function handleRequest(request) {
             let hpp_talk_act = ""
             let hpp_docs_man_act = ""
             let hpp_img_man_act = ""
+			let hpp_tool_act = ""
             let hpp_set_act = ""
             let hpp_js = ""
             let hpp_init = `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`
@@ -286,38 +290,7 @@ async function handleRequest(request) {
             </a>
             </div>
             
-            <div class="col-lg-6 col-md-6 col-sm-6">
-              <a href="javascript:hpp_del_all()">
-              <div class="card card-stats">
-                <div class="card-header card-header-danger card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-close"></i>
-                  </div>
-                  <h3 class="card-title">销毁配置</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons text-danger">warning</i>高危操作，你知道会发生什么的
-                  </div>
-                </div>
-              </div>
-            </a>
-            </div>
-			
-			<div class="col-lg-6 col-md-6 col-sm-6">
-              <a href="javascript:hpp_artitalk_into_hpptalk()">
-              <div class="card card-stats">
-                <div class="card-header card-header-primary card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-download"></i>
-                  </div>
-                  <h3 class="card-title">从Artitalk中导入</h3>
-                </div>
-                <div class="card-footer">这不是抢生意啊喂
-                </div>
-              </div>
-            </a>
-            </div>
+            
 			
 			<div class="col-lg-6 col-md-6 col-sm-6">
               <a href="https://jq.qq.com/?_wv=1027&k=rAcnhzqK" target="_blank">
@@ -545,6 +518,52 @@ async function handleRequest(request) {
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>`
 
             }
+			if (path == "/hpp/admin/dash/tool") {
+              hpp_tool_act = " active"
+              hpp_init = `<div class="content">
+        <div class="container-fluid">
+          <div class="row">
+        
+			
+			<div class="col-lg-6 col-md-6 col-sm-6">
+              <a href="javascript:hpp_artitalk_into_hpptalk()">
+              <div class="card card-stats">
+                <div class="card-header card-header-primary card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-download"></i>
+                  </div>
+                  <h3 class="card-title">从Artitalk中导入</h3>
+                </div>
+                <div class="card-footer">这不是抢生意啊喂
+                </div>
+              </div>
+            </a>
+            </div>
+			
+			<div class="col-lg-6 col-md-6 col-sm-6">
+              <a href="javascript:hpp_del_all()">
+              <div class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-close"></i>
+                  </div>
+                  <h3 class="card-title">销毁配置</h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons text-danger">warning</i>高危操作，你知道会发生什么的
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+			
+			
+          </div>
+        </div>
+      </div>`
+              hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/tool.js'></script>`
+            }
             if (path == "/hpp/admin/dash/set") {
               hpp_set_act = " active"
               hpp_init = `<div class="content">
@@ -619,7 +638,7 @@ async function handleRequest(request) {
 </head>
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="${hpp_back}">
+    <div class="sidebar" data-color="${hpp_color}" data-background-color="${hpp_bg_color}" data-image="${hpp_back}">
       <div class="logo"><a class="simple-text logo-normal">${hpp_title}</a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
@@ -651,6 +670,12 @@ async function handleRequest(request) {
             <a class="nav-link" href="/hpp/admin/dash/img_man">
               <i class="material-icons">imagerounded</i>
               <p>图片管理</p>
+            </a>
+          </li>
+		  <li class="nav-item${hpp_tool_act}">
+            <a class="nav-link" href="/hpp/admin/dash/tool">
+              <i class="material-icons">widgets</i>
+              <p>工具</p>
             </a>
           </li>
 		  <li class="nav-item${hpp_set_act}">
