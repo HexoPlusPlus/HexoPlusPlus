@@ -2,14 +2,14 @@
 background: none !important
 }
 ::-webkit-scrollbar-track-piece {
-background-color:#f8f8f8;
+background-color:#444;
 }
 ::-webkit-scrollbar {
 width:9px;
 height:9px;
 }
 ::-webkit-scrollbar-thumb {
-background-color:#dddddd;
+background-color:#f8f8f8;
 background-clip:padding-box;
 min-height:28px;
 }
