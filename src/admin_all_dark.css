@@ -129,14 +129,16 @@ blockquote.hpp_blockquote p {
 }
 
 #search_Input {
-    background-color: #8b92a9; 
+    background-image: url('https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@cb60e2a/searchicon.svg'); 
     background-position: 10px 12px; 
+	background-color:rgba(255,255,255,.6);
     background-repeat: no-repeat; 
     width: 100%;
     font-size: 16px;
     padding: 12px 20px 12px 40px;
     border: 0px;
     margin-bottom: 12px; 
+	border-radius: 1.2rem;
 }
 textarea{
 	color: #fff	
