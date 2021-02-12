@@ -9,7 +9,7 @@ width:9px;
 height:9px;
 }
 ::-webkit-scrollbar-thumb {
-background-color:#f8f8f8;
+background-color:#343a40;
 background-clip:padding-box;
 min-height:28px;
 }
@@ -45,7 +45,9 @@ background-color:#bbb;
 .OwO .OwO-body .OwO-bar .OwO-packages li:hover {
   background: #5f667b!important;
 }
-
+.OwO .OwO-body .OwO-bar{
+  color: #aaa!important;
+}
 .OwO .OwO-body .OwO-bar .OwO-packages .OwO-package-active {
   background: #3a4155!important;
 }

@@ -2,8 +2,8 @@ const md5=require ('md5')
 
 //开发者请将上述依赖注释去除
 
-const hpp_CDNver = "db11480"
-const hpp_ver = "HexoPlusPlus@1.1.3_β_5"
+const hpp_CDNver = "9e14d26"
+const hpp_ver = "HexoPlusPlus@1.1.3_β_6"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
