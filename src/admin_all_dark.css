@@ -18,6 +18,19 @@ background-color:#bbb;
 }
 
 
+.sidebar .logo .simple-text {
+    text-transform: uppercase;
+    padding: 5px 0;
+    font-size: 18px;
+    color: #3c4858;
+    white-space: nowrap;
+    font-weight: 400;
+    line-height: 30px;
+    overflow: hidden;
+    text-align: center;
+    display: block;
+}
+
 /*!
 
  =========================================================
@@ -116,12 +129,15 @@ blockquote.hpp_blockquote p {
 }
 
 #search_Input {
-    background-image: url('https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN/searchicon.png'); 
+    background-color: #8b92a9; 
     background-position: 10px 12px; 
     background-repeat: no-repeat; 
     width: 100%;
     font-size: 16px;
     padding: 12px 20px 12px 40px;
-    border: 1px solid #ddd;
+    border: 0px;
     margin-bottom: 12px; 
+}
+textarea{
+	color: #fff	
 }

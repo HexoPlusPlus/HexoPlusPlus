@@ -1,10 +1,11 @@
-const hpp_CDNver = "ae35af1"
-const hpp_ver = "HexoPlusPlus@1.1.3_β_1"
+const hpp_CDNver = "fd85169"
+const hpp_ver = "HexoPlusPlus@1.1.3_β_2"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
 const hpp_color="azure"
 const hpp_bg_color="black"
+const hpp_theme_mode="dark"
 
 function getJsonLength(jsonData) {
 
@@ -614,7 +615,7 @@ async function handleRequest(request) {
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
   ${hpp_plugin}
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/font.css" />
-  <link href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin_all.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin_all_${hpp_theme_mode}.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
   <script>
@@ -636,9 +637,9 @@ async function handleRequest(request) {
   const hpp_highlight_style = "${hpp_highlight_style}"
   </script>
 </head>
-<body class="">
+<body class="${hpp_theme_mode=='dark'?'dark-edition':''}">
   <div class="wrapper ">
-    <div class="sidebar" data-color="${hpp_color}" data-background-color="${hpp_bg_color}" data-image="${hpp_back}">
+    <div class="sidebar" data-color="${hpp_color}" data-background-color="${hpp_theme_mode=='dark'?'default':hpp_bg_color}" data-image="${hpp_back}">
       <div class="logo"><a class="simple-text logo-normal">${hpp_title}</a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
