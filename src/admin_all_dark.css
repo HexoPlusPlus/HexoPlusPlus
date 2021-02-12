@@ -34,32 +34,32 @@ background-color:#bbb;
 
 /* OwO dark */
 .OwO .OwO-body .OwO-items {
-  background-color: #282c3f;
+  background-color: #282c3f!important;
 }
 
 .OwO .OwO-body .OwO-bar .OwO-packages {
-  background-color: #202940;
-  color: #ffffff8a;
+  background-color: #202940!important;
+  color: #ffffff8a!important;
 }
 
 .OwO .OwO-body .OwO-bar .OwO-packages li:hover {
-  background: #5f667b;
+  background: #5f667b!important;
 }
 
 .OwO .OwO-body .OwO-bar .OwO-packages .OwO-package-active {
-  background: #3a4155;
+  background: #3a4155!important;
 }
 
 .OwO .OwO-body .OwO-items .OwO-item:hover {
-  background: #526390;
+  background: #526390!important;
 }
 
 .OwO .OwO-body .OwO-items .OwO-item {
-  background: #f7f7f717;
+  background: #f7f7f717!important;
 }
 
 .OwO .OwO-body {
-  border: 1px solid #5f667b;
+  border: 1px solid #5f667b!important;
 }
 
 
