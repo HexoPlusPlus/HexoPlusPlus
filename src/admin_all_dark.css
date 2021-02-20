@@ -13,7 +13,6 @@ table{
 table tr th,td{  
          height:30px;  
          line-height:30px;  
-         border:1px solid #ccc;  
          }  
 #pageStyle{  
          display:inline-block;  

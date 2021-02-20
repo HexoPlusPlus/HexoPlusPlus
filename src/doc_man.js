@@ -67,11 +67,53 @@ var drJson = "/hpp/admin/api/get_draftlist"
                           <\/td>
                         <\/tr>
                 `);
-            })});
 			
+					
+             
+            })});
+			console.log(1)
+  start_limit()
 			
 			});
+			function start_limit(){
+				var $table = $("table");
+            var currentPage = 0; 
+            var pageSize = hpp_page_limit;  
+            $table.bind('paging', function () {
+                $table.find('tbody tr').hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
+            });
+            var sumRows = $table.find('tbody tr').length;
+            var sumPages = Math.ceil(sumRows / pageSize); 
 
+            var $pager = $('<div class="page" style="text-align:center;"></div>');  
+            for (var pageIndex = 0; pageIndex < sumPages; pageIndex++) {
+                $('<a href="#" id="pageStyle" onclick="changCss(this)"><span>' + (pageIndex + 1) + '</span></a>').bind("click", { "newPage": pageIndex }, function (event) {
+                    currentPage = event.data["newPage"];
+                    $table.trigger("paging");
+                }).appendTo($pager);
+                $pager.append(" ");
+            }
+            $pager.insertAfter($table);
+            $table.trigger("paging");
+
+            var $pagess = $('#pageStyle');
+            $pagess[0].style.backgroundColor = "#ccc";
+            $pagess[0].style.color = "#ffffff";
+				
+			}
+      function changCss(obj) {
+            var arr = document.getElementsByTagName("a");
+            for (var i = 0; i < arr.length; i++) {
+                if (obj == arr[i]) {     
+                    obj.style.backgroundColor = "#ccc";
+                    obj.style.color = "#ffffff";
+                }
+                else {
+                    arr[i].style.color = "";
+                    arr[i].style.backgroundColor = "";
+                }
+            }
+        }  
 			
 function del(name){
 	swal({

@@ -11,6 +11,8 @@ const hpp_color="azure"
 const hpp_bg_color="black"
 const hpp_theme_mode="dark"
 
+const hpp_page_limit = 10
+
 function getJsonLength(jsonData) {
 
   var jsonLength = 0;
@@ -639,6 +641,7 @@ async function handleRequest(request) {
   const hpp_githubdocdraftpath ="${hpp_githubdocdraftpath}"
   const hpp_lazy_img = "${hpp_lazy_img}"
   const hpp_highlight_style = "${hpp_highlight_style}"
+  const hpp_page_limit = ${hpp_page_limit}
   </script>
 </head>
 <body class="${hpp_theme_mode=='dark'?'dark-edition':''}">
