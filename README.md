@@ -38,7 +38,7 @@ HexoPlusPlus的诞生离不开以下项目的支持：
 
 - jquery
 - bootstrap
-- material-dashboard
+- [material-dashboard](https://github.com/creativetimofficial/material-dashboard)
 - marked.js
 - sweetalert
 - notyf
