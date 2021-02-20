@@ -76,6 +76,7 @@ function start() {
 		let hpp_color=document.getElementById("hpp_color").value==""?"azure":document.getElementById("hpp_color").value
 		let hpp_bg_color=document.getElementById("hpp_bg_color").value==""?"black":document.getElementById("hpp_bg_color").value
 		let hpp_theme_mode=document.getElementById("hpp_theme_mode").value==""?"light":document.getElementById("hpp_theme_mode").value
+		let hpp_page_limit=document.getElementById("hpp_page_limit").value==""?"10":document.getElementById("hpp_page_limit").value
 		const config={
 			"hpp_domain":hpp_domain,
 			"hpp_userimage":hpp_username,
@@ -104,7 +105,8 @@ function start() {
 			"hpp_highlight_style":hpp_highlight_style,
 			"hpp_color":hpp_color,
 			"hpp_bg_color":hpp_bg_color,
-			"hpp_theme_mode":hpp_theme_mode
+			"hpp_theme_mode":hpp_theme_mode,
+			"hpp_page_limit":hpp_page_limit
 			};
         var ajax = ajaxObject();
         ajax.open("post", '/hpp/admin/api/upconfig', true);

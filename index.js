@@ -2,12 +2,11 @@
 
 //开发者请将上述依赖注释去除
 
-const hpp_CDNver = "61ca54d"
-const hpp_ver = "HexoPlusPlus@1.2.0_β_9"
+const hpp_CDNver = "c8ca992"
+const hpp_ver = "HexoPlusPlus@1.2.0_β_10"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
-const hpp_page_limit = 10
 
 function getJsonLength(jsonData) {
 
@@ -117,6 +116,9 @@ async function handleRequest(request) {
 			  <p>面板主题色:</p>    
               <input type="text" class="input_text" id="hpp_theme_mode" placeholder="light" />
 			  
+			  <p>列表限制数量:</p>    
+              <input type="text" class="input_text" id="hpp_page_limit" placeholder="10" />
+			  
 			  <h3 style="color:#fff">Github信息</h3>
 		      <p>Github文档仓库Token:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdoctoken" placeholder="*********"/>
@@ -209,9 +211,10 @@ async function handleRequest(request) {
           const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
           const githubdocpath = encodeURI(hpp_githubdocpath)
           const githubimagepath = encodeURI(hpp_githubimagepath)
-		  const hpp_color=config["hpp_color"]
-		  const hpp_bg_color=config["hpp_bg_color"]
-		  const hpp_theme_mode=config["hpp_theme_mode"]
+		  const hpp_color=config["hpp_color"]==undefined?"rose":config["hpp_color"]
+		  const hpp_bg_color=config["hpp_bg_color"]==undefined?"white":config["hpp_bg_color"]
+		  const hpp_theme_mode=config["hpp_theme_mode"]==undefined?"dark":config["hpp_theme_mode"]
+		  const hpp_page_limit=config["hpp_page_limit"]==undefined?"10":config["hpp_page_limit"]
           if (hpp_autodate == "True") {
             const now = Date.now(new Date())
             await KVNAME.put("hpp_activetime", now)
