@@ -18,7 +18,8 @@ table tr th,td{
          width:32px;  
          height:32px;  
          border:1px solid #CCC;  
-         line-height:32px;    
+         line-height:32px;  
+         text-align:center;  
          color:#999;  
          margin-top:20px;  
          text-decoration:none;  
