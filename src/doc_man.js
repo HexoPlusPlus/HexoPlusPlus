@@ -70,8 +70,8 @@ var drJson = "/hpp/admin/api/get_draftlist"
 			
 					
              
-            })});
-  start_limit()
+            });start_limit()});
+  
 			
 			});
 			function start_limit(){
