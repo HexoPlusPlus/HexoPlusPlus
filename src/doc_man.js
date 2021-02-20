@@ -71,7 +71,6 @@ var drJson = "/hpp/admin/api/get_draftlist"
 					
              
             })});
-			console.log(1)
   start_limit()
 			
 			});
