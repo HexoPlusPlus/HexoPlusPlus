@@ -2,20 +2,20 @@
          {
              font-size:18px;
              }
-         td
+td
          {
              font-size:15px;
              }
-     table{  
+table{  
          width:600px;  
          text-align:center;  
          }  
-     table tr th,td{  
+table tr th,td{  
          height:30px;  
          line-height:30px;  
          border:1px solid #ccc;  
          }  
-      #pageStyle{  
+#pageStyle{  
          display:inline-block;  
          width:32px;  
          height:32px;  
@@ -27,17 +27,17 @@
          text-decoration:none;  
       
          }  
-      #pageStyle:hover{  
+#pageStyle:hover{  
           background-color:#CCC;  
           }  
-      #pageStyle .active{  
+#pageStyle .active{  
           background-color:#0CF;  
           color:#ffffff;  
-          }        
-         .style1
-         {
+}        
+.style1
+{
              font-size: 12pt;
-         }
+}
 
 .es-input{
 background: none !important
