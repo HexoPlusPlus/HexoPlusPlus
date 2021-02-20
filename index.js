@@ -959,6 +959,9 @@ ${hpp_js}
             const filename = path.substr(("/hpp/admin/api/getdoc/").length)
             return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
           }
+		  if (path == ("/hpp/admin/api/getscaffolds")) {
+            return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${hpp_githubdocroot}scaffolds/post.md?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
+          }
           //他名字叫bfs，他就叫bfs/doge
           async function fetch_bfs(arr, url, getinit) {
             try {
