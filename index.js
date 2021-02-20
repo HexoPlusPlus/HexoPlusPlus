@@ -2,8 +2,8 @@
 
 //开发者请将上述依赖注释去除
 
-const hpp_CDNver = "c8ca992"
-const hpp_ver = "HexoPlusPlus@1.2.0_β_10"
+const hpp_CDNver = "a161c59"
+const hpp_ver = "HexoPlusPlus@1.2.0_β_12"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -744,29 +744,6 @@ async function handleRequest(request) {
 					<!--innerHTMLEND-->
 </div>
 </div>
-<!--
-
-<script src="/static/js/jquery.min.js"></script>
-<script src="/static/js/popper.min.js"></script>
-<script src="/static/js/bootstrap-material-design.min.js"></script>
-<script src="/static/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<script src="/static/js/plugins/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert/sweetalert.min.js"></script>
-<script src="/static/js/plugins/jquery.validate.min.js"></script>
-<script src="/static/js/plugins/jquery.bootstrap-wizard.js"></script>
-<script src="/static/js/plugins/bootstrap-selectpicker.js"></script>
-<script src="/static/js/plugins/bootstrap-datetimepicker.min.js"></script>
-<script src="/static/js/plugins/jquery.dataTables.min.js"></script>
-<script src="/static/js/plugins/bootstrap-tagsinput.js"></script>
-<script src="/static/js/plugins/jasny-bootstrap.min.js"></script>
-<script src="/static/js/plugins/fullcalendar.min.js"></script>
-<script src="/static/js/plugins/jquery-jvectormap.js"></script>
-<script src="/static/js/plugins/nouislider.min.js"></script>
-<script src="/static/js/plugins/arrive.min.js"></script>
-<script src="/static/js/plugins/chartist.min.js"></script>
-<script src="/static/js/plugins/bootstrap-notify.js"></script>
-<script src="/static/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
-<script src="/static/js/main.js"></script>我不知道原模板这么多js干什么，我只需要底下几个-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin_all.js"></script>
@@ -987,14 +964,13 @@ ${hpp_js}
             } catch (e) { return {} }
           }
           if (path == "/hpp/admin/api/getlist") {
-            //let hpp_doc_list_index = await KVNAME.get("hpp_doc_list_index")
-			//let hpp_doc_list_index = null
-            //if (hpp_doc_list_index === null) {
+            let hpp_doc_list_index = await KVNAME.get("hpp_doc_list_index")
+            if (hpp_doc_list_index === null) {
               const filepath = githubdocpath.substr(0, (githubdocpath).length - 1)
               const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
               hpp_doc_list_index = await JSON.stringify(await fetch_bfs([], url, hpp_githubgetdocinit))
               await KVNAME.put("hpp_doc_list_index", hpp_doc_list_index)
-            //}
+            }
             return new Response(hpp_doc_list_index, {
               headers: {
                 "content-type": "application/json;charset=UTF-8",

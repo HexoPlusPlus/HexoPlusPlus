@@ -7,8 +7,7 @@ td
              font-size:15px;
              }
 table{  
-         width:600px;  
-         text-align:center;  
+         width:600px;   
          }  
 table tr th,td{  
          height:30px;  
@@ -20,7 +19,6 @@ table tr th,td{
          height:32px;  
          border:1px solid #CCC;  
          line-height:32px;  
-         text-align:center;  
          color:#999;  
          margin-top:20px;  
          text-decoration:none;  
