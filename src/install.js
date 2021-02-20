@@ -73,6 +73,9 @@ function start() {
 		let hpp_back=document.getElementById("hpp_back").value==""?"https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg":document.getElementById("hpp_back").value
 		let hpp_lazy_img=document.getElementById("hpp_lazy_img").value==""?"https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif":document.getElementById("hpp_lazy_img").value
 		let hpp_highlight_style=document.getElementById("hpp_highlight_style").value==""?"github":document.getElementById("hpp_highlight_style").value
+		let hpp_color=document.getElementById("hpp_color").value==""?"azure":document.getElementById("hpp_color").value
+		let hpp_bg_color=document.getElementById("hpp_bg_color").value==""?"black":document.getElementById("hpp_bg_color").value
+		let hpp_theme_mode=document.getElementById("hpp_theme_mode").value==""?"light":document.getElementById("hpp_theme_mode").value
 		const config={
 			"hpp_domain":hpp_domain,
 			"hpp_userimage":hpp_username,
@@ -98,7 +101,10 @@ function start() {
 			"hpp_OwO":hpp_OwO,
 			"hpp_back":hpp_back,
 			"hpp_lazy_img":hpp_lazy_img,
-			"hpp_highlight_style":hpp_highlight_style
+			"hpp_highlight_style":hpp_highlight_style,
+			"hpp_color":hpp_color,
+			"hpp_bg_color":hpp_bg_color,
+			"hpp_theme_mode":hpp_theme_mode
 			};
         var ajax = ajaxObject();
         ajax.open("post", '/hpp/admin/api/upconfig', true);

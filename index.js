@@ -3,13 +3,9 @@
 //开发者请将上述依赖注释去除
 
 const hpp_CDNver = "e0e74aa"
-const hpp_ver = "HexoPlusPlus@1.2.0_β_8"
+const hpp_ver = "HexoPlusPlus@1.2.0_β_9"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
-
-const hpp_color="azure"
-const hpp_bg_color="black"
-const hpp_theme_mode="dark"
 
 const hpp_page_limit = 10
 
@@ -113,6 +109,14 @@ async function handleRequest(request) {
               <input type="text" class="input_text" id="hpp_lazy_img" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif" />
 			  <p>高亮样式:</p>    
               <input type="text" class="input_text" id="hpp_highlight_style" placeholder="github" />
+			  
+			  <p>面板选项卡颜色:</p>    
+              <input type="text" class="input_text" id="hpp_color" placeholder="azure" />
+			  <p>面板选项框颜色:</p>    
+              <input type="text" class="input_text" id="hpp_bg_color" placeholder="black" />
+			  <p>面板主题色:</p>    
+              <input type="text" class="input_text" id="hpp_theme_mode" placeholder="light" />
+			  
 			  <h3 style="color:#fff">Github信息</h3>
 		      <p>Github文档仓库Token:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdoctoken" placeholder="*********"/>
@@ -205,6 +209,9 @@ async function handleRequest(request) {
           const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
           const githubdocpath = encodeURI(hpp_githubdocpath)
           const githubimagepath = encodeURI(hpp_githubimagepath)
+		  const hpp_color=config["hpp_color"]
+		  const hpp_bg_color=config["hpp_bg_color"]
+		  const hpp_theme_mode=config["hpp_theme_mode"]
           if (hpp_autodate == "True") {
             const now = Date.now(new Date())
             await KVNAME.put("hpp_activetime", now)
