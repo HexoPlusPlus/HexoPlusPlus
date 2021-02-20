@@ -2,8 +2,8 @@
 
 //开发者请将上述依赖注释去除
 
-const hpp_CDNver = "a161c59"
-const hpp_ver = "HexoPlusPlus@1.2.0_β_12"
+const hpp_CDNver = "5f27de1"
+const hpp_ver = "HexoPlusPlus@1.2.0_β_13"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
