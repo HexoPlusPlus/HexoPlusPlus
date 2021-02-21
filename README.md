@@ -65,3 +65,9 @@ wrangler dev
 默认情况下，依赖已直接集成在主脚本，但在开发环境下仍需额外引入。
 
 只需将最前面的依赖注释去掉即可。
+
+# 贡献名单
+
+| ![ChenYFan](https://avatars.githubusercontent.com/u/53730587?s=460&u=0c56dc9cd4eef4a3afc3f911915f234742baebf7&v=4)</br> ChenYFan | ![2X-era](https://avatars.githubusercontent.com/u/72645310?s=460&u=c95ac0a574648a9389a60ce2ff341a8004f49f20&v=4)</br> noionion |
+| :---: | :---: |
+| ![](https://shields.io/badge/ChenYFan--Coding-yellow?logo=visual-studio-code&style=for-the-badge)<br>![](https://shields.io/badge/ChenYFan--BugTester-yellow?logo=open-bug-bounty&style=for-the-badge) | ![](https://shields.io/badge/noionion--BugTester-yellow?logo=open-bug-bounty&style=for-the-badge)<br>![](https://shields.io/badge/noionion--CSSCoder-orange?logo=css3&style=for-the-badge) |
