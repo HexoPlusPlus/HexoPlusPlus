@@ -3,7 +3,7 @@
 //开发者请将上述依赖注释去除
 
 const hpp_CDNver = "c70302e"
-const hpp_ver = "HexoPlusPlus@1.2.0_β_15"
+const hpp_ver = "HexoPlusPlus@1.2.0"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -213,7 +213,7 @@ async function handleRequest(request) {
           const githubimagepath = encodeURI(hpp_githubimagepath)
 		  const hpp_color=config["hpp_color"]==undefined?"rose":config["hpp_color"]
 		  const hpp_bg_color=config["hpp_bg_color"]==undefined?"white":config["hpp_bg_color"]
-		  const hpp_theme_mode=config["hpp_theme_mode"]==undefined?"dark":config["hpp_theme_mode"]
+		  const hpp_theme_mode=config["hpp_theme_mode"]=="dark"?"dark":"light"
 		  const hpp_page_limit=config["hpp_page_limit"]==undefined?"10":config["hpp_page_limit"]
           if (hpp_autodate == "True") {
             const now = Date.now(new Date())
