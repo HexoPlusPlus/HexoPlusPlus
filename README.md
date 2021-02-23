@@ -38,7 +38,7 @@ HexoPlusPlus的诞生离不开以下项目的支持：
 
 - jquery
 - bootstrap
-- material-dashboard
+- [material-dashboard](https://github.com/creativetimofficial/material-dashboard)
 - marked.js
 - sweetalert
 - notyf
@@ -47,3 +47,32 @@ HexoPlusPlus的诞生离不开以下项目的支持：
 > 由于仍处于快速迭代期,HPP尚未使用NPM发包,请使用Jsdelivr+Github访问静态资源
 
 ![](https://starchart.cc/HexoPlusPlus/HexoPlusPlus.svg)
+
+
+# 对于开发者来说
+
+```shell
+npm i @cloudflare/wrangler -g
+npm i
+```
+
+修改`wrangler.toml`
+
+```shell
+wrangler dev
+```
+
+默认情况下，依赖已直接集成在主脚本，但在开发环境下仍需额外引入。
+
+只需将最前面的依赖注释去掉即可。
+
+# 贡献名单
+
+| <img src="https://avatars.githubusercontent.com/u/53730587?s=460&u=0c56dc9cd4eef4a3afc3f911915f234742baebf7&v=4" width="60px"></br> ChenYFan | <img src="https://avatars.githubusercontent.com/u/72645310?s=460&u=c95ac0a574648a9389a60ce2ff341a8004f49f20&v=4" width="60px"></br> noionion |
+| :---: | :---: |
+| ![](https://shields.io/badge/Coding-green?logo=visual-studio-code&style=for-the-badge)<br>![](https://shields.io/badge/BugTester-yellow?logo=open-bug-bounty&style=for-the-badge) | ![](https://shields.io/badge/BugTester-yellow?logo=open-bug-bounty&style=for-the-badge)<br>![](https://shields.io/badge/CSSCoder-orange?logo=css3&style=for-the-badge) |
+
+
+# 许可
+
+使用严格的GPL开源许可，所有根据HexoPlusPlus改版的程序若公布，则必须使用GPL协议并开源。

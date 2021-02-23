@@ -1,3 +1,41 @@
+ th
+{
+             font-size:18px;
+             }
+td
+         {
+             font-size:15px;
+             }
+table{  
+         width:600px;   
+         }  
+table tr th,td{  
+         height:30px;  
+         line-height:30px;  
+         }  
+#pageStyle{  
+         display:inline-block;  
+         width:32px;  
+         height:32px;  
+         border:1px solid #CCC;  
+         line-height:32px;  
+         text-align:center;  
+         color:#999;  
+         margin-top:20px;  
+         text-decoration:none;  
+      
+         }  
+#pageStyle:hover{  
+          background-color:#CCC;  
+          }  
+#pageStyle .active{  
+          background-color:#0CF;  
+          color:#ffffff;  
+}        
+.style1
+{
+             font-size: 12pt;
+}
 .es-input{
 background: none !important
 }
@@ -72,12 +110,14 @@ blockquote.hpp_blockquote p {
 }
 
 #search_Input {
-    background-image: url('https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN/searchicon.png'); 
+    background-image: url('https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@cb60e2a/searchicon.svg'); 
     background-position: 10px 12px; 
+	background-color:rgba(255,255,255,.6);
     background-repeat: no-repeat; 
     width: 100%;
     font-size: 16px;
     padding: 12px 20px 12px 40px;
-    border: 1px solid #ddd;
+    border: 0px;
     margin-bottom: 12px; 
+	border-radius: 0.1825rem;
 }

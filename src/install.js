@@ -69,10 +69,14 @@ function start() {
 		let hpp_usericon=document.getElementById("hpp_usericon").value==""?"https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@master/doc_img/icon.png":document.getElementById("hpp_usericon").value;
 		let hpp_cors=document.getElementById("hpp_cors").value==""?"*":document.getElementById("hpp_cors").value
 		let hpp_autodate=document.getElementById("hpp_autodate").value==""?"False":document.getElementById("hpp_autodate").value
-		let hpp_OwO=document.getElementById("hpp_OwO").value==""?"https://cdn.jsdelivr.net/gh/ChenYFan/CDN@master/assets/list.json":document.getElementById("hpp_OwO").value
+		let hpp_OwO=document.getElementById("hpp_OwO").value==""?"https://cdn.jsdelivr.net/gh/2X-ercha/Twikoo-Magic@master/hppowo.json":document.getElementById("hpp_OwO").value
 		let hpp_back=document.getElementById("hpp_back").value==""?"https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg":document.getElementById("hpp_back").value
 		let hpp_lazy_img=document.getElementById("hpp_lazy_img").value==""?"https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif":document.getElementById("hpp_lazy_img").value
 		let hpp_highlight_style=document.getElementById("hpp_highlight_style").value==""?"github":document.getElementById("hpp_highlight_style").value
+		let hpp_color=document.getElementById("hpp_color").value==""?"azure":document.getElementById("hpp_color").value
+		let hpp_bg_color=document.getElementById("hpp_bg_color").value=="black"?"black":document.getElementById("hpp_bg_color").value
+		let hpp_theme_mode=document.getElementById("hpp_theme_mode").value=="dark"?"dark":"light"
+		let hpp_page_limit=document.getElementById("hpp_page_limit").value==""?"10":document.getElementById("hpp_page_limit").value
 		const config={
 			"hpp_domain":hpp_domain,
 			"hpp_userimage":hpp_username,
@@ -98,7 +102,11 @@ function start() {
 			"hpp_OwO":hpp_OwO,
 			"hpp_back":hpp_back,
 			"hpp_lazy_img":hpp_lazy_img,
-			"hpp_highlight_style":hpp_highlight_style
+			"hpp_highlight_style":hpp_highlight_style,
+			"hpp_color":hpp_color,
+			"hpp_bg_color":hpp_bg_color,
+			"hpp_theme_mode":hpp_theme_mode,
+			"hpp_page_limit":hpp_page_limit
 			};
         var ajax = ajaxObject();
         ajax.open("post", '/hpp/admin/api/upconfig', true);

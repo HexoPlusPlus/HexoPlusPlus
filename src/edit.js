@@ -434,7 +434,7 @@ function hpp_get_md(){
 document.getElementById(`div_hpp_doc_editor`).style.display = "none";
 document.getElementById(`text_hpp_doc_editor`).style.display = "block";
 document.getElementById(`hpp_eye_hpp_doc_editor`).innerHTML=`<i class="fa fa-eye fa-2x"><\/i>`
-hpp_replace_mark("正在获取"+choo.value+"中")
+hpp_replace_mark("# 正在获取"+choo.value+"中")
 var ajax = ajaxObject();
     ajax.open( "post" , '/hpp/admin/api/getdoc/'+choo.value , true );
     ajax.setRequestHeader( "Content-Type" , "text/plain" );
@@ -446,7 +446,31 @@ var ajax = ajaxObject();
             }
             else {
 			swal.close()
-			hpp_replace_mark("# 获取文件失败！")
+			hpp_get_scaffolds();
+            }
+        }
+    }
+	ajax.send(new Date().getTime());
+}
+function hpp_get_scaffolds(){
+swal({title: "\n加载模板中...",icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@db63c79/loading.gif",text:"\n",button: false,closeModal: false,});
+document.getElementById(`div_hpp_doc_editor`).style.display = "none";
+document.getElementById(`text_hpp_doc_editor`).style.display = "block";
+document.getElementById(`hpp_eye_hpp_doc_editor`).innerHTML=`<i class="fa fa-eye fa-2x"><\/i>`
+hpp_replace_mark("# 正在获取模板文件中")
+var ajax = ajaxObject();
+    ajax.open( "post" , '/hpp/admin/api/getscaffolds' , true );
+    ajax.setRequestHeader( "Content-Type" , "text/plain" );
+    ajax.onreadystatechange = function () {
+        if( ajax.readyState == 4 ) {
+            if( ajax.status == 200 ) {
+			swal.close()
+            hpp_replace_mark(ajax.responseText)
+            }
+            else {
+			swal.close()
+			sweetAlert("糟糕", "拉取模板文件失败，请检查其是否存在", "error");
+			hpp_replace_mark("# 拉取模板文件失败，请检查其是否存在")
             }
         }
     }
@@ -494,8 +518,8 @@ var ajax = ajaxObject();
             hpp_replace_mark(ajax.responseText)
             }
             else {
-				swal.close()
-			hpp_replace_mark("# 获取文件失败！")
+			swal.close()
+			hpp_get_scaffolds();
             }
         }
     }

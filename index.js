@@ -1,7 +1,12 @@
-const hpp_CDNver = "ae35af1"
-const hpp_ver = "HexoPlusPlus@1.1.2"
+//const md5=require ('md5')
+
+//开发者请将上述依赖注释去除
+
+const hpp_CDNver = "d4051c3"
+const hpp_ver = "HexoPlusPlus@1.2.0"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
+
 
 function getJsonLength(jsonData) {
 
@@ -103,6 +108,17 @@ async function handleRequest(request) {
               <input type="text" class="input_text" id="hpp_lazy_img" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif" />
 			  <p>高亮样式:</p>    
               <input type="text" class="input_text" id="hpp_highlight_style" placeholder="github" />
+			  
+			  <p>面板选项卡颜色:</p>    
+              <input type="text" class="input_text" id="hpp_color" placeholder="azure" />
+			  <p>面板选项框颜色:</p>    
+              <input type="text" class="input_text" id="hpp_bg_color" placeholder="black" />
+			  <p>面板主题色:</p>    
+              <input type="text" class="input_text" id="hpp_theme_mode" placeholder="light" />
+			  
+			  <p>列表限制数量:</p>    
+              <input type="text" class="input_text" id="hpp_page_limit" placeholder="10" />
+			  
 			  <h3 style="color:#fff">Github信息</h3>
 		      <p>Github文档仓库Token:</p>    
 		      <input type="text" class="input_text" id="hpp_githubdoctoken" placeholder="*********"/>
@@ -195,6 +211,10 @@ async function handleRequest(request) {
           const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
           const githubdocpath = encodeURI(hpp_githubdocpath)
           const githubimagepath = encodeURI(hpp_githubimagepath)
+		  const hpp_color=config["hpp_color"]==undefined?"rose":config["hpp_color"]
+		  const hpp_bg_color=config["hpp_bg_color"]==undefined?"white":config["hpp_bg_color"]
+		  const hpp_theme_mode=config["hpp_theme_mode"]=="dark"?"dark":"light"
+		  const hpp_page_limit=config["hpp_page_limit"]==undefined?"10":config["hpp_page_limit"]
           if (hpp_autodate == "True") {
             const now = Date.now(new Date())
             await KVNAME.put("hpp_activetime", now)
@@ -223,6 +243,7 @@ async function handleRequest(request) {
             let hpp_talk_act = ""
             let hpp_docs_man_act = ""
             let hpp_img_man_act = ""
+			let hpp_tool_act = ""
             let hpp_set_act = ""
             let hpp_js = ""
             let hpp_init = `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`
@@ -244,7 +265,7 @@ async function handleRequest(request) {
                 </div>
                 <div class="card-footer">
 				<div class="stats">
-                    <a href="/hpp/admin/dash/edit"><i class="fa fa-pencil"></i>前往管理</a>
+                    <a href="/hpp/admin/dash/edit" style="color: #cf6ae0 !important"><i class="fa fa-pencil"></i>前往管理</a>
                   </div>
                 </div>
               </div>
@@ -262,7 +283,7 @@ async function handleRequest(request) {
                 </div>
                 <div class="card-footer">
 				<div class="stats">
-                    <a href="/hpp/admin/dash/img_man"><i class="fa fa-upload"></i>前往管理</a>
+                    <a href="/hpp/admin/dash/img_man" style="color: #cf6ae0 !important"><i class="fa fa-upload"></i>前往管理</a>
                   </div>
                 </div>
               </div>
@@ -286,38 +307,7 @@ async function handleRequest(request) {
             </a>
             </div>
             
-            <div class="col-lg-6 col-md-6 col-sm-6">
-              <a href="javascript:hpp_del_all()">
-              <div class="card card-stats">
-                <div class="card-header card-header-danger card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-close"></i>
-                  </div>
-                  <h3 class="card-title">销毁配置</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons text-danger">warning</i>高危操作，你知道会发生什么的
-                  </div>
-                </div>
-              </div>
-            </a>
-            </div>
-			
-			<div class="col-lg-6 col-md-6 col-sm-6">
-              <a href="javascript:hpp_artitalk_into_hpptalk()">
-              <div class="card card-stats">
-                <div class="card-header card-header-primary card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-download"></i>
-                  </div>
-                  <h3 class="card-title">从Artitalk中导入</h3>
-                </div>
-                <div class="card-footer">这不是抢生意啊喂
-                </div>
-              </div>
-            </a>
-            </div>
+            
 			
 			<div class="col-lg-6 col-md-6 col-sm-6">
               <a href="https://jq.qq.com/?_wv=1027&k=rAcnhzqK" target="_blank">
@@ -541,9 +531,55 @@ async function handleRequest(request) {
           </div>
         </div>
       </div>`
-              hpp_js = `<style>.grid {column-count: 2;column-gap: 1rem;}</style><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/img_man.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>`
+              hpp_js = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/css/swipebox.css"><script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/img_man.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><script src="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/js/jquery.swipebox.min.js"></script>`
 
+            }
+			if (path == "/hpp/admin/dash/tool") {
+              hpp_tool_act = " active"
+              hpp_init = `<div class="content">
+        <div class="container-fluid">
+          <div class="row">
+        
+			
+			<div class="col-lg-6 col-md-6 col-sm-6">
+              <a href="javascript:hpp_artitalk_into_hpptalk()">
+              <div class="card card-stats">
+                <div class="card-header card-header-primary card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-download"></i>
+                  </div>
+                  <h3 class="card-title">从Artitalk中导入</h3>
+                </div>
+                <div class="card-footer">这不是抢生意啊喂
+                </div>
+              </div>
+            </a>
+            </div>
+			
+			<div class="col-lg-6 col-md-6 col-sm-6">
+              <a href="javascript:hpp_del_all()">
+              <div class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-close"></i>
+                  </div>
+                  <h3 class="card-title">销毁配置</h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="material-icons text-danger">warning</i>高危操作，你知道会发生什么的
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+			
+			
+          </div>
+        </div>
+      </div>`
+              hpp_js = `<script src='https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/tool.js'></script>`
             }
             if (path == "/hpp/admin/dash/set") {
               hpp_set_act = " active"
@@ -595,7 +631,7 @@ async function handleRequest(request) {
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
   ${hpp_plugin}
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/font.css" />
-  <link href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin_all.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin_all_${hpp_theme_mode}.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
   <script>
@@ -615,11 +651,12 @@ async function handleRequest(request) {
   const hpp_githubdocdraftpath ="${hpp_githubdocdraftpath}"
   const hpp_lazy_img = "${hpp_lazy_img}"
   const hpp_highlight_style = "${hpp_highlight_style}"
+  const hpp_page_limit = ${hpp_page_limit}
   </script>
 </head>
-<body class="">
+<body class="${hpp_theme_mode=='dark'?'dark-edition':''}">
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="${hpp_back}">
+    <div class="sidebar" data-color="${hpp_color}" data-background-color="${hpp_theme_mode=='dark'?'default':hpp_bg_color}" data-image="${hpp_back}">
       <div class="logo"><a class="simple-text logo-normal">${hpp_title}</a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
@@ -651,6 +688,12 @@ async function handleRequest(request) {
             <a class="nav-link" href="/hpp/admin/dash/img_man">
               <i class="material-icons">imagerounded</i>
               <p>图片管理</p>
+            </a>
+          </li>
+		  <li class="nav-item${hpp_tool_act}">
+            <a class="nav-link" href="/hpp/admin/dash/tool">
+              <i class="material-icons">widgets</i>
+              <p>工具</p>
             </a>
           </li>
 		  <li class="nav-item${hpp_set_act}">
@@ -701,29 +744,6 @@ async function handleRequest(request) {
 					<!--innerHTMLEND-->
 </div>
 </div>
-<!--
-
-<script src="/static/js/jquery.min.js"></script>
-<script src="/static/js/popper.min.js"></script>
-<script src="/static/js/bootstrap-material-design.min.js"></script>
-<script src="/static/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<script src="/static/js/plugins/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert/sweetalert.min.js"></script>
-<script src="/static/js/plugins/jquery.validate.min.js"></script>
-<script src="/static/js/plugins/jquery.bootstrap-wizard.js"></script>
-<script src="/static/js/plugins/bootstrap-selectpicker.js"></script>
-<script src="/static/js/plugins/bootstrap-datetimepicker.min.js"></script>
-<script src="/static/js/plugins/jquery.dataTables.min.js"></script>
-<script src="/static/js/plugins/bootstrap-tagsinput.js"></script>
-<script src="/static/js/plugins/jasny-bootstrap.min.js"></script>
-<script src="/static/js/plugins/fullcalendar.min.js"></script>
-<script src="/static/js/plugins/jquery-jvectormap.js"></script>
-<script src="/static/js/plugins/nouislider.min.js"></script>
-<script src="/static/js/plugins/arrive.min.js"></script>
-<script src="/static/js/plugins/chartist.min.js"></script>
-<script src="/static/js/plugins/bootstrap-notify.js"></script>
-<script src="/static/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
-<script src="/static/js/main.js"></script>我不知道原模板这么多js干什么，我只需要底下几个-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/admin_all.js"></script>
@@ -925,6 +945,9 @@ ${hpp_js}
           if (path.startsWith("/hpp/admin/api/getdoc")) {
             const filename = path.substr(("/hpp/admin/api/getdoc/").length)
             return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
+          }
+		  if (path == ("/hpp/admin/api/getscaffolds")) {
+            return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${hpp_githubdocroot}scaffolds/post.md?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
           }
           //他名字叫bfs，他就叫bfs/doge
           async function fetch_bfs(arr, url, getinit) {

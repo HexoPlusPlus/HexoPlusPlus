@@ -27,14 +27,14 @@ var ajax = ajaxObject();
     ajax.send();
 }
 
-if(hpp_ver == 'HexoPlusPlus@1.1.2'){
+if(hpp_ver == 'HexoPlusPlus@1.2.0'){
   swal({
 title: "成功",
     text: "无需更新，当前已是最新版本",
     icon: "success",
 });
 }else{
-swal("存在1.1.2更新，是否更新？", {
+swal("存在1.2.0更新，是否更新？", {
   icon: "warning",
   buttons: {
     cancel: "否",

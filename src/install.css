@@ -27,6 +27,7 @@ background-color:#bbb;
 }
 
 .cont_join {
+  background-color: rgb(0 0 0 / 85%);
   overflow:hidden;
   position:absolute;
   width:320px;
