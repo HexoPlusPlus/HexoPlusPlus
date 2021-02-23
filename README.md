@@ -71,3 +71,8 @@ wrangler dev
 | <img src="https://avatars.githubusercontent.com/u/53730587?s=460&u=0c56dc9cd4eef4a3afc3f911915f234742baebf7&v=4" width="60px"></br> ChenYFan | <img src="https://avatars.githubusercontent.com/u/72645310?s=460&u=c95ac0a574648a9389a60ce2ff341a8004f49f20&v=4" width="60px"></br> noionion |
 | :---: | :---: |
 | ![](https://shields.io/badge/Coding-green?logo=visual-studio-code&style=for-the-badge)<br>![](https://shields.io/badge/BugTester-yellow?logo=open-bug-bounty&style=for-the-badge) | ![](https://shields.io/badge/BugTester-yellow?logo=open-bug-bounty&style=for-the-badge)<br>![](https://shields.io/badge/CSSCoder-orange?logo=css3&style=for-the-badge) |
+
+
+# 许可
+
+使用严格的GPL开源许可，所有根据HexoPlusPlus改版的程序若公布，则必须使用GPL协议并开源。
