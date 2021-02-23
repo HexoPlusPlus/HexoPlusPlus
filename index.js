@@ -2,7 +2,7 @@
 
 //开发者请将上述依赖注释去除
 
-const hpp_CDNver = "367bfe2"
+const hpp_CDNver = "d4051c3"
 const hpp_ver = "HexoPlusPlus@1.2.0"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
@@ -265,7 +265,7 @@ async function handleRequest(request) {
                 </div>
                 <div class="card-footer">
 				<div class="stats">
-                    <a href="/hpp/admin/dash/edit"><i class="fa fa-pencil"></i>前往管理</a>
+                    <a href="/hpp/admin/dash/edit" style="color: #cf6ae0 !important"><i class="fa fa-pencil"></i>前往管理</a>
                   </div>
                 </div>
               </div>
@@ -283,7 +283,7 @@ async function handleRequest(request) {
                 </div>
                 <div class="card-footer">
 				<div class="stats">
-                    <a href="/hpp/admin/dash/img_man"><i class="fa fa-upload"></i>前往管理</a>
+                    <a href="/hpp/admin/dash/img_man" style="color: #cf6ae0 !important"><i class="fa fa-upload"></i>前往管理</a>
                   </div>
                 </div>
               </div>
