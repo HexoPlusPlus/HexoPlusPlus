@@ -27,6 +27,7 @@ background-color:#bbb;
 }
 
 .cont_join {
+  background-color: #000000c2;
   overflow:hidden;
   position:absolute;
   width:320px;
