@@ -2,8 +2,8 @@
 
 //开发者请将上述依赖注释去除
 
-const hpp_CDNver = "d4051c3"
-const hpp_ver = "HexoPlusPlus@1.2.0"
+const hpp_CDNver = "edff86b"
+const hpp_ver = "HexoPlusPlus@1.2.1_β_1"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -86,8 +86,15 @@ async function handleRequest(request) {
 
 <div class="mdui-drawer mdui-drawer-close" id="drawer" style="background-color:#fff">
   <ul class="mdui-list" id="_li">
-  
-</ul>
+  <li class="mdui-list-item mdui-ripple">
+  <a href="https://hexoplusplus.js.org">
+      <div class="mdui-list-item-content">寻求帮助</div></a></li><li class="mdui-list-item mdui-ripple">
+	    <a href="https://github.com/hexoplusplus/hexoplusplus">
+      <div class="mdui-list-item-content">项目地址</div></a></li><li class="mdui-list-item mdui-ripple">
+	    <a href="https://jq.qq.com/?_wv=1027&k=rAcnhzqK">
+      <div class="mdui-list-item-content">加群帮助</div></a>
+    </li>
+</ul></div>
 
 <div class="mdui-container">
 
