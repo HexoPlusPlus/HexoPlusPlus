@@ -67,109 +67,262 @@ async function handleRequest(request) {
             return new Response("OK")
           } else {
 
-            let hpp_installhtml = `<!doctype html>
-<html lang="zh">
+            let hpp_installhtml = `<!DOCTYPE html>
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-	<title>${hpp_ver}安装</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/install.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>欢迎 | ${hpp_ver}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"/>
 </head>
-<body>
-		<div class="cont_principal">
-			
-		  <div class="cont_join  ">
-		    <div class="cont_letras">
-		      <p>Hexo</p>
-		      <p>Plus</p>
-		      <p>plus</p>
-		    </div>
+<body style="mdui-theme-layout-dark">
+<div class="mdui-container">
+  <div class="mdui-toolbar">
+    <a id="_menu" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+    <span class="mdui-typo-title">${hpp_ver}安装</span>
+    <div class="mdui-toolbar-spacer"></div>
+  </div>
+</div>
 
-		    <div class="cont_form_join" style="overflow-x: auto;">
-		      <h2>安装信息</h2>
-			  <h3 style="color:#fff">基本信息</h3>
-		      <p>域名:</p>    
-		      <input type="text" class="input_text" id="hpp_domain" placeholder="xxx.xxx.com"/>
-		      <p>头像地址:</p>    
-		      <input type="text" class="input_text" id="hpp_userimage" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/CDN/img/avatar.png"/>
-		      <p>标题:</p>    
-		      <input type="text" class="input_text" id="hpp_title" placeholder="XXX的后台"/>
-		      <p>icon地址:</p>    
-		      <input type="text" class="input_text" id="hpp_usericon" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/chenyfan.github.io/favicon.ico"/>
-		      <p>跨域请求:</p>    
-			  <input type="text" class="input_text" id="hpp_cors" placeholder="*"/>
-			  <h3 style="color:#fff">面板配置</h3>
-			  <p>OwOJSON地址:</p>    
-              <input type="text" class="input_text" id="hpp_OwO" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/CDN@ca3ea6c/assets/list.json" />
-			  <p>面板背景图片:</p>    
-              <input type="text" class="input_text" id="hpp_back" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg" />
-			  <p>懒加载图片:</p>    
-              <input type="text" class="input_text" id="hpp_lazy_img" placeholder="https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif" />
-			  <p>高亮样式:</p>    
-              <input type="text" class="input_text" id="hpp_highlight_style" placeholder="github" />
-			  
-			  <p>面板选项卡颜色:</p>    
-              <input type="text" class="input_text" id="hpp_color" placeholder="azure" />
-			  <p>面板选项框颜色:</p>    
-              <input type="text" class="input_text" id="hpp_bg_color" placeholder="black" />
-			  <p>面板主题色:</p>    
-              <input type="text" class="input_text" id="hpp_theme_mode" placeholder="light" />
-			  
-			  <p>列表限制数量:</p>    
-              <input type="text" class="input_text" id="hpp_page_limit" placeholder="10" />
-			  
-			  <h3 style="color:#fff">Github信息</h3>
-		      <p>Github文档仓库Token:</p>    
-		      <input type="text" class="input_text" id="hpp_githubdoctoken" placeholder="*********"/>
-			  <p>Github图片仓库Token:</p>    
-		      <input type="text" class="input_text" id="hpp_githubimagetoken" placeholder="*********"/>
-			  <p>Github文档仓库用户名:</p>    
-		      <input type="text" class="input_text" id="hpp_githubdocusername" placeholder="XXX" />
-			  <p>Github图片仓库用户名:</p>    
-		      <input type="text" class="input_text" id="hpp_githubimageusername" placeholder="XXX" />
-			  <p>Github文档仓库名:</p>    
-		      <input type="text" class="input_text" id="hpp_githubdocrepo" placeholder="blog" />
-			  <p>Github图片仓库名:</p>    
-		      <input type="text" class="input_text" id="hpp_githubimagerepo" placeholder="image" />
-			  <p>Github文档仓库根目录:</p>    
-		      <input type="text" class="input_text" id="hpp_githubdocroot" placeholder="/" />
-			  <p>Github图片仓库路径:</p>    
-		      <input type="text" class="input_text" id="hpp_githubimagepath" placeholder="/" />
-			  <p>Github文档仓库分支:</p>    
-		      <input type="text" class="input_text" id="hpp_githubdocbranch" placeholder="master" />
-			  <p>Github图片仓库分支:</p>    
-		      <input type="text" class="input_text" id="hpp_githubimagebranch" placeholder="main" />
-			  <h3 style="color:#fff">附加功能</h3>
-			  <p>是否自动签到【是为True，否为False】:</p>    
-		      <input type="text" class="input_text" id="hpp_autodate" placeholder="False" />
-              <h3 style="color:#fff">CloudFlare访问功能</h3>
-			  <p>Global API Key:</p>    
-		      <input type="text" class="input_text" id="hpp_CF_Auth_Key" placeholder="***" />
-              <p>目标Workers名称:</p>    
-		      <input type="text" class="input_text" id="hpp_script_name" placeholder="HexoPlusPlus" />
-              <p>Workers账户ID:</p>    
-		      <input type="text" class="input_text" id="hpp_account_identifier" placeholder="***" />
-              <p>账户登录邮箱:</p>    
-		      <input type="text" class="input_text" id="hpp_Auth_Email" placeholder="ABC@DEF.com" />
-              <h3 style="color:#fff">Twikoo加强</h3>
-              <p>Twikoo环境ID:</p>    
-              <input type="text" class="input_text" id="hpp_twikoo_envId" placeholder="xxx" />
-			  
-		    </div>
-		  
-		    <div class="cont_join_form_finish" style="display:none">
-		      <h2>完成</h2>  
-		    </div>
+<div class="mdui-drawer mdui-drawer-close" id="drawer" style="background-color:#fff">
+  <ul class="mdui-list" id="_li">
+  
+</ul>
 
-		    <div class="cont_btn_join">
-		      <a href="#" onclick='start()' id="butttt">开始配置</a>
-		    </div>
-		  </div>
-		</div>
-	</div>
-	
-	<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/install.js"></script>
+<div class="mdui-container">
+
+  <div class="mdui-row">
+    <div class="mdui-m-b-3">
+      <div class="mdui-panel" id="panel">
+        <div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+          <div class="mdui-panel-item-header">基础配置</div>
+          <div class="mdui-panel-item-body">
+            <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">域名</label>
+    <input class="mdui-textfield-input" id="hpp_domain"/>
+  </div>
+  
+  
+            <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">头像地址</label>
+    <input class="mdui-textfield-input" id="hpp_userimage"/>
+  </div>
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">标题</label>
+    <input class="mdui-textfield-input" id="hpp_title"/>
+  </div>
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">icon地址</label>
+    <input class="mdui-textfield-input" id="hpp_usericon"/>
+  </div>
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">跨域请求</label>
+    <input class="mdui-textfield-input" id="hpp_cors"/>
+  </div>
+  
+  
+              
+  
+  
+          </div>
+        </div>
+		
+		<div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+          <div class="mdui-panel-item-header">面板配置</div>
+          <div class="mdui-panel-item-body">
+            <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">OWOJSON地址</label>
+    <input class="mdui-textfield-input" id="hpp_OwO"/>
+  </div>
+  
+  
+            <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">面板背景图片</label>
+    <input class="mdui-textfield-input" id="hpp_back"/>
+  </div>
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">懒加载图片</label>
+    <input class="mdui-textfield-input" id="hpp_lazy_img"/>
+  </div>
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">高亮样式</label>
+    <input class="mdui-textfield-input" id="hpp_highlight_style"/>
+  </div>
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">面板选项卡颜色</label>
+    <input class="mdui-textfield-input" id="hpp_color"/>
+  </div>
+  
+                <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">面板选项框颜色</label>
+    <input class="mdui-textfield-input" id="hpp_bg_color"/>
+  </div>
+                <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">面板主题色</label>
+    <input class="mdui-textfield-input" id="hpp_theme_mode"/>
+  </div>
+              
+               <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">列表限制数量</label>
+    <input class="mdui-textfield-input" id="hpp_page_limit"/>
+  </div>
+              
+  
+          </div>
+        </div>
+		
+		
+		<div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+          <div class="mdui-panel-item-header">Github配置</div>
+          <div class="mdui-panel-item-body">
+            <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github文档仓库Token</label>
+    <input class="mdui-textfield-input" id="hpp_githubdoctoken"/>
+  </div>
+  
+  
+            <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github图片仓库Token</label>
+    <input class="mdui-textfield-input" id="hpp_githubimagetoken"/>
+  </div>
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github文档仓库用户名</label>
+    <input class="mdui-textfield-input" id="hpp_githubdocusername"/>
+  </div>
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github图片仓库用户名</label>
+    <input class="mdui-textfield-input" id="hpp_githubimageusername"/>
+  </div>
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github文档仓库名</label>
+    <input class="mdui-textfield-input" id="hpp_githubdocrepo"/>
+  </div>
+  
+                <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github图片仓库名</label>
+    <input class="mdui-textfield-input" id="hpp_githubimagerepo"/>
+  </div>
+                <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github文档仓库根目录</label>
+    <input class="mdui-textfield-input" id="hpp_githubdocroot"/>
+  </div>
+              
+               <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github图片仓库路径</label>
+    <input class="mdui-textfield-input" id="hpp_githubimagepath"/>
+  </div>
+              
+                 <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github文档仓库分支</label>
+    <input class="mdui-textfield-input" id="hpp_githubdocbranch"/>
+  </div>
+                 <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github图片仓库分支</label>
+    <input class="mdui-textfield-input" id="hpp_githubimagebranch"/>
+  </div>
+                 
+  
+  
+  
+          </div>
+        </div>
+		
+		<div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+          <div class="mdui-panel-item-header">CloudFlare配置</div>
+          <div class="mdui-panel-item-body">
+            <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Global API Key</label>
+    <input class="mdui-textfield-input" id="hpp_CF_Auth_Key"/>
+  </div>
+  
+  
+            <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">目标Workers名称</label>
+    <input class="mdui-textfield-input" id="hpp_script_name"/>
+  </div>
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Workers账户ID</label>
+    <input class="mdui-textfield-input" id="hpp_account_identifier"/>
+  </div>
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">账户登录邮箱</label>
+    <input class="mdui-textfield-input" id="hpp_Auth_Email"/>
+  </div>
+  
+  
+              
+                 
+  
+  
+  
+          </div>
+        </div>
+		
+		
+		<div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+          <div class="mdui-panel-item-header">附加配置</div>
+          <div class="mdui-panel-item-body">
+            <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Twikoo环境ID</label>
+    <input class="mdui-textfield-input" id="hpp_twikoo_envId"/>
+  </div>
+  
+  
+           <label class="mdui-switch">
+        <input type="checkbox" id="hpp_autodate"/>
+        <i class="mdui-switch-icon"></i>	自动签到功能
+      </label>
+  
+              
+                 
+  
+  
+  
+          </div>
+        </div>
+		
+      </div>
+    </div>
+  </div>
+<button class="mdui-btn mdui-btn-raised mdui-center" onclick="upload()" id="bbb">提交配置</button>
+</div>
+  <div class="mdui-dialog" id="dialogerr">
+    <div class="mdui-dialog-title">出错了！</div>
+    <div class="mdui-dialog-content">上传失败！可能是网络原因，请重试</div>
+  </div>
+  
+    <div class="mdui-dialog" id="dialogok">
+    <div class="mdui-dialog-title">上传成功！</div>
+    <div class="mdui-dialog-content">点击OK进入主面板</div>
+	<div class="mdui-dialog-actions">
+      <button class="mdui-btn mdui-ripple" onclick="window.location.reload()">OK</button>
+    </div>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/install.js">
+</script>
 </body>
 </html>`
             return new Response(hpp_installhtml, {
