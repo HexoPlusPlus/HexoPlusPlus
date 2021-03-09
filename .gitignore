@@ -5,3 +5,4 @@ npm-debug.log
 demo/
 worker/
 dist/
+worker/node_modules/
