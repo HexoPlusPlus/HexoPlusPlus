@@ -3,5 +3,4 @@ node_modules/
 npm-debug.log
 .gitconfig
 demo/
-dist/
 worker/node_modules/

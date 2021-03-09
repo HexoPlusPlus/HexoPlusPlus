@@ -51,20 +51,19 @@ HexoPlusPlus的诞生离不开以下项目的支持：
 
 # 对于开发者来说
 
+## 前端
+
+直接改`/src/`文件夹下项目
+
+## 后端
+
 ```shell
-npm i @cloudflare/wrangler -g
-npm i
+cd ./worker
+npm i 
+webpack ./index.js
 ```
 
-修改`wrangler.toml`
-
-```shell
-wrangler dev
-```
-
-默认情况下，依赖已直接集成在主脚本，但在开发环境下仍需额外引入。
-
-只需将最前面的依赖注释去掉即可。
+将在`/worker/dist/main.js`生成编译后的脚本。
 
 # 贡献名单
 
