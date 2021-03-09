@@ -1217,7 +1217,7 @@ ${hpp_js}
             return new Response('OK')
           }
           if (path == "/hpp/admin/api/update") {
-            const update_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/index.js`)).text()
+            const update_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/worker/dist/main.js`)).text()
             const up_init = {
               body: update_script,
               method: "PUT",
@@ -1231,7 +1231,7 @@ ${hpp_js}
             return new Response(JSON.parse(update_resul)["success"])
           }
           if (path == "/hpp/admin/api/small_white_mouse_update") {
-            const update_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/dev/index.js`)).text()
+            const update_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/dev/worker/dist/main.js`)).text()
             const up_init = {
               body: update_script,
               method: "PUT",
