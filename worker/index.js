@@ -348,6 +348,14 @@ async function handleRequest(request) {
           const hpp_githubdocrepo = config["hpp_githubdocrepo"]
           const hpp_githubdocroot = config["hpp_githubdocroot"]
           const hpp_githubdocbranch = config["hpp_githubdocbranch"]
+		  
+		  const hpp_githubpage= config["hpp_githubpage"]
+		  const hpp_githubpagetoken = config["hpp_githubpagetoken"]
+          const hpp_githubpageusername = config["hpp_githubpageusername"]
+          const hpp_githubpagerepo = config["hpp_githubpagerepo"]
+          const hpp_githubpageroot = config["hpp_githubpageroot"]
+          const hpp_githubpagebranch = config["hpp_githubpagebranch"]
+		  
           const hpp_githubimageusername = config["hpp_githubimageusername"]
           const hpp_githubimagerepo = config["hpp_githubimagerepo"]
           const hpp_githubimagepath = config["hpp_githubimagepath"]
@@ -1602,6 +1610,17 @@ start: 0
         headers: { "content-type": "text/html;charset=UTF-8" }
       })
     }
+	const hpp_config = await KVNAME.get("hpp_config");
+	const config = JSON.parse(JSON.parse(hpp_config))
+		  const hpp_githubpage= config["hpp_githubpage"]
+		  const hpp_githubpagetoken = config["hpp_githubpagetoken"]
+          const hpp_githubpageusername = config["hpp_githubpageusername"]
+          const hpp_githubpagerepo = config["hpp_githubpagerepo"]
+          const hpp_githubpageroot = config["hpp_githubpageroot"]
+          const hpp_githubpagebranch = config["hpp_githubpagebranch"]
+		  console.log(hpp_githubpage)
+	if(hpp_githubpage != "True"){
+		
     let hpp_errorhtml = `
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -1635,7 +1654,28 @@ start: 0
     return new Response(hpp_errorhtml, {
       headers: { "content-type": "text/html;charset=UTF-8" }
     })
-
+	}else{
+		let p = path.split("?")[0].substr(1)
+		if(p.split("/").slice(-1) == ""){p+="index.html"}
+		if((p.split("/").slice(-1))[0].split(".")[1] == "html"){
+			const anss = await (await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}${p}`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })).text()
+			return new Response(anss,{headers:{"content-type":"text/html; charset=utf-8"}})
+			
+		}
+		if((p.split("/").slice(-1))[0].split(".")[1] == "js"){
+			const anss = await (await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}${p}`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })).text()
+			return new Response(anss,{headers:{"content-type":"application/javascript; charset=utf-8"}})
+			
+		}
+		if((p.split("/").slice(-1))[0].split(".")[1] == "css"){
+			const anss = await (await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}${p}`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })).text()
+			return new Response(anss,{headers:{"content-type":"text/css; charset=utf-8"}})
+			
+		}
+		return fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}${p}`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })
+            
+		
+	}
   } catch (e) {
     let hpp_errorhtml = `
 <!DOCTYPE html>
