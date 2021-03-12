@@ -445,7 +445,7 @@ async function handleRequest(request) {
     </div>
   </div>
 <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@b47fc4a/install.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/install.js"></script>
 
 
 </script>
@@ -464,7 +464,7 @@ async function handleRequest(request) {
           const hpp_usericon = config["hpp_usericon"]
           const hpp_cors = config["hpp_cors"]
           const hpp_githubdoctoken = config["hpp_githubdoctoken"]
-          const hpp_githubimagetoken = config["hpp_githubimagetoken"]
+          
           const hpp_githubdocusername = config["hpp_githubdocusername"]
           const hpp_githubdocrepo = config["hpp_githubdocrepo"]
           const hpp_githubdocroot = config["hpp_githubdocroot"]
@@ -477,16 +477,27 @@ async function handleRequest(request) {
           const hpp_githubpageroot = config["hpp_githubpageroot"]
           const hpp_githubpagebranch = config["hpp_githubpagebranch"]
 		  
+		  const hpp_img= config["hpp_img"] || "false"
+		  
+		  const hpp_ownimgurl = config["hpp_ownimgurl"]
+          const hpp_ownimgname = config["hpp_ownimgname"]
+          const hpp_ownimgjsonpath = config["hpp_ownimgjsonpath"]
+          const hpp_ownimgheader = config["hpp_ownimgheader"]
+          const hpp_ownimgmethod = config["hpp_ownimgmethod"]
+		  
+		  const hpp_githubimagetoken = config["hpp_githubimagetoken"]
           const hpp_githubimageusername = config["hpp_githubimageusername"]
           const hpp_githubimagerepo = config["hpp_githubimagerepo"]
           const hpp_githubimagepath = config["hpp_githubimagepath"]
           const hpp_githubimagebranch = config["hpp_githubimagebranch"]
+		  
           const hpp_autodate = config["hpp_autodate"]
           const hpp_account_identifier = config["hpp_account_identifier"]
           const hpp_script_name = config["hpp_script_name"]
           const hpp_CF_Auth_Key = config["hpp_CF_Auth_Key"]
           const hpp_Auth_Email = config["hpp_Auth_Email"]
           const hpp_twikoo_envId = config["hpp_twikoo-envId"]
+		  const hpp_twikoo = config["hpp_twikoo"] || "false"
           const hpp_OwO = config["hpp_OwO"]
           const hpp_back = config["hpp_back"]
           const hpp_lazy_img = config["hpp_lazy_img"]
@@ -498,10 +509,10 @@ async function handleRequest(request) {
           const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
           const githubdocpath = encodeURI(hpp_githubdocpath)
           const githubimagepath = encodeURI(hpp_githubimagepath)
-		  const hpp_color=config["hpp_color"]==undefined?"rose":config["hpp_color"]
-		  const hpp_bg_color=config["hpp_bg_color"]==undefined?"white":config["hpp_bg_color"]
-		  const hpp_theme_mode=config["hpp_theme_mode"]=="dark"?"dark":"light"
-		  const hpp_page_limit=config["hpp_page_limit"]==undefined?"10":config["hpp_page_limit"]
+		  const hpp_color=config["hpp_color"] || "rose"
+		  const hpp_bg_color=config["hpp_bg_color"] || "white"
+		  const hpp_theme_mode=config["hpp_theme_mode"] || "light"
+		  const hpp_page_limit=config["hpp_page_limit"] || "10"
           if (hpp_autodate == "True") {
             const now = Date.now(new Date())
             await KVNAME.put("hpp_activetime", now)
@@ -1740,7 +1751,7 @@ start: 0
           const hpp_githubpageroot = config["hpp_githubpageroot"]
           const hpp_githubpagebranch = config["hpp_githubpagebranch"]
 		  console.log(hpp_githubpage)
-	if(hpp_githubpage != "True"){
+	if(hpp_githubpage != "true"){
 		
     let hpp_errorhtml = `
 <!DOCTYPE html>
