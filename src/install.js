@@ -1,4 +1,19 @@
 
+document.getElementById('hpp_img').addEventListener('click', function () {
+if(document.getElementById('hpp_img').checked){document.getElementById('githubimg').style["display"] = "none";document.getElementById('ownimg').style["display"] = ""}else{
+document.getElementById('githubimg').style["display"] = "";document.getElementById('ownimg').style["display"] = "none"
+}
+});
+document.getElementById('hpp_githubpage').addEventListener('click', function () {
+if(document.getElementById('hpp_githubpage').checked){document.getElementById('hpp_githubpage_ctx').style["display"] = ""}else{
+document.getElementById('hpp_githubpage_ctx').style["display"] = "none"}
+});
+document.getElementById('hpp_twikoo').addEventListener('click', function () {
+if(document.getElementById('hpp_twikoo').checked){document.getElementById('hpp_twikoo_ctx').style["display"] = ""}else{
+document.getElementById('hpp_twikoo_ctx').style["display"] = "none"
+}
+});
+
 function ajaxObject() {
     var xmlHttp;
     try {
@@ -57,6 +72,21 @@ document.getElementById("bbb").disabled=true
 			"hpp_githubdocrepo":document.getElementById("hpp_githubdocrepo").value,
 			"hpp_githubdocroot":document.getElementById("hpp_githubdocroot").value,			
 			"hpp_githubdocbranch":document.getElementById("hpp_githubdocbranch").value,
+			"hpp_githubpage":document.getElementById("hpp_githubpage").checked?"true":"false",
+			"hpp_githubpagetoken":document.getElementById("hpp_githubpagetoken").value,
+			"hpp_githubpageusername":document.getElementById("hpp_githubpageusername").value,
+			"hpp_githubpagerepo":document.getElementById("hpp_githubpagerepo").value,
+			"hpp_githubpageroot":document.getElementById("hpp_githubpageroot").value,			
+			"hpp_githubpagebranch":document.getElementById("hpp_githubpagebranch").value,
+			
+			"hpp_img":document.getElementById("hpp_img").checked?"true":"false",
+			"hpp_ownimgurl":document.getElementById("hpp_ownimgurl").value,
+			"hpp_ownimgname":document.getElementById("hpp_ownimgname").value,
+			"hpp_ownimgjsonpath":document.getElementById("hpp_ownimgjsonpath").value,
+			"hpp_ownimgheader":document.getElementById("hpp_ownimgheader").value,			
+			"hpp_ownimgmethod":document.getElementById("hpp_ownimgmethod").value || "POST",
+			
+			
 			"hpp_githubimageusername":document.getElementById("hpp_githubimageusername").value,
 			"hpp_githubimagerepo":document.getElementById("hpp_githubimagerepo").value,
 			"hpp_githubimagepath":document.getElementById("hpp_githubimagepath").value,			
@@ -67,6 +97,7 @@ document.getElementById("bbb").disabled=true
 			"hpp_CF_Auth_Key":document.getElementById("hpp_CF_Auth_Key").value,
 			"hpp_Auth_Email":document.getElementById("hpp_Auth_Email").value,
 			"hpp_twikoo_envId":document.getElementById("hpp_twikoo_envId").value,
+			"hpp_twikoo":document.getElementById("hpp_twikoo").checked?"true":"false",
 			"hpp_OwO":hpp_OwO,
 			"hpp_back":hpp_back,
 			"hpp_lazy_img":hpp_lazy_img,

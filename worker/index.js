@@ -100,7 +100,7 @@ async function handleRequest(request) {
     <div class="mdui-m-b-3">
       <div class="mdui-panel" id="panel">
         <div class="mdui-panel-item mdui-panel-item-open " id="item-1">
-          <div class="mdui-panel-item-header">基础配置</div>
+          <div class="mdui-panel-item-header">基础配置(必填)</div>
           <div class="mdui-panel-item-body">
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">域名</label>
@@ -139,7 +139,7 @@ async function handleRequest(request) {
         </div>
 		
 		<div class="mdui-panel-item mdui-panel-item-open " id="item-1">
-          <div class="mdui-panel-item-header">面板配置</div>
+          <div class="mdui-panel-item-header">面板配置(必填)</div>
           <div class="mdui-panel-item-body">
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">OWOJSON地址</label>
@@ -190,18 +190,13 @@ async function handleRequest(request) {
 		
 		
 		<div class="mdui-panel-item mdui-panel-item-open " id="item-1">
-          <div class="mdui-panel-item-header">Github配置</div>
+          <div class="mdui-panel-item-header">Github文档配置</div>
           <div class="mdui-panel-item-body">
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github文档仓库Token</label>
     <input class="mdui-textfield-input" id="hpp_githubdoctoken"/>
   </div>
   
-  
-            <div class="mdui-textfield mdui-textfield-floating-label">
-    <label class="mdui-textfield-label">Github图片仓库Token</label>
-    <input class="mdui-textfield-input" id="hpp_githubimagetoken"/>
-  </div>
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
@@ -211,33 +206,57 @@ async function handleRequest(request) {
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
-    <label class="mdui-textfield-label">Github图片仓库用户名</label>
-    <input class="mdui-textfield-input" id="hpp_githubimageusername"/>
-  </div>
-  
-  
-              <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github文档仓库名</label>
     <input class="mdui-textfield-input" id="hpp_githubdocrepo"/>
   </div>
   
                 <div class="mdui-textfield mdui-textfield-floating-label">
-    <label class="mdui-textfield-label">Github图片仓库名</label>
-    <input class="mdui-textfield-input" id="hpp_githubimagerepo"/>
-  </div>
-                <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github文档仓库根目录</label>
     <input class="mdui-textfield-input" id="hpp_githubdocroot"/>
-  </div>
-              
-               <div class="mdui-textfield mdui-textfield-floating-label">
-    <label class="mdui-textfield-label">Github图片仓库路径</label>
-    <input class="mdui-textfield-input" id="hpp_githubimagepath"/>
   </div>
               
                  <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github文档仓库分支</label>
     <input class="mdui-textfield-input" id="hpp_githubdocbranch"/>
+  </div>
+                 
+  
+  
+  
+          </div>
+        </div>
+		
+		<div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+          <div class="mdui-panel-item-header">图床配置</div>
+          <div class="mdui-panel-item-body">
+		  
+		  
+  <label class="mdui-switch">
+        <input type="checkbox" id="hpp_img"/>
+        使用Github图床，由HPP托管 <i class="mdui-switch-icon"></i>  自定义图床 
+      </label>
+  
+  <div id="githubimg" >
+            <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github图片仓库Token</label>
+    <input class="mdui-textfield-input" id="hpp_githubimagetoken"/>
+  </div>
+  
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github图片仓库用户名</label>
+    <input class="mdui-textfield-input" id="hpp_githubimageusername"/>
+  </div>
+  
+  
+                <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github图片仓库名</label>
+    <input class="mdui-textfield-input" id="hpp_githubimagerepo"/>
+  </div>
+               <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github图片仓库路径</label>
+    <input class="mdui-textfield-input" id="hpp_githubimagepath"/>
   </div>
                  <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github图片仓库分支</label>
@@ -248,10 +267,87 @@ async function handleRequest(request) {
   
   
           </div>
+		  
+		    <div id="ownimg" style="display:none">
+            <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">自定义接口地址</label>
+    <input class="mdui-textfield-input" id="hpp_ownimgurl"/>
+  </div>
+  
+  <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">POST参数名</label>
+    <input class="mdui-textfield-input" id="hpp_ownimgname"/>
+  </div>
+  <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">JSON路径</label>
+    <input class="mdui-textfield-input" id="hpp_ownimgjsonpath"/>
+  </div>
+  <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">自定义头</label>
+    <input class="mdui-textfield-input" id="hpp_ownimgheader"/>
+  </div>
+  <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">自定义method</label>
+    <input class="mdui-textfield-input" id="hpp_ownimgmethod"/>
+  </div>
+  
+          </div>
+		  
+		  
+		  </div>
         </div>
 		
+		
+		
 		<div class="mdui-panel-item mdui-panel-item-open " id="item-1">
-          <div class="mdui-panel-item-header">CloudFlare配置</div>
+          <div class="mdui-panel-item-header">Github私有Page配置</div>
+          <div class="mdui-panel-item-body">
+   <label class="mdui-switch">
+        <input type="checkbox" id="hpp_githubpage"/>
+        <i class="mdui-switch-icon"></i> 开启PrivatePage模式 
+      </label><div id="hpp_githubpage_ctx" style="display:none">
+  
+            <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">GithubPage仓库Token</label>
+    <input class="mdui-textfield-input" id="hpp_githubpagetoken"/>
+  </div>
+  
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">GithubPage仓库用户名</label>
+    <input class="mdui-textfield-input" id="hpp_githubpageusername"/>
+  </div>
+  
+  
+                <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">GithubPage仓库名</label>
+    <input class="mdui-textfield-input" id="hpp_githubpagerepo"/>
+  </div>
+               <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">GithubPage仓库根</label>
+    <input class="mdui-textfield-input" id="hpp_githubpageroot"/>
+  </div>
+                 <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">GithubPage仓库分支</label>
+    <input class="mdui-textfield-input" id="hpp_githubpagebranch"/>
+  </div>
+                 
+  
+  
+  
+          </div></div>
+        </div>
+		
+		
+		
+		
+		
+		
+		
+		
+		<div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+          <div class="mdui-panel-item-header">CloudFlare配置(必填)</div>
           <div class="mdui-panel-item-body">
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Global API Key</label>
@@ -287,12 +383,34 @@ async function handleRequest(request) {
 		
 		
 		<div class="mdui-panel-item mdui-panel-item-open " id="item-1">
-          <div class="mdui-panel-item-header">附加配置</div>
+          <div class="mdui-panel-item-header">TwikooPlusPlus</div>
           <div class="mdui-panel-item-body">
+		   <label class="mdui-switch">
+        <input type="checkbox" id="hpp_twikoo"/>
+        <i class="mdui-switch-icon"></i>	开启TwikooPlusPlus功能
+      </label>
+		  
+		  <div id="hpp_twikoo_ctx" style="display:none">
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Twikoo环境ID</label>
     <input class="mdui-textfield-input" id="hpp_twikoo_envId"/>
   </div>
+  
+  
+          
+  
+              
+                 
+  
+  
+  
+          </div></div>
+        </div>
+		
+		<div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+          <div class="mdui-panel-item-header">附加配置</div>
+          <div class="mdui-panel-item-body">
+            
   
   
            <label class="mdui-switch">
@@ -307,6 +425,7 @@ async function handleRequest(request) {
   
           </div>
         </div>
+		
 		
       </div>
     </div>
@@ -326,7 +445,9 @@ async function handleRequest(request) {
     </div>
   </div>
 <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/install.js">
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@b47fc4a/install.js"></script>
+
+
 </script>
 </body>
 </html>`
@@ -1657,22 +1778,22 @@ start: 0
 	}else{
 		let p = path.split("?")[0].substr(1)
 		if(p.split("/").slice(-1) == ""){p+="index.html"}
+		const anss = await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}${p}`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })
+		let init
+		if(await anss.status == 404){init  = {headers:{"content-type":"text/html; charset=utf-8"}};return new Response(await (await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}404.html`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })).text(),init)}
 		if((p.split("/").slice(-1))[0].split(".")[1] == "html"){
-			const anss = await (await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}${p}`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })).text()
-			return new Response(anss,{headers:{"content-type":"text/html; charset=utf-8"}})
-			
+			init  = {headers:{"content-type":"text/html; charset=utf-8"}}
+			return new Response(await anss.text(),init)
 		}
 		if((p.split("/").slice(-1))[0].split(".")[1] == "js"){
-			const anss = await (await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}${p}`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })).text()
-			return new Response(anss,{headers:{"content-type":"application/javascript; charset=utf-8"}})
-			
+			init  = {headers:{"content-type":"application/javascript; charset=utf-8"}}
+			return new Response(await anss.text(),init)
 		}
 		if((p.split("/").slice(-1))[0].split(".")[1] == "css"){
-			const anss = await (await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}${p}`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })).text()
-			return new Response(anss,{headers:{"content-type":"text/css; charset=utf-8"}})
-			
+			init  = {headers:{"content-type":"text/css; charset=utf-8"}}
+			return new Response(await anss.text(),init)
 		}
-		return fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}${p}`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })
+		return new Response(anss,init)
             
 		
 	}
