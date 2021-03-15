@@ -38,7 +38,9 @@ function getCookie(request, name) {
   }
   return result
 }
-
+function rp(path) {
+    return path.split('?')[0]
+}
 async function handleRequest(request) {
   try {
     const req = request
@@ -57,15 +59,16 @@ async function handleRequest(request) {
 
     if (path.startsWith('/hpp/admin')) {
       if (hpp_logstatus == 1) {
-        const hpp_config = await KVNAME.get("hpp_config");
-        if (hpp_config === null) {
-          if (path == '/hpp/admin/api/upconfig') {
+        const hpp_config = await KVNAME.get("hpp_config")
+		const config = JSON.parse(JSON.parse(hpp_config)) || []
+		if (path == '/hpp/admin/api/upconfig') {
             const config_r = JSON.stringify(await request.text())
             await KVNAME.put("hpp_config", config_r)
             return new Response("OK")
-          } else {
-
-            let hpp_installhtml = `<!DOCTYPE html>
+          }
+        if (hpp_config === null || rp(path) == "/hpp/admin/install") {
+          
+			let hpp_installhtml = `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -104,31 +107,31 @@ async function handleRequest(request) {
           <div class="mdui-panel-item-body">
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">域名</label>
-    <input class="mdui-textfield-input" id="hpp_domain"/>
+    <input class="mdui-textfield-input" id="hpp_domain" value="${config["hpp_domain"]}"/>
   </div>
   
   
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">头像地址</label>
-    <input class="mdui-textfield-input" id="hpp_userimage"/>
+    <input class="mdui-textfield-input" id="hpp_userimage" value="${config["hpp_userimage"]}"/>
   </div>
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">标题</label>
-    <input class="mdui-textfield-input" id="hpp_title"/>
+    <input class="mdui-textfield-input" id="hpp_title" value="${config["hpp_title"]}"/>
   </div>
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">icon地址</label>
-    <input class="mdui-textfield-input" id="hpp_usericon"/>
+    <input class="mdui-textfield-input" id="hpp_usericon" value="${config["hpp_usericon"]}"/>
   </div>
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">跨域请求</label>
-    <input class="mdui-textfield-input" id="hpp_cors"/>
+    <input class="mdui-textfield-input" id="hpp_cors" value="${config["hpp_cors"]}"/>
   </div>
   
   
@@ -143,45 +146,45 @@ async function handleRequest(request) {
           <div class="mdui-panel-item-body">
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">OWOJSON地址</label>
-    <input class="mdui-textfield-input" id="hpp_OwO"/>
+    <input class="mdui-textfield-input" id="hpp_OwO" value="${config["hpp_OwO"]}"/>
   </div>
   
   
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">面板背景图片</label>
-    <input class="mdui-textfield-input" id="hpp_back"/>
+    <input class="mdui-textfield-input" id="hpp_back" value="${config["hpp_back"]}"/>
   </div>
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">懒加载图片</label>
-    <input class="mdui-textfield-input" id="hpp_lazy_img"/>
+    <input class="mdui-textfield-input" id="hpp_lazy_img" value="${config["hpp_lazy_img"]}"/>
   </div>
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">高亮样式</label>
-    <input class="mdui-textfield-input" id="hpp_highlight_style"/>
+    <input class="mdui-textfield-input" id="hpp_highlight_style" value="${config["hpp_highlight_style"]}"/>
   </div>
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">面板选项卡颜色</label>
-    <input class="mdui-textfield-input" id="hpp_color"/>
+    <input class="mdui-textfield-input" id="hpp_color" value="${config["hpp_color"]}"/>
   </div>
   
                 <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">面板选项框颜色</label>
-    <input class="mdui-textfield-input" id="hpp_bg_color"/>
+    <input class="mdui-textfield-input" id="hpp_bg_color" value="${config["hpp_bg_color"]}"/>
   </div>
                 <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">面板主题色</label>
-    <input class="mdui-textfield-input" id="hpp_theme_mode"/>
+    <input class="mdui-textfield-input" id="hpp_theme_mode" value="${config["hpp_theme_mode"]}"/>
   </div>
               
                <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">列表限制数量</label>
-    <input class="mdui-textfield-input" id="hpp_page_limit"/>
+    <input class="mdui-textfield-input" id="hpp_page_limit" value="${config["hpp_page_limit"]}"/>
   </div>
               
   
@@ -194,30 +197,30 @@ async function handleRequest(request) {
           <div class="mdui-panel-item-body">
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github文档仓库Token</label>
-    <input class="mdui-textfield-input" id="hpp_githubdoctoken"/>
+    <input class="mdui-textfield-input" id="hpp_githubdoctoken" value="${config["hpp_githubdoctoken"]}"/>
   </div>
   
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github文档仓库用户名</label>
-    <input class="mdui-textfield-input" id="hpp_githubdocusername"/>
+    <input class="mdui-textfield-input" id="hpp_githubdocusername" value="${config["hpp_githubdocusername"]}"/>
   </div>
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github文档仓库名</label>
-    <input class="mdui-textfield-input" id="hpp_githubdocrepo"/>
+    <input class="mdui-textfield-input" id="hpp_githubdocrepo" value="${config["hpp_githubdocrepo"]}"/>
   </div>
   
                 <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github文档仓库根目录</label>
-    <input class="mdui-textfield-input" id="hpp_githubdocroot"/>
+    <input class="mdui-textfield-input" id="hpp_githubdocroot" value="${config["hpp_githubdocroot"]}"/>
   </div>
               
                  <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github文档仓库分支</label>
-    <input class="mdui-textfield-input" id="hpp_githubdocbranch"/>
+    <input class="mdui-textfield-input" id="hpp_githubdocbranch" value="${config["hpp_githubdocbranch"]}"/>
   </div>
                  
   
@@ -239,28 +242,28 @@ async function handleRequest(request) {
   <div id="githubimg" >
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github图片仓库Token</label>
-    <input class="mdui-textfield-input" id="hpp_githubimagetoken"/>
+    <input class="mdui-textfield-input" id="hpp_githubimagetoken" value="${config["hpp_githubimagetoken"]}"/>
   </div>
   
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github图片仓库用户名</label>
-    <input class="mdui-textfield-input" id="hpp_githubimageusername"/>
+    <input class="mdui-textfield-input" id="hpp_githubimageusername" value="${config["hpp_githubimageusername"]}"/>
   </div>
   
   
                 <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github图片仓库名</label>
-    <input class="mdui-textfield-input" id="hpp_githubimagerepo"/>
+    <input class="mdui-textfield-input" id="hpp_githubimagerepo" value="${config["hpp_githubimagerepo"]}"/>
   </div>
                <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github图片仓库路径</label>
-    <input class="mdui-textfield-input" id="hpp_githubimagepath"/>
+    <input class="mdui-textfield-input" id="hpp_githubimagepath" value="${config["hpp_githubimagepath"]}"/>
   </div>
                  <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Github图片仓库分支</label>
-    <input class="mdui-textfield-input" id="hpp_githubimagebranch"/>
+    <input class="mdui-textfield-input" id="hpp_githubimagebranch" value="${config["hpp_githubimagebranch"]}"/>
   </div>
                  
   
@@ -271,24 +274,24 @@ async function handleRequest(request) {
 		    <div id="ownimg" style="display:none">
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">自定义接口地址</label>
-    <input class="mdui-textfield-input" id="hpp_ownimgurl"/>
+    <input class="mdui-textfield-input" id="hpp_ownimgurl" value="${config["hpp_ownimgurl"]}"/>
   </div>
   
   <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">POST参数名</label>
-    <input class="mdui-textfield-input" id="hpp_ownimgname"/>
+    <input class="mdui-textfield-input" id="hpp_ownimgname" value="${config["hpp_ownimgname"]}"/>
   </div>
   <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">JSON路径</label>
-    <input class="mdui-textfield-input" id="hpp_ownimgjsonpath"/>
+    <input class="mdui-textfield-input" id="hpp_ownimgjsonpath" value="${config["hpp_ownimgjsonpath"]}"/>
   </div>
   <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">自定义头</label>
-    <input class="mdui-textfield-input" id="hpp_ownimgheader"/>
+    <input class="mdui-textfield-input" id="hpp_ownimgheader" value="${config["hpp_ownimgheader"]}"/>
   </div>
   <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">自定义method</label>
-    <input class="mdui-textfield-input" id="hpp_ownimgmethod"/>
+    <input class="mdui-textfield-input" id="hpp_ownimgmethod" value="${config["hpp_ownimgmethod"]}"/>
   </div>
   
           </div>
@@ -309,28 +312,28 @@ async function handleRequest(request) {
   
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">GithubPage仓库Token</label>
-    <input class="mdui-textfield-input" id="hpp_githubpagetoken"/>
+    <input class="mdui-textfield-input" id="hpp_githubpagetoken" value="${config["hpp_githubpagetoken"]}"/>
   </div>
   
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">GithubPage仓库用户名</label>
-    <input class="mdui-textfield-input" id="hpp_githubpageusername"/>
+    <input class="mdui-textfield-input" id="hpp_githubpageusername" value="${config["hpp_githubpageusername"]}"/>
   </div>
   
   
                 <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">GithubPage仓库名</label>
-    <input class="mdui-textfield-input" id="hpp_githubpagerepo"/>
+    <input class="mdui-textfield-input" id="hpp_githubpagerepo" value="${config["hpp_githubpagerepo"]}"/>
   </div>
                <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">GithubPage仓库根</label>
-    <input class="mdui-textfield-input" id="hpp_githubpageroot"/>
+    <input class="mdui-textfield-input" id="hpp_githubpageroot" value="${config["hpp_githubpageroot"]}"/>
   </div>
                  <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">GithubPage仓库分支</label>
-    <input class="mdui-textfield-input" id="hpp_githubpagebranch"/>
+    <input class="mdui-textfield-input" id="hpp_githubpagebranch" value="${config["hpp_githubpagebranch"]}"/>
   </div>
                  
   
@@ -351,25 +354,25 @@ async function handleRequest(request) {
           <div class="mdui-panel-item-body">
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Global API Key</label>
-    <input class="mdui-textfield-input" id="hpp_CF_Auth_Key"/>
+    <input class="mdui-textfield-input" id="hpp_CF_Auth_Key" value="${config["hpp_CF_Auth_Key"]}"/>
   </div>
   
   
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">目标Workers名称</label>
-    <input class="mdui-textfield-input" id="hpp_script_name"/>
+    <input class="mdui-textfield-input" id="hpp_script_name" value="${config["hpp_script_name"]}"/>
   </div>
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Workers账户ID</label>
-    <input class="mdui-textfield-input" id="hpp_account_identifier"/>
+    <input class="mdui-textfield-input" id="hpp_account_identifier" value="${config["hpp_account_identifier"]}"/>
   </div>
   
   
               <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">账户登录邮箱</label>
-    <input class="mdui-textfield-input" id="hpp_Auth_Email"/>
+    <input class="mdui-textfield-input" id="hpp_Auth_Email" value="${config["hpp_Auth_Email"]}"/>
   </div>
   
   
@@ -393,7 +396,7 @@ async function handleRequest(request) {
 		  <div id="hpp_twikoo_ctx" style="display:none">
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">Twikoo环境ID</label>
-    <input class="mdui-textfield-input" id="hpp_twikoo_envId"/>
+    <input class="mdui-textfield-input" id="hpp_twikoo_envId" value="${config["hpp_twikoo_envId"]}"/>
   </div>
   
   
@@ -446,15 +449,24 @@ async function handleRequest(request) {
   </div>
 <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/install.js"></script>
+<script>
+document.getElementById('hpp_img').checked = ${config["hpp_img"]}
+document.getElementById('hpp_githubpage').checked = ${config["hpp_githubpage"]}
+document.getElementById('hpp_twikoo').checked = ${config["hpp_twikoo"]}
+document.getElementById('hpp_autodate').checked = ${config["hpp_autodate"]}
 
-
+/*
+change_hpp_img()
+change_hpp_githubpage()
+change_hpp_twikoo()
+*/
 </script>
 </body>
 </html>`
             return new Response(hpp_installhtml, {
               headers: { "content-type": "text/html;charset=UTF-8" }
             })
-          }
+        
         } else {
 
           const config = JSON.parse(JSON.parse(hpp_config))
