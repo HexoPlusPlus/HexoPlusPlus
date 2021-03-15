@@ -1,7 +1,7 @@
 const md5=require ('md5')
 
-const hpp_CDNver = "edff86b"
-const hpp_ver = "HexoPlusPlus@1.2.1_β_1"
+const hpp_CDNver = "91dcf20"
+const hpp_ver = "HexoPlusPlus@1.2.1_β_2"
 const dev_mode_branch = "dist"
 let hpp_logstatus = 0
 
@@ -448,19 +448,15 @@ async function handleRequest(request) {
     </div>
   </div>
 <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/install.js"></script>
+
 <script>
 document.getElementById('hpp_img').checked = ${config["hpp_img"]}
 document.getElementById('hpp_githubpage').checked = ${config["hpp_githubpage"]}
 document.getElementById('hpp_twikoo').checked = ${config["hpp_twikoo"]}
 document.getElementById('hpp_autodate').checked = ${config["hpp_autodate"]}
 
-/*
-change_hpp_img()
-change_hpp_githubpage()
-change_hpp_twikoo()
-*/
 </script>
+<script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/install.js"></script>
 </body>
 </html>`
             return new Response(hpp_installhtml, {
