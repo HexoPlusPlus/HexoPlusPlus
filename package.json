@@ -24,10 +24,9 @@
     "gulp": "^4.0.2",
     "gulp-minify-css": "^1.2.4",
     "gulp-terser": "^2.0.1",
-    "marked": "^2.0.1"
+	"gulp-concat": "^2.6.1"
   },
   "dependencies": {
-    "gulp-concat": "^2.6.1",
     "md5": "^2.3.0"
   }
 }
