@@ -107,7 +107,7 @@ async function handleRequest(request) {
           <div class="mdui-panel-item-body">
             <div class="mdui-textfield mdui-textfield-floating-label">
     <label class="mdui-textfield-label">域名</label>
-    <input class="mdui-textfield-input" id="hpp_domain" value="${config["hpp_domain"]}"/>
+    <input class="mdui-textfield-input" id="hpp_domain" value="${config["hpp_domain"] || domain}"/>
   </div>
   
   
@@ -222,8 +222,38 @@ async function handleRequest(request) {
     <label class="mdui-textfield-label">Github文档仓库分支</label>
     <input class="mdui-textfield-input" id="hpp_githubdocbranch" value="${config["hpp_githubdocbranch"]}"/>
   </div>
-                 
   
+  
+   <label class="mdui-switch">
+        <input type="checkbox" id="yuque"/>
+         <i class="mdui-switch-icon"></i> 使用语雀对接
+      </label>
+                 
+  <div id="hpp_yuque" style="display:none">
+  
+   <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github语雀仓库用户名</label>
+    <input class="mdui-textfield-input" id="hpp_githubyuqueusername" value="${config["hpp_githubyuqueusername"]}"/>
+  </div>
+  
+  
+              <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github语雀仓库名</label>
+    <input class="mdui-textfield-input" id="hpp_githubyuquerepo" value="${config["hpp_githubyuquerepo"]}"/>
+  </div>
+  
+          <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">Github语雀TOKEN</label>
+    <input class="mdui-textfield-input" id="hpp_githubyuquetoken" value="${config["hpp_githubyuquetoken"]}"/>
+  </div>
+  
+  <div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">语雀识别码【请自行手滚键盘，不得留空】</label>
+    <input class="mdui-textfield-input" id="hpp_yuquetoken" value="${config["hpp_yuquetoken"]}"/>
+  </div>
+  
+  
+  </div>
   
   
           </div>
@@ -454,7 +484,7 @@ document.getElementById('hpp_img').checked = ${config["hpp_img"]}
 document.getElementById('hpp_githubpage').checked = ${config["hpp_githubpage"]}
 document.getElementById('hpp_twikoo').checked = ${config["hpp_twikoo"]}
 document.getElementById('hpp_autodate').checked = ${config["hpp_autodate"]}
-
+document.getElementById('hpp_yuque').checked = ${config["hpp_yuque"]}
 </script>
 <script src="https://cdn.jsdelivr.net/gh/HexoPlusPlus/HexoPlusPlus@${hpp_CDNver}/install.js"></script>
 </body>

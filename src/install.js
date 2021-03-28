@@ -1,3 +1,13 @@
+document.getElementById('hpp_yuque').addEventListener('change', function () {
+    change_hpp_yuque()
+});
+function change_hpp_img() {
+    if (document.getElementById('hpp_yuque').checked) { document.getElementById('yuque').style["display"] = "none"} else {
+        document.getElementById('yuque').style["display"] = "";
+    }
+}
+
+
 
 document.getElementById('hpp_img').addEventListener('change', function () {
     change_hpp_img()
