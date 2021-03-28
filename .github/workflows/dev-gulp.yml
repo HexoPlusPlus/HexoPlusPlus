@@ -15,13 +15,9 @@ jobs:
 
     - name: install&gulp
       run: |
-        npm i gulp gulp-terser gulp-minify-css -D && npx gulp
+        npm i gulp gulp-terser gulp-minify-css gulp-concat -D && npx gulp
         gulp 
         
-    - name: Commit
-      run: |
-        ls
-        rm -rf node_modules
         
     - name: Deploy
       uses: s0/git-publish-subdir-action@develop
