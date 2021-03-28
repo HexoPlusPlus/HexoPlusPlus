@@ -280,6 +280,7 @@ border: 1px solid transparent!important;
     display: block;	
 	text-align: center;
     line-height: 40px;
+	background: #90939920;
 }
 
 .hpp_talk_loading{

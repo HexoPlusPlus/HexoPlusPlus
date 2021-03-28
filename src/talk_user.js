@@ -1,4 +1,3 @@
-const marked = require('marked')
 var hpp_scaffold = {
   ajaxObject: function () {
     var xmlHttp;
@@ -18,7 +17,7 @@ var hpp_scaffold = {
     }
     return xmlHttp;
   },
-  loadStyle: fucntion(){
+  loadStyle: function(){
     var link = document.createElement('link');
 link.type = 'text/css';
 link.rel = 'stylesheet';
@@ -63,6 +62,9 @@ loadtalk: function(res) {
   }
 },
 load: function(id, domain, limit) {
+	
+	document.getElementById(id).innerHTML = `<div class="hpp_talk_loading"><div class="hpp_talk_part"><div style="display: flex;justify-content: center;"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div></div><p style="text-align:center;">加载 HexoPlusPlus_Talk 中</p></div>`
+	const back = `https://${domain}/hpp/api/gethpptalk`
   var ajax = hpp_scaffold.ajaxObject();
   ajax.open("post", back, true);
   ajax.setRequestHeader("Content-Type", "text/plain");
@@ -71,7 +73,7 @@ load: function(id, domain, limit) {
       if (ajax.status == 200) {
         document.getElementById(id).innerHTML = `<div class="hppt_streamline hppt_b-l hppt_m-l-lg hppt_m-b hppt_padder-v">
    <ol id="hpp_talk_list"><\/ol> 
-   <a id="hpp_loadgo" class="hppt_button_nextpage">下一页</a>
+   <a onclick="hpp_scaffold.load('${id}', '${domain}', ${limit})" class="hppt_button_nextpage">下一页</a>
   <\/div>`
         hpp_scaffold.loadtalk(JSON.parse(ajax.responseText))
 
@@ -83,7 +85,7 @@ load: function(id, domain, limit) {
   }
   let body = {
     limit: limit,
-    start: start
+    start: Number(localStorage.getItem("hpp_start"))
   }
   start += limit;
   localStorage.setItem("hpp_start", start);
@@ -109,16 +111,14 @@ function hpp_talk(init) {
   });
   //{ id, domain, limit, start, themecss }
   id = (function () { return init["id"] ? init["id"] : "hpp_talk" })()
-  domain = (function () { return init["limit"] ? init["limit"] : (function () { throw ('HPPTALK异常：没能找到hpp后端地址') })() })()
+  domain = (function () { return init["domain"] ? init["domain"] : (function () { throw ('HPPTALK异常：没能找到hpp后端地址') })() })()
   limit = (function () { return init["limit"] ? init["limit"] : 10 })()
   start = (function () { return init["start"] ? init["start"] : 0 })()
   if (init["themecss"] != undefined) { hpp_scaffold.loadStyle(init["themecss"]) };
-  document.getElementById(id).innerHTML = `<div class="hpp_talk_loading"><div class="hpp_talk_part"><div style="display: flex;justify-content: center;"><div class="hppt_loader"><div class="hppt_inner one"></div><div class="hppt_inner two"></div><div class="hppt_inner three"></div></div></div></div><p style="text-align:center;">加载 HexoPlusPlus_Talk 中</p></div>`
-  const back = `https://${domain}/hpp/api/gethpptalk`
+  
+  
   hpp_scaffold.load(id, domain, limit)
-  document.getElementById('hpp_loadgo').addEventListener('click', function () {
-    hpp_scaffold.load(id, domain, limit)
-  });
+ 
 };
 
 
