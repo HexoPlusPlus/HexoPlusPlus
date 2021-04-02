@@ -20,6 +20,9 @@ jobs:
         npm i -D && npx gulp
         gulp 
         webpack ./worker/index.js
+        cd dist
+        mv main.js index.worker.js
+        rm -rf main.js.LICENSE.txt
         
         
     - name: Deploy
