@@ -3,7 +3,7 @@ name: gulp
 on:
   push:
     branches: 
-      - dev
+      - main
 
 jobs:
   build:
@@ -15,8 +15,10 @@ jobs:
 
     - name: install&gulp
       run: |
-        npm i gulp gulp-terser gulp-minify-css gulp-concat -D && npx gulp
+        rm -rf index.js
+        npm i -D && npx gulp
         gulp 
+        webpack ./worker/index.js
         
         
     - name: Deploy

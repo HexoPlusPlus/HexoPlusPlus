@@ -1,6 +1,6 @@
 {
   "name": "hexoplusplus",
-  "version": "0.1.0",
+  "version": "1.2.1",
   "description": "A Serverless Hexo Back DashBoard",
   "main": "index.js",
   "scripts": {
@@ -20,13 +20,12 @@
     "url": "https://github.com/HexoPlusPlus/HexoPlusPlus/issues"
   },
   "homepage": "https://github.com/HexoPlusPlus/HexoPlusPlus#readme",
-  "devDependencies": {
+  "dependencies": {
     "gulp": "^4.0.2",
     "gulp-minify-css": "^1.2.4",
     "gulp-terser": "^2.0.1",
-	"gulp-concat": "^2.6.1"
-  },
-  "dependencies": {
-    "md5": "^2.3.0"
+	"gulp-concat": "^2.6.1",
+	"md5": "^2.3.0",
+	"webpack-cli":"^4.6.0"
   }
 }
