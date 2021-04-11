@@ -1709,7 +1709,7 @@ login();
         let access_token = await KVNAME.get("hpp_comment_access_token")
         let val = await get_comment(access_token, path, before)
         let twikoo_code = await JSON.parse(val)['code']
-        if (twikoo_code == 'CHECK_LOGIN_FAILED' | twikoo_code == 'INVALID_PARAM') {
+        if (twikoo_code == 'CHECK_LOGIN_FAILED' | twikoo_code == 'INVALID_PARAM' | twikoo_code == 'PERMISSION_DENIED') {
           refresh_token = await get_refresh_token()
           await KVNAME.put("hpp_comment_refresh_token", refresh_token)
           access_token = await get_access_token(refresh_token)
