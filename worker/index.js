@@ -1,6 +1,6 @@
 const md5 = require('md5')
 import { gethtml } from './src/gethtml'
-import { getCookie, getJsonLength, rp , get_config } from './src/scaffold'
+import { getCookie, getJsonLength, rp } from './src/scaffold'
 //const hpp_CDNver = "91dcf20"
 const hpp_ver = "HexoPlusPlus@1.2.1_β_3"
 const hpp_CDN = `https://hppstatic.pages.dev/`
@@ -20,7 +20,68 @@ async function handleRequest(request) {
     const username = hpp_username.split(",");
     const password = hpp_password.split(",");
     //console.log(hpp_logstatus)
-    await get_config()
+
+
+
+    const hpp_config = await KVNAME.get("hpp_config")
+    const config = JSON.parse(JSON.parse(hpp_config)) || {}
+    const hpp_domain = config["hpp_domain"]
+    const hpp_userimage = config["hpp_userimage"]
+    const hpp_title = config["hpp_title"]
+    const hpp_usericon = config["hpp_usericon"]
+    const hpp_cors = config["hpp_cors"]
+    const hpp_githubdoctoken = config["hpp_githubdoctoken"]
+
+    const hpp_githubdocusername = config["hpp_githubdocusername"]
+    const hpp_githubdocrepo = config["hpp_githubdocrepo"]
+    const hpp_githubdocroot = config["hpp_githubdocroot"]
+    const hpp_githubdocbranch = config["hpp_githubdocbranch"]
+
+    const hpp_githubpage = config["hpp_githubpage"]
+    const hpp_githubpagetoken = config["hpp_githubpagetoken"]
+    const hpp_githubpageusername = config["hpp_githubpageusername"]
+    const hpp_githubpagerepo = config["hpp_githubpagerepo"]
+    const hpp_githubpageroot = config["hpp_githubpageroot"]
+    const hpp_githubpagebranch = config["hpp_githubpagebranch"]
+
+    const hpp_img = config["hpp_img"] || "false"
+
+    const hpp_ownimgurl = config["hpp_ownimgurl"]
+    const hpp_ownimgname = config["hpp_ownimgname"]
+    const hpp_ownimgjsonpath = config["hpp_ownimgjsonpath"]
+    const hpp_ownimgheader = config["hpp_ownimgheader"]
+    const hpp_ownimgmethod = config["hpp_ownimgmethod"]
+
+    const hpp_githubimagetoken = config["hpp_githubimagetoken"]
+    const hpp_githubimageusername = config["hpp_githubimageusername"]
+    const hpp_githubimagerepo = config["hpp_githubimagerepo"]
+    const hpp_githubimagepath = config["hpp_githubimagepath"]
+    const hpp_githubimagebranch = config["hpp_githubimagebranch"]
+
+    const hpp_autodate = config["hpp_autodate"]
+    const hpp_account_identifier = config["hpp_account_identifier"]
+    const hpp_script_name = config["hpp_script_name"]
+    const hpp_CF_Auth_Key = config["hpp_CF_Auth_Key"]
+    const hpp_Auth_Email = config["hpp_Auth_Email"]
+    const hpp_twikoo_envId = config["hpp_twikoo-envId"]
+    const hpp_twikoo = config["hpp_twikoo"] || "false"
+    const hpp_OwO = config["hpp_OwO"]
+    const hpp_back = config["hpp_back"]
+    const hpp_lazy_img = config["hpp_lazy_img"]
+    const hpp_highlight_style = config["hpp_highlight_style"]
+    const hpp_plugin_js = config["hpp_plugin_js"]
+    const hpp_plugin_css = config["hpp_plugin_css"]
+    const hpp_githubdocpath = hpp_githubdocroot + "source/_posts/"
+    const hpp_githubdocdraftpath = hpp_githubdocroot + "source/_drafts/"
+    const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
+    const githubdocpath = encodeURI(hpp_githubdocpath)
+    const githubimagepath = encodeURI(hpp_githubimagepath)
+    const hpp_color = config["hpp_color"] || "rose"
+    const hpp_bg_color = config["hpp_bg_color"] || "white"
+    const hpp_theme_mode = config["hpp_theme_mode"] || "light"
+    const hpp_page_limit = config["hpp_page_limit"] || "10"
+
+
     for (var i = 0; i < getJsonLength(username); i++) {
       if (getCookie(request, "password") == md5(password[i]) && getCookie(request, "username") == md5(username[i])) {
         hpp_logstatus = 1
@@ -75,339 +136,38 @@ async function handleRequest(request) {
             let hpp_tool_act = ""
             let hpp_set_act = ""
             let hpp_js = ""
-            let hpp_init = `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`
+            let hpp_init = gethtml.dash404
             if (path == "/hpp/admin/dash/home") {
               hpp_home_act = " active"
-              hpp_init = `<div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-header card-header-warning card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-file"></i>
-                  </div>
-                  <p class="card-category">总文档数</p>
-                  <h3 class="card-title" id="document_all">NaN
-                    <small>个</small>
-                  </h3>
-                </div>
-                <div class="card-footer">
-				<div class="stats">
-                    <a href="/hpp/admin/dash/edit" style="color: #cf6ae0 !important"><i class="fa fa-pencil"></i>前往管理</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-header card-header-success card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-image"></i>
-                  </div>
-                  <p class="card-category">总图片数</p>
-                  <h3 class="card-title" id="img_all">NaN
-                    <small>张</small>
-                  </h3>
-                </div>
-                <div class="card-footer">
-				<div class="stats">
-                    <a href="/hpp/admin/dash/img_man" style="color: #cf6ae0 !important"><i class="fa fa-upload"></i>前往管理</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md- col-sm-6">
-              <a href="javascript:checkUpdate()">
-              <div class="card card-stats">
-                <div class="card-header card-header-info card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-upload"></i>
-                  </div>
-                  <p class="card-category">当前版本</p>
-                  <h3 class="card-title">${hpp_ver}</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">update</i>点击更新
-                  </div>
-                </div>
-              </div>
-            </a>
-            </div>
-            
-            
-			
-			<div class="col-lg-6 col-md-6 col-sm-6">
-              <a href="https://jq.qq.com/?_wv=1027&k=rAcnhzqK" target="_blank">
-              <div class="card card-stats">
-                <div class="card-header card-header-success card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-qq"></i>
-                  </div>
-                  <h3 class="card-title">QQ群聊天去？</h3>
-                </div>
-                <div class="card-footer">
-				诚聘小白鼠(bushi
-                </div>
-              </div>
-            </a>
-            </div>
-			
-			<div class="col-lg-6 col-md-6 col-sm-6">
-              <a href="https://hexoplusplus.js.org" target="_blank">
-              <div class="card card-stats">
-                <div class="card-header card-header-normal card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-book"></i>
-                  </div>
-                  <h3 class="card-title">文档地址</h3>
-                </div>
-                <div class="card-footer">有多少人没看文档来提issues？
-                </div>
-              </div>
-            </a>
-            </div>
-			
-			<div class="col-lg-6 col-md-6 col-sm-6">
-              <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" target="_blank">
-              <div class="card card-stats">
-                <div class="card-header card-header-primary card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-github"></i>
-                  </div>
-                  <h3 class="card-title">Github</h3>
-                </div>
-                <div class="card-footer">
-				欢迎PR
-                </div>
-              </div>
-            </a>
-            </div>
-			
-          </div>
-        </div>
-      </div>`
+              hpp_init = gethtml.dashhome(hpp_ver)
               hpp_js = `<script src='${hpp_CDN}home.js'></script>`
             }
             if (path == "/hpp/admin/dash/edit") {
               hpp_edit_act = " active"
-              hpp_init = `<div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title">书写</h4>
-                  <p class="card-category">Wrtie</p>
-                </div>
-              </br>
-                <div class="card-body">
-                          <div class="col-md-8">
-                              <label class="bmd-label-floating">文件选择</label>
-                              <select id="choo" class="form-control form-control-chosen" style="display: inline;"></select>
-							  <button type="submit" class="btn btn-success" onclick="javascript:hpp_get_md()">获取文章</button>
-							  <button type="submit" class="btn btn-normal" onclick="javascript:hpp_get_draft()">获取艹稿</button>
-							  <button type="submit" class="btn btn-danger" onclick="javascript:hpp_del_index()">徒手清索引</button>
-                          </div>
-                        
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>内容</label>
-                              <div class="form-group" id="hpp_doc_editor">
-								
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-						<button type="submit" class="btn btn-normal pull-right" onclick="javascript:hpp_upload_draft()">发布艹稿</button>
-                        <button type="submit" class="btn btn-primary pull-right" onclick="javascript:hpp_upload_md()">发布文件</button>
-                        <div class="clearfix"></div>
-						<input type="file" name="upload" id="upload_md" style="display:none"/>
-						<form id="upform" enctype='multipart/form-data' style="display:none;">
-    <div class="form-group">
-        <label for="upteainput">上传文件</label>
-        <input type="file" id="input">
-    </div>
-</form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>`
-              hpp_js = `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> 
-<script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script><script src='${hpp_CDN}edit.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="${hpp_CDN}OwO.min.css">
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/highlight.min.js"></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${hpp_highlight_style}.min.css' /> 
-
-`
+              hpp_init = gethtml.dashedit
+              hpp_js = gethtml.dasheditjs(hpp_highlight_style)
             }
             if (path == "/hpp/admin/dash/talk") {
               hpp_talk_act = " active"
-              hpp_init = `<div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title">说说</h4>
-                  <p class="card-category">Talk</p>
-                </div>
-              </br>
-                <div class="card-body">
-                          
-                        
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label>书写</label>
-                              <div class="form-group" id="hpp_talk_editor"></div>
-                            </div>
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary pull-right" onclick="javascript:hpp_upload_md()">Upload</button>
-                        <div class="clearfix"></div>
-						<input type="file" name="upload" id="upload_md" style="display:none"/>
-						<form id="upform" enctype='multipart/form-data' style="display:none;">
-    <div class="form-group">
-        <label for="upteainput">上传文件</label>
-        <input type="file" id="input">
-    </div>
-</form><div id="hpp_talk"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>`
-              hpp_js = `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><link rel="stylesheet" href="${hpp_CDN}talk.css" /><script src='${hpp_CDN}talk.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="${hpp_CDN}OwO.min.css">`
+              hpp_init = gethtml.dashtalk
+              hpp_js = gethtml.dashtalkjs(hpp_CDN)
             }
             if (path == "/hpp/admin/dash/docs_man") {
               hpp_docs_man_act = " active"
-              hpp_init = `
-<div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title ">文章列表</h4>
-                  <p class="card-category">这里列出了你所有文章</p>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-				  <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索文章...">
-                    <table class="table" id="hpp_table">
-                      <thead class="text-primary">
-                        <th>
-                          名称
-                        </th>
-                        <th>
-                          大小
-                        </th>
-                        <th>发布状态</th><th></th>
-                        <th></th><th></th><th></th>
-                      </thead>
-                      <tbody id="tbody_doc">
-						
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>`
+              hpp_init = gethtml.dashdocs
               hpp_js = `<script src='${hpp_CDN}doc_man.js'></script>`
 
             }
             if (path == "/hpp/admin/dash/img_man") {
               hpp_img_man_act = " active"
-              hpp_init = `<div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title ">图片列表</h4>
-                  <p class="card-category">这里列出了你所有图片</p>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-				  <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索图片...">
-                    <table class="table" id="hpp_table">
-                      <thead class=" text-primary">
-                        <th>
-                          名称
-                        </th>
-                        <th>
-                          大小
-                        </th><th>预览</th>
-                        <th></th>
-                        <th></th><th></th><th></th><th></th>
-                      </thead>
-                      <tbody id="tbody_img">
-						
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>`
+              hpp_init = gethtml.dashimg
               hpp_js = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/css/swipebox.css"><script src='${hpp_CDN}img_man.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><script src="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/js/jquery.swipebox.min.js"></script>`
 
             }
             if (path == "/hpp/admin/dash/tool") {
               hpp_tool_act = " active"
-              hpp_init = `<div class="content">
-        <div class="container-fluid">
-          <div class="row">
-        
-			
-			<div class="col-lg-6 col-md-6 col-sm-6">
-              <a href="javascript:hpp_artitalk_into_hpptalk()">
-              <div class="card card-stats">
-                <div class="card-header card-header-primary card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-download"></i>
-                  </div>
-                  <h3 class="card-title">从Artitalk中导入</h3>
-                </div>
-                <div class="card-footer">这不是抢生意啊喂
-                </div>
-              </div>
-            </a>
-            </div>
-			
-			<div class="col-lg-6 col-md-6 col-sm-6">
-              <a href="javascript:hpp_del_all()">
-              <div class="card card-stats">
-                <div class="card-header card-header-danger card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-close"></i>
-                  </div>
-                  <h3 class="card-title">销毁配置</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons text-danger">warning</i>高危操作，你知道会发生什么的
-                  </div>
-                </div>
-              </div>
-            </a>
-            </div>
-			
-			
-          </div>
-        </div>
-      </div>`
+              hpp_init = gethtml.dashtool
               hpp_js = `<script src='${hpp_CDN}tool.js'></script>`
             }
             if (path == "/hpp/admin/dash/set") {

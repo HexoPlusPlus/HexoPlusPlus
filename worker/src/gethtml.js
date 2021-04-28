@@ -1,5 +1,5 @@
 export const gethtml = {
-    installhtml: function (config,hpp_CDN) {
+    installhtml: function (config, hpp_CDN) {
         return `<!DOCTYPE html>
     <html>
     <head>
@@ -422,7 +422,8 @@ export const gethtml = {
     </body>
     </html>`
     },
-    loginhtml: function(hpp_CDN){return `
+    loginhtml: function (hpp_CDN) {
+        return `
     <!DOCTYPE html>
     <html lang="zh-cmn-Hans">
      <head>
@@ -490,5 +491,316 @@ export const gethtml = {
       </script>
       </body>
     </html>
-    `}
+    `},
+    dash404: `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`,
+    dashhome: function (hpp_ver) {
+        return `<div class="content">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-header card-header-warning card-header-icon">
+          <div class="card-icon">
+            <i class="fa fa-file"></i>
+          </div>
+          <p class="card-category">总文档数</p>
+          <h3 class="card-title" id="document_all">NaN
+            <small>个</small>
+          </h3>
+        </div>
+        <div class="card-footer">
+        <div class="stats">
+            <a href="/hpp/admin/dash/edit" style="color: #cf6ae0 !important"><i class="fa fa-pencil"></i>前往管理</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-header card-header-success card-header-icon">
+          <div class="card-icon">
+            <i class="fa fa-image"></i>
+          </div>
+          <p class="card-category">总图片数</p>
+          <h3 class="card-title" id="img_all">NaN
+            <small>张</small>
+          </h3>
+        </div>
+        <div class="card-footer">
+        <div class="stats">
+            <a href="/hpp/admin/dash/img_man" style="color: #cf6ae0 !important"><i class="fa fa-upload"></i>前往管理</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md- col-sm-6">
+      <a href="javascript:checkUpdate()">
+      <div class="card card-stats">
+        <div class="card-header card-header-info card-header-icon">
+          <div class="card-icon">
+            <i class="fa fa-upload"></i>
+          </div>
+          <p class="card-category">当前版本</p>
+          <h3 class="card-title">${hpp_ver}</h3>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="material-icons">update</i>点击更新
+          </div>
+        </div>
+      </div>
+    </a>
+    </div>
+    
+    
+    
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <a href="https://jq.qq.com/?_wv=1027&k=rAcnhzqK" target="_blank">
+      <div class="card card-stats">
+        <div class="card-header card-header-success card-header-icon">
+          <div class="card-icon">
+            <i class="fa fa-qq"></i>
+          </div>
+          <h3 class="card-title">QQ群聊天去？</h3>
+        </div>
+        <div class="card-footer">
+        诚聘小白鼠(bushi
+        </div>
+      </div>
+    </a>
+    </div>
+    
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <a href="https://hexoplusplus.js.org" target="_blank">
+      <div class="card card-stats">
+        <div class="card-header card-header-normal card-header-icon">
+          <div class="card-icon">
+            <i class="fa fa-book"></i>
+          </div>
+          <h3 class="card-title">文档地址</h3>
+        </div>
+        <div class="card-footer">有多少人没看文档来提issues？
+        </div>
+      </div>
+    </a>
+    </div>
+    
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" target="_blank">
+      <div class="card card-stats">
+        <div class="card-header card-header-primary card-header-icon">
+          <div class="card-icon">
+            <i class="fa fa-github"></i>
+          </div>
+          <h3 class="card-title">Github</h3>
+        </div>
+        <div class="card-footer">
+        欢迎PR
+        </div>
+      </div>
+    </a>
+    </div>
+    
+  </div>
+</div>
+</div>`},
+    dashedit: `<div class="content">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">书写</h4>
+          <p class="card-category">Wrtie</p>
+        </div>
+      </br>
+        <div class="card-body">
+                  <div class="col-md-8">
+                      <label class="bmd-label-floating">文件选择</label>
+                      <select id="choo" class="form-control form-control-chosen" style="display: inline;"></select>
+                      <button type="submit" class="btn btn-success" onclick="javascript:hpp_get_md()">获取文章</button>
+                      <button type="submit" class="btn btn-normal" onclick="javascript:hpp_get_draft()">获取艹稿</button>
+                      <button type="submit" class="btn btn-danger" onclick="javascript:hpp_del_index()">徒手清索引</button>
+                  </div>
+                
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>内容</label>
+                      <div class="form-group" id="hpp_doc_editor">
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-normal pull-right" onclick="javascript:hpp_upload_draft()">发布艹稿</button>
+                <button type="submit" class="btn btn-primary pull-right" onclick="javascript:hpp_upload_md()">发布文件</button>
+                <div class="clearfix"></div>
+                <input type="file" name="upload" id="upload_md" style="display:none"/>
+                <form id="upform" enctype='multipart/form-data' style="display:none;">
+<div class="form-group">
+<label for="upteainput">上传文件</label>
+<input type="file" id="input">
+</div>
+</form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>`,
+    dasheditjs: function (hpp_highlight_style) {
+        return `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> 
+<script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script><script src='${hpp_CDN}edit.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="${hpp_CDN}OwO.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/highlight.min.js"></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${hpp_highlight_style}.min.css' />`
+    },
+    dashtalk: `<div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">说说</h4>
+              <p class="card-category">Talk</p>
+            </div>
+          </br>
+            <div class="card-body">
+                      
+                    
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>书写</label>
+                          <div class="form-group" id="hpp_talk_editor"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right" onclick="javascript:hpp_upload_md()">Upload</button>
+                    <div class="clearfix"></div>
+                    <input type="file" name="upload" id="upload_md" style="display:none"/>
+                    <form id="upform" enctype='multipart/form-data' style="display:none;">
+<div class="form-group">
+    <label for="upteainput">上传文件</label>
+    <input type="file" id="input">
+</div>
+</form><div id="hpp_talk"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`,
+    dashtalkjs: function (hpp_CDN) { return `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><link rel="stylesheet" href="${hpp_CDN}talk.css" /><script src='${hpp_CDN}talk.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="${hpp_CDN}OwO.min.css">` },
+    dashdocs: `
+<div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">文章列表</h4>
+                  <p class="card-category">这里列出了你所有文章</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+				  <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索文章...">
+                    <table class="table" id="hpp_table">
+                      <thead class="text-primary">
+                        <th>
+                          名称
+                        </th>
+                        <th>
+                          大小
+                        </th>
+                        <th>发布状态</th><th></th>
+                        <th></th><th></th><th></th>
+                      </thead>
+                      <tbody id="tbody_doc">
+						
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`,
+    dashimg: `<div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title ">图片列表</h4>
+                <p class="card-category">这里列出了你所有图片</p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索图片...">
+                  <table class="table" id="hpp_table">
+                    <thead class=" text-primary">
+                      <th>
+                        名称
+                      </th>
+                      <th>
+                        大小
+                      </th><th>预览</th>
+                      <th></th>
+                      <th></th><th></th><th></th><th></th>
+                    </thead>
+                    <tbody id="tbody_img">
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`,
+    dashtool: `<div class="content">
+    <div class="container-fluid">
+      <div class="row">
+    
+        
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <a href="javascript:hpp_artitalk_into_hpptalk()">
+          <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon">
+              <div class="card-icon">
+                <i class="fa fa-download"></i>
+              </div>
+              <h3 class="card-title">从Artitalk中导入</h3>
+            </div>
+            <div class="card-footer">这不是抢生意啊喂
+            </div>
+          </div>
+        </a>
+        </div>
+        
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <a href="javascript:hpp_del_all()">
+          <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+              <div class="card-icon">
+                <i class="fa fa-close"></i>
+              </div>
+              <h3 class="card-title">销毁配置</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons text-danger">warning</i>高危操作，你知道会发生什么的
+              </div>
+            </div>
+          </div>
+        </a>
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>`
 }
