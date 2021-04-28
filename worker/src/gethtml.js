@@ -1,5 +1,5 @@
 export const gethtml = {
-    installhtml: function (config, hpp_CDN) {
+    installhtml: function (config, hpp_CDN,hpp_ver) {
         return `<!DOCTYPE html>
     <html>
     <head>
@@ -802,5 +802,126 @@ export const gethtml = {
         
       </div>
     </div>
-  </div>`
+  </div>`,
+  dashhead: `<!DOCTYPE html>
+  <html lang="en">
+  
+  <head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="${hpp_usericon}">
+    <link rel="icon" type="image/png" href="${hpp_usericon}">
+    <title>${hpp_title}</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    ${hpp_plugin}
+    <link rel="stylesheet" type="text/css" href="${hpp_CDN}font.css" />
+    <link href="${hpp_CDN}admin_all_${hpp_theme_mode}.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <script>
+    //这个脚本的用途是前端变量传递
+    const hpp_ver="${hpp_ver}";
+    const hpp_OwO="${hpp_OwO}";
+    const avatar="${hpp_userimage}";
+    const username="${username[0]}";
+    const hpp_githubdocusername = "${hpp_githubdocusername}"
+    const hpp_githubdocrepo ="${hpp_githubdocrepo}"
+    const hpp_githubdocbranch ="${hpp_githubdocbranch}"
+    const hpp_githubdocpath ="${hpp_githubdocpath}"
+    const hpp_githubimageusername = "${hpp_githubimageusername}"
+    const hpp_githubimagerepo ="${hpp_githubimagerepo}"
+    const hpp_githubimagebranch ="${hpp_githubimagebranch}"
+    const hpp_githubimagepath ="${hpp_githubimagepath}"
+    const hpp_githubdocdraftpath ="${hpp_githubdocdraftpath}"
+    const hpp_lazy_img = "${hpp_lazy_img}"
+    const hpp_highlight_style = "${hpp_highlight_style}"
+    const hpp_page_limit = ${hpp_page_limit}
+    </script>
+  </head>
+  <body class="${hpp_theme_mode == 'dark' ? 'dark-edition' : ''}">
+    <div class="wrapper ">
+      <div class="sidebar" data-color="${hpp_color}" data-background-color="${hpp_theme_mode == 'dark' ? 'default' : hpp_bg_color}" data-image="${hpp_back}">
+        <div class="logo"><a class="simple-text logo-normal">${hpp_title}</a></div>
+        <div class="sidebar-wrapper">
+          <ul class="nav">
+            <li class="nav-item${hpp_home_act}">
+              <a class="nav-link" href="/hpp/admin/dash/home">
+                <i class="material-icons">dashboard</i>
+                <p>主页</p>
+              </a>
+            </li>
+            <li class="nav-item${hpp_edit_act}">
+              <a class="nav-link" href="/hpp/admin/dash/edit">
+                <i class="material-icons">create</i>
+                <p>书写</p>
+              </a>
+            </li>
+            <li class="nav-item${hpp_talk_act}">
+              <a class="nav-link" href="/hpp/admin/dash/talk">
+                <i class="material-icons">chat</i>
+                <p>说说</p>
+              </a>
+            </li>
+            <li class="nav-item${hpp_docs_man_act}">
+              <a class="nav-link" href="/hpp/admin/dash/docs_man">
+                <i class="material-icons">descriptionoutlined</i>
+                <p>文档管理</p>
+              </a>
+            </li>
+            <li class="nav-item${hpp_img_man_act}">
+              <a class="nav-link" href="/hpp/admin/dash/img_man">
+                <i class="material-icons">imagerounded</i>
+                <p>图片管理</p>
+              </a>
+            </li>
+            <li class="nav-item${hpp_tool_act}">
+              <a class="nav-link" href="/hpp/admin/dash/tool">
+                <i class="material-icons">widgets</i>
+                <p>工具</p>
+              </a>
+            </li>
+            <li class="nav-item${hpp_set_act}">
+              <a class="nav-link" href="/hpp/admin/dash/set">
+                <i class="material-icons">settings</i>
+                <p>设置</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="main-panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+          <div class="container-fluid">
+            <div class="navbar-wrapper">
+              <a class="navbar-brand" href="javascript:;">HexoPlusPlus后台</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="navbar-toggler-icon icon-bar"></span>
+              <span class="navbar-toggler-icon icon-bar"></span>
+              <span class="navbar-toggler-icon icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="${hpp_userimage}" style="width: 30px;border-radius: 50%;border: 0;">
+                    <p class="d-lg-none d-md-block">
+                      Account
+                    </p>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                    <a class="dropdown-item" href="javascript:kick()">签到</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:hpp_logout()">退出</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!-- End Navbar --> 
+  
+  <!--innerHTMLSTART-->`
+             
 }
