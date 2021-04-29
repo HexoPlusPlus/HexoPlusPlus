@@ -1,6 +1,7 @@
 const md5 = require('md5')
 import { gethtml } from './src/gethtml'
-import { getCookie, getJsonLength, rp, formatconfig , getname , getsuffix} from './src/scaffold'
+import { ghupload } from './github/upload'
+import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix } from './src/scaffold'
 //const hpp_CDNver = "91dcf20"
 const hpp_ver = "HexoPlusPlus@1.2.1_β_3"
 const hpp_CDN = `https://hppstatic.pages.dev/`
@@ -111,22 +112,6 @@ async function handleRequest(request) {
             const now = Date.now(new Date())
             await KVNAME.put("hpp_activetime", now)
             const hpp_kvwait = Date.now(new Date()) - now
-          }
-          const hpp_githubgetimageinit = {
-            method: "GET",
-            headers: {
-              "content-type": "application/json;charset=UTF-8",
-              "user-agent": hpp_ver,
-              "Authorization": "token " + config.hpp_githubimagetoken
-            },
-          }
-          const hpp_githubgetdocinit = {
-            method: "GET",
-            headers: {
-              "content-type": "application/json;charset=UTF-8",
-              "user-agent": hpp_ver,
-              "Authorization": "token " + config.hpp_githubdoctoken
-            },
           }
           /*主面板*/
           if (path.startsWith("/hpp/admin/dash")) {
@@ -246,24 +231,41 @@ async function handleRequest(request) {
 
           }
           if (path.startsWith("/hpp/admin/api/adddoc/")) {
-
-            const file = await request.text()
-            const filename = getname(path)
-            const url = `https://api.github.com/repos/${config.hpp_githubdocusername}/${config.hpp_githubdocrepo}/contents${config.githubdocpath}${filename}?ref=${config.hpp_githubdocbranch}`
-            const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
-            const hpp_body = {
-              branch: config.hpp_githubdocbranch, message: `Upload from ${hpp_ver} By ${config.hpp_githubdocusername}`, content: file, sha: hpp_sha
-            }
-            const hpp_docputinit = {
-              body: JSON.stringify(hpp_body),
-              method: "PUT",
-              headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "user-agent": hpp_ver,
-                "Authorization": "token " + config.hpp_githubdoctoken
-              }
-            }
-            const hpp_r = await fetch(url, hpp_docputinit)
+            /*
+                        const file = await request.text()
+                        const filename = getname(path)
+                        const url = `https://api.github.com/repos/${config.hpp_githubdocusername}/${config.hpp_githubdocrepo}/contents${config.githubdocpath}${filename}?ref=${config.hpp_githubdocbranch}`
+                        const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
+                        const hpp_body = {
+                          branch: config.hpp_githubdocbranch, message: `Upload from ${hpp_ver} By ${config.hpp_githubdocusername}`, content: file, sha: hpp_sha
+                        }
+                        const hpp_docputinit = {
+                          body: JSON.stringify(hpp_body),
+                          method: "PUT",
+                          headers: {
+                            "content-type": "application/json;charset=UTF-8",
+                            "user-agent": hpp_ver,
+                            "Authorization": "token " + config.hpp_githubdoctoken
+                          }
+                        }
+                        const hpp_r = await fetch(url, hpp_docputinit)
+                        const hpp_r_s = await hpp_r.status
+                        if (hpp_r_s == 200 || hpp_r_s == 201) {
+                          if (hpp_r_s == 201) { await KVNAME.delete("hpp_doc_list_index") }
+                          return new Response('Update Success', { status: hpp_r_s })
+                        } else {
+                          return new Response('Fail To Update', { status: hpp_r_s })
+                        }
+            */
+            const hpp_r = await ghupload({
+              file: await request.text(),
+              username: config.hpp_githubdocusername,
+              reponame: config.config.hpp_githubdocrepo,
+              path: config.githubdocpath,
+              branch: config.hpp_githubdocbranch,
+              filename: getname(path),
+              token: config.hpp_githubdoctoken
+            })
             const hpp_r_s = await hpp_r.status
             if (hpp_r_s == 200 || hpp_r_s == 201) {
               if (hpp_r_s == 201) { await KVNAME.delete("hpp_doc_list_index") }
@@ -271,7 +273,6 @@ async function handleRequest(request) {
             } else {
               return new Response('Fail To Update', { status: hpp_r_s })
             }
-
           }
           if (path.startsWith("/hpp/admin/api/adddraft/")) {
 

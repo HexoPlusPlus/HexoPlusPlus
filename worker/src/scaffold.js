@@ -49,7 +49,6 @@ export function formatconfig(config) {
             config[i] = defaultconfig[i]
         }
     }
-
     config.hpp_githubdocpath = config.hpp_githubdocroot + "source/_posts/"
     config.hpp_githubdocdraftpath = config.hpp_githubdocroot + "source/_drafts/"
     config.githubdocdraftpath = encodeURI(config.hpp_githubdocdraftpath)
