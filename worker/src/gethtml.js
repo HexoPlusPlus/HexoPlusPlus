@@ -1,6 +1,6 @@
 export const gethtml = {
-    installhtml: function (config, hpp_CDN,hpp_ver) {
-        return `<!DOCTYPE html>
+  installhtml: function (config, hpp_CDN, hpp_ver) {
+    return `<!DOCTYPE html>
     <html>
     <head>
       <meta charset="utf-8">
@@ -421,9 +421,9 @@ export const gethtml = {
     <script src="${hpp_CDN}install.js"></script>
     </body>
     </html>`
-    },
-    loginhtml: function (hpp_CDN) {
-        return `
+  },
+  loginhtml: function (hpp_CDN) {
+    return `
     <!DOCTYPE html>
     <html lang="zh-cmn-Hans">
      <head>
@@ -492,9 +492,9 @@ export const gethtml = {
       </body>
     </html>
     `},
-    dash404: `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`,
-    dashhome: function (hpp_ver) {
-        return `<div class="content">
+  dash404: `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`,
+  dashhome: function (hpp_ver) {
+    return `<div class="content">
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -604,7 +604,7 @@ export const gethtml = {
   </div>
 </div>
 </div>`},
-    dashedit: `<div class="content">
+  dashedit: `<div class="content">
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
@@ -649,13 +649,13 @@ export const gethtml = {
   </div>
 </div>
 </div>`,
-    dasheditjs: function (hpp_highlight_style) {
-        return `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> 
+  dasheditjs: function (hpp_highlight_style) {
+    return `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> 
 <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script><script src='${hpp_CDN}edit.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="${hpp_CDN}OwO.min.css">
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/highlight.min.js"></script>
 <link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${hpp_highlight_style}.min.css' />`
-    },
-    dashtalk: `<div class="content">
+  },
+  dashtalk: `<div class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
@@ -691,8 +691,8 @@ export const gethtml = {
       </div>
     </div>
   </div>`,
-    dashtalkjs: function (hpp_CDN) { return `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><link rel="stylesheet" href="${hpp_CDN}talk.css" /><script src='${hpp_CDN}talk.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="${hpp_CDN}OwO.min.css">` },
-    dashdocs: `
+  dashtalkjs: function (hpp_CDN) { return `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><link rel="stylesheet" href="${hpp_CDN}talk.css" /><script src='${hpp_CDN}talk.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="${hpp_CDN}OwO.min.css">` },
+  dashdocs: `
 <div class="content">
         <div class="container-fluid">
           <div class="row">
@@ -727,7 +727,7 @@ export const gethtml = {
           </div>
         </div>
       </div>`,
-    dashimg: `<div class="content">
+  dashimg: `<div class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
@@ -761,7 +761,7 @@ export const gethtml = {
         </div>
       </div>
     </div>`,
-    dashtool: `<div class="content">
+  dashtool: `<div class="content">
     <div class="container-fluid">
       <div class="row">
     
@@ -803,125 +803,19 @@ export const gethtml = {
       </div>
     </div>
   </div>`,
-  dashhead: `<!DOCTYPE html>
-  <html lang="en">
-  
-  <head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="${hpp_usericon}">
-    <link rel="icon" type="image/png" href="${hpp_usericon}">
-    <title>${hpp_title}</title>
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    ${hpp_plugin}
-    <link rel="stylesheet" type="text/css" href="${hpp_CDN}font.css" />
-    <link href="${hpp_CDN}admin_all_${hpp_theme_mode}.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <script>
-    //这个脚本的用途是前端变量传递
-    const hpp_ver="${hpp_ver}";
-    const hpp_OwO="${hpp_OwO}";
-    const avatar="${hpp_userimage}";
-    const username="${username[0]}";
-    const hpp_githubdocusername = "${hpp_githubdocusername}"
-    const hpp_githubdocrepo ="${hpp_githubdocrepo}"
-    const hpp_githubdocbranch ="${hpp_githubdocbranch}"
-    const hpp_githubdocpath ="${hpp_githubdocpath}"
-    const hpp_githubimageusername = "${hpp_githubimageusername}"
-    const hpp_githubimagerepo ="${hpp_githubimagerepo}"
-    const hpp_githubimagebranch ="${hpp_githubimagebranch}"
-    const hpp_githubimagepath ="${hpp_githubimagepath}"
-    const hpp_githubdocdraftpath ="${hpp_githubdocdraftpath}"
-    const hpp_lazy_img = "${hpp_lazy_img}"
-    const hpp_highlight_style = "${hpp_highlight_style}"
-    const hpp_page_limit = ${hpp_page_limit}
-    </script>
-  </head>
-  <body class="${hpp_theme_mode == 'dark' ? 'dark-edition' : ''}">
-    <div class="wrapper ">
-      <div class="sidebar" data-color="${hpp_color}" data-background-color="${hpp_theme_mode == 'dark' ? 'default' : hpp_bg_color}" data-image="${hpp_back}">
-        <div class="logo"><a class="simple-text logo-normal">${hpp_title}</a></div>
-        <div class="sidebar-wrapper">
-          <ul class="nav">
-            <li class="nav-item${hpp_home_act}">
-              <a class="nav-link" href="/hpp/admin/dash/home">
-                <i class="material-icons">dashboard</i>
-                <p>主页</p>
-              </a>
-            </li>
-            <li class="nav-item${hpp_edit_act}">
-              <a class="nav-link" href="/hpp/admin/dash/edit">
-                <i class="material-icons">create</i>
-                <p>书写</p>
-              </a>
-            </li>
-            <li class="nav-item${hpp_talk_act}">
-              <a class="nav-link" href="/hpp/admin/dash/talk">
-                <i class="material-icons">chat</i>
-                <p>说说</p>
-              </a>
-            </li>
-            <li class="nav-item${hpp_docs_man_act}">
-              <a class="nav-link" href="/hpp/admin/dash/docs_man">
-                <i class="material-icons">descriptionoutlined</i>
-                <p>文档管理</p>
-              </a>
-            </li>
-            <li class="nav-item${hpp_img_man_act}">
-              <a class="nav-link" href="/hpp/admin/dash/img_man">
-                <i class="material-icons">imagerounded</i>
-                <p>图片管理</p>
-              </a>
-            </li>
-            <li class="nav-item${hpp_tool_act}">
-              <a class="nav-link" href="/hpp/admin/dash/tool">
-                <i class="material-icons">widgets</i>
-                <p>工具</p>
-              </a>
-            </li>
-            <li class="nav-item${hpp_set_act}">
-              <a class="nav-link" href="/hpp/admin/dash/set">
-                <i class="material-icons">settings</i>
-                <p>设置</p>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="main-panel">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-          <div class="container-fluid">
-            <div class="navbar-wrapper">
-              <a class="navbar-brand" href="javascript:;">HexoPlusPlus后台</a>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="navbar-toggler-icon icon-bar"></span>
-              <span class="navbar-toggler-icon icon-bar"></span>
-              <span class="navbar-toggler-icon icon-bar"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end">
-              <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                  <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="${hpp_userimage}" style="width: 30px;border-radius: 50%;border: 0;">
-                    <p class="d-lg-none d-md-block">
-                      Account
-                    </p>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                    <a class="dropdown-item" href="javascript:kick()">签到</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="javascript:hpp_logout()">退出</a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <!-- End Navbar --> 
-  
-  <!--innerHTMLSTART-->`
-             
+  dashimgjs: function (hpp_CDN) {
+    return `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/css/swipebox.css"><script src='${hpp_CDN}img_man.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><script src="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/js/jquery.swipebox.min.js"></script>`
+
+  },
+  dashhomejs: function(hpp_CDN){
+    return `<script src='${hpp_CDN}home.js'></script>`
+  },
+  dashdocsjs: function(hpp_CDN){
+    return  `<script src='${hpp_CDN}doc_man.js'></script>`
+  },
+  dashtooljs: function(hpp_CDN){
+    return  `<script src='${hpp_CDN}tool.js'></script>`
+  }
+
 }

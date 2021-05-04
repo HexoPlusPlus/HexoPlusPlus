@@ -40,12 +40,28 @@ export function getsuffix(path) {
     return suffixlist[getJsonLength(suffixlist) - 1]
 }
 
-
+export function genjsonres(msg, code, status, content) {
+    m = msg ? msg : "未知的错误"
+    c = code ? code : "-1"
+    s = status ? status : 500
+    co = content ? content : ''
+    r = {
+        msg: m,
+        code: c,
+        content: co
+    }
+    return new Response(JSON.stringify(r), {
+        status: s, headers: {
+            "content-type": "application/javascript; charset=utf-8",
+            "Access-Control-Allow-Origin": '*'
+        }
+    })
+}
 
 export function formatconfig(config) {
     config = config || defaultconfig
-    for (var i in config) {
-        if (defaultconfig[i]) {
+    for (var i in defaultconfig) {
+        if (config[i] == undefined) {
             config[i] = defaultconfig[i]
         }
     }

@@ -1,10 +1,17 @@
 const md5 = require('md5')
 import { gethtml } from './src/gethtml'
-import { ghupload } from './github/upload'
-import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix } from './src/scaffold'
+import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix, genjsonres } from './src/scaffold'
+import { ghupload, ghdel, ghget, ghlatver , ghlatinfo } from './src/github/manager'
+import { hppupdate } from './src/update.js'
 //const hpp_CDNver = "91dcf20"
-const hpp_ver = "HexoPlusPlus@1.2.1_β_3"
-const hpp_CDN = `https://hppstatic.pages.dev/`
+
+const hpp_info = {
+  ver: "HexoPlusPlus@1.2.1_β_3",
+  CDN: `https://hppstatic.pages.dev/`
+}
+
+const hpp_ver = hpp_info.ver
+const hpp_CDN = hpp_info.CDN
 let hpp_logstatus = 0
 addEventListener("fetch", event => {
   event.respondWith(handleRequest(event.request))
@@ -127,7 +134,7 @@ async function handleRequest(request) {
             if (path == "/hpp/admin/dash/home") {
               hpp_home_act = " active"
               hpp_init = gethtml.dashhome(hpp_ver)
-              hpp_js = `<script src='${hpp_CDN}home.js'></script>`
+              hpp_js = gethtml.dashhomejs(hpp_ver)
             }
             if (path == "/hpp/admin/dash/edit") {
               hpp_edit_act = " active"
@@ -142,20 +149,18 @@ async function handleRequest(request) {
             if (path == "/hpp/admin/dash/docs_man") {
               hpp_docs_man_act = " active"
               hpp_init = gethtml.dashdocs
-              hpp_js = `<script src='${hpp_CDN}doc_man.js'></script>`
+              hpp_js = gethtml.dashdocsjs(hpp_CDN)
 
             }
             if (path == "/hpp/admin/dash/img_man") {
               hpp_img_man_act = " active"
               hpp_init = gethtml.dashimg
-              hpp_js = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/css/swipebox.css"><script src='${hpp_CDN}img_man.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><script src="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/js/jquery.swipebox.min.js"></script>`
-
+              hpp_js = gethtml.dashimgjs(hpp_CDN)
             }
             if (path == "/hpp/admin/dash/tool") {
               hpp_tool_act = " active"
               hpp_init = gethtml.dashtool
-              hpp_js = `<script src='${hpp_CDN}tool.js'></script>`
+              hpp_js = gethtml.dashtooljs(hpp_CDN)
             }
             /* if (path == "/hpp/admin/dash/set") {
                hpp_set_act = " active"
@@ -199,7 +204,129 @@ async function handleRequest(request) {
             if (hpp_plugin_css != undefined) { hpp_plugin += `<link rel="stylesheet" type="text/css" href="${hpp_plugin_css}" />` }
             if (hpp_plugin_js != undefined) { hpp_js += `<script src="${hpp_plugin_js}"></script>` }
             */
-            let hpp_dash_head = gethtml.dashhead
+            /*
+               const hpp_ver="${hpp_ver}";
+               const hpp_OwO="${hpp_OwO}";
+               const avatar="${hpp_userimage}";
+               const username="${username[0]}";
+               const hpp_githubdocusername = "${hpp_githubdocusername}"
+               const hpp_githubdocrepo ="${hpp_githubdocrepo}"
+               const hpp_githubdocbranch ="${hpp_githubdocbranch}"
+               const hpp_githubdocpath ="${hpp_githubdocpath}"
+               const hpp_githubimageusername = "${hpp_githubimageusername}"
+               const hpp_githubimagerepo ="${hpp_githubimagerepo}"
+               const hpp_githubimagebranch ="${hpp_githubimagebranch}"
+               const hpp_githubimagepath ="${hpp_githubimagepath}"
+               const hpp_githubdocdraftpath ="${hpp_githubdocdraftpath}"
+               const hpp_lazy_img = "${hpp_lazy_img}"
+               const hpp_highlight_style = "${hpp_highlight_style}"
+               const hpp_page_limit = ${hpp_page_limit}
+               */
+            let hpp_dash_head = `<!DOCTYPE html>
+            <html lang="en">
+            
+            <head>
+              <meta charset="utf-8" />
+              <link rel="apple-touch-icon" sizes="76x76" href="${config.hpp_usericon}">
+              <link rel="icon" type="image/png" href="${config.hpp_usericon}">
+              <title>${config.hpp_title}</title>
+              <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+              ${config.hpp_plugin}
+              <link rel="stylesheet" type="text/css" href="${hpp_CDN}font.css" />
+              <link href="${hpp_CDN}admin_all_${config.hpp_theme_mode}.css" rel="stylesheet" />
+              <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
+              <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+              <script>
+              //这个脚本的用途是前端变量传递
+              const config = ${JSON.stringify(config)}
+              </script>
+            </head>
+            <body class="${config.hpp_theme_mode == 'dark' ? 'dark-edition' : ''}">
+              <div class="wrapper ">
+                <div class="sidebar" data-color="${config.hpp_color}" data-background-color="${config.hpp_theme_mode == 'dark' ? 'default' : config.hpp_bg_color}" data-image="${config.hpp_back}">
+                  <div class="logo"><a class="simple-text logo-normal">${hpp_title}</a></div>
+                  <div class="sidebar-wrapper">
+                    <ul class="nav">
+                      <li class="nav-item${hpp_home_act}">
+                        <a class="nav-link" href="/hpp/admin/dash/home">
+                          <i class="material-icons">dashboard</i>
+                          <p>主页</p>
+                        </a>
+                      </li>
+                      <li class="nav-item${hpp_edit_act}">
+                        <a class="nav-link" href="/hpp/admin/dash/edit">
+                          <i class="material-icons">create</i>
+                          <p>书写</p>
+                        </a>
+                      </li>
+                      <li class="nav-item${hpp_talk_act}">
+                        <a class="nav-link" href="/hpp/admin/dash/talk">
+                          <i class="material-icons">chat</i>
+                          <p>说说</p>
+                        </a>
+                      </li>
+                      <li class="nav-item${hpp_docs_man_act}">
+                        <a class="nav-link" href="/hpp/admin/dash/docs_man">
+                          <i class="material-icons">descriptionoutlined</i>
+                          <p>文档管理</p>
+                        </a>
+                      </li>
+                      <li class="nav-item${hpp_img_man_act}">
+                        <a class="nav-link" href="/hpp/admin/dash/img_man">
+                          <i class="material-icons">imagerounded</i>
+                          <p>图片管理</p>
+                        </a>
+                      </li>
+                      <li class="nav-item${hpp_tool_act}">
+                        <a class="nav-link" href="/hpp/admin/dash/tool">
+                          <i class="material-icons">widgets</i>
+                          <p>工具</p>
+                        </a>
+                      </li>
+                      <li class="nav-item${hpp_set_act}">
+                        <a class="nav-link" href="/hpp/admin/dash/set">
+                          <i class="material-icons">settings</i>
+                          <p>设置</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="main-panel">
+                  <!-- Navbar -->
+                  <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+                    <div class="container-fluid">
+                      <div class="navbar-wrapper">
+                        <a class="navbar-brand" href="javascript:;">HexoPlusPlus后台</a>
+                      </div>
+                      <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                      </button>
+                      <div class="collapse navbar-collapse justify-content-end">
+                        <ul class="navbar-nav">
+                          <li class="nav-item dropdown">
+                            <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <img src="${config.hpp_userimage}" style="width: 30px;border-radius: 50%;border: 0;">
+                              <p class="d-lg-none d-md-block">
+                                Account
+                              </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                              <a class="dropdown-item" href="javascript:kick()">签到</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="javascript:hpp_logout()">退出</a>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </nav>
+                  <!-- End Navbar --> 
+            
+            <!--innerHTMLSTART-->`
             let hpp_dash_foot = `
             <!--innerHTMLEND-->
 </div>
@@ -230,264 +357,261 @@ async function handleRequest(request) {
 
 
           }
-          if (path.startsWith("/hpp/admin/api/adddoc/")) {
-            /*
-                        const file = await request.text()
-                        const filename = getname(path)
-                        const url = `https://api.github.com/repos/${config.hpp_githubdocusername}/${config.hpp_githubdocrepo}/contents${config.githubdocpath}${filename}?ref=${config.hpp_githubdocbranch}`
-                        const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
-                        const hpp_body = {
-                          branch: config.hpp_githubdocbranch, message: `Upload from ${hpp_ver} By ${config.hpp_githubdocusername}`, content: file, sha: hpp_sha
-                        }
-                        const hpp_docputinit = {
-                          body: JSON.stringify(hpp_body),
-                          method: "PUT",
-                          headers: {
-                            "content-type": "application/json;charset=UTF-8",
-                            "user-agent": hpp_ver,
-                            "Authorization": "token " + config.hpp_githubdoctoken
-                          }
-                        }
-                        const hpp_r = await fetch(url, hpp_docputinit)
-                        const hpp_r_s = await hpp_r.status
-                        if (hpp_r_s == 200 || hpp_r_s == 201) {
-                          if (hpp_r_s == 201) { await KVNAME.delete("hpp_doc_list_index") }
-                          return new Response('Update Success', { status: hpp_r_s })
-                        } else {
-                          return new Response('Fail To Update', { status: hpp_r_s })
-                        }
-            */
-            const hpp_r = await ghupload({
-              file: await request.text(),
-              username: config.hpp_githubdocusername,
-              reponame: config.config.hpp_githubdocrepo,
-              path: config.githubdocpath,
-              branch: config.hpp_githubdocbranch,
-              filename: getname(path),
-              token: config.hpp_githubdoctoken
-            })
-            const hpp_r_s = await hpp_r.status
-            if (hpp_r_s == 200 || hpp_r_s == 201) {
-              if (hpp_r_s == 201) { await KVNAME.delete("hpp_doc_list_index") }
-              return new Response('Update Success', { status: hpp_r_s })
-            } else {
-              return new Response('Fail To Update', { status: hpp_r_s })
-            }
-          }
-          if (path.startsWith("/hpp/admin/api/adddraft/")) {
 
-            const file = await request.text()
-            const filename = getname(path)
-            const url = `https://api.github.com/repos/${config.hpp_githubdocusername}/${config.hpp_githubdocrepo}/contents${config.githubdocdraftpath}${filename}?ref=${config.hpp_githubdocbranch}`
-            const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
-            const hpp_body = {
-              branch: config.hpp_githubdocbranch, message: `Upload draft from ${hpp_ver} By ${config.hpp_githubdocusername}`, content: file, sha: hpp_sha
-            }
-            const hpp_docputinit = {
-              body: JSON.stringify(hpp_body),
-              method: "PUT",
-              headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "user-agent": hpp_ver,
-                "Authorization": "token " + config.hpp_githubdoctoken
-              }
-            }
-            const hpp_r = await fetch(url, hpp_docputinit)
-            const hpp_r_s = await hpp_r.status
-            if (hpp_r_s == 200 || hpp_r_s == 201) {
-              if (hpp_r_s == 201) { await KVNAME.delete("hpp_doc_draft_list_index") }
-              return new Response('Update Success', { status: hpp_r_s })
-            } else {
-              return new Response('Fail To Update', { status: hpp_r_s })
-            }
 
-          }
-          if (path.startsWith("/hpp/admin/api/addimage")) {
-            const file = await request.text()
-            const hpp_time = Date.parse(new Date())
-            const filename = getname(path)
-
-            const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${githubimagepath}${hpp_time}.${filename}`
-            const hpp_body = {
-              branch: hpp_githubimagebranch, message: `Upload from ${hpp_ver} By ${hpp_githubimageusername}`, content: file
-            }
-            const hpp_imageputinit = {
-              body: JSON.stringify(hpp_body),
-              method: "PUT",
-              headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "user-agent": hpp_ver,
-                "Authorization": "token " + hpp_githubimagetoken
-              }
-            }
-            const hpp_r = await fetch(url, hpp_imageputinit)
-            const hpp_r_s = await hpp_r.status
-            if (hpp_r_s == 200 || hpp_r_s == 201) {
-              return new Response(`https://cdn.jsdelivr.net/gh/${hpp_githubimageusername}/${hpp_githubimagerepo}@${hpp_githubimagebranch}${hpp_githubimagepath}${hpp_time}.${filename}`, { status: hpp_r_s })
-            } else {
-              return new Response(`Fail To Upload Image`, { status: hpp_r_s })
-            }
-          }
-          if (path.startsWith("/hpp/admin/api/deldoc")) {
-
-            const filename = path.substr(("/hpp/admin/api/deldoc/").length)
-            const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`
-            const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
-            const hpp_body = {
-              branch: hpp_githubdocbranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
-            }
-            const hpp_docputinit = {
-              body: JSON.stringify(hpp_body),
-              method: "DELETE",
-              headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "user-agent": hpp_ver,
-                "Authorization": "token " + hpp_githubdoctoken
-              }
-            }
-            const hpp_r = await fetch(url, hpp_docputinit)
-            const hpp_r_s = await hpp_r.status
-            if (hpp_r_s == 200) {
-              await KVNAME.delete("hpp_doc_list_index")
-              return new Response('Delete Success', { status: hpp_r_s })
-            } else {
-              return new Response('Fail To Delete doc', { status: hpp_r_s })
-            }
-          }
-
-          if (path.startsWith("/hpp/admin/api/deldraft")) {
-
-            const filename = path.substr(("/hpp/admin/api/deldraft/").length)
-            const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`
-            const hpp_sha = (JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())).sha
-            const hpp_body = {
-              branch: hpp_githubdocbranch, message: `Delete draft from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
-            }
-            const hpp_docputinit = {
-              body: JSON.stringify(hpp_body),
-              method: "DELETE",
-              headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "user-agent": hpp_ver,
-                "Authorization": "token " + hpp_githubdoctoken
-              }
-            }
-            const hpp_r = await fetch(url, hpp_docputinit)
-            const hpp_r_s = await hpp_r.status
-            if (hpp_r_s == 200) {
-              await KVNAME.delete("hpp_doc_draft_list_index")
-              return new Response('Delete Success', { status: hpp_r_s })
-            } else {
-              return new Response('Fail To Delete doc', { status: hpp_r_s })
-            }
-          }
-
-          if (path.startsWith("/hpp/admin/api/delimage")) {
-            const filepath = githubimagepath.substr(0, (githubimagepath).length - 1)
-            const listurl = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${filepath}?ref=${hpp_githubimagebranch}`
-            const filename = path.substr(("/hpp/admin/api/delimage/").length)
-            const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${githubimagepath}${filename}?ref=${hpp_githubimagebranch}`
-            const hpp_re = (JSON.parse(await (await fetch(listurl, hpp_githubgetimageinit)).text()))
-            //console.log(hpp_re)
-            let hpp_sha = ""
-            for (var i = 0; i < getJsonLength(hpp_re); i++) {
-              if (hpp_re[i]["name"] == filename) {
-                hpp_sha = hpp_re[i]["sha"]
-                break
-              }
-            }
-            //console.log(hpp_sha)
-            const hpp_body = {
-              branch: hpp_githubimagebranch, message: `Delete from ${hpp_ver} By ${hpp_githubdocusername}`, sha: hpp_sha
-            }
-            const hpp_imageputinit = {
-              body: JSON.stringify(hpp_body),
-              method: "DELETE",
-              headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "user-agent": hpp_ver,
-                "Authorization": "token " + hpp_githubimagetoken
-              }
-            }
-            const hpp_r = await fetch(url, hpp_imageputinit)
-            const hpp_r_s = await hpp_r.status
-            if (hpp_r_s == 200) {
-              return new Response('Delete Success', { status: hpp_r_s })
-            } else {
-              return new Response('Fail To Delete Image', { status: hpp_r_s })
-            }
-          }
-          if (path.startsWith("/hpp/admin/api/getdoc")) {
-            const filename = path.substr(("/hpp/admin/api/getdoc/").length)
-            return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
-          }
-          if (path == ("/hpp/admin/api/getscaffolds")) {
-            return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${hpp_githubdocroot}scaffolds/post.md?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
-          }
-          //他名字叫bfs，他就叫bfs/doge
-          async function fetch_bfs(arr, url, getinit) {
+          if (rp(path) == '/hpp/admin/api/github') {
             try {
-              const hpp_getlist = await JSON.parse(await (await fetch(url, hpp_githubgetdocinit)).text())
-              for (var i = 0; i < getJsonLength(hpp_getlist); i++) {
-                if (hpp_getlist[i]["type"] != "dir") {
-                  arr.push(hpp_getlist[i])
-                } else {
-                  await fetch_bfs(arr, hpp_getlist[i]["_links"]["self"], getinit)
-                }
+              const apireq = await request.json()
+              switch (apireq.action) {
+                case 'adddoc':
+                  const hpp_r = await ghupload({
+                    file: apireq.file,
+                    username: config.hpp_githubdocusername,
+                    reponame: config.hpp_githubdocrepo,
+                    path: config.githubdocpath,
+                    branch: config.hpp_githubdocbranch,
+                    filename: apireq.filename,
+                    token: config.hpp_githubdoctoken
+                  })
+                  const hpp_r_s = await hpp_r.status
+                  if (hpp_r_s == 200 || hpp_r_s == 201) {
+                    if (hpp_r_s == 201) { await KVNAME.delete("hpp_doc_list_index"); return genjsonres('新建文档成功！', 0, hpp_r_s) }
+                    return genjsonres('上传文档成功！', 0, hpp_r_s)
+                  } else {
+                    return genjsonres('上传/新建文档失败！', 1, hpp_r_s)
+                  }
+                case 'adddraft':
+
+                  const hpp_r = await ghupload({
+                    file: apireq.file,
+                    username: config.hpp_githubdocusername,
+                    reponame: config.hpp_githubdocrepo,
+                    path: config.githubdocdraftpath,
+                    branch: config.hpp_githubdocbranch,
+                    filename: apireq.filename,
+                    token: config.hpp_githubdoctoken
+                  })
+                  const hpp_r_s = await hpp_r.status
+                  if (hpp_r_s == 200 || hpp_r_s == 201) {
+                    if (hpp_r_s == 201) { await KVNAME.delete("hpp_doc_draft_list_index"); return genjsonres('上传草稿成功！', 0, hpp_r_s) }
+                    return genjsonres('上传草稿成功！', 0, hpp_r_s)
+                  } else {
+                    return genjsonres('新建草稿失败！', 0, hpp_r_s)
+                  }
+                case 'addimg':
+                  const name = `${Date.parse(new Date())}.${apireq.suffix}`
+                  const hpp_r = await ghupload({
+                    file: apireq.file,
+                    username: config.hpp_githubimageusername,
+                    reponame: config.hpp_githubimagerepo,
+                    path: config.githubimagepath,
+                    branch: config.hpp_githubimagebranch,
+                    filename: name,
+                    token: config.hpp_githubimagetoken
+                  })
+                  const hpp_r_s = await hpp_r.status
+
+                  if (hpp_r_s == 200 || hpp_r_s == 201) {
+                    const jsdurl = `https://cdn.jsdelivr.net/gh/${config.hpp_githubimageusername}/${config.hpp_githubimagerepo}@${config.hpp_githubimagebranch}${config.hpp_githubimagepath}${name}`
+
+                    return genjsonres('上传图片成功！', 0, hpp_r_s, jsdurl)
+                  } else {
+                    return genjsonres('上传图片失败！', -1, hpp_r_s)
+                  }
+                case 'deldoc':
+                  const hpp_r = await ghdel({
+                    username: config.hpp_githubdocusername,
+                    reponame: config.hpp_githubdocrepo,
+                    path: config.githubdocpath,
+                    branch: config.hpp_githubdocbranch,
+                    filename: apireq.filename,
+                    token: config.hpp_githubdoctoken
+                  })
+                  const hpp_r_s = await hpp_r.status
+                  if (hpp_r_s == 200) {
+                    await KVNAME.delete("hpp_doc_list_index")
+                    return genjsonres('删除文档成功！', 0, hpp_r_s)
+                  } else {
+                    return genjsonres('删除文档失败！', -1, hpp_r_s)
+                  }
+                case 'deldraft':
+                  const hpp_r = await ghdel({
+                    username: config.hpp_githubdocusername,
+                    reponame: config.hpp_githubdocrepo,
+                    path: config.githubdocdraftpath,
+                    branch: config.hpp_githubdocbranch,
+                    filename: apireq.filename,
+                    token: config.hpp_githubdoctoken
+                  })
+                  const hpp_r_s = await hpp_r.status
+                  if (hpp_r_s == 200) {
+                    await KVNAME.delete("hpp_doc_list_index")
+                    return genjsonres('删除艹稿成功！', 0, hpp_r_s)
+                  } else {
+                    return genjsonres('删除艹稿失败！', -1, hpp_r_s)
+                  }
+
+                case 'delimg':
+                  const hpp_r = await ghdel({
+                    username: config.hpp_githubimageusername,
+                    reponame: config.hpp_githubimagerepo,
+                    path: config.githubimagepath,
+                    branch: config.hpp_githubimagebranch,
+                    filename: apireq.filename,
+                    token: config.hpp_githubimagetoken
+                  })
+                  const hpp_r_s = await hpp_r.status
+                  if (hpp_r_s == 200) {
+                    await KVNAME.delete("hpp_doc_list_index")
+                    return genjsonres('删除图片成功！', 0, hpp_r_s)
+                  } else {
+                    return genjsonres('删除图片失败！', -1, hpp_r_s)
+                  }
+                case 'getdoc':
+                  return ghget({
+                    username: config.hpp_githubdocusername,
+                    reponame: config.hpp_githubdocrepo,
+                    path: config.githubdocpath,
+                    branch: config.hpp_githubdocbranch,
+                    filename: apireq.filename,
+                    token: config.hpp_githubdoctoken
+                  })
+                case 'getdraft':
+                  return ghget({
+                    username: config.hpp_githubdocusername,
+                    reponame: config.hpp_githubdocrepo,
+                    path: config.githubdocdraftpath,
+                    branch: config.hpp_githubdocbranch,
+                    filename: apireq.filename,
+                    token: config.hpp_githubdoctoken
+                  })
+                case 'getscaffolds':
+                  return ghget({
+                    username: config.hpp_githubdocusername,
+                    reponame: config.hpp_githubdocrepo,
+                    path: `${hpp_githubdocroot}scaffolds/`,
+                    branch: config.hpp_githubdocbranch,
+                    filename: 'post.md',
+                    token: config.hpp_githubdoctoken
+                  })
+                case 'getdoclist':
+                  let msgd = '命中了缓存,获取文章列表成功！'
+                  let hpp_list_index = await KVNAME.get("hpp_doc_list_index")
+                  if (hpp_list_index === null) {
+                    hpp_list_index = JSON.stringify(await ghtreelist({
+                      username: config.hpp_githubdocusername,
+                      reponame: config.hpp_githubdocrepo,
+                      path: config.githubdocpath,
+                      branch: config.hpp_githubdocbranch,
+                      token: config.hpp_githubdoctoken
+                    }))
+                    await KVNAME.put("hpp_doc_list_index", hpp_list_index)
+                    msgd = '没有命中缓存,获取文章列表成功！'
+                  }
+                  return genjsonres(msgd, 0, 200, hpp_list_index)
+
+                case 'getdraftlist':
+                  let msgd = '命中了缓存,获取艹稿列表成功！'
+                  let hpp_list_index = await KVNAME.get("hpp_doc_draft_list_index")
+                  if (hpp_list_index === null) {
+                    hpp_list_index = JSON.stringify(await ghtreelist({
+                      username: config.hpp_githubdocusername,
+                      reponame: config.hpp_githubdocrepo,
+                      path: config.githubdocdraftpath,
+                      branch: config.hpp_githubdocbranch,
+                      token: config.hpp_githubdoctoken
+                    }))
+                    await KVNAME.put("hpp_doc_draft_list_index", hpp_list_index)
+                    msgd = '没有命中缓存,获取艹稿列表成功！'
+                  }
+                  return genjsonres(msgd, 0, 200, hpp_list_index)
+
+
+                case 'getimglist':
+                  let msgd = '命中了缓存,获取图片列表成功！'
+                  let hpp_list_index = await KVNAME.get("hpp_img_list_index")
+                  if (hpp_list_index === null) {
+                    hpp_list_index = JSON.stringify(await ghtreelist({
+                      username: config.hpp_githubimageusername,
+                      reponame: config.hpp_githubimagerepo,
+                      path: config.githubimagepath,
+                      branch: config.hpp_githubimagebranch,
+                      token: config.hpp_githubimagetoken
+                    }))
+                    await KVNAME.put("hpp_img_list_index", hpp_list_index)
+                    msgd = '没有命中缓存,获取图片列表成功！'
+                  }
+                  return genjsonres(msgd, 0, 200, hpp_list_index)
+                case 'delindex':
+                  await KVNAME.delete("hpp_doc_draft_list_index")
+                  await KVNAME.delete("hpp_doc_list_index")
+                  await KVNAME.delete("hpp_img_list_index")
+                  return genjsonres('清除索引缓存成功!', 0, 200)
+                default:
+                  throw '未知的操作'
               }
-              return arr;
-            } catch (e) { return {} }
-          }
-          if (path == "/hpp/admin/api/getlist") {
-            let hpp_doc_list_index = await KVNAME.get("hpp_doc_list_index")
-            if (hpp_doc_list_index === null) {
-              const filepath = githubdocpath.substr(0, (githubdocpath).length - 1)
-              const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
-              hpp_doc_list_index = await JSON.stringify(await fetch_bfs([], url, hpp_githubgetdocinit))
-              await KVNAME.put("hpp_doc_list_index", hpp_doc_list_index)
-            }
-            return new Response(hpp_doc_list_index, {
-              headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "Access-Control-Allow-Origin": hpp_cors
-              }
-            })
-          }
-          if (path.startsWith("/hpp/admin/api/getdraft")) {
-            const filename = path.substr(("/hpp/admin/api/getdraft/").length)
-            return (fetch(`https://raw.githubusercontent.com/${hpp_githubdocusername}/${hpp_githubdocrepo}/${hpp_githubdocbranch}${githubdocdraftpath}${filename}?ref=${hpp_githubdocbranch}`, hpp_githubgetdocinit))
-          }
-          if (path == "/hpp/admin/api/get_draftlist") {
-            let hpp_doc_draft_list_index = await KVNAME.get("hpp_doc_draft_list_index")
-            if (hpp_doc_draft_list_index === null) {
-              const filepath = githubdocdraftpath.substr(0, (githubdocdraftpath).length - 1)
-              const url = `https://api.github.com/repos/${hpp_githubdocusername}/${hpp_githubdocrepo}/contents${filepath}?ref=${hpp_githubdocbranch}`
-              hpp_doc_draft_list_index = await JSON.stringify(await fetch_bfs([], url, hpp_githubgetdocinit))
-              await KVNAME.put("hpp_doc_draft_list_index", hpp_doc_draft_list_index)
-            }
-            return new Response(hpp_doc_draft_list_index, {
-              headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "Access-Control-Allow-Origin": hpp_cors
-              }
-            })
-          }
-          if (path == "/hpp/admin/api/getimglist") {
-            const filepath = githubimagepath.substr(0, (githubimagepath).length - 1)
-            const url = `https://api.github.com/repos/${hpp_githubimageusername}/${hpp_githubimagerepo}/contents${filepath}?ref=${hpp_githubimagebranch}`
-            return new Response(await JSON.stringify(await fetch_bfs([], url, hpp_githubgetimageinit)), {
-              headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "Access-Control-Allow-Origin": hpp_cors
-              }
-            })
+            } catch (lo) { throw lo }
           }
 
-          if (path == "/hpp/admin/api/index_del") {
-            await KVNAME.delete("hpp_doc_draft_list_index")
-            await KVNAME.delete("hpp_doc_list_index")
+          if (rp(path) == '/hpp/admin/api/update') {
+            try {
+              const apireq = await request.json()
+              switch (apireq.action) {
+                case 'update':
+                  if (apireq.dev) {
+                    return hppupdate(config, true)
+                  } else {
+                    return hppupdate(config, false)
+                  }
+                case 'check':
+                  if (await ghlatver(config, false) == hpp_info.ver) {
+                    return genjsonres('不需要更新!', 0, 200)
+                  } else {
+                    return genjsonres('需要更新!', 1, 200, ghlatinfo(config))
+                  }
+              }
+            } catch (lo) { throw lo }
+
+          }
+/*
+
+
+          if (path == "/hpp/admin/api/del_all") {
+            await KVNAME.delete("hpp_config")
+            return new Response('OK')
+          }
+          if (path == "/hpp/admin/api/get_config") { return new Response(await JSON.parse(hpp_config)) }
+          if (path == "/hpp/admin/api/edit_config") {
+            let req_con = await JSON.parse(await request.text())
+            let _index = req_con["index"]
+            let _value = req_con["value"]
+            let k = await JSON.parse(await JSON.parse(hpp_config))
+            k[_index] = _value
+            k = await JSON.stringify(k)
+            await KVNAME.put("hpp_config", await JSON.stringify(k))
+            return new Response('OK')
+          }
+          if (path == "/hpp/admin/api/del_config") {
+            let _index = await request.text()
+            let k = await JSON.parse(await JSON.parse(hpp_config))
+            delete k[_index]
+            await KVNAME.put("hpp_config", await JSON.stringify(await JSON.stringify(k)))
+            return new Response('OK')
+          }
+
+          */
+          if (path == '/hpp/admin/api/kick') {
+            const now = Date.now(new Date())
+            await KVNAME.put("hpp_activetime", now)
+            //const hpp_kvwait = Date.now(new Date()) - now
             return new Response("OK")
           }
+
+
+          //End
+
+          //TalkStart
+
 
           if (path == "/hpp/admin/api/addtalk") {
             let hpp_talk_re = await KVNAME.get("hpp_talk_data")
@@ -533,34 +657,6 @@ async function handleRequest(request) {
             await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
             return new Response('OK')
           }
-          if (path == "/hpp/admin/api/update") {
-            const update_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/worker/dist/main.js`)).text()
-            const up_init = {
-              body: update_script,
-              method: "PUT",
-              headers: {
-                "content-type": "application/javascript",
-                "X-Auth-Key": hpp_CF_Auth_Key,
-                "X-Auth-Email": hpp_Auth_Email
-              }
-            }
-            const update_resul = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${hpp_account_identifier}/workers/scripts/${hpp_script_name}`, up_init)).text()
-            return new Response(JSON.parse(update_resul)["success"])
-          }
-          if (path == "/hpp/admin/api/small_white_mouse_update") {
-            const update_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/dev/worker/dist/main.js`)).text()
-            const up_init = {
-              body: update_script,
-              method: "PUT",
-              headers: {
-                "content-type": "application/javascript",
-                "X-Auth-Key": hpp_CF_Auth_Key,
-                "X-Auth-Email": hpp_Auth_Email
-              }
-            }
-            const update_resul = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${hpp_account_identifier}/workers/scripts/${hpp_script_name}`, up_init)).text()
-            return new Response(JSON.parse(update_resul)["success"])
-          }
           if (path == "/hpp/admin/api/inputtalk") {
             let hpp_talk_re = await KVNAME.get("hpp_talk_data")
             if (hpp_talk_re === null) { hpp_talk_re = "[]" }
@@ -588,38 +684,6 @@ async function handleRequest(request) {
             await KVNAME.put("hpp_talk_id", hpp_talk_id)
             return new Response(JSON.stringify(hpp_talk))
           }
-          if (path.startsWith("/hpp/admin/api/checkupdate")) {
-            const update_check_script = await (await fetch(`https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/main/update.js`)).text()
-            return new Response(update_check_script, { headers: { headers: "content-type: application/javascript; charset=utf-8" } })
-          }
-          if (path == "/hpp/admin/api/del_all") {
-            await KVNAME.delete("hpp_config")
-            return new Response('OK')
-          }
-          if (path == "/hpp/admin/api/get_config") { return new Response(await JSON.parse(hpp_config)) }
-          if (path == "/hpp/admin/api/edit_config") {
-            let req_con = await JSON.parse(await request.text())
-            let _index = req_con["index"]
-            let _value = req_con["value"]
-            let k = await JSON.parse(await JSON.parse(hpp_config))
-            k[_index] = _value
-            k = await JSON.stringify(k)
-            await KVNAME.put("hpp_config", await JSON.stringify(k))
-            return new Response('OK')
-          }
-          if (path == "/hpp/admin/api/del_config") {
-            let _index = await request.text()
-            let k = await JSON.parse(await JSON.parse(hpp_config))
-            delete k[_index]
-            await KVNAME.put("hpp_config", await JSON.stringify(await JSON.stringify(k)))
-            return new Response('OK')
-          }
-          if (path == '/hpp/admin/api/kick') {
-            const now = Date.now(new Date())
-            await KVNAME.put("hpp_activetime", now)
-            const hpp_kvwait = Date.now(new Date()) - now
-            return new Response("OK")
-          }
           if (path == "/hpp/admin/api/gethpptalk") {
             const req_r = await request.text()
             if (req_r != "") {
@@ -644,6 +708,9 @@ async function handleRequest(request) {
               })
             }
           }
+
+
+          //TalkEnd
         }
       }
       else {
