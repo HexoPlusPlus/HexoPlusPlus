@@ -25,10 +25,12 @@ jobs:
         
     - name: Commit files
       run: |
+        git init
+        git add .
         git config --local user.email "chen2778754364@foxmail.com"
         git config --local user.name "ChenYFan"
         git commit -m "生成编译后的文件"
-        
+
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:

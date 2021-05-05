@@ -14,7 +14,7 @@ async function handleRequest(request) {
     data: (function () {
       let d = {}
       for (var l in htalk) {
-        d[l] = (function () {
+        d[htalk[l]["id"]] = (function () {
           let n = htalk[l]
           delete n["id"]
           n["visible"] = n["visible"] == "True" ? true : false

@@ -1,8 +1,8 @@
 import { genres } from './genres'
 export async function htalk(config, request, loginstatus) {
-/*   try {
+/*    try {
         const r = await request.json()
-        let limit,start,hpp_talk
+        let limit, start, hpp_talk
         login = loginstatus || false
         switch (r.action) {
             case 'initialization':
@@ -22,7 +22,7 @@ export async function htalk(config, request, loginstatus) {
                 }
                 return genres(config, `在${(function () { if (login) { return '已登录' } else { return '未登录' } })()}的状态下,已成功获得说说数据`, 200, 0, JSON.stringify(hpp_ralk_res))
             case 'addtalk':
-                let hpp_talk = await KVNAME.get("hpp_talk_data",{ type: "json" })
+                let hpp_talk = await KVNAME.get("hpp_talk_data", { type: "json" })
                 let hpp_talk_id_re = await KVNAME.get("hpp_talk_id")
                 let hpp_talk_id = hpp_talk_id_re;
                 hpp_talk_id++;
