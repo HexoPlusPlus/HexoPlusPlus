@@ -8,9 +8,10 @@ async function handleRequest(request) {
   const config = JSON.parse(JSON.parse("hpp_config"))
   await KVNAME.put("hpp_config", hpp_config)
   const htalk = await KVNAME.get("hpp_talk_data", { type: "json" });
+  const htalkid = await KVNAME.get("hpp_talk_id");
   /*脑残的双重JSON格式化*/
   const newhtalk = {
-    nid: getJsonLength(htalk),
+    nid: htalkid,
     data: (function () {
       let d = {}
       for (var l in htalk) {
