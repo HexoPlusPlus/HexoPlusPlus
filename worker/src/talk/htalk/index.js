@@ -1,45 +1,100 @@
 import { genres } from './genres'
-export async function htalk(config, request, loginstatus) {
-/*    try {
+export async function htalk(config, request, loginstatus, hinfo) {
+    try {
         const r = await request.json()
-        let limit, start, hpp_talk
+        let limit, start, htalk, p, hres, add, talk_init
         login = loginstatus || false
-        switch (r.action) {
-            case 'initialization':
-                await KVNAME.put("htalk", "{}")
-                return genres(config, "初始化成功", 200, 0, '')
-            case 'get':
-                limit = r.limit
-                start = r.start
-                const hpp_talk = await KVNAME.get("htalk", { type: "json" });
-                let hpp_talk_res = []
-                for (var i = getJsonLength(hpp_talk) - start - 1; i > getJsonLength(hpp_talk) - start - limit; i--) {
-                    if (login || hpp_talk[i]["visible"]) {
-                        hpp_talk_res.push(JSON.stringify(hpp_talk[i]))
-                    } else {
-                        limit++
+        if (login) {
+            switch (r.action) {
+                case 'initialization':
+                    await KVNAME.put("htalk", "{}")
+                    return genres(config, "初始化成功", 200, 0, '')
+                case 'get':
+                    htalk = await KVNAME.get("htalk", { type: "json" });
+                    limit = r.limit
+                    start = r.start || htalk.nid
+                    hres = []
+                    p = start
+                    for (var i = 0; i < limit; i++) {
+                        if (!!(htalk["data"][p])) {
+                            hres.push(htalk["data"][p])
+                            p--
+                        } else {
+                            i--
+                            p--
+                        }
                     }
-                }
-                return genres(config, `在${(function () { if (login) { return '已登录' } else { return '未登录' } })()}的状态下,已成功获得说说数据`, 200, 0, JSON.stringify(hpp_ralk_res))
-            case 'addtalk':
-                let hpp_talk = await KVNAME.get("hpp_talk_data", { type: "json" })
-                let hpp_talk_id_re = await KVNAME.get("hpp_talk_id")
-                let hpp_talk_id = hpp_talk_id_re;
-                hpp_talk_id++;
-                const now = await request.json()
-                const add = {
-                    id: hpp_talk_id,
-                    time: now["time"],
-                    name: now["name"],
-                    avatar: now["avatar"],
-                    content: now["content"],
-                    visible: "True"
-                }
-                hpp_talk.push(add);
-                await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
-                await KVNAME.put("hpp_talk_id", hpp_talk_id)
-                return new Response('OK')
+                    return genres(config, `在${(function () { if (login) { return '已登录' } else { return '未登录' } })()}的状态下,已成功获得说说数据`, 200, 0, JSON.stringify(hres))
+                case 'add':
+                    htalk = await KVNAME.get("htalk", { type: "json" })
+                    add = {
+                        id: htalk["nid"] + 1,
+                        time: r.time,
+                        name: r.name || hinfo.username,
+                        avatar: r.avatar,
+                        content: r.content,
+                        visible: true
+                    }
+                    htalk.data.push(add);
+                    htalk.nid += 1
+
+                    await KVNAME.put("htalk", JSON.stringify(htalk))
+                    return genres(config, `已成功上传说说数据`, 200, 0, '')
+                case 'del':
+                    htalk = await KVNAME.get("htalk", { type: "json" })
+                    delete htalk.data[r.id]
+                    await KVNAME.put("htalk", JSON.stringify(htalk))
+                    return genres(config, `已成功删除id为${r.id}的数据`, 200, 0, '')
+                case 'visible':
+                    htalk = await KVNAME.get("htalk", { type: "json" })
+                    htalk.data[r.id].visible = htalk.data[r.id].visible ? false : true
+                    await KVNAME.put("htalk", JSON.stringify(htalk))
+                    return genres(config, `已改变id为${r.id}的数据的可见性`, 200, 0, '')
+
+
+                case 'inputartitalk':
+
+
+                    htalk = await KVNAME.get("htalk", { type: "json" })
+                    for (var i = 0; i < r.ctx.length; i++) {
+                        htalk.nid++;
+                        talk_init = {
+                            id: hpp_talk_id,
+                            time: r.ctx[i].updatedAt.split('T')[0],
+                            name: hinfo.username,
+                            avatar: r.ctx[i].avatar,
+                            content: r.ctx[i].atContentHtml,
+                            visible: "True"
+                        }
+                        htalk.data[htalk.nid] = talk_init
+                    }
+                    await KVNAME.put("htalk", JSON.stringify(htalk))
+                    return genres(config, `已导入${r.ctx.length}条!`, 200, 0, '')
+                default:
+                    return genres(config, `未知的操作`, 500, -1, '')
+            }
+        } else {
+            switch (r.action) {
+                case 'get':
+                    htalk = await KVNAME.get("htalk", { type: "json" });
+                    limit = r.limit
+                    start = r.start || htalk.nid
+                    hres = []
+                    p = start
+                    for (var i = 0; i < limit; i++) {
+                        if ((function () { try { return htalk["data"][p]["visible"] } catch (m) { return false } }()) && !!(htalk["data"][p])) {
+                            hres.push(htalk["data"][p])
+                            p--
+                        } else {
+                            i--
+                            p--
+                        }
+                    }
+                    return genres(config, `在${(function () { if (login) { return '已登录' } else { return '未登录' } })()}的状态下,已成功获得说说数据`, 200, 0, JSON.stringify(hres))
+                default:
+                    return genres(config, `未知的操作`, 500, -1, '')
+            }
         }
     }
-    catch (lo2) { return genres(config, lo2, 500, -1, '') }*/
+    catch (lo2) { return genres(config, lo2, 500, -1, '') }
 }

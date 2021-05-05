@@ -4,9 +4,10 @@ import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix, genjson
 import { ghupload, ghdel, ghget, ghlatver, ghlatinfo } from './src/github/manager'
 import { hppupdate } from './src/update.js'
 import { htalk } from './src/talk/htalk/index'
+import { genactiveres } from './src/getblogeractive'
 //const hpp_CDNver = "91dcf20"
 
-const hinfo = {
+let hinfo = {
   ver: "HexoPlusPlus@1.2.1_β_3",
   CDN: `https://hppstatic.pages.dev/`
 }
@@ -29,6 +30,7 @@ async function handleRequest(request) {
     const domain = (urlStr.split('/'))[2]
     const username = hpp_username.split(",");
     const password = hpp_password.split(",");
+    hinfo.username = username
 
 
 
@@ -109,618 +111,510 @@ async function handleRequest(request) {
           await KVNAME.put("hpp_config", config_r)
           return new Response("OK")
         }
-        if (hpp_config === null || rp(path) == "/hpp/admin/install") {
-
-          let hpp_installhtml = gethtml.installhtml(config, hpp_CDN, hpp_ver)
+        if (rp(path) == "/hpp/admin/install") {
+          let hpp_installhtml = gethtml.installhtml(config, hinfo)
           return new Response(hpp_installhtml, {
             headers: { "content-type": "text/html;charset=UTF-8" }
           })
 
-        } else {
+        }
 
 
-          if (config.hpp_autodate == "True") {
-            const now = Date.now(new Date())
-            await KVNAME.put("hpp_activetime", now)
-            const hpp_kvwait = Date.now(new Date()) - now
+        if (config.hpp_autodate == "True") {
+          const now = Date.now(new Date())
+          await KVNAME.put("hpp_activetime", now)
+          const hpp_kvwait = Date.now(new Date()) - now
+        }
+        /*主面板*/
+        if (path.startsWith("/hpp/admin/dash")) {
+          let ainfo = {
+            hpp_home_act: "",
+            hpp_edit_act: "",
+            hpp_talk_act: "",
+            hpp_docs_man_act: "",
+            hpp_img_man_act: "",
+            hpp_tool_act: "",
+            hpp_set_act: ""
           }
-          /*主面板*/
-          if (path.startsWith("/hpp/admin/dash")) {
-            let hpp_home_act = ""
-            let hpp_edit_act = ""
-            let hpp_talk_act = ""
-            let hpp_docs_man_act = ""
-            let hpp_img_man_act = ""
-            let hpp_tool_act = ""
-            let hpp_set_act = ""
-            let hpp_init = gethtml.dash404
-            if (rp(path) == "/hpp/admin/dash/home") {
-              hpp_home_act = " active"
-              hpp_init = gethtml.dashhome(hpp_ver)
-              hpp_js = gethtml.dashhomejs(hpp_ver)
-            }
-            if (rp(path) == "/hpp/admin/dash/edit") {
-              hpp_edit_act = " active"
-              hpp_init = gethtml.dashedit
-              hpp_js = gethtml.dasheditjs(config.hpp_highlight_style)
-            }
-            if (rp(path) == "/hpp/admin/dash/talk") {
-              hpp_talk_act = " active"
-              hpp_init = gethtml.dashtalk
-              hpp_js = gethtml.dashtalkjs(hpp_CDN)
-            }
-            if (rp(path) == "/hpp/admin/dash/docs_man") {
-              hpp_docs_man_act = " active"
-              hpp_init = gethtml.dashdocs
-              hpp_js = gethtml.dashdocsjs(hpp_CDN)
+          let hpp_init = gethtml.dash404
+          if (rp(path) == "/hpp/admin/dash/home") {
+            ainfo.hpp_home_act = " active"
+            hpp_init = gethtml.dashhome(hpp_ver)
+            hpp_js = gethtml.dashhomejs(hpp_ver)
+          }
+          if (rp(path) == "/hpp/admin/dash/edit") {
+            ainfo.hpp_edit_act = " active"
+            hpp_init = gethtml.dashedit
+            hpp_js = gethtml.dasheditjs(config.hpp_highlight_style)
+          }
+          if (rp(path) == "/hpp/admin/dash/talk") {
+            ainfo.hpp_talk_act = " active"
+            hpp_init = gethtml.dashtalk
+            hpp_js = gethtml.dashtalkjs(hpp_CDN)
+          }
+          if (rp(path) == "/hpp/admin/dash/docs_man") {
+            ainfo.hpp_docs_man_act = " active"
+            hpp_init = gethtml.dashdocs
+            hpp_js = gethtml.dashdocsjs(hpp_CDN)
 
-            }
-            if (rp(path) == "/hpp/admin/dash/img_man") {
-              hpp_img_man_act = " active"
-              hpp_init = gethtml.dashimg
-              hpp_js = gethtml.dashimgjs(hpp_CDN)
-            }
-            if (rp(path) == "/hpp/admin/dash/tool") {
-              hpp_tool_act = " active"
-              hpp_init = gethtml.dashtool
-              hpp_js = gethtml.dashtooljs(hpp_CDN)
-            }
-            /* if (rp(path) == "/hpp/admin/dash/set") {
-               hpp_set_act = " active"
-               hpp_init = `<div class="content">
-         <div class="container-fluid">
-           <div class="row">
-             <div class="col-md-12">
-               <div class="card">
-                 <div class="card-header card-header-primary">
-                   <h4 class="card-title ">配置</h4>
-                   <p class="card-category">请根据需要修改配置</p>
-                 </div>
-                 <div class="card-body">
-                   <div class="table-responsive">
-           <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索配置...">
-                     <table class="table" id="hpp_table">
-                       <thead class=" text-primary">
-                         <th>
-                           键值
-                         </th>
-                         <th>
-                           内容
-                         </th><th>操作</th>
-                       </thead>
-                       <tbody id="tbody_config">
-           	
-                       </tbody>
-                     </table>
-                   </div>
+          }
+          if (rp(path) == "/hpp/admin/dash/img_man") {
+            ainfo.hpp_img_man_act = " active"
+            hpp_init = gethtml.dashimg
+            hpp_js = gethtml.dashimgjs(hpp_CDN)
+          }
+          if (rp(path) == "/hpp/admin/dash/tool") {
+            ainfo.hpp_tool_act = " active"
+            hpp_init = gethtml.dashtool
+            hpp_js = gethtml.dashtooljs(hpp_CDN)
+          }
+          /* if (rp(path) == "/hpp/admin/dash/set") {
+             hpp_set_act = " active"
+             hpp_init = `<div class="content">
+       <div class="container-fluid">
+         <div class="row">
+           <div class="col-md-12">
+             <div class="card">
+               <div class="card-header card-header-primary">
+                 <h4 class="card-title ">配置</h4>
+                 <p class="card-category">请根据需要修改配置</p>
+               </div>
+               <div class="card-body">
+                 <div class="table-responsive">
+         <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索配置...">
+                   <table class="table" id="hpp_table">
+                     <thead class=" text-primary">
+                       <th>
+                         键值
+                       </th>
+                       <th>
+                         内容
+                       </th><th>操作</th>
+                     </thead>
+                     <tbody id="tbody_config">
+         	
+                     </tbody>
+                   </table>
                  </div>
                </div>
              </div>
            </div>
          </div>
-       </div>`
-               hpp_js = `<script src='${hpp_CDN}config.js'></script>`
-             }*/
+       </div>
+     </div>`
+             hpp_js = `<script src='${hpp_CDN}config.js'></script>`
+           }*/
 
-            /*
-             let hpp_plugin = ""
-            if (hpp_plugin_css != undefined) { hpp_plugin += `<link rel="stylesheet" type="text/css" href="${hpp_plugin_css}" />` }
-            if (hpp_plugin_js != undefined) { hpp_js += `<script src="${hpp_plugin_js}"></script>` }
-            */
-            /*
-               const hpp_ver="${hpp_ver}";
-               const hpp_OwO="${hpp_OwO}";
-               const avatar="${hpp_userimage}";
-               const username="${username[0]}";
-               const hpp_githubdocusername = "${hpp_githubdocusername}"
-               const hpp_githubdocrepo ="${hpp_githubdocrepo}"
-               const hpp_githubdocbranch ="${hpp_githubdocbranch}"
-               const hpp_githubdocpath ="${hpp_githubdocpath}"
-               const hpp_githubimageusername = "${hpp_githubimageusername}"
-               const hpp_githubimagerepo ="${hpp_githubimagerepo}"
-               const hpp_githubimagebranch ="${hpp_githubimagebranch}"
-               const hpp_githubimagepath ="${hpp_githubimagepath}"
-               const hpp_githubdocdraftpath ="${hpp_githubdocdraftpath}"
-               const hpp_lazy_img = "${hpp_lazy_img}"
-               const hpp_highlight_style = "${hpp_highlight_style}"
-               const hpp_page_limit = ${hpp_page_limit}
-               */
-            let hpp_dash_head = `<!DOCTYPE html>
-            <html lang="en">
-            
-            <head>
-              <meta charset="utf-8" />
-              <link rel="apple-touch-icon" sizes="76x76" href="${config.hpp_usericon}">
-              <link rel="icon" type="image/png" href="${config.hpp_usericon}">
-              <title>${config.hpp_title}</title>
-              <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-              ${config.hpp_plugin}
-              <link rel="stylesheet" type="text/css" href="${hpp_CDN}font.css" />
-              <link href="${hpp_CDN}admin_all_${config.hpp_theme_mode}.css" rel="stylesheet" />
-              <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
-              <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-              <script>
-              //这个脚本的用途是前端变量传递
-              const config = ${JSON.stringify(config)}
-              </script>
-            </head>
-            <body class="${config.hpp_theme_mode == 'dark' ? 'dark-edition' : ''}">
-              <div class="wrapper ">
-                <div class="sidebar" data-color="${config.hpp_color}" data-background-color="${config.hpp_theme_mode == 'dark' ? 'default' : config.hpp_bg_color}" data-image="${config.hpp_back}">
-                  <div class="logo"><a class="simple-text logo-normal">${hpp_title}</a></div>
-                  <div class="sidebar-wrapper">
-                    <ul class="nav">
-                      <li class="nav-item${hpp_home_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/home">
-                          <i class="material-icons">dashboard</i>
-                          <p>主页</p>
-                        </a>
-                      </li>
-                      <li class="nav-item${hpp_edit_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/edit">
-                          <i class="material-icons">create</i>
-                          <p>书写</p>
-                        </a>
-                      </li>
-                      <li class="nav-item${hpp_talk_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/talk">
-                          <i class="material-icons">chat</i>
-                          <p>说说</p>
-                        </a>
-                      </li>
-                      <li class="nav-item${hpp_docs_man_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/docs_man">
-                          <i class="material-icons">descriptionoutlined</i>
-                          <p>文档管理</p>
-                        </a>
-                      </li>
-                      <li class="nav-item${hpp_img_man_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/img_man">
-                          <i class="material-icons">imagerounded</i>
-                          <p>图片管理</p>
-                        </a>
-                      </li>
-                      <li class="nav-item${hpp_tool_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/tool">
-                          <i class="material-icons">widgets</i>
-                          <p>工具</p>
-                        </a>
-                      </li>
-                      <li class="nav-item${hpp_set_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/set">
-                          <i class="material-icons">settings</i>
-                          <p>设置</p>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="main-panel">
-                  <!-- Navbar -->
-                  <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-                    <div class="container-fluid">
-                      <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="javascript:;">HexoPlusPlus后台</a>
-                      </div>
-                      <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="navbar-toggler-icon icon-bar"></span>
-                        <span class="navbar-toggler-icon icon-bar"></span>
-                        <span class="navbar-toggler-icon icon-bar"></span>
-                      </button>
-                      <div class="collapse navbar-collapse justify-content-end">
-                        <ul class="navbar-nav">
-                          <li class="nav-item dropdown">
-                            <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <img src="${config.hpp_userimage}" style="width: 30px;border-radius: 50%;border: 0;">
-                              <p class="d-lg-none d-md-block">
-                                Account
-                              </p>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                              <a class="dropdown-item" href="javascript:kick()">签到</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="javascript:hpp_logout()">退出</a>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </nav>
-                  <!-- End Navbar --> 
-            
-            <!--innerHTMLSTART-->`
-            let hpp_dash_foot = `
-            <!--innerHTMLEND-->
-</div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
-<script src="${hpp_CDN}admin_all.js"></script>
-
-</body>
-
-</html>`
-            let hpp_dash = `${hpp_dash_head}${hpp_init}${hpp_dash_foot}`
-            return new Response(hpp_dash, {
-              headers: { "content-type": "text/html;charset=UTF-8" }
-            })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          }
-
-
-          if (rp(path) == '/hpp/admin/api/github') {
-            try {
-              let r, rs, name, msgd, hpp_list_index
-              const apireq = await request.json()
-              switch (apireq.action) {
-                case 'adddoc':
-                  r = await ghupload({
-                    file: apireq.file,
-                    username: config.hpp_githubdocusername,
-                    reponame: config.hpp_githubdocrepo,
-                    path: config.githubdocpath,
-                    branch: config.hpp_githubdocbranch,
-                    filename: apireq.filename,
-                    token: config.hpp_githubdoctoken
-                  })
-                  rs = await rs.status
-                  if (rs == 200 || rs == 201) {
-                    if (rs == 201) { await KVNAME.delete("hpp_doc_list_index"); return genjsonres('新建文档成功！', 0, rs) }
-                    return genjsonres('上传文档成功！', 0, rs)
-                  } else {
-                    return genjsonres('上传/新建文档失败！', 1, rs)
-                  }
-                case 'adddraft':
-
-                  r = await ghupload({
-                    file: apireq.file,
-                    username: config.hpp_githubdocusername,
-                    reponame: config.hpp_githubdocrepo,
-                    path: config.githubdocdraftpath,
-                    branch: config.hpp_githubdocbranch,
-                    filename: apireq.filename,
-                    token: config.hpp_githubdoctoken
-                  })
-                  rs = await rs.status
-                  if (rs == 200 || rs == 201) {
-                    if (rs == 201) { await KVNAME.delete("hpp_doc_draft_list_index"); return genjsonres('上传草稿成功！', 0, rs) }
-                    return genjsonres('上传草稿成功！', 0, rs)
-                  } else {
-                    return genjsonres('新建草稿失败！', 0, rs)
-                  }
-                case 'addimg':
-                  name = `${Date.parse(new Date())}.${apireq.suffix}`
-                  r = await ghupload({
-                    file: apireq.file,
-                    username: config.hpp_githubimageusername,
-                    reponame: config.hpp_githubimagerepo,
-                    path: config.githubimagepath,
-                    branch: config.hpp_githubimagebranch,
-                    filename: name,
-                    token: config.hpp_githubimagetoken
-                  })
-                  rs = await rs.status
-
-                  if (rs == 200 || rs == 201) {
-                    const jsdurl = `https://cdn.jsdelivr.net/gh/${config.hpp_githubimageusername}/${config.hpp_githubimagerepo}@${config.hpp_githubimagebranch}${config.hpp_githubimagepath}${name}`
-
-                    return genjsonres('上传图片成功！', 0, rs, jsdurl)
-                  } else {
-                    return genjsonres('上传图片失败！', -1, rs)
-                  }
-                case 'deldoc':
-                  r = await ghdel({
-                    username: config.hpp_githubdocusername,
-                    reponame: config.hpp_githubdocrepo,
-                    path: config.githubdocpath,
-                    branch: config.hpp_githubdocbranch,
-                    filename: apireq.filename,
-                    token: config.hpp_githubdoctoken
-                  })
-                  rs = await rs.status
-                  if (rs == 200) {
-                    await KVNAME.delete("hpp_doc_list_index")
-                    return genjsonres('删除文档成功！', 0, rs)
-                  } else {
-                    return genjsonres('删除文档失败！', -1, rs)
-                  }
-                case 'deldraft':
-                  r = await ghdel({
-                    username: config.hpp_githubdocusername,
-                    reponame: config.hpp_githubdocrepo,
-                    path: config.githubdocdraftpath,
-                    branch: config.hpp_githubdocbranch,
-                    filename: apireq.filename,
-                    token: config.hpp_githubdoctoken
-                  })
-                  rs = await rs.status
-                  if (rs == 200) {
-                    await KVNAME.delete("hpp_doc_list_index")
-                    return genjsonres('删除艹稿成功！', 0, rs)
-                  } else {
-                    return genjsonres('删除艹稿失败！', -1, rs)
-                  }
-
-                case 'delimg':
-                  r = await ghdel({
-                    username: config.hpp_githubimageusername,
-                    reponame: config.hpp_githubimagerepo,
-                    path: config.githubimagepath,
-                    branch: config.hpp_githubimagebranch,
-                    filename: apireq.filename,
-                    token: config.hpp_githubimagetoken
-                  })
-                  rs = await rs.status
-                  if (rs == 200) {
-                    await KVNAME.delete("hpp_doc_list_index")
-                    return genjsonres('删除图片成功！', 0, rs)
-                  } else {
-                    return genjsonres('删除图片失败！', -1, rs)
-                  }
-                case 'getdoc':
-                  return ghget({
-                    username: config.hpp_githubdocusername,
-                    reponame: config.hpp_githubdocrepo,
-                    path: config.githubdocpath,
-                    branch: config.hpp_githubdocbranch,
-                    filename: apireq.filename,
-                    token: config.hpp_githubdoctoken
-                  })
-                case 'getdraft':
-                  return ghget({
-                    username: config.hpp_githubdocusername,
-                    reponame: config.hpp_githubdocrepo,
-                    path: config.githubdocdraftpath,
-                    branch: config.hpp_githubdocbranch,
-                    filename: apireq.filename,
-                    token: config.hpp_githubdoctoken
-                  })
-                case 'getscaffolds':
-                  return ghget({
-                    username: config.hpp_githubdocusername,
-                    reponame: config.hpp_githubdocrepo,
-                    path: `${hpp_githubdocroot}scaffolds/`,
-                    branch: config.hpp_githubdocbranch,
-                    filename: 'post.md',
-                    token: config.hpp_githubdoctoken
-                  })
-                case 'getdoclist':
-                  msgd = '命中了缓存,获取文章列表成功！'
-                  hpp_list_index = await KVNAME.get("hpp_doc_list_index")
-                  if (hpp_list_index === null) {
-                    hpp_list_index = JSON.stringify(await ghtreelist({
-                      username: config.hpp_githubdocusername,
-                      reponame: config.hpp_githubdocrepo,
-                      path: config.githubdocpath,
-                      branch: config.hpp_githubdocbranch,
-                      token: config.hpp_githubdoctoken
-                    }))
-                    await KVNAME.put("hpp_doc_list_index", hpp_list_index)
-                    msgd = '没有命中缓存,获取文章列表成功！'
-                  }
-                  return genjsonres(msgd, 0, 200, hpp_list_index)
-
-                case 'getdraftlist':
-                  msgd = '命中了缓存,获取艹稿列表成功！'
-                  hpp_list_index = await KVNAME.get("hpp_doc_draft_list_index")
-                  if (hpp_list_index === null) {
-                    hpp_list_index = JSON.stringify(await ghtreelist({
-                      username: config.hpp_githubdocusername,
-                      reponame: config.hpp_githubdocrepo,
-                      path: config.githubdocdraftpath,
-                      branch: config.hpp_githubdocbranch,
-                      token: config.hpp_githubdoctoken
-                    }))
-                    await KVNAME.put("hpp_doc_draft_list_index", hpp_list_index)
-                    msgd = '没有命中缓存,获取艹稿列表成功！'
-                  }
-                  return genjsonres(msgd, 0, 200, hpp_list_index)
-
-
-                case 'getimglist':
-                  msgd = '命中了缓存,获取图片列表成功！'
-                  hpp_list_index = await KVNAME.get("hpp_img_list_index")
-                  if (hpp_list_index === null) {
-                    hpp_list_index = JSON.stringify(await ghtreelist({
-                      username: config.hpp_githubimageusername,
-                      reponame: config.hpp_githubimagerepo,
-                      path: config.githubimagepath,
-                      branch: config.hpp_githubimagebranch,
-                      token: config.hpp_githubimagetoken
-                    }))
-                    await KVNAME.put("hpp_img_list_index", hpp_list_index)
-                    msgd = '没有命中缓存,获取图片列表成功！'
-                  }
-                  return genjsonres(msgd, 0, 200, hpp_list_index)
-                case 'delindex':
-                  await KVNAME.delete("hpp_doc_draft_list_index")
-                  await KVNAME.delete("hpp_doc_list_index")
-                  await KVNAME.delete("hpp_img_list_index")
-                  return genjsonres('清除索引缓存成功!', 0, 200)
-                default:
-                  throw '未知的操作'
-              }
-            } catch (lo) { throw lo }
-          }
-
-          if (rp(path) == '/hpp/admin/api/update') {
-            try {
-              const apireq = await request.json()
-              switch (apireq.action) {
-                case 'update':
-                  if (apireq.dev) {
-                    return hppupdate(config, true)
-                  } else {
-                    return hppupdate(config, false)
-                  }
-                case 'check':
-                  if (await ghlatver(config, false) == hpp_info.ver) {
-                    return genjsonres('不需要更新!', 0, 200)
-                  } else {
-                    return genjsonres('需要更新!', 1, 200, ghlatinfo(config))
-                  }
-              }
-            } catch (lo) { throw lo }
-
-          }
           /*
-          
-          
-                    if (rp(path) == "/hpp/admin/api/del_all") {
-                      await KVNAME.delete("hpp_config")
-                      return new Response('OK')
-                    }
-                    if (rp(path) == "/hpp/admin/api/get_config") { return new Response(await JSON.parse(hpp_config)) }
-                    if (rp(path) == "/hpp/admin/api/edit_config") {
-                      let req_con = await JSON.parse(await request.text())
-                      let _index = req_con["index"]
-                      let _value = req_con["value"]
-                      let k = await JSON.parse(await JSON.parse(hpp_config))
-                      k[_index] = _value
-                      k = await JSON.stringify(k)
-                      await KVNAME.put("hpp_config", await JSON.stringify(k))
-                      return new Response('OK')
-                    }
-                    if (rp(path) == "/hpp/admin/api/del_config") {
-                      let _index = await request.text()
-                      let k = await JSON.parse(await JSON.parse(hpp_config))
-                      delete k[_index]
-                      await KVNAME.put("hpp_config", await JSON.stringify(await JSON.stringify(k)))
-                      return new Response('OK')
-                    }
-          
-                    */
-          if (rp(path) == '/hpp/admin/api/kick') {
-            const now = Date.now(new Date())
-            await KVNAME.put("hpp_activetime", now)
-            //const hpp_kvwait = Date.now(new Date()) - now
-            return new Response("OK")
-          }
+           let hpp_plugin = ""
+          if (hpp_plugin_css != undefined) { hpp_plugin += `<link rel="stylesheet" type="text/css" href="${hpp_plugin_css}" />` }
+          if (hpp_plugin_js != undefined) { hpp_js += `<script src="${hpp_plugin_js}"></script>` }
+          */
+          /*
+             const hpp_ver="${hpp_ver}";
+             const hpp_OwO="${hpp_OwO}";
+             const avatar="${hpp_userimage}";
+             const username="${username[0]}";
+             const hpp_githubdocusername = "${hpp_githubdocusername}"
+             const hpp_githubdocrepo ="${hpp_githubdocrepo}"
+             const hpp_githubdocbranch ="${hpp_githubdocbranch}"
+             const hpp_githubdocpath ="${hpp_githubdocpath}"
+             const hpp_githubimageusername = "${hpp_githubimageusername}"
+             const hpp_githubimagerepo ="${hpp_githubimagerepo}"
+             const hpp_githubimagebranch ="${hpp_githubimagebranch}"
+             const hpp_githubimagepath ="${hpp_githubimagepath}"
+             const hpp_githubdocdraftpath ="${hpp_githubdocdraftpath}"
+             const hpp_lazy_img = "${hpp_lazy_img}"
+             const hpp_highlight_style = "${hpp_highlight_style}"
+             const hpp_page_limit = ${hpp_page_limit}
+             */
+          let hpp_dash_head = gethtml.dash_head(config, hinfo, ainfo)
+          let hpp_dash_foot = gethtml.dash_foot(hinfo)
+          let hpp_dash = `${hpp_dash_head}${hpp_init}${hpp_dash_foot}`
+          return new Response(hpp_dash, {
+            headers: { "content-type": "text/html;charset=UTF-8" }
+          })
 
 
-          //End
-
-          //TalkStart
-
-          if (rp(path) == '/hpp/admin/api/talk/htalk') {
-            return htalk(config, request, loginstatus)
-          }
 
 
-          
-          if (rp(path) == "/hpp/admin/api/addtalk") {
-            let hpp_talk_re = await KVNAME.get("hpp_talk_data")
-            if (hpp_talk_re === null) { hpp_talk_re = "[]" }
-            let hpp_talk = await JSON.parse(hpp_talk_re);
-            let hpp_talk_id_re = await KVNAME.get("hpp_talk_id")
-            if (hpp_talk_id_re === null) { hpp_talk_id_re = 0 }
-            let hpp_talk_id = hpp_talk_id_re;
-            hpp_talk_id++;
-            const now = await request.json()
-            const add = {
-              id: hpp_talk_id,
-              time: now["time"],
-              name: now["name"],
-              avatar: now["avatar"],
-              content: now["content"],
-              visible: "True"
-            }
-            hpp_talk.push(add);
-            await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
-            await KVNAME.put("hpp_talk_id", hpp_talk_id)
-            return new Response('OK')
-          }
-          if (rp(path) == "/hpp/admin/api/deltalk") {
-            const hpp_talk = JSON.parse(await KVNAME.get("hpp_talk_data"));
-            const now = Number(await request.text())
-            for (var i = 0; i < getJsonLength(hpp_talk); i++) {
-              if (Number(hpp_talk[i]["id"]) == now) {
-                hpp_talk.splice(i, 1)
-              }
-            }
-            await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
-            return new Response('OK')
-          }
-          if (rp(path) == "/hpp/admin/api/visibletalk") {
-            const hpp_talk = JSON.parse(await KVNAME.get("hpp_talk_data"));
-            const now = await request.text()
-            for (var i = 0; i < getJsonLength(hpp_talk); i++) {
-              if (hpp_talk[i]["id"] == now) {
-                hpp_talk[i]["visible"] = hpp_talk[i]["visible"] == "False" ? "True" : "False"
-              }
-            }
-            await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
-            return new Response('OK')
-          }
-          if (rp(path) == "/hpp/admin/api/inputtalk") {
-            let hpp_talk_re = await KVNAME.get("hpp_talk_data")
-            if (hpp_talk_re === null) { hpp_talk_re = "[]" }
-            let hpp_talk = await JSON.parse(hpp_talk_re);
-            let hpp_talk_id_re = await KVNAME.get("hpp_talk_id")
-            if (hpp_talk_id_re === null) { hpp_talk_id_re = 0 }
-            let hpp_talk_id = hpp_talk_id_re;
-            let now = await JSON.parse(await request.text())
-            let talk_init = {}
-            for (var i = 0; i < now.length; i++) {
-              hpp_talk_id++;
-              ftime = now[i]["updatedAt"]
-              ftime = ftime.split('T')
-              talk_init = {
-                id: hpp_talk_id,
-                time: ftime[0],
-                name: username[0],
-                avatar: now[i]["avatar"],
-                content: now[i]["atContentHtml"],
-                visible: "True"
-              }
-              hpp_talk.push(talk_init)
-            }
-            await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
-            await KVNAME.put("hpp_talk_id", hpp_talk_id)
-            return new Response(JSON.stringify(hpp_talk))
-          }
-          if (rp(path) == "/hpp/admin/api/gethpptalk") {
-            const req_r = await request.text()
-            if (req_r != "") {
-              const limit = (await JSON.parse(req_r))["limit"]
-              const start = (await JSON.parse(req_r))["start"]
-              const hpp_talk = await JSON.parse(await KVNAME.get("hpp_talk_data"));
-              let hpp_talk_res = []
-              for (var i = getJsonLength(hpp_talk) - start - 1; i > getJsonLength(hpp_talk) - start - limit; i--) {
-                hpp_talk_res.push(await JSON.stringify(hpp_talk[i]))
-              }
-              return new Response(JSON.stringify(hpp_talk_res), {
-                headers: {
-                  "content-type": "application/json;charset=UTF-8",
-                  "Access-Control-Allow-Origin": "*"
-                }
-              })
-            } else {
-              return new Response("ERROR", {
-                headers: {
-                  "Access-Control-Allow-Origin": "*"
-                }
-              })
-            }
-          }
 
 
-          //TalkEnd
+
+
+
+
+
+
+
+
         }
+
+
+        if (rp(path) == '/hpp/admin/api/github') {
+          try {
+            let r, rs, name, msgd, hpp_list_index
+            const apireq = await request.json()
+            switch (apireq.action) {
+              case 'adddoc':
+                r = await ghupload({
+                  file: apireq.file,
+                  username: config.hpp_githubdocusername,
+                  reponame: config.hpp_githubdocrepo,
+                  path: config.githubdocpath,
+                  branch: config.hpp_githubdocbranch,
+                  filename: apireq.filename,
+                  token: config.hpp_githubdoctoken
+                })
+                rs = await rs.status
+                if (rs == 200 || rs == 201) {
+                  if (rs == 201) { await KVNAME.delete("hpp_doc_list_index"); return genjsonres('新建文档成功！', 0, rs) }
+                  return genjsonres('上传文档成功！', 0, rs)
+                } else {
+                  return genjsonres('上传/新建文档失败！', 1, rs)
+                }
+              case 'adddraft':
+
+                r = await ghupload({
+                  file: apireq.file,
+                  username: config.hpp_githubdocusername,
+                  reponame: config.hpp_githubdocrepo,
+                  path: config.githubdocdraftpath,
+                  branch: config.hpp_githubdocbranch,
+                  filename: apireq.filename,
+                  token: config.hpp_githubdoctoken
+                })
+                rs = await rs.status
+                if (rs == 200 || rs == 201) {
+                  if (rs == 201) { await KVNAME.delete("hpp_doc_draft_list_index"); return genjsonres('上传草稿成功！', 0, rs) }
+                  return genjsonres('上传草稿成功！', 0, rs)
+                } else {
+                  return genjsonres('新建草稿失败！', 0, rs)
+                }
+              case 'addimg':
+                name = `${Date.parse(new Date())}.${apireq.suffix}`
+                r = await ghupload({
+                  file: apireq.file,
+                  username: config.hpp_githubimageusername,
+                  reponame: config.hpp_githubimagerepo,
+                  path: config.githubimagepath,
+                  branch: config.hpp_githubimagebranch,
+                  filename: name,
+                  token: config.hpp_githubimagetoken
+                })
+                rs = await rs.status
+
+                if (rs == 200 || rs == 201) {
+                  const jsdurl = `https://cdn.jsdelivr.net/gh/${config.hpp_githubimageusername}/${config.hpp_githubimagerepo}@${config.hpp_githubimagebranch}${config.hpp_githubimagepath}${name}`
+
+                  return genjsonres('上传图片成功！', 0, rs, jsdurl)
+                } else {
+                  return genjsonres('上传图片失败！', -1, rs)
+                }
+              case 'deldoc':
+                r = await ghdel({
+                  username: config.hpp_githubdocusername,
+                  reponame: config.hpp_githubdocrepo,
+                  path: config.githubdocpath,
+                  branch: config.hpp_githubdocbranch,
+                  filename: apireq.filename,
+                  token: config.hpp_githubdoctoken
+                })
+                rs = await rs.status
+                if (rs == 200) {
+                  await KVNAME.delete("hpp_doc_list_index")
+                  return genjsonres('删除文档成功！', 0, rs)
+                } else {
+                  return genjsonres('删除文档失败！', -1, rs)
+                }
+              case 'deldraft':
+                r = await ghdel({
+                  username: config.hpp_githubdocusername,
+                  reponame: config.hpp_githubdocrepo,
+                  path: config.githubdocdraftpath,
+                  branch: config.hpp_githubdocbranch,
+                  filename: apireq.filename,
+                  token: config.hpp_githubdoctoken
+                })
+                rs = await rs.status
+                if (rs == 200) {
+                  await KVNAME.delete("hpp_doc_list_index")
+                  return genjsonres('删除艹稿成功！', 0, rs)
+                } else {
+                  return genjsonres('删除艹稿失败！', -1, rs)
+                }
+
+              case 'delimg':
+                r = await ghdel({
+                  username: config.hpp_githubimageusername,
+                  reponame: config.hpp_githubimagerepo,
+                  path: config.githubimagepath,
+                  branch: config.hpp_githubimagebranch,
+                  filename: apireq.filename,
+                  token: config.hpp_githubimagetoken
+                })
+                rs = await rs.status
+                if (rs == 200) {
+                  await KVNAME.delete("hpp_doc_list_index")
+                  return genjsonres('删除图片成功！', 0, rs)
+                } else {
+                  return genjsonres('删除图片失败！', -1, rs)
+                }
+              case 'getdoc':
+                return ghget({
+                  username: config.hpp_githubdocusername,
+                  reponame: config.hpp_githubdocrepo,
+                  path: config.githubdocpath,
+                  branch: config.hpp_githubdocbranch,
+                  filename: apireq.filename,
+                  token: config.hpp_githubdoctoken
+                })
+              case 'getdraft':
+                return ghget({
+                  username: config.hpp_githubdocusername,
+                  reponame: config.hpp_githubdocrepo,
+                  path: config.githubdocdraftpath,
+                  branch: config.hpp_githubdocbranch,
+                  filename: apireq.filename,
+                  token: config.hpp_githubdoctoken
+                })
+              case 'getscaffolds':
+                return ghget({
+                  username: config.hpp_githubdocusername,
+                  reponame: config.hpp_githubdocrepo,
+                  path: `${hpp_githubdocroot}scaffolds/`,
+                  branch: config.hpp_githubdocbranch,
+                  filename: 'post.md',
+                  token: config.hpp_githubdoctoken
+                })
+              case 'getdoclist':
+                msgd = '命中了缓存,获取文章列表成功！'
+                hpp_list_index = await KVNAME.get("hpp_doc_list_index")
+                if (hpp_list_index === null) {
+                  hpp_list_index = JSON.stringify(await ghtreelist({
+                    username: config.hpp_githubdocusername,
+                    reponame: config.hpp_githubdocrepo,
+                    path: config.githubdocpath,
+                    branch: config.hpp_githubdocbranch,
+                    token: config.hpp_githubdoctoken
+                  }))
+                  await KVNAME.put("hpp_doc_list_index", hpp_list_index)
+                  msgd = '没有命中缓存,获取文章列表成功！'
+                }
+                return genjsonres(msgd, 0, 200, hpp_list_index)
+
+              case 'getdraftlist':
+                msgd = '命中了缓存,获取艹稿列表成功！'
+                hpp_list_index = await KVNAME.get("hpp_doc_draft_list_index")
+                if (hpp_list_index === null) {
+                  hpp_list_index = JSON.stringify(await ghtreelist({
+                    username: config.hpp_githubdocusername,
+                    reponame: config.hpp_githubdocrepo,
+                    path: config.githubdocdraftpath,
+                    branch: config.hpp_githubdocbranch,
+                    token: config.hpp_githubdoctoken
+                  }))
+                  await KVNAME.put("hpp_doc_draft_list_index", hpp_list_index)
+                  msgd = '没有命中缓存,获取艹稿列表成功！'
+                }
+                return genjsonres(msgd, 0, 200, hpp_list_index)
+
+
+              case 'getimglist':
+                msgd = '命中了缓存,获取图片列表成功！'
+                hpp_list_index = await KVNAME.get("hpp_img_list_index")
+                if (hpp_list_index === null) {
+                  hpp_list_index = JSON.stringify(await ghtreelist({
+                    username: config.hpp_githubimageusername,
+                    reponame: config.hpp_githubimagerepo,
+                    path: config.githubimagepath,
+                    branch: config.hpp_githubimagebranch,
+                    token: config.hpp_githubimagetoken
+                  }))
+                  await KVNAME.put("hpp_img_list_index", hpp_list_index)
+                  msgd = '没有命中缓存,获取图片列表成功！'
+                }
+                return genjsonres(msgd, 0, 200, hpp_list_index)
+              case 'delindex':
+                await KVNAME.delete("hpp_doc_draft_list_index")
+                await KVNAME.delete("hpp_doc_list_index")
+                await KVNAME.delete("hpp_img_list_index")
+                return genjsonres('清除索引缓存成功!', 0, 200)
+              default:
+                throw '未知的操作'
+            }
+          } catch (lo) { throw lo }
+        }
+
+        if (rp(path) == '/hpp/admin/api/update') {
+          try {
+            const apireq = await request.json()
+            switch (apireq.action) {
+              case 'update':
+                if (apireq.dev) {
+                  return hppupdate(config, true)
+                } else {
+                  return hppupdate(config, false)
+                }
+              case 'check':
+                if (await ghlatver(config, false) == hpp_info.ver) {
+                  return genjsonres('不需要更新!', 0, 200)
+                } else {
+                  return genjsonres('需要更新!', 1, 200, ghlatinfo(config))
+                }
+            }
+          } catch (lo) { throw lo }
+
+        }
+        /*
+        
+        
+                  if (rp(path) == "/hpp/admin/api/del_all") {
+                    await KVNAME.delete("hpp_config")
+                    return new Response('OK')
+                  }
+                  if (rp(path) == "/hpp/admin/api/get_config") { return new Response(await JSON.parse(hpp_config)) }
+                  if (rp(path) == "/hpp/admin/api/edit_config") {
+                    let req_con = await JSON.parse(await request.text())
+                    let _index = req_con["index"]
+                    let _value = req_con["value"]
+                    let k = await JSON.parse(await JSON.parse(hpp_config))
+                    k[_index] = _value
+                    k = await JSON.stringify(k)
+                    await KVNAME.put("hpp_config", await JSON.stringify(k))
+                    return new Response('OK')
+                  }
+                  if (rp(path) == "/hpp/admin/api/del_config") {
+                    let _index = await request.text()
+                    let k = await JSON.parse(await JSON.parse(hpp_config))
+                    delete k[_index]
+                    await KVNAME.put("hpp_config", await JSON.stringify(await JSON.stringify(k)))
+                    return new Response('OK')
+                  }
+        
+                  */
+        if (rp(path) == '/hpp/admin/api/kick') {
+          const now = Date.now(new Date())
+          await KVNAME.put("hpp_activetime", now)
+          //const hpp_kvwait = Date.now(new Date()) - now
+          return new Response("OK")
+        }
+
+
+        //End
+
+
+        if (rp(path) == '/hpp/admin/api/talk/htalk') {
+          return htalk(config, request, loginstatus, hinfo)
+        }
+
+
+        if (rp(path) == '/hpp/admin/api/talk/artitalk') {
+          return new Response('Come Soon!')
+        }
+
+
+        /*
+      
+                if (rp(path) == "/hpp/admin/api/addtalk") {
+                  let hpp_talk_re = await KVNAME.get("hpp_talk_data")
+                  if (hpp_talk_re === null) { hpp_talk_re = "[]" }
+                  let hpp_talk = await JSON.parse(hpp_talk_re);
+                  let hpp_talk_id_re = await KVNAME.get("hpp_talk_id")
+                  if (hpp_talk_id_re === null) { hpp_talk_id_re = 0 }
+                  let hpp_talk_id = hpp_talk_id_re;
+                  hpp_talk_id++;
+                  const now = await request.json()
+                  const add = {
+                    id: hpp_talk_id,
+                    time: now["time"],
+                    name: now["name"],
+                    avatar: now["avatar"],
+                    content: now["content"],
+                    visible: "True"
+                  }
+                  hpp_talk.push(add);
+                  await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
+                  await KVNAME.put("hpp_talk_id", hpp_talk_id)
+                  return new Response('OK')
+                }
+                if (rp(path) == "/hpp/admin/api/deltalk") {
+                  const hpp_talk = JSON.parse(await KVNAME.get("hpp_talk_data"));
+                  const now = Number(await request.text())
+                  for (var i = 0; i < getJsonLength(hpp_talk); i++) {
+                    if (Number(hpp_talk[i]["id"]) == now) {
+                      hpp_talk.splice(i, 1)
+                    }
+                  }
+                  await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
+                  return new Response('OK')
+                }
+                if (rp(path) == "/hpp/admin/api/visibletalk") {
+                  const hpp_talk = JSON.parse(await KVNAME.get("hpp_talk_data"));
+                  const now = await request.text()
+                  for (var i = 0; i < getJsonLength(hpp_talk); i++) {
+                    if (hpp_talk[i]["id"] == now) {
+                      hpp_talk[i]["visible"] = hpp_talk[i]["visible"] == "False" ? "True" : "False"
+                    }
+                  }
+                  await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
+                  return new Response('OK')
+                }
+                if (rp(path) == "/hpp/admin/api/inputtalk") {
+                  let hpp_talk_re = await KVNAME.get("hpp_talk_data")
+                  if (hpp_talk_re === null) { hpp_talk_re = "[]" }
+                  let hpp_talk = await JSON.parse(hpp_talk_re);
+                  let hpp_talk_id_re = await KVNAME.get("hpp_talk_id")
+                  if (hpp_talk_id_re === null) { hpp_talk_id_re = 0 }
+                  let hpp_talk_id = hpp_talk_id_re;
+                  let now = await JSON.parse(await request.text())
+                  let talk_init = {}
+                  for (var i = 0; i < now.length; i++) {
+                    hpp_talk_id++;
+                    ftime = now[i]["updatedAt"]
+                    ftime = ftime.split('T')
+                    talk_init = {
+                      id: hpp_talk_id,
+                      time: ftime[0],
+                      name: username[0],
+                      avatar: now[i]["avatar"],
+                      content: now[i]["atContentHtml"],
+                      visible: "True"
+                    }
+                    hpp_talk.push(talk_init)
+                  }
+                  await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
+                  await KVNAME.put("hpp_talk_id", hpp_talk_id)
+                  return new Response(JSON.stringify(hpp_talk))
+                }
+                if (rp(path) == "/hpp/admin/api/gethpptalk") {
+                  const req_r = await request.text()
+                  if (req_r != "") {
+                    const limit = (await JSON.parse(req_r))["limit"]
+                    const start = (await JSON.parse(req_r))["start"]
+                    const hpp_talk = await JSON.parse(await KVNAME.get("hpp_talk_data"));
+                    let hpp_talk_res = []
+                    for (var i = getJsonLength(hpp_talk) - start - 1; i > getJsonLength(hpp_talk) - start - limit; i--) {
+                      hpp_talk_res.push(await JSON.stringify(hpp_talk[i]))
+                    }
+                    return new Response(JSON.stringify(hpp_talk_res), {
+                      headers: {
+                        "content-type": "application/json;charset=UTF-8",
+                        "Access-Control-Allow-Origin": "*"
+                      }
+                    })
+                  } else {
+                    return new Response("ERROR", {
+                      headers: {
+                        "Access-Control-Allow-Origin": "*"
+                      }
+                    })
+                  }
+                }
+      
+      
+               */
+
       }
       else {
         if (rp(path) == '/hpp/admin/login') {
@@ -729,155 +623,150 @@ async function handleRequest(request) {
           })
         }
 
-        return Response.redirect('https://' + domain + '/hpp/admin/login', 302)
+        return Response.redirect(`https://${domain}/hpp/admin/login`, 302)
       }
-      return Response.redirect('https://' + domain + '/hpp/admin/dash', 302)
+      return Response.redirect(`https://${domain}/hpp/admin/dash/home`, 302)
     }
     if (path.startsWith('/hpp/api')) {
+
       if (rp(path) == "/hpp/api/getblogeractive") {
-        const hpp_activetime = await KVNAME.get("hpp_activetime")
-        var k = (Date.parse(new Date()) - hpp_activetime) / 1000
-        const hpp_re_active_init = {
-          headers: {
-            "content-type": "application/javascript; charset=utf-8",
-            "Access-Control-Allow-Origin": "*"
-          }
+        return genactiveres(config)
+      }
+
+
+      /*
+            if (rp(path) == "/hpp/api/twikoo") {
+              const hpp_config = await JSON.parse(await JSON.parse(await KVNAME.get("hpp_config")));
+              const env_id = hpp_config["hpp_twikoo_envId"]
+              const hpp_cors = hpp_config["hpp_cors"]
+              const url = "https://tcb-api.tencentcloudapi.com/web?env=" + env_id
+              async function get_refresh_token() {
+                const step_1_body = {
+                  action: "auth.signInAnonymously",
+                  anonymous_uuid: "",
+                  dataVersion: "1970-1-1",
+                  env: env_id,
+                  refresh_token: "",
+                  seqId: ""
+                }
+                const step_1 = {
+                  body: JSON.stringify(step_1_body),
+                  method: "POST",
+                  headers: {
+                    "content-type": "application/json;charset=UTF-8"
+                  }
+                }
+                return JSON.parse(await (await fetch(url, step_1)).text())["refresh_token"]
+              }
+              async function get_access_token(refresh_token) {
+                const step_2_body = {
+                  action: "auth.fetchAccessTokenWithRefreshToken",
+                  anonymous_uuid: "",
+                  dataVersion: "1970-1-1",
+                  env: env_id,
+                  refresh_token: refresh_token,
+                  seqId: ""
+                }
+                const step_2 = {
+                  body: JSON.stringify(step_2_body),
+                  method: "POST",
+                  headers: {
+                    "content-type": "application/json;charset=UTF-8"
+                  }
+                }
+                return JSON.parse(await (await fetch(url, step_2)).text())["access_token"];
+              }
+              async function get_comment(access_token, path, before) {
+      
+                const re_data = { "event": "COMMENT_GET", "url": path, "before": before }
+                const step_3_body = {
+                  access_token: access_token,
+                  action: "functions.invokeFunction",
+                  dataVersion: "1970-1-1",
+                  env: env_id,
+                  function_name: "twikoo",
+                  request_data: JSON.stringify(re_data),
+                  seqId: ""
+                }
+                const step_3 = {
+                  body: JSON.stringify(step_3_body),
+                  method: "POST",
+                  headers: {
+                    "content-type": "application/json;charset=UTF-8"
+                  }
+                }
+                return (await (await fetch(url, step_3)).text())
+      
+              }
+              const req = await JSON.parse(await request.text())
+              const path = req["path"]
+              const before = req["before"]
+              let refresh_token = await KVNAME.get("hpp_comment_refresh_token")
+              let access_token = await KVNAME.get("hpp_comment_access_token")
+              let val = await get_comment(access_token, path, before)
+              let twikoo_code = await JSON.parse(val)['code']
+              if (twikoo_code == 'CHECK_LOGIN_FAILED' | twikoo_code == 'INVALID_PARAM' | twikoo_code == 'PERMISSION_DENIED') {
+                refresh_token = await get_refresh_token()
+                await KVNAME.put("hpp_comment_refresh_token", refresh_token)
+                access_token = await get_access_token(refresh_token)
+                await KVNAME.put("hpp_comment_access_token", access_token)
+                val = await get_comment(access_token, path, before)
+              }
+              return new Response(val, {
+                headers: {
+                  "Access-Control-Allow-Origin": "*"
+                }
+              }
+              )
+            }*/
+      if (path.startsWith('/hpp/api/talk/')) {
+        if (rp(path) == "/hpp/api/talk/htalk") {
+          return htalk(config, request, false, hinfo)
         }
-        if (k < 30) {
-          return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主刚刚还在这儿呢\'', hpp_re_active_init)
-        }
-        else if (k < 60) {
-          return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在' + k + '秒前离开这儿\'', hpp_re_active_init)
-        }
-        else if (k < 3600) {
-          return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在' + Math.round(k / 60) + '分钟前偷偷瞄了一眼博客\'', hpp_re_active_init)
-        }
-        else {
-          return new Response('document.getElementById("bloggeractivetime").innerHTML=\'博主在' + Math.round(k / 3600) + '小时前活跃了一次\'', hpp_re_active_init)
+
+        if (rp(path) == '/hpp/api/talk/artitalk') {
+          return new Response('Come Soon!')
         }
       }
-      if (rp(path) == "/hpp/api/captchaimg") {
-        let url = "https://thispersondoesnotexist.com/image"
-        let request = new Request(url);
-        return (
-          fetch(request)
-        );
+      if (path.startsWith('/hpp/api/comment/')) {
+        if (rp(path) == "/hpp/api/comment/Feign_Valine") {
+          return new Response('Come Soon!')
+        }
+        if (rp(path) == "/hpp/api/comment/Agent_Valine") {
+          return new Response('Come Soon!')
+        }
 
-      }
-      if (rp(path) == "/hpp/api/twikoo") {
-        const hpp_config = await JSON.parse(await JSON.parse(await KVNAME.get("hpp_config")));
-        const env_id = hpp_config["hpp_twikoo_envId"]
-        const hpp_cors = hpp_config["hpp_cors"]
-        const url = "https://tcb-api.tencentcloudapi.com/web?env=" + env_id
-        async function get_refresh_token() {
-          /*第一步获得refresh_token*/
-          const step_1_body = {
-            action: "auth.signInAnonymously",
-            anonymous_uuid: "",
-            dataVersion: "1970-1-1",
-            env: env_id,
-            refresh_token: "",
-            seqId: ""
-          }
-          const step_1 = {
-            body: JSON.stringify(step_1_body),
-            method: "POST",
-            headers: {
-              "content-type": "application/json;charset=UTF-8"
-            }
-          }
-          /*refresh_token到手*/
-          //console.log(step_1_body)
-          return JSON.parse(await (await fetch(url, step_1)).text())["refresh_token"]
-        }
-        async function get_access_token(refresh_token) {
-          const step_2_body = {
-            action: "auth.fetchAccessTokenWithRefreshToken",
-            anonymous_uuid: "",
-            dataVersion: "1970-1-1",
-            env: env_id,
-            refresh_token: refresh_token,
-            seqId: ""
-          }
-          const step_2 = {
-            body: JSON.stringify(step_2_body),
-            method: "POST",
-            headers: {
-              "content-type": "application/json;charset=UTF-8"
-            }
-          }
-          /*access_token到手*/
-          return JSON.parse(await (await fetch(url, step_2)).text())["access_token"];
-        }
-        async function get_comment(access_token, path, before) {
 
-          const re_data = { "event": "COMMENT_GET", "url": path, "before": before }
-          const step_3_body = {
-            access_token: access_token,
-            action: "functions.invokeFunction",
-            dataVersion: "1970-1-1",
-            env: env_id,
-            function_name: "twikoo",
-            request_data: JSON.stringify(re_data),
-            seqId: ""
-          }
-          const step_3 = {
-            body: JSON.stringify(step_3_body),
-            method: "POST",
-            headers: {
-              "content-type": "application/json;charset=UTF-8"
-            }
-          }
-          return (await (await fetch(url, step_3)).text())
 
+        if (rp(path) == "/hpp/api/comment/Feign_Waline") {
+          return new Response('Come Soon!')
         }
-        const req = await JSON.parse(await request.text())
-        const path = req["path"]
-        const before = req["before"]
-        let refresh_token = await KVNAME.get("hpp_comment_refresh_token")
-        let access_token = await KVNAME.get("hpp_comment_access_token")
-        let val = await get_comment(access_token, path, before)
-        let twikoo_code = await JSON.parse(val)['code']
-        if (twikoo_code == 'CHECK_LOGIN_FAILED' | twikoo_code == 'INVALID_PARAM' | twikoo_code == 'PERMISSION_DENIED') {
-          refresh_token = await get_refresh_token()
-          await KVNAME.put("hpp_comment_refresh_token", refresh_token)
-          access_token = await get_access_token(refresh_token)
-          await KVNAME.put("hpp_comment_access_token", access_token)
-          val = await get_comment(access_token, path, before)
+        if (rp(path) == "/hpp/api/comment/Agent_Waline") {
+          return new Response('Come Soon!')
         }
-        return new Response(val, {
-          headers: {
-            "Access-Control-Allow-Origin": "*"
-          }
+
+
+        if (rp(path) == "/hpp/api/comment/Feign_Artalk") {
+          return new Response('Come Soon!')
         }
-        )
-      }
-      if (rp(path) == "/hpp/api/gethpptalk") {
-        const req_r = await request.text()
-        if (req_r != "") {
-          const limit = (await JSON.parse(req_r))["limit"]
-          const start = (await JSON.parse(req_r))["start"]
-          const hpp_talk = await JSON.parse(await KVNAME.get("hpp_talk_data"));
-          let hpp_talk_res = []
-          let hpp_vi = ""
-          for (var i = getJsonLength(hpp_talk) - start - 1; i > getJsonLength(hpp_talk) - start - limit; i--) {
-            try { hpp_vi = hpp_talk[i]["visible"] } catch (e) { hpp_vi = null }
-            if (hpp_vi != "False") {
-              hpp_talk_res.push(await JSON.stringify(hpp_talk[i]))
-            }
-          }
-          return new Response(JSON.stringify(hpp_talk_res), {
-            headers: {
-              "content-type": "application/json;charset=UTF-8",
-              "Access-Control-Allow-Origin": "*"
-            }
-          })
-        } else {
-          return new Response("ERROR", {
-            headers: {
-              "Access-Control-Allow-Origin": "*"
-            }
-          })
+        if (rp(path) == "/hpp/api/comment/Agent_Artalk") {
+          return new Response('Come Soon!')
+        }
+
+
+        if (rp(path) == "/hpp/api/comment/Feign_Twikoo") {
+          return new Response('Come Soon!')
+        }
+        if (rp(path) == "/hpp/api/comment/Feign_Twikoo") {
+          return new Response('Come Soon!')
+        }
+
+        if (rp(path) == "/hpp/api/comment/Agent_Disqus") {
+          return new Response('Come Soon!')
+        }
+
+        if (rp(path) == "/hpp/api/comment/Agent_Gitalk") {
+          return new Response('Come Soon!')
         }
       }
 
@@ -958,7 +847,7 @@ async function handleRequest(request) {
     
         */
   } catch (e) {
-    return new Response(gethtml.errorpage(e,hinfo), {
+    return new Response(gethtml.errorpage(e, hinfo), {
       headers: { "content-type": "text/html;charset=UTF-8" }
     })
 

@@ -18,7 +18,7 @@ async function handleRequest(request) {
         d[htalk[l]["id"]] = (function () {
           let n = htalk[l]
           delete n["id"]
-          n["visible"] = n["visible"] == "True" ? true : false
+          n["visible"] = n["visible"] == "False" ? false : true
           return n
         })()
       }
