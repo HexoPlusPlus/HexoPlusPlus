@@ -1,6 +1,6 @@
 import { genres } from './genres'
 export async function htalk(config, request, loginstatus) {
-    try {
+/*    try {
         const r = await request.json()
         login = loginstatus || false
         switch (r.action) {
@@ -41,5 +41,5 @@ export async function htalk(config, request, loginstatus) {
                 return new Response('OK')
         }
     }
-    catch (lo2) { return genres(config, lo2, 500, -1, '') }
+    catch (lo2) { return genres(config, lo2, 500, -1, '') }*/
 }
