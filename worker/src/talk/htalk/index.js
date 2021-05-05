@@ -2,15 +2,16 @@ import { genres } from './genres'
 export async function htalk(config, request, loginstatus) {
 /*   try {
         const r = await request.json()
+        let limit,start,hpp_talk
         login = loginstatus || false
         switch (r.action) {
             case 'initialization':
                 await KVNAME.put("htalk", "{}")
                 return genres(config, "初始化成功", 200, 0, '')
             case 'get':
-                const limit = r.limit
-                const start = r.start
-                const hpp_talk = await KVNAME.get("hpp_talk_data", { type: "json" });
+                limit = r.limit
+                start = r.start
+                const hpp_talk = await KVNAME.get("htalk", { type: "json" });
                 let hpp_talk_res = []
                 for (var i = getJsonLength(hpp_talk) - start - 1; i > getJsonLength(hpp_talk) - start - limit; i--) {
                     if (login || hpp_talk[i]["visible"]) {

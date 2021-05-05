@@ -23,11 +23,14 @@ jobs:
         mv main.js index.worker.js
         rm -rf main.js.LICENSE.txt
         
+    - name: Commit files
+      run: |
+        git config --local user.email "chen2778754364@foxmail.com"
+        git config --local user.name "ChenYFan"
+        git commit -m "生成编译后的文件"
         
-    - name: Deploy
-      uses: s0/git-publish-subdir-action@develop
-      env:
-        REPO: self
-        BRANCH: dev_dist
-        FOLDER: self
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.TOKEN }}
+        branch: dev_dist
