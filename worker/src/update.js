@@ -1,6 +1,6 @@
-import { ghlatver } from './github/mananger'
+import { ghlatver } from './github/manager'
 import { genjsonres } from './scaffold'
-export function hppupdate(config, newest) {
+export async function  hppupdate(config, newest) {
     let ver = 'dist'
     if (!newest) {
         ver = await ghlatver({

@@ -808,14 +808,46 @@ export const gethtml = {
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><script src="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/js/jquery.swipebox.min.js"></script>`
 
   },
-  dashhomejs: function(hpp_CDN){
+  dashhomejs: function (hpp_CDN) {
     return `<script src='${hpp_CDN}home.js'></script>`
   },
-  dashdocsjs: function(hpp_CDN){
-    return  `<script src='${hpp_CDN}doc_man.js'></script>`
+  dashdocsjs: function (hpp_CDN) {
+    return `<script src='${hpp_CDN}doc_man.js'></script>`
   },
-  dashtooljs: function(hpp_CDN){
-    return  `<script src='${hpp_CDN}tool.js'></script>`
+  dashtooljs: function (hpp_CDN) {
+    return `<script src='${hpp_CDN}tool.js'></script>`
+  },
+  errorpage: function (errormsg, hinfo) {
+    return `
+    <!DOCTYPE html>
+    <html lang="en" class="no-js">
+      <head>
+            <meta charset="UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+            <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" /> 
+            <title>HexoPlusPlusError</title>
+            <link rel="stylesheet" type="text/css" href="${hinfo.CDN}error.css" />
+      </head>
+      <body>
+        <div class="container demo-2">
+          <div class="content">
+                    <div id="large-header" class="large-header">
+                        <canvas id="demo-canvas"></canvas>
+                        <h1 class="main-title"><span>Error</span></h1>
+                    </div>
+                    <div class="codrops-header">
+                        <h1>HexoPlusPlus 异常<span>${errormsg}</span></h1>
+                        <nav class="codrops-demos">
+                            <a class="current-demo" href="https://hexoplusplus.js.org">文档</a>
+                            <a class="current-demo" href="https://github.com/HexoPlusPlus/HexoPlusPlus">Github</a>
+                <a class="current-demo" href="https://jq.qq.com/?_wv=1027&k=rAcnhzqK">QQ群寻求帮助</a>
+                        </nav>
+                    </div>
+                </div>
+        </div>
+            <script src="${hinfo.CDN}error.js"></script>
+      </body>
+    </html>
+    `
   }
-
 }
