@@ -3,6 +3,7 @@ import { gethtml } from './src/gethtml'
 import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix, genjsonres } from './src/scaffold'
 import { ghupload, ghdel, ghget, ghlatver, ghlatinfo } from './src/github/manager'
 import { hppupdate } from './src/update.js'
+import { githubroute,dashroute } from './src/router/router.js'
 import { htalk } from './src/talk/htalk/index'
 import { genactiveres } from './src/getblogeractive'
 //const hpp_CDNver = "91dcf20"
@@ -14,7 +15,7 @@ let hinfo = {
 
 const hpp_ver = hinfo.ver
 const hpp_CDN = hinfo.CDN
-
+let hpp_logstatus
 addEventListener("fetch", event => {
   event.respondWith(handleRequest(event.request))
 })
@@ -22,7 +23,7 @@ addEventListener("fetch", event => {
 
 async function handleRequest(request) {
   try {
-    let hpp_logstatus = false
+    hpp_logstatus = true
     const req = request
     const urlStr = req.url
     const urlObj = new URL(urlStr)
@@ -98,8 +99,8 @@ async function handleRequest(request) {
 */
 
 
-    for (var i = 0; i < getJsonLength(username); i++) {
-      if (getCookie(request, "password") == md5(password[i]) && getCookie(request, "username") == md5(username[i])) {
+    for (var w = 0; w < getJsonLength(username); w++) {
+      if (getCookie(request, "password") == md5(password[w]) && getCookie(request, "username") == md5(username[w])) {
         hpp_logstatus = true
       }
     }
@@ -119,331 +120,15 @@ async function handleRequest(request) {
 
         }
 
-
-        if (config.hpp_autodate == "True") {
-          const now = Date.now(new Date())
-          await KVNAME.put("hpp_activetime", now)
-          const hpp_kvwait = Date.now(new Date()) - now
-        }
         /*主面板*/
         if (path.startsWith("/hpp/admin/dash")) {
-          let ainfo = {
-            hpp_home_act: "",
-            hpp_edit_act: "",
-            hpp_talk_act: "",
-            hpp_docs_man_act: "",
-            hpp_img_man_act: "",
-            hpp_tool_act: "",
-            hpp_set_act: ""
-          }
-          let hpp_init = gethtml.dash404
-          if (rp(path) == "/hpp/admin/dash/home") {
-            ainfo.hpp_home_act = " active"
-            hpp_init = gethtml.dashhome(hpp_ver)
-            hpp_js = gethtml.dashhomejs(hpp_ver)
-          }
-          if (rp(path) == "/hpp/admin/dash/edit") {
-            ainfo.hpp_edit_act = " active"
-            hpp_init = gethtml.dashedit
-            hpp_js = gethtml.dasheditjs(config.hpp_highlight_style)
-          }
-          if (rp(path) == "/hpp/admin/dash/talk") {
-            ainfo.hpp_talk_act = " active"
-            hpp_init = gethtml.dashtalk
-            hpp_js = gethtml.dashtalkjs(hpp_CDN)
-          }
-          if (rp(path) == "/hpp/admin/dash/docs_man") {
-            ainfo.hpp_docs_man_act = " active"
-            hpp_init = gethtml.dashdocs
-            hpp_js = gethtml.dashdocsjs(hpp_CDN)
-
-          }
-          if (rp(path) == "/hpp/admin/dash/img_man") {
-            ainfo.hpp_img_man_act = " active"
-            hpp_init = gethtml.dashimg
-            hpp_js = gethtml.dashimgjs(hpp_CDN)
-          }
-          if (rp(path) == "/hpp/admin/dash/tool") {
-            ainfo.hpp_tool_act = " active"
-            hpp_init = gethtml.dashtool
-            hpp_js = gethtml.dashtooljs(hpp_CDN)
-          }
-          /* if (rp(path) == "/hpp/admin/dash/set") {
-             hpp_set_act = " active"
-             hpp_init = `<div class="content">
-       <div class="container-fluid">
-         <div class="row">
-           <div class="col-md-12">
-             <div class="card">
-               <div class="card-header card-header-primary">
-                 <h4 class="card-title ">配置</h4>
-                 <p class="card-category">请根据需要修改配置</p>
-               </div>
-               <div class="card-body">
-                 <div class="table-responsive">
-         <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索配置...">
-                   <table class="table" id="hpp_table">
-                     <thead class=" text-primary">
-                       <th>
-                         键值
-                       </th>
-                       <th>
-                         内容
-                       </th><th>操作</th>
-                     </thead>
-                     <tbody id="tbody_config">
-         	
-                     </tbody>
-                   </table>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>`
-             hpp_js = `<script src='${hpp_CDN}config.js'></script>`
-           }*/
-
-          /*
-           let hpp_plugin = ""
-          if (hpp_plugin_css != undefined) { hpp_plugin += `<link rel="stylesheet" type="text/css" href="${hpp_plugin_css}" />` }
-          if (hpp_plugin_js != undefined) { hpp_js += `<script src="${hpp_plugin_js}"></script>` }
-          */
-          /*
-             const hpp_ver="${hpp_ver}";
-             const hpp_OwO="${hpp_OwO}";
-             const avatar="${hpp_userimage}";
-             const username="${username[0]}";
-             const hpp_githubdocusername = "${hpp_githubdocusername}"
-             const hpp_githubdocrepo ="${hpp_githubdocrepo}"
-             const hpp_githubdocbranch ="${hpp_githubdocbranch}"
-             const hpp_githubdocpath ="${hpp_githubdocpath}"
-             const hpp_githubimageusername = "${hpp_githubimageusername}"
-             const hpp_githubimagerepo ="${hpp_githubimagerepo}"
-             const hpp_githubimagebranch ="${hpp_githubimagebranch}"
-             const hpp_githubimagepath ="${hpp_githubimagepath}"
-             const hpp_githubdocdraftpath ="${hpp_githubdocdraftpath}"
-             const hpp_lazy_img = "${hpp_lazy_img}"
-             const hpp_highlight_style = "${hpp_highlight_style}"
-             const hpp_page_limit = ${hpp_page_limit}
-             */
-          let hpp_dash_head = gethtml.dash_head(config, hinfo, ainfo)
-          let hpp_dash_foot = gethtml.dash_foot(hinfo)
-          let hpp_dash = `${hpp_dash_head}${hpp_init}${hpp_dash_foot}`
-          return new Response(hpp_dash, {
-            headers: { "content-type": "text/html;charset=UTF-8" }
-          })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          return dashroute(request,config,hinfo)
         }
 
 
         if (rp(path) == '/hpp/admin/api/github') {
-          try {
-            let r, rs, name, msgd, hpp_list_index
-            const apireq = await request.json()
-            switch (apireq.action) {
-              case 'adddoc':
-                r = await ghupload({
-                  file: apireq.file,
-                  username: config.hpp_githubdocusername,
-                  reponame: config.hpp_githubdocrepo,
-                  path: config.githubdocpath,
-                  branch: config.hpp_githubdocbranch,
-                  filename: apireq.filename,
-                  token: config.hpp_githubdoctoken
-                })
-                rs = await rs.status
-                if (rs == 200 || rs == 201) {
-                  if (rs == 201) { await KVNAME.delete("hpp_doc_list_index"); return genjsonres('新建文档成功！', 0, rs) }
-                  return genjsonres('上传文档成功！', 0, rs)
-                } else {
-                  return genjsonres('上传/新建文档失败！', 1, rs)
-                }
-              case 'adddraft':
 
-                r = await ghupload({
-                  file: apireq.file,
-                  username: config.hpp_githubdocusername,
-                  reponame: config.hpp_githubdocrepo,
-                  path: config.githubdocdraftpath,
-                  branch: config.hpp_githubdocbranch,
-                  filename: apireq.filename,
-                  token: config.hpp_githubdoctoken
-                })
-                rs = await rs.status
-                if (rs == 200 || rs == 201) {
-                  if (rs == 201) { await KVNAME.delete("hpp_doc_draft_list_index"); return genjsonres('上传草稿成功！', 0, rs) }
-                  return genjsonres('上传草稿成功！', 0, rs)
-                } else {
-                  return genjsonres('新建草稿失败！', 0, rs)
-                }
-              case 'addimg':
-                name = `${Date.parse(new Date())}.${apireq.suffix}`
-                r = await ghupload({
-                  file: apireq.file,
-                  username: config.hpp_githubimageusername,
-                  reponame: config.hpp_githubimagerepo,
-                  path: config.githubimagepath,
-                  branch: config.hpp_githubimagebranch,
-                  filename: name,
-                  token: config.hpp_githubimagetoken
-                })
-                rs = await rs.status
-
-                if (rs == 200 || rs == 201) {
-                  const jsdurl = `https://cdn.jsdelivr.net/gh/${config.hpp_githubimageusername}/${config.hpp_githubimagerepo}@${config.hpp_githubimagebranch}${config.hpp_githubimagepath}${name}`
-
-                  return genjsonres('上传图片成功！', 0, rs, jsdurl)
-                } else {
-                  return genjsonres('上传图片失败！', -1, rs)
-                }
-              case 'deldoc':
-                r = await ghdel({
-                  username: config.hpp_githubdocusername,
-                  reponame: config.hpp_githubdocrepo,
-                  path: config.githubdocpath,
-                  branch: config.hpp_githubdocbranch,
-                  filename: apireq.filename,
-                  token: config.hpp_githubdoctoken
-                })
-                rs = await rs.status
-                if (rs == 200) {
-                  await KVNAME.delete("hpp_doc_list_index")
-                  return genjsonres('删除文档成功！', 0, rs)
-                } else {
-                  return genjsonres('删除文档失败！', -1, rs)
-                }
-              case 'deldraft':
-                r = await ghdel({
-                  username: config.hpp_githubdocusername,
-                  reponame: config.hpp_githubdocrepo,
-                  path: config.githubdocdraftpath,
-                  branch: config.hpp_githubdocbranch,
-                  filename: apireq.filename,
-                  token: config.hpp_githubdoctoken
-                })
-                rs = await rs.status
-                if (rs == 200) {
-                  await KVNAME.delete("hpp_doc_list_index")
-                  return genjsonres('删除艹稿成功！', 0, rs)
-                } else {
-                  return genjsonres('删除艹稿失败！', -1, rs)
-                }
-
-              case 'delimg':
-                r = await ghdel({
-                  username: config.hpp_githubimageusername,
-                  reponame: config.hpp_githubimagerepo,
-                  path: config.githubimagepath,
-                  branch: config.hpp_githubimagebranch,
-                  filename: apireq.filename,
-                  token: config.hpp_githubimagetoken
-                })
-                rs = await rs.status
-                if (rs == 200) {
-                  await KVNAME.delete("hpp_doc_list_index")
-                  return genjsonres('删除图片成功！', 0, rs)
-                } else {
-                  return genjsonres('删除图片失败！', -1, rs)
-                }
-              case 'getdoc':
-                return ghget({
-                  username: config.hpp_githubdocusername,
-                  reponame: config.hpp_githubdocrepo,
-                  path: config.githubdocpath,
-                  branch: config.hpp_githubdocbranch,
-                  filename: apireq.filename,
-                  token: config.hpp_githubdoctoken
-                })
-              case 'getdraft':
-                return ghget({
-                  username: config.hpp_githubdocusername,
-                  reponame: config.hpp_githubdocrepo,
-                  path: config.githubdocdraftpath,
-                  branch: config.hpp_githubdocbranch,
-                  filename: apireq.filename,
-                  token: config.hpp_githubdoctoken
-                })
-              case 'getscaffolds':
-                return ghget({
-                  username: config.hpp_githubdocusername,
-                  reponame: config.hpp_githubdocrepo,
-                  path: `${hpp_githubdocroot}scaffolds/`,
-                  branch: config.hpp_githubdocbranch,
-                  filename: 'post.md',
-                  token: config.hpp_githubdoctoken
-                })
-              case 'getdoclist':
-                msgd = '命中了缓存,获取文章列表成功！'
-                hpp_list_index = await KVNAME.get("hpp_doc_list_index")
-                if (hpp_list_index === null) {
-                  hpp_list_index = JSON.stringify(await ghtreelist({
-                    username: config.hpp_githubdocusername,
-                    reponame: config.hpp_githubdocrepo,
-                    path: config.githubdocpath,
-                    branch: config.hpp_githubdocbranch,
-                    token: config.hpp_githubdoctoken
-                  }))
-                  await KVNAME.put("hpp_doc_list_index", hpp_list_index)
-                  msgd = '没有命中缓存,获取文章列表成功！'
-                }
-                return genjsonres(msgd, 0, 200, hpp_list_index)
-
-              case 'getdraftlist':
-                msgd = '命中了缓存,获取艹稿列表成功！'
-                hpp_list_index = await KVNAME.get("hpp_doc_draft_list_index")
-                if (hpp_list_index === null) {
-                  hpp_list_index = JSON.stringify(await ghtreelist({
-                    username: config.hpp_githubdocusername,
-                    reponame: config.hpp_githubdocrepo,
-                    path: config.githubdocdraftpath,
-                    branch: config.hpp_githubdocbranch,
-                    token: config.hpp_githubdoctoken
-                  }))
-                  await KVNAME.put("hpp_doc_draft_list_index", hpp_list_index)
-                  msgd = '没有命中缓存,获取艹稿列表成功！'
-                }
-                return genjsonres(msgd, 0, 200, hpp_list_index)
-
-
-              case 'getimglist':
-                msgd = '命中了缓存,获取图片列表成功！'
-                hpp_list_index = await KVNAME.get("hpp_img_list_index")
-                if (hpp_list_index === null) {
-                  hpp_list_index = JSON.stringify(await ghtreelist({
-                    username: config.hpp_githubimageusername,
-                    reponame: config.hpp_githubimagerepo,
-                    path: config.githubimagepath,
-                    branch: config.hpp_githubimagebranch,
-                    token: config.hpp_githubimagetoken
-                  }))
-                  await KVNAME.put("hpp_img_list_index", hpp_list_index)
-                  msgd = '没有命中缓存,获取图片列表成功！'
-                }
-                return genjsonres(msgd, 0, 200, hpp_list_index)
-              case 'delindex':
-                await KVNAME.delete("hpp_doc_draft_list_index")
-                await KVNAME.delete("hpp_doc_list_index")
-                await KVNAME.delete("hpp_img_list_index")
-                return genjsonres('清除索引缓存成功!', 0, 200)
-              default:
-                throw '未知的操作'
-            }
-          } catch (lo) { throw lo }
+          return githubroute(request,config)
         }
 
         if (rp(path) == '/hpp/admin/api/update') {
@@ -618,7 +303,7 @@ async function handleRequest(request) {
       }
       else {
         if (rp(path) == '/hpp/admin/login') {
-          return new Response(gethtml.loginhtml(hpp_CDN), {
+          return new Response(gethtml.loginhtml(config), {
             headers: { "content-type": "text/html;charset=UTF-8" }
           })
         }
@@ -846,7 +531,13 @@ async function handleRequest(request) {
         }
     
         */
+    return new Response(gethtml.errorpage('未知的操作', hinfo, [
+      { url: `/hpp/admin/dash/home`, des: "仪表盘" }
+    ]), {
+      headers: { "content-type": "text/html;charset=UTF-8" }
+    })
   } catch (e) {
+
     return new Response(gethtml.errorpage(e, hinfo), {
       headers: { "content-type": "text/html;charset=UTF-8" }
     })

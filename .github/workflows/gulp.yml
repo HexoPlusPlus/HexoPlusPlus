@@ -15,13 +15,9 @@ jobs:
 
     - name: install&gulp
       run: |
-        rm -rf index.js
         npm i -D && npx gulp
         gulp 
-        webpack ./worker/index.js
-        cd dist
-        mv main.js index.worker.js
-        rm -rf main.js.LICENSE.txt
+        webpack
         
     - name: Commit files
       run: |

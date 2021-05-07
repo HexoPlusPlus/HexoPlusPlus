@@ -1,4 +1,4 @@
-export async function getCookie(request, name) {
+export const getCookie = (request, name) => {
     let result = ""
     const cookieString = request.headers.get("Cookie")
     if (cookieString) {
@@ -15,7 +15,7 @@ export async function getCookie(request, name) {
     return result
 }
 
-export function getJsonLength(jsonData) {
+export const getJsonLength = (jsonData) => {
 
     var jsonLength = 0;
 
@@ -28,24 +28,24 @@ export function getJsonLength(jsonData) {
     return jsonLength;
 }
 
-export function rp(path) {
+export const rp = (path) => {
     return path.split('?')[0]
 }
-export function getname(path) {
+export const getname = (path) => {
     const urllist = path.split('/')
     return urllist[getJsonLength(urllist) - 1]
 }
-export function getsuffix(path) {
+export const getsuffix = (path) => {
     const suffixlist = getname(path).split('.')
     return suffixlist[getJsonLength(suffixlist) - 1]
 }
 
-export function genjsonres(msg, code, status, content) {
-    m = msg ? msg : "未知的错误"
-    c = code ? code : "-1"
-    s = status ? status : 500
-    co = content ? content : ''
-    r = {
+export const genjsonres = (msg, code, status, content) => {
+    let m = msg ? msg : "未知的错误"
+    let c = code ? code : "-1"
+    let s = status ? status : 500
+    let co = content ? content : ''
+    let r = {
         msg: m,
         code: c,
         content: co
@@ -58,7 +58,7 @@ export function genjsonres(msg, code, status, content) {
     })
 }
 
-export function formatconfig(config) {
+export const formatconfig = (config) => {
     config = config || defaultconfig
     for (var i in defaultconfig) {
         if (config[i] == undefined) {

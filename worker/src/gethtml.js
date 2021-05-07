@@ -1,6 +1,9 @@
+import { getJsonLength } from './../src/scaffold'
 export const gethtml = {
-  installhtml: function (config, hinfo) {
-    hpp_CDN = hinfo.CDN
+  installhtml: (config, hinfo) => {
+    return 'Coming Soon!'
+    /*
+    CDN = hinfo.CDN
     hpp_ver = hinfo.ver
     return `<!DOCTYPE html>
     <html>
@@ -420,11 +423,11 @@ export const gethtml = {
     document.getElementById('hpp_autodate').checked = ${config["hpp_autodate"]}
     document.getElementById('hpp_yuque').checked = ${config["hpp_yuque"]}
     </script>
-    <script src="${hpp_CDN}install.js"></script>
+    <script src="${CDN}install.js"></script>
     </body>
-    </html>`
+    </html>`*/
   },
-  loginhtml: function (hpp_CDN) {
+  loginhtml: (config) => {
     return `
     <!DOCTYPE html>
     <html lang="zh-cmn-Hans">
@@ -442,7 +445,7 @@ export const gethtml = {
     　　 a:hover { text-decoration:underline;color: white} 
     　　 a:visited { text-decoration: none;color: white}
       </style>
-      <link rel="stylesheet" href="${hpp_CDN}login.css" /> 
+      <link rel="stylesheet" href="${config.CDN}login.css" /> 
      </head>
      <body>
       <div id="all">
@@ -474,7 +477,7 @@ export const gethtml = {
         </ul>
        </div>
       </div>
-      <script src="${hpp_CDN}md5.js"></script>
+      <script src="${config.CDN}md5.js"></script>
       <script>
     document.onkeydown=keyListener;
     function login(){
@@ -495,7 +498,7 @@ export const gethtml = {
     </html>
     `},
   dash404: `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`,
-  dashhome: function (hpp_ver) {
+  dashhome: (hinfo) => {
     return `<div class="content">
 <div class="container-fluid">
   <div class="row">
@@ -543,7 +546,7 @@ export const gethtml = {
             <i class="fa fa-upload"></i>
           </div>
           <p class="card-category">当前版本</p>
-          <h3 class="card-title">${hpp_ver}</h3>
+          <h3 class="card-title">${hinfo.ver}</h3>
         </div>
         <div class="card-footer">
           <div class="stats">
@@ -651,11 +654,16 @@ export const gethtml = {
   </div>
 </div>
 </div>`,
-  dasheditjs: function (hpp_highlight_style) {
+  dasheditjs: (config, hinfo) => {
     return `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> 
-<script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script><script src='${hpp_CDN}edit.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="${hpp_CDN}OwO.min.css">
+<script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script>
+<script src='${hinfo.CDN}edit.js'></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>
+<link rel="stylesheet" href="${hinfo.CDN}OwO.min.css">
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/highlight.min.js"></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${hpp_highlight_style}.min.css' />`
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${config.hpp_highlight_style}.min.css' />`
   },
   dashtalk: `<div class="content">
     <div class="container-fluid">
@@ -693,7 +701,17 @@ export const gethtml = {
       </div>
     </div>
   </div>`,
-  dashtalkjs: function (hpp_CDN) { return `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script><link rel="stylesheet" href="${hpp_CDN}talk.css" /><script src='${hpp_CDN}talk.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><link rel="stylesheet" href="${hpp_CDN}OwO.min.css">` },
+  dashtalkjs: (config, hinfo) => {
+    return `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> 
+    <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script>
+    <link rel="stylesheet" href="${hinfo.CDN}talk.css" />
+    <script src='${hinfo.CDN}talk.js'></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>
+    <link rel="stylesheet" href="${hinfo.CDN}OwO.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/highlight.min.js"></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${config.hpp_highlight_style}.min.css' />`
+  },
   dashdocs: `
 <div class="content">
         <div class="container-fluid">
@@ -805,21 +823,29 @@ export const gethtml = {
       </div>
     </div>
   </div>`,
-  dashimgjs: function (hpp_CDN) {
-    return `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/css/swipebox.css"><script src='${hpp_CDN}img_man.js'></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script><script src="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/js/jquery.swipebox.min.js"></script>`
+  dashimgjs: (hinfo) => {
+    return `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/css/swipebox.css">
+    <script src='${hinfo.CDN}img_man.js'></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/js/jquery.swipebox.min.js"></script>`
 
   },
-  dashhomejs: function (hpp_CDN) {
-    return `<script src='${hpp_CDN}home.js'></script>`
+  dashhomejs: (hinfo) => {
+    return `<script src='${hinfo.CDN}home.js'></script>`
   },
-  dashdocsjs: function (hpp_CDN) {
-    return `<script src='${hpp_CDN}doc_man.js'></script>`
+  dashdocsjs: (hinfo) => {
+    return `<script src='${hinfo.CDN}doc_man.js'></script>`
   },
-  dashtooljs: function (hpp_CDN) {
-    return `<script src='${hpp_CDN}tool.js'></script>`
+  dashtooljs: (hinfo) => {
+    return `<script src='${hinfo.CDN}tool.js'></script>`
   },
-  errorpage: function (errormsg, hinfo) {
+  errorpage: (errormsg, hinfo, b) => {
+    b = b ? b : [
+      { url: "https://hexoplusplus.js.org", des: "文档" },
+      { url: "https://github.com/HexoPlusPlus/HexoPlusPlus", des: "Github" },
+      { url: "https://jq.qq.com/?_wv=1027&k=rAcnhzqK", des: "QQ群寻求帮助" },
+    ]
     return `
     <!DOCTYPE html>
     <html lang="en" class="no-js">
@@ -840,9 +866,15 @@ export const gethtml = {
                     <div class="codrops-header">
                         <h1>HexoPlusPlus 异常<span>${errormsg}</span></h1>
                         <nav class="codrops-demos">
-                            <a class="current-demo" href="https://hexoplusplus.js.org">文档</a>
-                            <a class="current-demo" href="https://github.com/HexoPlusPlus/HexoPlusPlus">Github</a>
-                <a class="current-demo" href="https://jq.qq.com/?_wv=1027&k=rAcnhzqK">QQ群寻求帮助</a>
+                ${(function () {
+        let rpb = ""
+        for (var k = 0; k < getJsonLength(b); k++) {
+          if (!!(b[k])) {
+            rpb += `<a class="current-demo" href="${b[k].url}">${b[k].des}</a>\n`
+          }
+        }
+        return rpb
+      })()}
                         </nav>
                     </div>
                 </div>
@@ -854,8 +886,8 @@ export const gethtml = {
   },
 
 
-  dash_head: function (config, hinfo, ainfo) {
-    `<!DOCTYPE html>            <html lang="en">
+  dash_head:  (config, hinfo, ainfo) => {
+    return `<!DOCTYPE html>            <html lang="en">
             
             <head>
               <meta charset="utf-8" />
@@ -863,7 +895,6 @@ export const gethtml = {
               <link rel="icon" type="image/png" href="${config.hpp_usericon}">
               <title>${config.hpp_title}</title>
               <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-              ${config.hpp_plugin}
               <link rel="stylesheet" type="text/css" href="${hinfo.CDN}font.css" />
               <link href="${hinfo.CDN}admin_all_${config.hpp_theme_mode}.css" rel="stylesheet" />
               <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
@@ -959,7 +990,7 @@ export const gethtml = {
                   <!-- End Navbar --> 
             
             <!--innerHTMLSTART-->`},
-  dash_foot: function (hinfo) {
+  dash_foot:  (hinfo, hpp_js) => {
     return `
               <!--innerHTMLEND-->
   </div>
@@ -967,7 +998,7 @@ export const gethtml = {
   <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
   <script src="${hinfo.CDN}admin_all.js"></script>
-  
+  ${hpp_js}
   </body>
   
   </html>`
