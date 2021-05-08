@@ -6,6 +6,7 @@ const config = {
     },
     optimization: {
         minimize: false
+        //开发模式为false不混淆
     }
 };
 

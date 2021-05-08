@@ -1,3 +1,4 @@
+import {getJsonLength} from './../scaffold'
 export async function ghlist(config) {
     const username = config.username
     const reponame = config.reponame
@@ -41,7 +42,7 @@ export async function ghtreelist(config) {
 
 async function fetch_bfs(arr, url, getinit) {
   try {
-    const hpp_getlist = await JSON.parse(await (await fetch(url, getinit)).text())
+    const hpp_getlist =await (await fetch(url, getinit)).json()
     for (var i = 0; i < getJsonLength(hpp_getlist); i++) {
       if (hpp_getlist[i]["type"] != "dir") {
         arr.push(hpp_getlist[i])
@@ -50,5 +51,5 @@ async function fetch_bfs(arr, url, getinit) {
       }
     }
     return arr;
-  } catch (lo1) { return {} }
+  } catch (lo1) { return [] }
 }

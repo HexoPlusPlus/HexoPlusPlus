@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 480:
+/***/ 751:
 /***/ ((module) => {
 
 var charenc = {
@@ -41,7 +41,7 @@ module.exports = charenc;
 
 /***/ }),
 
-/***/ 595:
+/***/ 41:
 /***/ ((module) => {
 
 (function() {
@@ -144,7 +144,7 @@ module.exports = charenc;
 
 /***/ }),
 
-/***/ 86:
+/***/ 34:
 /***/ ((module) => {
 
 /*!
@@ -172,14 +172,14 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ 229:
+/***/ 735:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 (function(){
-  var crypt = __webpack_require__(595),
-      utf8 = __webpack_require__(480).utf8,
-      isBuffer = __webpack_require__(86),
-      bin = __webpack_require__(480).bin,
+  var crypt = __webpack_require__(41),
+      utf8 = __webpack_require__(751).utf8,
+      isBuffer = __webpack_require__(34),
+      bin = __webpack_require__(751).bin,
 
   // The core
   md5 = function (message, options) {
@@ -347,8 +347,9 @@ function isSlowBuffer (obj) {
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -388,7 +389,7 @@ const getCookie = (request, name) => {
     return result
 }
 
-const scaffold_getJsonLength = (jsonData) => {
+const getJsonLength = (jsonData) => {
 
     var jsonLength = 0;
 
@@ -406,16 +407,16 @@ const rp = (path) => {
 }
 const getname = (path) => {
     const urllist = path.split('/')
-    return urllist[scaffold_getJsonLength(urllist) - 1]
+    return urllist[getJsonLength(urllist) - 1]
 }
 const getsuffix = (path) => {
     const suffixlist = getname(path).split('.')
-    return suffixlist[scaffold_getJsonLength(suffixlist) - 1]
+    return suffixlist[getJsonLength(suffixlist) - 1]
 }
 
 const genjsonres = (msg, code, status, content) => {
     let m = msg ? msg : "未知的错误"
-    let c = code ? code : "-1"
+    let c = (code||code==0) ? code : "-1"
     let s = status ? status : 500
     let co = content ? content : ''
     let r = {
@@ -879,7 +880,7 @@ const gethtml = {
     </body>
     </html>`*/
   },
-  loginhtml: (config) => {
+  loginhtml: (config,hinfo) => {
     return `
     <!DOCTYPE html>
     <html lang="zh-cmn-Hans">
@@ -897,7 +898,7 @@ const gethtml = {
     　　 a:hover { text-decoration:underline;color: white} 
     　　 a:visited { text-decoration: none;color: white}
       </style>
-      <link rel="stylesheet" href="${config.CDN}login.css" /> 
+      <link rel="stylesheet" href="${hinfo.CDN}login.css" /> 
      </head>
      <body>
       <div id="all">
@@ -911,7 +912,7 @@ const gethtml = {
            <button type="button" id="login-button">登录</button>
            <br />
            <br />
-           <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips" style="color: #fff;">@HexoPP</a>
+           <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips" style="color: #fff;">@${config.ver}</a>
           </form>
          </div>
         </div>
@@ -929,7 +930,7 @@ const gethtml = {
         </ul>
        </div>
       </div>
-      <script src="${config.CDN}md5.js"></script>
+      <script src="${hinfo.CDN}md5.js"></script>
       <script>
     document.onkeydown=keyListener;
     function login(){
@@ -1320,7 +1321,7 @@ const gethtml = {
                         <nav class="codrops-demos">
                 ${(function () {
         let rpb = ""
-        for (var k = 0; k < scaffold_getJsonLength(b); k++) {
+        for (var k = 0; k < getJsonLength(b); k++) {
           if (!!(b[k])) {
             rpb += `<a class="current-demo" href="${b[k].url}">${b[k].des}</a>\n`
           }
@@ -1458,6 +1459,7 @@ const gethtml = {
 }
 
 ;// CONCATENATED MODULE: ./worker/src/github/getlist.js
+
 async function ghlist(config) {
     const username = config.username
     const reponame = config.reponame
@@ -1501,7 +1503,7 @@ async function ghtreelist(config) {
 
 async function fetch_bfs(arr, url, getinit) {
   try {
-    const hpp_getlist = await JSON.parse(await (await fetch(url, getinit)).text())
+    const hpp_getlist =await (await fetch(url, getinit)).json()
     for (var i = 0; i < getJsonLength(hpp_getlist); i++) {
       if (hpp_getlist[i]["type"] != "dir") {
         arr.push(hpp_getlist[i])
@@ -1510,7 +1512,7 @@ async function fetch_bfs(arr, url, getinit) {
       }
     }
     return arr;
-  } catch (lo1) { return {} }
+  } catch (lo1) { return [] }
 }
 ;// CONCATENATED MODULE: ./worker/src/github/getsha.js
 
@@ -1669,7 +1671,7 @@ async function  hppupdate(config, newest) {
 
 
 
-const githubroute = async (request, config) => {
+const githubroute = async (request, config, hinfo) => {
     try {
         let r, rs, name, msgd, hpp_list_index
         const apireq = await request.json()
@@ -1801,13 +1803,13 @@ const githubroute = async (request, config) => {
                 return ghget({
                     username: config.hpp_githubdocusername,
                     reponame: config.hpp_githubdocrepo,
-                    path: `${hpp_githubdocroot}scaffolds/`,
+                    path: `${config.hpp_githubdocroot}scaffolds/`,
                     branch: config.hpp_githubdocbranch,
                     filename: 'post.md',
                     token: config.hpp_githubdoctoken
                 })
             case 'getdoclist':
-                msgd = '命中了缓存,获取文章列表成功！'
+
                 hpp_list_index = await KVNAME.get("hpp_doc_list_index")
                 if (hpp_list_index === null) {
                     hpp_list_index = JSON.stringify(await ghtreelist({
@@ -1817,13 +1819,20 @@ const githubroute = async (request, config) => {
                         branch: config.hpp_githubdocbranch,
                         token: config.hpp_githubdoctoken
                     }))
-                    await KVNAME.put("hpp_doc_list_index", hpp_list_index)
-                    msgd = '没有命中缓存,获取文章列表成功！'
+                    if (!hinfo.dev) {
+                        await KVNAME.put("hpp_doc_list_index", hpp_list_index)
+                        msgd = '没有命中缓存,获取文章列表成功！'
+                    } else {
+
+                        msgd = '没有命中缓存,处于开发模式,获取文章列表成功！'
+                    }
+                } else {
+                    msgd = '命中了缓存,获取文章列表成功！'
                 }
                 return genjsonres(msgd, 0, 200, hpp_list_index)
 
             case 'getdraftlist':
-                msgd = '命中了缓存,获取艹稿列表成功！'
+
                 hpp_list_index = await KVNAME.get("hpp_doc_draft_list_index")
                 if (hpp_list_index === null) {
                     hpp_list_index = JSON.stringify(await ghtreelist({
@@ -1833,14 +1842,20 @@ const githubroute = async (request, config) => {
                         branch: config.hpp_githubdocbranch,
                         token: config.hpp_githubdoctoken
                     }))
-                    await KVNAME.put("hpp_doc_draft_list_index", hpp_list_index)
-                    msgd = '没有命中缓存,获取艹稿列表成功！'
+                    if (!hinfo.dev) {
+                        await KVNAME.put("hpp_doc_draft_list_index", hpp_list_index)
+                        msgd = '没有命中缓存,获取艹稿列表成功！'
+                    } else {
+                        msgd = '没有命中缓存,处于开发模式,获取艹稿列表成功！'
+                    }
+                } else {
+                    msgd = '命中了缓存,获取艹稿列表成功！'
                 }
                 return genjsonres(msgd, 0, 200, hpp_list_index)
 
 
             case 'getimglist':
-                msgd = '命中了缓存,获取图片列表成功！'
+
                 hpp_list_index = await KVNAME.get("hpp_img_list_index")
                 if (hpp_list_index === null) {
                     hpp_list_index = JSON.stringify(await ghtreelist({
@@ -1850,8 +1865,14 @@ const githubroute = async (request, config) => {
                         branch: config.hpp_githubimagebranch,
                         token: config.hpp_githubimagetoken
                     }))
-                    await KVNAME.put("hpp_img_list_index", hpp_list_index)
-                    msgd = '没有命中缓存,获取图片列表成功！'
+                    if (!hinfo.dev) {
+                        await KVNAME.put("hpp_img_list_index", hpp_list_index)
+                        msgd = '没有命中缓存,获取图片列表成功！'
+                    } else {
+                        msgd = '没有命中缓存,处于开发模式,获取图片列表成功！'
+                    }
+                } else {
+                    msgd = '命中了缓存,获取图片列表成功！'
                 }
                 return genjsonres(msgd, 0, 200, hpp_list_index)
             case 'delindex':
@@ -1865,7 +1886,7 @@ const githubroute = async (request, config) => {
     } catch (lo) { throw lo }
 }
 
-const dashroute = async (request, config,hinfo) => {
+const dashroute = async (request, config, hinfo) => {
     const req = request
     const urlStr = req.url
     const urlObj = new URL(urlStr)
@@ -2067,7 +2088,7 @@ function genactres(config, t) {
     })
 }
 ;// CONCATENATED MODULE: ./worker/index.js
-const md5 = __webpack_require__(229)
+const md5 = __webpack_require__(735)
 ;
 
 
@@ -2079,7 +2100,8 @@ const md5 = __webpack_require__(229)
 
 let hinfo = {
   ver: "HexoPlusPlus@1.2.1_β_3",
-  CDN: `https://hppstatic.pages.dev/`
+  CDN: `https://hppstatic.pages.dev/`,
+  dev: true
 }
 
 const hpp_ver = hinfo.ver
@@ -2092,7 +2114,7 @@ addEventListener("fetch", event => {
 
 async function handleRequest(request) {
   try {
-    hpp_logstatus = true
+    hpp_logstatus = false
     const req = request
     const urlStr = req.url
     const urlObj = new URL(urlStr)
@@ -2100,6 +2122,7 @@ async function handleRequest(request) {
     const domain = (urlStr.split('/'))[2]
     const username = hpp_username.split(",");
     const password = hpp_password.split(",");
+    const maph = new Map(request.headers);
     hinfo.username = username
 
 
@@ -2168,10 +2191,13 @@ async function handleRequest(request) {
 */
 
 
-    for (var w = 0; w < scaffold_getJsonLength(username); w++) {
+    for (var w = 0; w < getJsonLength(username); w++) {
       if (getCookie(request, "password") == md5(password[w]) && getCookie(request, "username") == md5(username[w])) {
         hpp_logstatus = true
       }
+    }
+    if (hinfo.dev && (() => { try { if (maph.get('hpp_dev_auth') == HDEV_TOKEN) { return true } else { return false } } catch (p) { return false } })()) {
+      hpp_logstatus = true
     }
     if (path.startsWith('/hpp/admin')) {
       if (hpp_logstatus) {
@@ -2191,13 +2217,13 @@ async function handleRequest(request) {
 
         /*主面板*/
         if (path.startsWith("/hpp/admin/dash")) {
-          return dashroute(request,config,hinfo)
+          return dashroute(request, config, hinfo)
         }
 
 
         if (rp(path) == '/hpp/admin/api/github') {
 
-          return githubroute(request,config)
+          return githubroute(request, config,hinfo)
         }
 
         if (rp(path) == '/hpp/admin/api/update') {
@@ -2372,7 +2398,7 @@ async function handleRequest(request) {
       }
       else {
         if (rp(path) == '/hpp/admin/login') {
-          return new Response(gethtml.loginhtml(config), {
+          return new Response(gethtml.loginhtml(config,hinfo), {
             headers: { "content-type": "text/html;charset=UTF-8" }
           })
         }

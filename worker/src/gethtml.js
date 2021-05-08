@@ -427,7 +427,7 @@ export const gethtml = {
     </body>
     </html>`*/
   },
-  loginhtml: (config) => {
+  loginhtml: (config,hinfo) => {
     return `
     <!DOCTYPE html>
     <html lang="zh-cmn-Hans">
@@ -445,7 +445,7 @@ export const gethtml = {
     　　 a:hover { text-decoration:underline;color: white} 
     　　 a:visited { text-decoration: none;color: white}
       </style>
-      <link rel="stylesheet" href="${config.CDN}login.css" /> 
+      <link rel="stylesheet" href="${hinfo.CDN}login.css" /> 
      </head>
      <body>
       <div id="all">
@@ -459,7 +459,7 @@ export const gethtml = {
            <button type="button" id="login-button">登录</button>
            <br />
            <br />
-           <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips" style="color: #fff;">@HexoPP</a>
+           <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips" style="color: #fff;">@${config.ver}</a>
           </form>
          </div>
         </div>
@@ -477,7 +477,7 @@ export const gethtml = {
         </ul>
        </div>
       </div>
-      <script src="${config.CDN}md5.js"></script>
+      <script src="${hinfo.CDN}md5.js"></script>
       <script>
     document.onkeydown=keyListener;
     function login(){

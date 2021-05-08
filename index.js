@@ -1,4 +1,4 @@
-/1.x.x 迁移 2.x.x助手 /
+/*1.x.x 迁移 2.x.x助手 */
 
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request))

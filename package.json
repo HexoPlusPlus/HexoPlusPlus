@@ -4,7 +4,8 @@
   "description": "A Serverless Hexo Back DashBoard",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-worker": "webpack",
+    "build-worker-dev":"webpack --watch"
   },
   "author": "ChenYFan",
   "license": "ISC",

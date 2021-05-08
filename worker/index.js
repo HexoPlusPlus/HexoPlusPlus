@@ -3,14 +3,15 @@ import { gethtml } from './src/gethtml'
 import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix, genjsonres } from './src/scaffold'
 import { ghupload, ghdel, ghget, ghlatver, ghlatinfo } from './src/github/manager'
 import { hppupdate } from './src/update.js'
-import { githubroute,dashroute } from './src/router/router.js'
+import { githubroute, dashroute } from './src/router/router.js'
 import { htalk } from './src/talk/htalk/index'
 import { genactiveres } from './src/getblogeractive'
 //const hpp_CDNver = "91dcf20"
 
 let hinfo = {
   ver: "HexoPlusPlus@1.2.1_β_3",
-  CDN: `https://hppstatic.pages.dev/`
+  CDN: `https://hppstatic.pages.dev/`,
+  dev: true
 }
 
 const hpp_ver = hinfo.ver
@@ -23,7 +24,7 @@ addEventListener("fetch", event => {
 
 async function handleRequest(request) {
   try {
-    hpp_logstatus = true
+    hpp_logstatus = false
     const req = request
     const urlStr = req.url
     const urlObj = new URL(urlStr)
@@ -31,6 +32,7 @@ async function handleRequest(request) {
     const domain = (urlStr.split('/'))[2]
     const username = hpp_username.split(",");
     const password = hpp_password.split(",");
+    const maph = new Map(request.headers);
     hinfo.username = username
 
 
@@ -104,6 +106,9 @@ async function handleRequest(request) {
         hpp_logstatus = true
       }
     }
+    if (hinfo.dev && (() => { try { if (maph.get('hpp_dev_auth') == HDEV_TOKEN) { return true } else { return false } } catch (p) { return false } })()) {
+      hpp_logstatus = true
+    }
     if (path.startsWith('/hpp/admin')) {
       if (hpp_logstatus) {
 
@@ -122,13 +127,13 @@ async function handleRequest(request) {
 
         /*主面板*/
         if (path.startsWith("/hpp/admin/dash")) {
-          return dashroute(request,config,hinfo)
+          return dashroute(request, config, hinfo)
         }
 
 
         if (rp(path) == '/hpp/admin/api/github') {
 
-          return githubroute(request,config)
+          return githubroute(request, config,hinfo)
         }
 
         if (rp(path) == '/hpp/admin/api/update') {
@@ -303,7 +308,7 @@ async function handleRequest(request) {
       }
       else {
         if (rp(path) == '/hpp/admin/login') {
-          return new Response(gethtml.loginhtml(config), {
+          return new Response(gethtml.loginhtml(config,hinfo), {
             headers: { "content-type": "text/html;charset=UTF-8" }
           })
         }

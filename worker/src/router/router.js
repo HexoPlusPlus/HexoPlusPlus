@@ -2,7 +2,7 @@ import { ghupload, ghdel, ghget } from './../github/manager'
 import { ghtreelist } from './../github/getlist'
 import { gethtml } from './../gethtml'
 import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix, genjsonres } from './../scaffold'
-export const githubroute = async (request, config) => {
+export const githubroute = async (request, config, hinfo) => {
     try {
         let r, rs, name, msgd, hpp_list_index
         const apireq = await request.json()
@@ -134,13 +134,13 @@ export const githubroute = async (request, config) => {
                 return ghget({
                     username: config.hpp_githubdocusername,
                     reponame: config.hpp_githubdocrepo,
-                    path: `${hpp_githubdocroot}scaffolds/`,
+                    path: `${config.hpp_githubdocroot}scaffolds/`,
                     branch: config.hpp_githubdocbranch,
                     filename: 'post.md',
                     token: config.hpp_githubdoctoken
                 })
             case 'getdoclist':
-                msgd = '命中了缓存,获取文章列表成功！'
+
                 hpp_list_index = await KVNAME.get("hpp_doc_list_index")
                 if (hpp_list_index === null) {
                     hpp_list_index = JSON.stringify(await ghtreelist({
@@ -150,13 +150,20 @@ export const githubroute = async (request, config) => {
                         branch: config.hpp_githubdocbranch,
                         token: config.hpp_githubdoctoken
                     }))
-                    await KVNAME.put("hpp_doc_list_index", hpp_list_index)
-                    msgd = '没有命中缓存,获取文章列表成功！'
+                    if (!hinfo.dev) {
+                        await KVNAME.put("hpp_doc_list_index", hpp_list_index)
+                        msgd = '没有命中缓存,获取文章列表成功！'
+                    } else {
+
+                        msgd = '没有命中缓存,处于开发模式,获取文章列表成功！'
+                    }
+                } else {
+                    msgd = '命中了缓存,获取文章列表成功！'
                 }
                 return genjsonres(msgd, 0, 200, hpp_list_index)
 
             case 'getdraftlist':
-                msgd = '命中了缓存,获取艹稿列表成功！'
+
                 hpp_list_index = await KVNAME.get("hpp_doc_draft_list_index")
                 if (hpp_list_index === null) {
                     hpp_list_index = JSON.stringify(await ghtreelist({
@@ -166,14 +173,20 @@ export const githubroute = async (request, config) => {
                         branch: config.hpp_githubdocbranch,
                         token: config.hpp_githubdoctoken
                     }))
-                    await KVNAME.put("hpp_doc_draft_list_index", hpp_list_index)
-                    msgd = '没有命中缓存,获取艹稿列表成功！'
+                    if (!hinfo.dev) {
+                        await KVNAME.put("hpp_doc_draft_list_index", hpp_list_index)
+                        msgd = '没有命中缓存,获取艹稿列表成功！'
+                    } else {
+                        msgd = '没有命中缓存,处于开发模式,获取艹稿列表成功！'
+                    }
+                } else {
+                    msgd = '命中了缓存,获取艹稿列表成功！'
                 }
                 return genjsonres(msgd, 0, 200, hpp_list_index)
 
 
             case 'getimglist':
-                msgd = '命中了缓存,获取图片列表成功！'
+
                 hpp_list_index = await KVNAME.get("hpp_img_list_index")
                 if (hpp_list_index === null) {
                     hpp_list_index = JSON.stringify(await ghtreelist({
@@ -183,8 +196,14 @@ export const githubroute = async (request, config) => {
                         branch: config.hpp_githubimagebranch,
                         token: config.hpp_githubimagetoken
                     }))
-                    await KVNAME.put("hpp_img_list_index", hpp_list_index)
-                    msgd = '没有命中缓存,获取图片列表成功！'
+                    if (!hinfo.dev) {
+                        await KVNAME.put("hpp_img_list_index", hpp_list_index)
+                        msgd = '没有命中缓存,获取图片列表成功！'
+                    } else {
+                        msgd = '没有命中缓存,处于开发模式,获取图片列表成功！'
+                    }
+                } else {
+                    msgd = '命中了缓存,获取图片列表成功！'
                 }
                 return genjsonres(msgd, 0, 200, hpp_list_index)
             case 'delindex':
@@ -198,7 +217,7 @@ export const githubroute = async (request, config) => {
     } catch (lo) { throw lo }
 }
 
-export const dashroute = async (request, config,hinfo) => {
+export const dashroute = async (request, config, hinfo) => {
     const req = request
     const urlStr = req.url
     const urlObj = new URL(urlStr)
