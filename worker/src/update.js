@@ -1,6 +1,6 @@
 import { ghlatver } from './github/manager'
 import { genjsonres } from './scaffold'
-export async function  hppupdate(config, newest) {
+export const hppupdate = async (config, newest) => {
     let ver = 'dist'
     if (!newest) {
         ver = await ghlatver({
@@ -12,7 +12,7 @@ export async function  hppupdate(config, newest) {
     const url = `https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/${ver}/index.worker.js`
 
 
-    const script = await(await fetch(url)).text()
+    const script = await (await fetch(url)).text()
     const up_init = {
         body: script,
         method: "PUT",
@@ -22,7 +22,7 @@ export async function  hppupdate(config, newest) {
             "X-Auth-Email": config.hpp_Auth_Email
         }
     }
-    const update_resul = await(await fetch(`https://api.cloudflare.com/client/v4/accounts/${config.hpp_account_identifier}/workers/scripts/${config.hpp_script_name}`, up_init)).json()
+    const update_resul = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${config.hpp_account_identifier}/workers/scripts/${config.hpp_script_name}`, up_init)).json()
     if (update_resul["success"]) {
         return genjsonres('更新是成功的!', 0, 200)
     } else {

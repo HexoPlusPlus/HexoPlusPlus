@@ -1,5 +1,20 @@
-export const install = (config, hinfo) => {
+export const install = (config, hinfo, request) => {
     return new Response(``)
+    /*
+    if (rp(path) == '/hpp/admin/api/upconfig') {
+              const config_r = JSON.stringify(await request.text())
+              await KVNAME.put("hpp_config", config_r)
+              return new Response("OK")
+            }
+            if (rp(path) == "/hpp/admin/install") {
+              let hpp_installhtml = gethtml.installhtml(config, hinfo)
+              return new Response(hpp_installhtml, {
+                headers: { "content-type": "text/html;charset=UTF-8" }
+              })
+    
+            }
+            */
+
     /*
     CDN = hinfo.CDN
     hpp_ver = hinfo.ver

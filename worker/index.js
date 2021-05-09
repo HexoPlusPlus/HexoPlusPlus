@@ -17,6 +17,8 @@ let hinfo = {
 
 const hpp_ver = hinfo.ver
 const hpp_CDN = hinfo.CDN
+/*历史遗留原因，未来将删除*/
+
 let hpp_logstatus
 addEventListener("fetch", event => {
   /*
@@ -64,7 +66,7 @@ async function hexoplusplus(request) {
 
 
 
-    if (hpp_config === null && hpp_config.loginstatus) {
+    if (hpp_config === null && hpp_logstatus) {
       return new Response(gethtml.errorpage('配置文件是空的，请安装', hinfo, [
         { url: `/hpp/admin/install`, des: "开始安装" }
       ]), {
@@ -73,7 +75,7 @@ async function hexoplusplus(request) {
     }
 
     if (path.startsWith('/hpp/admin/install')) {
-      return install(config, hinfo)
+      return install(config, hinfo, request)
     }
     /*不能将KVGET的时候获取为json,否则报错*/
 
@@ -82,30 +84,19 @@ async function hexoplusplus(request) {
     if (path.startsWith('/hpp/admin')) {
       if (hpp_logstatus) {
 
-        if (rp(path) == '/hpp/admin/api/upconfig') {
-          const config_r = JSON.stringify(await request.text())
-          await KVNAME.put("hpp_config", config_r)
-          return new Response("OK")
-        }
-        if (rp(path) == "/hpp/admin/install") {
-          let hpp_installhtml = gethtml.installhtml(config, hinfo)
-          return new Response(hpp_installhtml, {
-            headers: { "content-type": "text/html;charset=UTF-8" }
-          })
 
-        }
 
         /*主面板*/
         if (path.startsWith("/hpp/admin/dash")) {
           return dashroute(request, config, hinfo)
         }
 
-
+        /*GithubAPI*/
         if (rp(path) == '/hpp/admin/api/github') {
 
           return githubroute(request, config, hinfo)
         }
-
+        /*更新*/
         if (rp(path) == '/hpp/admin/api/update') {
           try {
             const apireq = await request.json()
@@ -122,17 +113,21 @@ async function hexoplusplus(request) {
                 } else {
                   return genjsonres('需要更新!', 1, 200, ghlatinfo(config))
                 }
+              default:
+                return genjsonres('未知的操作！', -1, 500)
             }
           } catch (lo) { throw lo }
 
         }
+
+        /*签到*/
         if (rp(path) == '/hpp/admin/api/kick') {
           const now = Date.now(new Date())
           await KVNAME.put("hpp_activetime", now)
           return new Response("OK")
         }
 
-
+        /*HTALK*/
         if (rp(path) == '/hpp/admin/api/talk/htalk') {
           return htalk(config, request, loginstatus, hinfo)
         }
@@ -156,12 +151,14 @@ async function hexoplusplus(request) {
       return Response.redirect(`https://${domain}/hpp/admin/dash/home`, 302)
     }
     if (path.startsWith('/hpp/api')) {
-
+      /*游客端API*/
+      /*获得最近活跃时间*/
       if (rp(path) == "/hpp/api/getblogeractive") {
         return genactiveres(config)
       }
 
       if (path.startsWith('/hpp/api/talk/')) {
+        /*HTALK游客端*/
         if (rp(path) == "/hpp/api/talk/htalk") {
           return htalk(config, request, false, hinfo)
         }
@@ -171,6 +168,8 @@ async function hexoplusplus(request) {
         }
       }
       if (path.startsWith('/hpp/api/comment/')) {
+
+        /*评论区，Feign为KV+Worker伪装后端，Agent为代理和隐藏前端重要数据*/
         if (rp(path) == "/hpp/api/comment/Feign_Valine") {
           return new Response('Coming Soon!')
         }
@@ -213,6 +212,8 @@ async function hexoplusplus(request) {
       }
 
     }
+
+    /*HPAGE：支持PrivateRepo，提供类似于WorkerSite的功能*/
     if (config.hpp_hpage) {
       return hpage(config)
     }
