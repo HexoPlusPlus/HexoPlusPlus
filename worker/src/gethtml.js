@@ -844,7 +844,7 @@ export const gethtml = {
     b = b ? b : [
       { url: "https://hexoplusplus.js.org", des: "文档" },
       { url: "https://github.com/HexoPlusPlus/HexoPlusPlus", des: "Github" },
-      { url: "https://jq.qq.com/?_wv=1027&k=rAcnhzqK", des: "QQ群寻求帮助" },
+      { url: "https://jq.qq.com/?_wv=1027&k=rAcnhzqK", des: "QQ群寻求帮助" }
     ]
     return `
     <!DOCTYPE html>

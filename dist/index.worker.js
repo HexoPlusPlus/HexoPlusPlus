@@ -416,13 +416,13 @@ const getsuffix = (path) => {
 
 const genjsonres = (msg, code, status, content) => {
     let m = msg ? msg : "未知的错误"
-    let c = (code||code==0) ? code : "-1"
+    let c = (code || code == 0) ? code : "-1"
     let s = status ? status : 500
     let co = content ? content : ''
     let r = {
-        msg: m,
+        msg: String(m),
         code: c,
-        content: co
+        content: String(co)
     }
     return new Response(JSON.stringify(r), {
         status: s, headers: {
@@ -448,7 +448,63 @@ const formatconfig = (config) => {
 }
 
 const defaultconfig = {
-
+    /*
+        const hpp_domain = config["hpp_domain"]
+        const hpp_userimage = config["hpp_userimage"]
+        const hpp_title = config["hpp_title"]
+        const hpp_usericon = config["hpp_usericon"]
+        const hpp_cors = config["hpp_cors"]
+        const hpp_githubdoctoken = config["hpp_githubdoctoken"]
+    
+        const hpp_githubdocusername = config["hpp_githubdocusername"]
+        const hpp_githubdocrepo = config["hpp_githubdocrepo"]
+        const hpp_githubdocroot = config["hpp_githubdocroot"]
+        const hpp_githubdocbranch = config["hpp_githubdocbranch"]
+    
+        const hpp_githubpage = config["hpp_githubpage"]
+        const hpp_githubpagetoken = config["hpp_githubpagetoken"]
+        const hpp_githubpageusername = config["hpp_githubpageusername"]
+        const hpp_githubpagerepo = config["hpp_githubpagerepo"]
+        const hpp_githubpageroot = config["hpp_githubpageroot"]
+        const hpp_githubpagebranch = config["hpp_githubpagebranch"]
+    
+        const hpp_img = config["hpp_img"] || "false"
+    
+        const hpp_ownimgurl = config["hpp_ownimgurl"]
+        const hpp_ownimgname = config["hpp_ownimgname"]
+        const hpp_ownimgjsonpath = config["hpp_ownimgjsonpath"]
+        const hpp_ownimgheader = config["hpp_ownimgheader"]
+        const hpp_ownimgmethod = config["hpp_ownimgmethod"]
+    
+        const hpp_githubimagetoken = config["hpp_githubimagetoken"]
+        const hpp_githubimageusername = config["hpp_githubimageusername"]
+        const hpp_githubimagerepo = config["hpp_githubimagerepo"]
+        const hpp_githubimagepath = config["hpp_githubimagepath"]
+        const hpp_githubimagebranch = config["hpp_githubimagebranch"]
+    
+        const hpp_autodate = config["hpp_autodate"]
+        const hpp_account_identifier = config["hpp_account_identifier"]
+        const hpp_script_name = config["hpp_script_name"]
+        const hpp_CF_Auth_Key = config["hpp_CF_Auth_Key"]
+        const hpp_Auth_Email = config["hpp_Auth_Email"]
+        const hpp_twikoo_envId = config["hpp_twikoo-envId"]
+        const hpp_twikoo = config["hpp_twikoo"] || "false"
+        const hpp_OwO = config["hpp_OwO"]
+        const hpp_back = config["hpp_back"]
+        const hpp_lazy_img = config["hpp_lazy_img"]
+        const hpp_highlight_style = config["hpp_highlight_style"]
+        const hpp_plugin_js = config["hpp_plugin_js"]
+        const hpp_plugin_css = config["hpp_plugin_css"]
+        const hpp_githubdocpath = hpp_githubdocroot + "source/_posts/"
+        const hpp_githubdocdraftpath = hpp_githubdocroot + "source/_drafts/"
+        const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
+        const githubdocpath = encodeURI(hpp_githubdocpath)
+        const githubimagepath = encodeURI(hpp_githubimagepath)
+        const hpp_color = config["hpp_color"] || "rose"
+        const hpp_bg_color = config["hpp_bg_color"] || "white"
+        const hpp_theme_mode = config["hpp_theme_mode"] || "light"
+        const hpp_page_limit = config["hpp_page_limit"] || "10"
+    */
 }
 ;// CONCATENATED MODULE: ./worker/src/gethtml.js
 
@@ -1297,7 +1353,7 @@ const gethtml = {
     b = b ? b : [
       { url: "https://hexoplusplus.js.org", des: "文档" },
       { url: "https://github.com/HexoPlusPlus/HexoPlusPlus", des: "Github" },
-      { url: "https://jq.qq.com/?_wv=1027&k=rAcnhzqK", des: "QQ群寻求帮助" },
+      { url: "https://jq.qq.com/?_wv=1027&k=rAcnhzqK", des: "QQ群寻求帮助" }
     ]
     return `
     <!DOCTYPE html>
@@ -1686,7 +1742,7 @@ const githubroute = async (request, config, hinfo) => {
                     filename: apireq.filename,
                     token: config.hpp_githubdoctoken
                 })
-                rs = await r.status
+                rs = r.status
                 if (rs == 200 || rs == 201) {
                     if (rs == 201) { await KVNAME.delete("hpp_doc_list_index"); return genjsonres('新建文档成功！', 0, rs) }
                     return genjsonres('上传文档成功！', 0, rs)
@@ -1704,12 +1760,12 @@ const githubroute = async (request, config, hinfo) => {
                     filename: apireq.filename,
                     token: config.hpp_githubdoctoken
                 })
-                rs = await r.status
+                rs = r.status
                 if (rs == 200 || rs == 201) {
                     if (rs == 201) { await KVNAME.delete("hpp_doc_draft_list_index"); return genjsonres('上传草稿成功！', 0, rs) }
                     return genjsonres('上传草稿成功！', 0, rs)
                 } else {
-                    return genjsonres('新建草稿失败！', 0, rs)
+                    return genjsonres('上传/新建草稿失败！', -1, rs)
                 }
             case 'addimg':
                 name = `${Date.parse(new Date())}.${apireq.suffix}`
@@ -1722,7 +1778,7 @@ const githubroute = async (request, config, hinfo) => {
                     filename: name,
                     token: config.hpp_githubimagetoken
                 })
-                rs = await r.status
+                rs = r.status
 
                 if (rs == 200 || rs == 201) {
                     const jsdurl = `https://cdn.jsdelivr.net/gh/${config.hpp_githubimageusername}/${config.hpp_githubimagerepo}@${config.hpp_githubimagebranch}${config.hpp_githubimagepath}${name}`
@@ -1740,7 +1796,7 @@ const githubroute = async (request, config, hinfo) => {
                     filename: apireq.filename,
                     token: config.hpp_githubdoctoken
                 })
-                rs = await r.status
+                rs = r.status
                 if (rs == 200) {
                     await KVNAME.delete("hpp_doc_list_index")
                     return genjsonres('删除文档成功！', 0, rs)
@@ -1756,7 +1812,7 @@ const githubroute = async (request, config, hinfo) => {
                     filename: apireq.filename,
                     token: config.hpp_githubdoctoken
                 })
-                rs = await r.status
+                rs = r.status
                 if (rs == 200) {
                     await KVNAME.delete("hpp_doc_list_index")
                     return genjsonres('删除艹稿成功！', 0, rs)
@@ -1773,7 +1829,7 @@ const githubroute = async (request, config, hinfo) => {
                     filename: apireq.filename,
                     token: config.hpp_githubimagetoken
                 })
-                rs = await r.status
+                rs = r.status
                 if (rs == 200) {
                     await KVNAME.delete("hpp_doc_list_index")
                     return genjsonres('删除图片成功！', 0, rs)
@@ -1880,9 +1936,9 @@ const githubroute = async (request, config, hinfo) => {
                 await KVNAME.delete("hpp_img_list_index")
                 return genjsonres('清除索引缓存成功!', 0, 200)
             default:
-                throw '未知的操作'
+                return genjsonres('未知的操作', -1, 500)
         }
-    } catch (lo) { throw lo }
+    } catch (lo) { return genjsonres('出现了异常', -1, 500, lo) }
 }
 
 const dashroute = async (request, config, hinfo) => {
@@ -2086,6 +2142,514 @@ function genactres(config, t) {
         }
     })
 }
+;// CONCATENATED MODULE: ./worker/src/install.js
+const install = (config, hinfo) => {
+    return new Response(``)
+    /*
+    CDN = hinfo.CDN
+    hpp_ver = hinfo.ver
+    return `<!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+      <title>欢迎 | ${hpp_ver}</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"/>
+    </head>
+    <body style="mdui-theme-layout-dark">
+    <div class="mdui-container">
+      <div class="mdui-toolbar">
+        <a id="_menu" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+        <span class="mdui-typo-title">${hpp_ver}安装</span>
+        <div class="mdui-toolbar-spacer"></div>
+      </div>
+    </div>
+    
+    <div class="mdui-drawer mdui-drawer-close" id="drawer" style="background-color:#fff">
+      <ul class="mdui-list" id="_li">
+      <li class="mdui-list-item mdui-ripple">
+      <a href="https://hexoplusplus.js.org">
+          <div class="mdui-list-item-content">寻求帮助</div></a></li><li class="mdui-list-item mdui-ripple">
+          <a href="https://github.com/hexoplusplus/hexoplusplus">
+          <div class="mdui-list-item-content">项目地址</div></a></li><li class="mdui-list-item mdui-ripple">
+          <a href="https://jq.qq.com/?_wv=1027&k=rAcnhzqK">
+          <div class="mdui-list-item-content">加群帮助</div></a>
+        </li>
+    </ul></div>
+    
+    <div class="mdui-container">
+    
+      <div class="mdui-row">
+        <div class="mdui-m-b-3">
+          <div class="mdui-panel" id="panel">
+            <div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+              <div class="mdui-panel-item-header">基础配置(必填)</div>
+              <div class="mdui-panel-item-body">
+                <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">域名</label>
+        <input class="mdui-textfield-input" id="hpp_domain" value="${config["hpp_domain"] || domain}"/>
+      </div>
+      
+      
+                <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">头像地址</label>
+        <input class="mdui-textfield-input" id="hpp_userimage" value="${config["hpp_userimage"]}"/>
+      </div>
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">标题</label>
+        <input class="mdui-textfield-input" id="hpp_title" value="${config["hpp_title"]}"/>
+      </div>
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">icon地址</label>
+        <input class="mdui-textfield-input" id="hpp_usericon" value="${config["hpp_usericon"]}"/>
+      </div>
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">跨域请求</label>
+        <input class="mdui-textfield-input" id="hpp_cors" value="${config["hpp_cors"]}"/>
+      </div>
+      
+      
+                  
+      
+      
+              </div>
+            </div>
+        
+        <div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+              <div class="mdui-panel-item-header">面板配置(必填)</div>
+              <div class="mdui-panel-item-body">
+                <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">OWOJSON地址</label>
+        <input class="mdui-textfield-input" id="hpp_OwO" value="${config["hpp_OwO"]}"/>
+      </div>
+      
+      
+                <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">面板背景图片</label>
+        <input class="mdui-textfield-input" id="hpp_back" value="${config["hpp_back"]}"/>
+      </div>
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">懒加载图片</label>
+        <input class="mdui-textfield-input" id="hpp_lazy_img" value="${config["hpp_lazy_img"]}"/>
+      </div>
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">高亮样式</label>
+        <input class="mdui-textfield-input" id="hpp_highlight_style" value="${config["hpp_highlight_style"]}"/>
+      </div>
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">面板选项卡颜色</label>
+        <input class="mdui-textfield-input" id="hpp_color" value="${config["hpp_color"]}"/>
+      </div>
+      
+                    <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">面板选项框颜色</label>
+        <input class="mdui-textfield-input" id="hpp_bg_color" value="${config["hpp_bg_color"]}"/>
+      </div>
+                    <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">面板主题色</label>
+        <input class="mdui-textfield-input" id="hpp_theme_mode" value="${config["hpp_theme_mode"]}"/>
+      </div>
+                  
+                   <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">列表限制数量</label>
+        <input class="mdui-textfield-input" id="hpp_page_limit" value="${config["hpp_page_limit"]}"/>
+      </div>
+                  
+      
+              </div>
+            </div>
+        
+        
+        <div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+              <div class="mdui-panel-item-header">Github文档配置</div>
+              <div class="mdui-panel-item-body">
+                <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github文档仓库Token</label>
+        <input class="mdui-textfield-input" id="hpp_githubdoctoken" value="${config["hpp_githubdoctoken"]}"/>
+      </div>
+      
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github文档仓库用户名</label>
+        <input class="mdui-textfield-input" id="hpp_githubdocusername" value="${config["hpp_githubdocusername"]}"/>
+      </div>
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github文档仓库名</label>
+        <input class="mdui-textfield-input" id="hpp_githubdocrepo" value="${config["hpp_githubdocrepo"]}"/>
+      </div>
+      
+                    <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github文档仓库根目录</label>
+        <input class="mdui-textfield-input" id="hpp_githubdocroot" value="${config["hpp_githubdocroot"]}"/>
+      </div>
+                  
+                     <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github文档仓库分支</label>
+        <input class="mdui-textfield-input" id="hpp_githubdocbranch" value="${config["hpp_githubdocbranch"]}"/>
+      </div>
+      
+      
+       <label class="mdui-switch">
+            <input type="checkbox" id="yuque"/>
+             <i class="mdui-switch-icon"></i> 使用语雀对接
+          </label>
+                     
+      <div id="hpp_yuque" style="display:none">
+      
+       <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github语雀仓库用户名</label>
+        <input class="mdui-textfield-input" id="hpp_githubyuqueusername" value="${config["hpp_githubyuqueusername"]}"/>
+      </div>
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github语雀仓库名</label>
+        <input class="mdui-textfield-input" id="hpp_githubyuquerepo" value="${config["hpp_githubyuquerepo"]}"/>
+      </div>
+      
+              <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github语雀TOKEN</label>
+        <input class="mdui-textfield-input" id="hpp_githubyuquetoken" value="${config["hpp_githubyuquetoken"]}"/>
+      </div>
+      
+      <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">语雀识别码【请自行手滚键盘，不得留空】</label>
+        <input class="mdui-textfield-input" id="hpp_yuquetoken" value="${config["hpp_yuquetoken"]}"/>
+      </div>
+      
+      
+      </div>
+      
+      
+              </div>
+            </div>
+        
+        <div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+              <div class="mdui-panel-item-header">图床配置</div>
+              <div class="mdui-panel-item-body">
+          
+          
+      <label class="mdui-switch">
+            <input type="checkbox" id="hpp_img"/>
+            使用Github图床，由HPP托管 <i class="mdui-switch-icon"></i>  自定义图床 
+          </label>
+      
+      <div id="githubimg" >
+                <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github图片仓库Token</label>
+        <input class="mdui-textfield-input" id="hpp_githubimagetoken" value="${config["hpp_githubimagetoken"]}"/>
+      </div>
+      
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github图片仓库用户名</label>
+        <input class="mdui-textfield-input" id="hpp_githubimageusername" value="${config["hpp_githubimageusername"]}"/>
+      </div>
+      
+      
+                    <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github图片仓库名</label>
+        <input class="mdui-textfield-input" id="hpp_githubimagerepo" value="${config["hpp_githubimagerepo"]}"/>
+      </div>
+                   <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github图片仓库路径</label>
+        <input class="mdui-textfield-input" id="hpp_githubimagepath" value="${config["hpp_githubimagepath"]}"/>
+      </div>
+                     <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Github图片仓库分支</label>
+        <input class="mdui-textfield-input" id="hpp_githubimagebranch" value="${config["hpp_githubimagebranch"]}"/>
+      </div>
+                     
+      
+      
+      
+              </div>
+          
+            <div id="ownimg" style="display:none">
+                <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">自定义接口地址</label>
+        <input class="mdui-textfield-input" id="hpp_ownimgurl" value="${config["hpp_ownimgurl"]}"/>
+      </div>
+      
+      <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">POST参数名</label>
+        <input class="mdui-textfield-input" id="hpp_ownimgname" value="${config["hpp_ownimgname"]}"/>
+      </div>
+      <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">JSON路径</label>
+        <input class="mdui-textfield-input" id="hpp_ownimgjsonpath" value="${config["hpp_ownimgjsonpath"]}"/>
+      </div>
+      <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">自定义头</label>
+        <input class="mdui-textfield-input" id="hpp_ownimgheader" value="${config["hpp_ownimgheader"]}"/>
+      </div>
+      <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">自定义method</label>
+        <input class="mdui-textfield-input" id="hpp_ownimgmethod" value="${config["hpp_ownimgmethod"]}"/>
+      </div>
+      
+              </div>
+          
+          
+          </div>
+            </div>
+        
+        
+        
+        <div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+              <div class="mdui-panel-item-header">Github私有Page配置</div>
+              <div class="mdui-panel-item-body">
+       <label class="mdui-switch">
+            <input type="checkbox" id="hpp_githubpage"/>
+            <i class="mdui-switch-icon"></i> 开启PrivatePage模式 
+          </label><div id="hpp_githubpage_ctx" style="display:none">
+      
+                <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">GithubPage仓库Token</label>
+        <input class="mdui-textfield-input" id="hpp_githubpagetoken" value="${config["hpp_githubpagetoken"]}"/>
+      </div>
+      
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">GithubPage仓库用户名</label>
+        <input class="mdui-textfield-input" id="hpp_githubpageusername" value="${config["hpp_githubpageusername"]}"/>
+      </div>
+      
+      
+                    <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">GithubPage仓库名</label>
+        <input class="mdui-textfield-input" id="hpp_githubpagerepo" value="${config["hpp_githubpagerepo"]}"/>
+      </div>
+                   <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">GithubPage仓库根</label>
+        <input class="mdui-textfield-input" id="hpp_githubpageroot" value="${config["hpp_githubpageroot"]}"/>
+      </div>
+                     <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">GithubPage仓库分支</label>
+        <input class="mdui-textfield-input" id="hpp_githubpagebranch" value="${config["hpp_githubpagebranch"]}"/>
+      </div>
+                     
+      
+      
+      
+              </div></div>
+            </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        <div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+              <div class="mdui-panel-item-header">CloudFlare配置(必填)</div>
+              <div class="mdui-panel-item-body">
+                <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Global API Key</label>
+        <input class="mdui-textfield-input" id="hpp_CF_Auth_Key" value="${config["hpp_CF_Auth_Key"]}"/>
+      </div>
+      
+      
+                <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">目标Workers名称</label>
+        <input class="mdui-textfield-input" id="hpp_script_name" value="${config["hpp_script_name"]}"/>
+      </div>
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Workers账户ID</label>
+        <input class="mdui-textfield-input" id="hpp_account_identifier" value="${config["hpp_account_identifier"]}"/>
+      </div>
+      
+      
+                  <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">账户登录邮箱</label>
+        <input class="mdui-textfield-input" id="hpp_Auth_Email" value="${config["hpp_Auth_Email"]}"/>
+      </div>
+      
+      
+                  
+                     
+      
+      
+      
+              </div>
+            </div>
+        
+        
+        <div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+              <div class="mdui-panel-item-header">TwikooPlusPlus</div>
+              <div class="mdui-panel-item-body">
+           <label class="mdui-switch">
+            <input type="checkbox" id="hpp_twikoo"/>
+            <i class="mdui-switch-icon"></i>	开启TwikooPlusPlus功能
+          </label>
+          
+          <div id="hpp_twikoo_ctx" style="display:none">
+                <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">Twikoo环境ID</label>
+        <input class="mdui-textfield-input" id="hpp_twikoo_envId" value="${config["hpp_twikoo_envId"]}"/>
+      </div>
+      
+      
+              
+      
+                  
+                     
+      
+      
+      
+              </div></div>
+            </div>
+        
+        <div class="mdui-panel-item mdui-panel-item-open " id="item-1">
+              <div class="mdui-panel-item-header">附加配置</div>
+              <div class="mdui-panel-item-body">
+                
+      
+      
+               <label class="mdui-switch">
+            <input type="checkbox" id="hpp_autodate"/>
+            <i class="mdui-switch-icon"></i>	自动签到功能
+          </label>
+      
+                  
+                     
+      
+      
+      
+              </div>
+            </div>
+        
+        
+          </div>
+        </div>
+      </div>
+    <button class="mdui-btn mdui-btn-raised mdui-center" onclick="upload()" id="bbb">提交配置</button>
+    </div>
+      <div class="mdui-dialog" id="dialogerr">
+        <div class="mdui-dialog-title">出错了！</div>
+        <div class="mdui-dialog-content">上传失败！可能是网络原因，请重试</div>
+      </div>
+      
+        <div class="mdui-dialog" id="dialogok">
+        <div class="mdui-dialog-title">上传成功！</div>
+        <div class="mdui-dialog-content">点击OK进入主面板</div>
+      <div class="mdui-dialog-actions">
+          <button class="mdui-btn mdui-ripple" onclick="window.location.reload()">OK</button>
+        </div>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"></script>
+    
+    <script>
+    document.getElementById('hpp_img').checked = ${config["hpp_img"]}
+    document.getElementById('hpp_githubpage').checked = ${config["hpp_githubpage"]}
+    document.getElementById('hpp_twikoo').checked = ${config["hpp_twikoo"]}
+    document.getElementById('hpp_autodate').checked = ${config["hpp_autodate"]}
+    document.getElementById('hpp_yuque').checked = ${config["hpp_yuque"]}
+    </script>
+    <script src="${CDN}install.js"></script>
+    </body>
+    </html>`*/
+
+}
+;// CONCATENATED MODULE: ./worker/src/hpage/index.js
+const hpage = (config) => {
+    return new Response('Coming Soon!')
+    /* 
+            if (hpp_githubpage != "true") {
+        
+              
+            } else {
+              let p = path.split("?")[0].substr(1)
+              let init
+              if (p.split("/").slice(-1) == "") { p += "index.html" }
+              if (p == "2021/04/02/en/index.html" && urlObj.searchParams.get('pass') != "1234") {
+                init = { headers: { "content-type": "text/html; charset=utf-8" } }
+                let anss = `<html>
+        <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <meta charset="UTF-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <meta name="renderer" content="webkit"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>该文章已被加密</title>
+        </head>
+        <body>
+            <div class="main">
+                <img class="alert" alt="文章已被加密" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIoAAACACAMAAADjwgEwAAAAOVBMVEUAAAD5dBr7dRj4dBn/cBD5cxr4cxn6chj7dBj/cBj5cxr5dBn6cxn4dBn5cxr6dRX5cxr5cxr5dBoQJfbPAAAAEnRSTlMAgD/AEPDgYEAgoLCQcFAw0J/MNdW8AAADg0lEQVR42s3b7W7iMBSEYWftxA75At//xW7VZRWnQ3WkvOKE+VmJMtjxg8Ek4Iy5e8zdmsLFSXmoz8QSrsw61CZxDJdlrsf0OVyUR5WALrDJh3SZ68uswT1rfZ3e/dpNff0lMTjnVr/yEVO01SZdWae6Z/CFNzYXxxa+kttqwTHl2ORHl95zWBrvl/BMM0e34JZ8XC+6phwWtD7ptv95uWBBdzIVMm0luGTshVYB+B5ccvt12Ubnt8Xt91Vb3JyzX/rk5Jy+cr2M3Jyzl8nMnOO6Bewc103TMee4btw5rpsmA+e4bm7O2boh57huS9twyaODc7Zu43fBR3J1bni1q0/Pv0bgHNNNl3cGzgHdyouhmqBzXLf9SZ2c01HXKsA5pptWcXJOV6hWAc5R3bQKcI7qplUcnLs3uhlV1Ln5bboZVd7rXGqdMKuoQ9ObdDOqAOeAbkYVY0fOdTOqAOeAblLFEOAdutlVbOe4bmYV4BzQzahiOId104DPrVw3uwp3zv5fdhXgHNDNqAKcs3Sbw4kqhnNAN7vK25yLhlFGFcM5pJtdBTtn65ZPVDGcY7rZVbhzpgmgitgEdQNV5DUx3UAV5pxebaCKOMd0A1WYcyoTqKJWIt1AFeSczi6rou+rQDdQBTmnEoAqzLn9cfvjYBXdmQLdQBXgnOrGq+j7PNANVAHOiW6gCnBO2idQBTunuvEqtnPoxE2rgJXJdNMqyCt8OqsnH8A5NoZ6HgScoyf5+ykZ+raGr7f97PCWwD4I6iYnquCbPa4b/0aA6OZwgo9/NwV2IEC3950YeP7GTp1DuhkBzpkDx2M7x3XTAOfMRWZn7OJwn5YETjCQbjqtw8qc47o95GHAOaTbUptswDmkm/6aPwLnsG65HpKQc/rqtvP3fRTgHNUt1kM67tx49u6RqR6SgXNIt30097mlzpXT5G+1zQD2c3zvFmV+kHM6aedgieDBz2GZyN5t2+87TGQ/131PGdu7pa7/Hs/M9nPDD2i3cCqllA3s5/bnjqKbY4bDDLXFQOiwxJaGe/BP2gcihCLQuiZKlV1f58zNDmr9lNtLSyg+C8jeKrSXbX/pCqqHxdyvwTO6j53qnvu8/nFLfgz1uGXJ9SMy/sP3A3J7fhq7Pv34f21fnkUWt3eUtDTVSzPL1u6SKGfjrV6TvtM98bhccMlMOYWXSWXpHJNLaPMXZ8oyOMxlLIsAAAAASUVORK5CYII=">
+                <form action="" method="GET" class="hpp-side-form">
+                    <h2 class="pw-tip">该文章已被加密</h2>
+                    <input type="password" name="pass" placeholder="请输入访问密码查看" required><button type="submit">提交</button>
+                    
+                    
+                </form>
+                <a href="/" class="return-home" title="点击回到网站首页">- 返回首页 - </a>
+            </div>
+            <style type="text/css">
+            *{font-family:"Microsoft Yahei",微软雅黑,"Helvetica Neue",Helvetica,"Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;box-sizing:border-box;margin:0px;padding:0px;font-size:14px;-webkit-transition:.2s;-moz-transition:.2s;-ms-transition:.2s;-o-transition:.2s;transition:.2s}
+            html,body{width:100%;height:100%}
+            body{background-color:#F4F6F9;color:#768093}
+            input,button{font-size:1em;border-radius:3px;-webkit-appearance:none}
+            input{width:100%;padding:5px;box-sizing:border-box;border:1px solid #e5e9ef;background-color:#f4f5f7;resize:vertical}
+            input:focus{background-color:#fff;outline:none}
+            button{border:0;background:#6abd09;color:#fff;cursor:pointer;opacity:1;user-select:none}
+            button:hover,button:focus{opacity:.9}
+            button:active{opacity:1}
+            .main{width:100%;max-width:500px;height:300px;padding:30px;background-color:#fff;border-radius:2px;box-shadow:0 10px 60px 0 rgba(29,29,31,0.09);transition:all .12s ease-out;position:absolute;left:0;top:0;bottom:0;right:0;margin:auto;text-align:center}
+            .alert{width:80px}
+            .hpp-side-form{margin-bottom:28px}
+            .hpp-side-form input{float:left;padding:2px 10px;width:77%;height:37px;border:1px solid #ebebeb;border-right-color:transparent;border-radius:2px 0 0 2px;line-height:37px}
+            .hpp-side-form button{position:relative;overflow:visible;width:23%;height:37px;border-radius:0 2px 2px 0;text-transform:uppercase}
+            .pw-tip{font-weight:normal;font-size:26px;text-align:center;margin:25px auto}
+            #pw-error {color: red;margin-top: 15px;margin-bottom: -20px;}
+            .return-home{text-decoration:none;color:#b1b1b1;font-size:16px}
+            .return-home:hover{color:#1E9FFF;letter-spacing:5px}
+            </style>
+        </body>
+        </html>`
+                return new Response(anss, init)
+              }
+              const anss = await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}${p}`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })
+        
+              if (await anss.status == 404) { init = { headers: { "content-type": "text/html; charset=utf-8" } }; return new Response(await (await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}404.html`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })).text(), init) }
+              if ((p.split("/").slice(-1))[0].split(".")[1] == "html") {
+                init = { headers: { "content-type": "text/html; charset=utf-8" } }
+                return new Response(await anss.text(), init)
+              }
+              if ((p.split("/").slice(-1))[0].split(".")[1] == "js") {
+                init = { headers: { "content-type": "application/javascript; charset=utf-8" } }
+                return new Response(await anss.text(), init)
+              }
+              if ((p.split("/").slice(-1))[0].split(".")[1] == "css") {
+                init = { headers: { "content-type": "text/css; charset=utf-8" } }
+                return new Response(await anss.text(), init)
+              }
+              return new Response(anss, init)
+        
+        
+            }
+        
+            */
+}
 ;// CONCATENATED MODULE: ./worker/index.js
 const md5 = __webpack_require__(735)
 ;
@@ -2095,10 +2659,11 @@ const md5 = __webpack_require__(735)
 
 
 
-//const hpp_CDNver = "91dcf20"
+
+
 
 let hinfo = {
-  ver: "HexoPlusPlus@1.2.1_β_3",
+  ver: "HexoPlusPlus@2.0.0β3",
   CDN: `https://hppstatic.pages.dev/`,
   dev: true
 }
@@ -2107,11 +2672,16 @@ const hpp_ver = hinfo.ver
 const hpp_CDN = hinfo.CDN
 let hpp_logstatus
 addEventListener("fetch", event => {
-  event.respondWith(handleRequest(event.request))
+  const req = event.request
+  const urlStr = req.url
+  const urlObj = new URL(urlStr)
+  const path = urlObj.href.substr(urlObj.origin.length)
+  console.log(path)
+  event.respondWith(hexoplusplus(event.request))
 })
 
 
-async function handleRequest(request) {
+async function hexoplusplus(request) {
   try {
     hpp_logstatus = false
     const req = request
@@ -2126,75 +2696,36 @@ async function handleRequest(request) {
 
 
 
-    const hpp_config = await KVNAME.get("hpp_config")
-
-    /*不能将KVGET的时候获取为json,否则报错*/
-
-    const config = formatconfig(JSON.parse(JSON.parse(hpp_config)))
-    /*
-    const hpp_domain = config["hpp_domain"]
-    const hpp_userimage = config["hpp_userimage"]
-    const hpp_title = config["hpp_title"]
-    const hpp_usericon = config["hpp_usericon"]
-    const hpp_cors = config["hpp_cors"]
-    const hpp_githubdoctoken = config["hpp_githubdoctoken"]
-
-    const hpp_githubdocusername = config["hpp_githubdocusername"]
-    const hpp_githubdocrepo = config["hpp_githubdocrepo"]
-    const hpp_githubdocroot = config["hpp_githubdocroot"]
-    const hpp_githubdocbranch = config["hpp_githubdocbranch"]
-
-    const hpp_githubpage = config["hpp_githubpage"]
-    const hpp_githubpagetoken = config["hpp_githubpagetoken"]
-    const hpp_githubpageusername = config["hpp_githubpageusername"]
-    const hpp_githubpagerepo = config["hpp_githubpagerepo"]
-    const hpp_githubpageroot = config["hpp_githubpageroot"]
-    const hpp_githubpagebranch = config["hpp_githubpagebranch"]
-
-    const hpp_img = config["hpp_img"] || "false"
-
-    const hpp_ownimgurl = config["hpp_ownimgurl"]
-    const hpp_ownimgname = config["hpp_ownimgname"]
-    const hpp_ownimgjsonpath = config["hpp_ownimgjsonpath"]
-    const hpp_ownimgheader = config["hpp_ownimgheader"]
-    const hpp_ownimgmethod = config["hpp_ownimgmethod"]
-
-    const hpp_githubimagetoken = config["hpp_githubimagetoken"]
-    const hpp_githubimageusername = config["hpp_githubimageusername"]
-    const hpp_githubimagerepo = config["hpp_githubimagerepo"]
-    const hpp_githubimagepath = config["hpp_githubimagepath"]
-    const hpp_githubimagebranch = config["hpp_githubimagebranch"]
-
-    const hpp_autodate = config["hpp_autodate"]
-    const hpp_account_identifier = config["hpp_account_identifier"]
-    const hpp_script_name = config["hpp_script_name"]
-    const hpp_CF_Auth_Key = config["hpp_CF_Auth_Key"]
-    const hpp_Auth_Email = config["hpp_Auth_Email"]
-    const hpp_twikoo_envId = config["hpp_twikoo-envId"]
-    const hpp_twikoo = config["hpp_twikoo"] || "false"
-    const hpp_OwO = config["hpp_OwO"]
-    const hpp_back = config["hpp_back"]
-    const hpp_lazy_img = config["hpp_lazy_img"]
-    const hpp_highlight_style = config["hpp_highlight_style"]
-    const hpp_plugin_js = config["hpp_plugin_js"]
-    const hpp_plugin_css = config["hpp_plugin_css"]
-    const hpp_githubdocpath = hpp_githubdocroot + "source/_posts/"
-    const hpp_githubdocdraftpath = hpp_githubdocroot + "source/_drafts/"
-    const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
-    const githubdocpath = encodeURI(hpp_githubdocpath)
-    const githubimagepath = encodeURI(hpp_githubimagepath)
-    const hpp_color = config["hpp_color"] || "rose"
-    const hpp_bg_color = config["hpp_bg_color"] || "white"
-    const hpp_theme_mode = config["hpp_theme_mode"] || "light"
-    const hpp_page_limit = config["hpp_page_limit"] || "10"
-*/
 
 
+
+    /*HPP Auth:Cookie&Basic*/
     for (var w = 0; w < getJsonLength(username); w++) {
-      if ((getCookie(request, "password") == md5(password[w]) && getCookie(request, "username") == md5(username[w]))||((() => { try { if (maph.get('h_basic_auth') == `${md5(username[w])}:${md5(password[w])}`) { return true } else { return false } } catch (p) { return false } })())) {
+      if ((getCookie(request, "password") == md5(password[w]) && getCookie(request, "username") == md5(username[w])) || ((() => { try { if (maph.get('h_basic_auth') == `${md5(username[w])}:${md5(password[w])}`) { return true } else { return false } } catch (p) { return false } })())) {
         hpp_logstatus = true
       }
     }
+
+
+    const hpp_config = await KVNAME.get("hpp_config")
+
+
+
+    if (hpp_config === null && hpp_config.loginstatus) {
+      return new Response(gethtml.errorpage('配置文件是空的，请安装', hinfo, [
+        { url: `/hpp/admin/install`, des: "开始安装" }
+      ]), {
+        headers: { "content-type": "text/html;charset=UTF-8" }
+      })
+    }
+
+    if (path.startsWith('/hpp/admin/install')) {
+      return install(config, hinfo)
+    }
+    /*不能将KVGET的时候获取为json,否则报错*/
+
+    const config = formatconfig(JSON.parse(JSON.parse(hpp_config)))
+
     if (path.startsWith('/hpp/admin')) {
       if (hpp_logstatus) {
 
@@ -2219,7 +2750,7 @@ async function handleRequest(request) {
 
         if (rp(path) == '/hpp/admin/api/github') {
 
-          return githubroute(request, config,hinfo)
+          return githubroute(request, config, hinfo)
         }
 
         if (rp(path) == '/hpp/admin/api/update') {
@@ -2242,42 +2773,11 @@ async function handleRequest(request) {
           } catch (lo) { throw lo }
 
         }
-        /*
-        
-        
-                  if (rp(path) == "/hpp/admin/api/del_all") {
-                    await KVNAME.delete("hpp_config")
-                    return new Response('OK')
-                  }
-                  if (rp(path) == "/hpp/admin/api/get_config") { return new Response(await JSON.parse(hpp_config)) }
-                  if (rp(path) == "/hpp/admin/api/edit_config") {
-                    let req_con = await JSON.parse(await request.text())
-                    let _index = req_con["index"]
-                    let _value = req_con["value"]
-                    let k = await JSON.parse(await JSON.parse(hpp_config))
-                    k[_index] = _value
-                    k = await JSON.stringify(k)
-                    await KVNAME.put("hpp_config", await JSON.stringify(k))
-                    return new Response('OK')
-                  }
-                  if (rp(path) == "/hpp/admin/api/del_config") {
-                    let _index = await request.text()
-                    let k = await JSON.parse(await JSON.parse(hpp_config))
-                    delete k[_index]
-                    await KVNAME.put("hpp_config", await JSON.stringify(await JSON.stringify(k)))
-                    return new Response('OK')
-                  }
-        
-                  */
         if (rp(path) == '/hpp/admin/api/kick') {
           const now = Date.now(new Date())
           await KVNAME.put("hpp_activetime", now)
-          //const hpp_kvwait = Date.now(new Date()) - now
           return new Response("OK")
         }
-
-
-        //End
 
 
         if (rp(path) == '/hpp/admin/api/talk/htalk') {
@@ -2286,115 +2786,14 @@ async function handleRequest(request) {
 
 
         if (rp(path) == '/hpp/admin/api/talk/artitalk') {
-          return new Response('Come Soon!')
+          return new Response('Coming Soon!')
         }
 
-
-        /*
-      
-                if (rp(path) == "/hpp/admin/api/addtalk") {
-                  let hpp_talk_re = await KVNAME.get("hpp_talk_data")
-                  if (hpp_talk_re === null) { hpp_talk_re = "[]" }
-                  let hpp_talk = await JSON.parse(hpp_talk_re);
-                  let hpp_talk_id_re = await KVNAME.get("hpp_talk_id")
-                  if (hpp_talk_id_re === null) { hpp_talk_id_re = 0 }
-                  let hpp_talk_id = hpp_talk_id_re;
-                  hpp_talk_id++;
-                  const now = await request.json()
-                  const add = {
-                    id: hpp_talk_id,
-                    time: now["time"],
-                    name: now["name"],
-                    avatar: now["avatar"],
-                    content: now["content"],
-                    visible: "True"
-                  }
-                  hpp_talk.push(add);
-                  await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
-                  await KVNAME.put("hpp_talk_id", hpp_talk_id)
-                  return new Response('OK')
-                }
-                if (rp(path) == "/hpp/admin/api/deltalk") {
-                  const hpp_talk = JSON.parse(await KVNAME.get("hpp_talk_data"));
-                  const now = Number(await request.text())
-                  for (var i = 0; i < getJsonLength(hpp_talk); i++) {
-                    if (Number(hpp_talk[i]["id"]) == now) {
-                      hpp_talk.splice(i, 1)
-                    }
-                  }
-                  await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
-                  return new Response('OK')
-                }
-                if (rp(path) == "/hpp/admin/api/visibletalk") {
-                  const hpp_talk = JSON.parse(await KVNAME.get("hpp_talk_data"));
-                  const now = await request.text()
-                  for (var i = 0; i < getJsonLength(hpp_talk); i++) {
-                    if (hpp_talk[i]["id"] == now) {
-                      hpp_talk[i]["visible"] = hpp_talk[i]["visible"] == "False" ? "True" : "False"
-                    }
-                  }
-                  await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
-                  return new Response('OK')
-                }
-                if (rp(path) == "/hpp/admin/api/inputtalk") {
-                  let hpp_talk_re = await KVNAME.get("hpp_talk_data")
-                  if (hpp_talk_re === null) { hpp_talk_re = "[]" }
-                  let hpp_talk = await JSON.parse(hpp_talk_re);
-                  let hpp_talk_id_re = await KVNAME.get("hpp_talk_id")
-                  if (hpp_talk_id_re === null) { hpp_talk_id_re = 0 }
-                  let hpp_talk_id = hpp_talk_id_re;
-                  let now = await JSON.parse(await request.text())
-                  let talk_init = {}
-                  for (var i = 0; i < now.length; i++) {
-                    hpp_talk_id++;
-                    ftime = now[i]["updatedAt"]
-                    ftime = ftime.split('T')
-                    talk_init = {
-                      id: hpp_talk_id,
-                      time: ftime[0],
-                      name: username[0],
-                      avatar: now[i]["avatar"],
-                      content: now[i]["atContentHtml"],
-                      visible: "True"
-                    }
-                    hpp_talk.push(talk_init)
-                  }
-                  await KVNAME.put("hpp_talk_data", JSON.stringify(hpp_talk))
-                  await KVNAME.put("hpp_talk_id", hpp_talk_id)
-                  return new Response(JSON.stringify(hpp_talk))
-                }
-                if (rp(path) == "/hpp/admin/api/gethpptalk") {
-                  const req_r = await request.text()
-                  if (req_r != "") {
-                    const limit = (await JSON.parse(req_r))["limit"]
-                    const start = (await JSON.parse(req_r))["start"]
-                    const hpp_talk = await JSON.parse(await KVNAME.get("hpp_talk_data"));
-                    let hpp_talk_res = []
-                    for (var i = getJsonLength(hpp_talk) - start - 1; i > getJsonLength(hpp_talk) - start - limit; i--) {
-                      hpp_talk_res.push(await JSON.stringify(hpp_talk[i]))
-                    }
-                    return new Response(JSON.stringify(hpp_talk_res), {
-                      headers: {
-                        "content-type": "application/json;charset=UTF-8",
-                        "Access-Control-Allow-Origin": "*"
-                      }
-                    })
-                  } else {
-                    return new Response("ERROR", {
-                      headers: {
-                        "Access-Control-Allow-Origin": "*"
-                      }
-                    })
-                  }
-                }
-      
-      
-               */
 
       }
       else {
         if (rp(path) == '/hpp/admin/login') {
-          return new Response(gethtml.loginhtml(config,hinfo), {
+          return new Response(gethtml.loginhtml(config, hinfo), {
             headers: { "content-type": "text/html;charset=UTF-8" }
           })
         }
@@ -2409,219 +2808,63 @@ async function handleRequest(request) {
         return genactiveres(config)
       }
 
-
-      /*
-            if (rp(path) == "/hpp/api/twikoo") {
-              const hpp_config = await JSON.parse(await JSON.parse(await KVNAME.get("hpp_config")));
-              const env_id = hpp_config["hpp_twikoo_envId"]
-              const hpp_cors = hpp_config["hpp_cors"]
-              const url = "https://tcb-api.tencentcloudapi.com/web?env=" + env_id
-              async function get_refresh_token() {
-                const step_1_body = {
-                  action: "auth.signInAnonymously",
-                  anonymous_uuid: "",
-                  dataVersion: "1970-1-1",
-                  env: env_id,
-                  refresh_token: "",
-                  seqId: ""
-                }
-                const step_1 = {
-                  body: JSON.stringify(step_1_body),
-                  method: "POST",
-                  headers: {
-                    "content-type": "application/json;charset=UTF-8"
-                  }
-                }
-                return JSON.parse(await (await fetch(url, step_1)).text())["refresh_token"]
-              }
-              async function get_access_token(refresh_token) {
-                const step_2_body = {
-                  action: "auth.fetchAccessTokenWithRefreshToken",
-                  anonymous_uuid: "",
-                  dataVersion: "1970-1-1",
-                  env: env_id,
-                  refresh_token: refresh_token,
-                  seqId: ""
-                }
-                const step_2 = {
-                  body: JSON.stringify(step_2_body),
-                  method: "POST",
-                  headers: {
-                    "content-type": "application/json;charset=UTF-8"
-                  }
-                }
-                return JSON.parse(await (await fetch(url, step_2)).text())["access_token"];
-              }
-              async function get_comment(access_token, path, before) {
-      
-                const re_data = { "event": "COMMENT_GET", "url": path, "before": before }
-                const step_3_body = {
-                  access_token: access_token,
-                  action: "functions.invokeFunction",
-                  dataVersion: "1970-1-1",
-                  env: env_id,
-                  function_name: "twikoo",
-                  request_data: JSON.stringify(re_data),
-                  seqId: ""
-                }
-                const step_3 = {
-                  body: JSON.stringify(step_3_body),
-                  method: "POST",
-                  headers: {
-                    "content-type": "application/json;charset=UTF-8"
-                  }
-                }
-                return (await (await fetch(url, step_3)).text())
-      
-              }
-              const req = await JSON.parse(await request.text())
-              const path = req["path"]
-              const before = req["before"]
-              let refresh_token = await KVNAME.get("hpp_comment_refresh_token")
-              let access_token = await KVNAME.get("hpp_comment_access_token")
-              let val = await get_comment(access_token, path, before)
-              let twikoo_code = await JSON.parse(val)['code']
-              if (twikoo_code == 'CHECK_LOGIN_FAILED' | twikoo_code == 'INVALID_PARAM' | twikoo_code == 'PERMISSION_DENIED') {
-                refresh_token = await get_refresh_token()
-                await KVNAME.put("hpp_comment_refresh_token", refresh_token)
-                access_token = await get_access_token(refresh_token)
-                await KVNAME.put("hpp_comment_access_token", access_token)
-                val = await get_comment(access_token, path, before)
-              }
-              return new Response(val, {
-                headers: {
-                  "Access-Control-Allow-Origin": "*"
-                }
-              }
-              )
-            }*/
       if (path.startsWith('/hpp/api/talk/')) {
         if (rp(path) == "/hpp/api/talk/htalk") {
           return htalk(config, request, false, hinfo)
         }
 
         if (rp(path) == '/hpp/api/talk/artitalk') {
-          return new Response('Come Soon!')
+          return new Response('Coming Soon!')
         }
       }
       if (path.startsWith('/hpp/api/comment/')) {
         if (rp(path) == "/hpp/api/comment/Feign_Valine") {
-          return new Response('Come Soon!')
+          return new Response('Coming Soon!')
         }
         if (rp(path) == "/hpp/api/comment/Agent_Valine") {
-          return new Response('Come Soon!')
+          return new Response('Coming Soon!')
         }
 
 
 
         if (rp(path) == "/hpp/api/comment/Feign_Waline") {
-          return new Response('Come Soon!')
+          return new Response('Coming Soon!')
         }
         if (rp(path) == "/hpp/api/comment/Agent_Waline") {
-          return new Response('Come Soon!')
+          return new Response('Coming Soon!')
         }
 
 
         if (rp(path) == "/hpp/api/comment/Feign_Artalk") {
-          return new Response('Come Soon!')
+          return new Response('Coming Soon!')
         }
         if (rp(path) == "/hpp/api/comment/Agent_Artalk") {
-          return new Response('Come Soon!')
+          return new Response('Coming Soon!')
         }
 
 
         if (rp(path) == "/hpp/api/comment/Feign_Twikoo") {
-          return new Response('Come Soon!')
+          return new Response('Coming Soon!')
         }
         if (rp(path) == "/hpp/api/comment/Feign_Twikoo") {
-          return new Response('Come Soon!')
+          return new Response('Coming Soon!')
         }
 
         if (rp(path) == "/hpp/api/comment/Agent_Disqus") {
-          return new Response('Come Soon!')
+          return new Response('Coming Soon!')
         }
 
         if (rp(path) == "/hpp/api/comment/Agent_Gitalk") {
-          return new Response('Come Soon!')
+          return new Response('Coming Soon!')
         }
       }
 
     }
-    /* 
-        if (hpp_githubpage != "true") {
-    
-          
-        } else {
-          let p = path.split("?")[0].substr(1)
-          let init
-          if (p.split("/").slice(-1) == "") { p += "index.html" }
-          if (p == "2021/04/02/en/index.html" && urlObj.searchParams.get('pass') != "1234") {
-            init = { headers: { "content-type": "text/html; charset=utf-8" } }
-            let anss = `<html>
-    <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-    <meta charset="UTF-8"> 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-    <meta name="renderer" content="webkit"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>该文章已被加密</title>
-    </head>
-    <body>
-        <div class="main">
-            <img class="alert" alt="文章已被加密" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIoAAACACAMAAADjwgEwAAAAOVBMVEUAAAD5dBr7dRj4dBn/cBD5cxr4cxn6chj7dBj/cBj5cxr5dBn6cxn4dBn5cxr6dRX5cxr5cxr5dBoQJfbPAAAAEnRSTlMAgD/AEPDgYEAgoLCQcFAw0J/MNdW8AAADg0lEQVR42s3b7W7iMBSEYWftxA75At//xW7VZRWnQ3WkvOKE+VmJMtjxg8Ek4Iy5e8zdmsLFSXmoz8QSrsw61CZxDJdlrsf0OVyUR5WALrDJh3SZ68uswT1rfZ3e/dpNff0lMTjnVr/yEVO01SZdWae6Z/CFNzYXxxa+kttqwTHl2ORHl95zWBrvl/BMM0e34JZ8XC+6phwWtD7ptv95uWBBdzIVMm0luGTshVYB+B5ccvt12Ubnt8Xt91Vb3JyzX/rk5Jy+cr2M3Jyzl8nMnOO6Bewc103TMee4btw5rpsmA+e4bm7O2boh57huS9twyaODc7Zu43fBR3J1bni1q0/Pv0bgHNNNl3cGzgHdyouhmqBzXLf9SZ2c01HXKsA5pptWcXJOV6hWAc5R3bQKcI7qplUcnLs3uhlV1Ln5bboZVd7rXGqdMKuoQ9ObdDOqAOeAbkYVY0fOdTOqAOeAblLFEOAdutlVbOe4bmYV4BzQzahiOId104DPrVw3uwp3zv5fdhXgHNDNqAKcs3Sbw4kqhnNAN7vK25yLhlFGFcM5pJtdBTtn65ZPVDGcY7rZVbhzpgmgitgEdQNV5DUx3UAV5pxebaCKOMd0A1WYcyoTqKJWIt1AFeSczi6rou+rQDdQBTmnEoAqzLn9cfvjYBXdmQLdQBXgnOrGq+j7PNANVAHOiW6gCnBO2idQBTunuvEqtnPoxE2rgJXJdNMqyCt8OqsnH8A5NoZ6HgScoyf5+ykZ+raGr7f97PCWwD4I6iYnquCbPa4b/0aA6OZwgo9/NwV2IEC3950YeP7GTp1DuhkBzpkDx2M7x3XTAOfMRWZn7OJwn5YETjCQbjqtw8qc47o95GHAOaTbUptswDmkm/6aPwLnsG65HpKQc/rqtvP3fRTgHNUt1kM67tx49u6RqR6SgXNIt30097mlzpXT5G+1zQD2c3zvFmV+kHM6aedgieDBz2GZyN5t2+87TGQ/131PGdu7pa7/Hs/M9nPDD2i3cCqllA3s5/bnjqKbY4bDDLXFQOiwxJaGe/BP2gcihCLQuiZKlV1f58zNDmr9lNtLSyg+C8jeKrSXbX/pCqqHxdyvwTO6j53qnvu8/nFLfgz1uGXJ9SMy/sP3A3J7fhq7Pv34f21fnkUWt3eUtDTVSzPL1u6SKGfjrV6TvtM98bhccMlMOYWXSWXpHJNLaPMXZ8oyOMxlLIsAAAAASUVORK5CYII=">
-            <form action="" method="GET" class="hpp-side-form">
-                <h2 class="pw-tip">该文章已被加密</h2>
-                <input type="password" name="pass" placeholder="请输入访问密码查看" required><button type="submit">提交</button>
-                
-                
-            </form>
-            <a href="/" class="return-home" title="点击回到网站首页">- 返回首页 - </a>
-        </div>
-        <style type="text/css">
-        *{font-family:"Microsoft Yahei",微软雅黑,"Helvetica Neue",Helvetica,"Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;box-sizing:border-box;margin:0px;padding:0px;font-size:14px;-webkit-transition:.2s;-moz-transition:.2s;-ms-transition:.2s;-o-transition:.2s;transition:.2s}
-        html,body{width:100%;height:100%}
-        body{background-color:#F4F6F9;color:#768093}
-        input,button{font-size:1em;border-radius:3px;-webkit-appearance:none}
-        input{width:100%;padding:5px;box-sizing:border-box;border:1px solid #e5e9ef;background-color:#f4f5f7;resize:vertical}
-        input:focus{background-color:#fff;outline:none}
-        button{border:0;background:#6abd09;color:#fff;cursor:pointer;opacity:1;user-select:none}
-        button:hover,button:focus{opacity:.9}
-        button:active{opacity:1}
-        .main{width:100%;max-width:500px;height:300px;padding:30px;background-color:#fff;border-radius:2px;box-shadow:0 10px 60px 0 rgba(29,29,31,0.09);transition:all .12s ease-out;position:absolute;left:0;top:0;bottom:0;right:0;margin:auto;text-align:center}
-        .alert{width:80px}
-        .hpp-side-form{margin-bottom:28px}
-        .hpp-side-form input{float:left;padding:2px 10px;width:77%;height:37px;border:1px solid #ebebeb;border-right-color:transparent;border-radius:2px 0 0 2px;line-height:37px}
-        .hpp-side-form button{position:relative;overflow:visible;width:23%;height:37px;border-radius:0 2px 2px 0;text-transform:uppercase}
-        .pw-tip{font-weight:normal;font-size:26px;text-align:center;margin:25px auto}
-        #pw-error {color: red;margin-top: 15px;margin-bottom: -20px;}
-        .return-home{text-decoration:none;color:#b1b1b1;font-size:16px}
-        .return-home:hover{color:#1E9FFF;letter-spacing:5px}
-        </style>
-    </body>
-    </html>`
-            return new Response(anss, init)
-          }
-          const anss = await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}${p}`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })
-    
-          if (await anss.status == 404) { init = { headers: { "content-type": "text/html; charset=utf-8" } }; return new Response(await (await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}404.html`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })).text(), init) }
-          if ((p.split("/").slice(-1))[0].split(".")[1] == "html") {
-            init = { headers: { "content-type": "text/html; charset=utf-8" } }
-            return new Response(await anss.text(), init)
-          }
-          if ((p.split("/").slice(-1))[0].split(".")[1] == "js") {
-            init = { headers: { "content-type": "application/javascript; charset=utf-8" } }
-            return new Response(await anss.text(), init)
-          }
-          if ((p.split("/").slice(-1))[0].split(".")[1] == "css") {
-            init = { headers: { "content-type": "text/css; charset=utf-8" } }
-            return new Response(await anss.text(), init)
-          }
-          return new Response(anss, init)
-    
-    
-        }
-    
-        */
+    if (config.hpp_hpage) {
+      return hpage(config)
+    }
+
+
     return new Response(gethtml.errorpage('未知的操作', hinfo, [
       { url: `/hpp/admin/dash/home`, des: "仪表盘" }
     ]), {
