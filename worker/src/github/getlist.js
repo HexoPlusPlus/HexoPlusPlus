@@ -2,7 +2,7 @@ import {getJsonLength} from './../scaffold'
 export async function ghlist(config) {
     const username = config.username
     const reponame = config.reponame
-    const path = config.path || '/'
+    const path = config.path.substr(0, (config.path).length - 1) || '/'
     const branch = config.branch || 'main'
     const token = config.token || ''
     const url = `https://api.github.com/repos/${username}/${reponame}/contents${path}?ref=${branch}` 

@@ -102,12 +102,9 @@ async function handleRequest(request) {
 
 
     for (var w = 0; w < getJsonLength(username); w++) {
-      if (getCookie(request, "password") == md5(password[w]) && getCookie(request, "username") == md5(username[w])) {
+      if ((getCookie(request, "password") == md5(password[w]) && getCookie(request, "username") == md5(username[w]))||((() => { try { if (maph.get('h_basic_auth') == `${md5(username[w])}:${md5(password[w])}`) { return true } else { return false } } catch (p) { return false } })())) {
         hpp_logstatus = true
       }
-    }
-    if (hinfo.dev && (() => { try { if (maph.get('hpp_dev_auth') == HDEV_TOKEN) { return true } else { return false } } catch (p) { return false } })()) {
-      hpp_logstatus = true
     }
     if (path.startsWith('/hpp/admin')) {
       if (hpp_logstatus) {

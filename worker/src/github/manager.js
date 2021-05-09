@@ -6,7 +6,7 @@ export async function ghupload(config) {
   const filename = config.filename
   const branch = config.branch || 'main'
   const token = config.token || ''
-  const sha = config.sha || ghsha(config)
+  const sha = config.sha || await ghsha(config)
   const message = config.message || 'Upload By HexoPlusPlus With Love'
   const base64file = config.file
   const method = 'PUT'
@@ -39,7 +39,7 @@ export async function ghdel(config) {
   const filename = config.filename
   const branch = config.branch || 'main'
   const token = config.token || ''
-  const sha = config.sha || ghsha(config)
+  const sha = config.sha || await ghsha(config)
   const message = config.message || 'Delete By HexoPlusPlus With Love'
   const method = 'DELETE'
   const url = `https://api.github.com/repos/${username}/${reponame}/contents${path}${filename}?ref=${branch}`

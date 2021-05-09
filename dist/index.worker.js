@@ -1463,7 +1463,7 @@ const gethtml = {
 async function ghlist(config) {
     const username = config.username
     const reponame = config.reponame
-    const path = config.path || '/'
+    const path = config.path.substr(0, (config.path).length - 1) || '/'
     const branch = config.branch || 'main'
     const token = config.token || ''
     const url = `https://api.github.com/repos/${username}/${reponame}/contents${path}?ref=${branch}` 
@@ -1531,7 +1531,7 @@ async function ghupload(config) {
   const filename = config.filename
   const branch = config.branch || 'main'
   const token = config.token || ''
-  const sha = config.sha || ghsha(config)
+  const sha = config.sha || await ghsha(config)
   const message = config.message || 'Upload By HexoPlusPlus With Love'
   const base64file = config.file
   const method = 'PUT'
@@ -1564,7 +1564,7 @@ async function ghdel(config) {
   const filename = config.filename
   const branch = config.branch || 'main'
   const token = config.token || ''
-  const sha = config.sha || ghsha(config)
+  const sha = config.sha || await ghsha(config)
   const message = config.message || 'Delete By HexoPlusPlus With Love'
   const method = 'DELETE'
   const url = `https://api.github.com/repos/${username}/${reponame}/contents${path}${filename}?ref=${branch}`
@@ -1675,7 +1675,6 @@ const githubroute = async (request, config, hinfo) => {
     try {
         let r, rs, name, msgd, hpp_list_index
         const apireq = await request.json()
-        console.log(JSON.stringify(config))
         switch (apireq.action) {
             case 'adddoc':
                 r = await ghupload({
@@ -1687,7 +1686,7 @@ const githubroute = async (request, config, hinfo) => {
                     filename: apireq.filename,
                     token: config.hpp_githubdoctoken
                 })
-                rs = await rs.status
+                rs = await r.status
                 if (rs == 200 || rs == 201) {
                     if (rs == 201) { await KVNAME.delete("hpp_doc_list_index"); return genjsonres('新建文档成功！', 0, rs) }
                     return genjsonres('上传文档成功！', 0, rs)
@@ -1705,7 +1704,7 @@ const githubroute = async (request, config, hinfo) => {
                     filename: apireq.filename,
                     token: config.hpp_githubdoctoken
                 })
-                rs = await rs.status
+                rs = await r.status
                 if (rs == 200 || rs == 201) {
                     if (rs == 201) { await KVNAME.delete("hpp_doc_draft_list_index"); return genjsonres('上传草稿成功！', 0, rs) }
                     return genjsonres('上传草稿成功！', 0, rs)
@@ -1723,7 +1722,7 @@ const githubroute = async (request, config, hinfo) => {
                     filename: name,
                     token: config.hpp_githubimagetoken
                 })
-                rs = await rs.status
+                rs = await r.status
 
                 if (rs == 200 || rs == 201) {
                     const jsdurl = `https://cdn.jsdelivr.net/gh/${config.hpp_githubimageusername}/${config.hpp_githubimagerepo}@${config.hpp_githubimagebranch}${config.hpp_githubimagepath}${name}`
@@ -1741,7 +1740,7 @@ const githubroute = async (request, config, hinfo) => {
                     filename: apireq.filename,
                     token: config.hpp_githubdoctoken
                 })
-                rs = await rs.status
+                rs = await r.status
                 if (rs == 200) {
                     await KVNAME.delete("hpp_doc_list_index")
                     return genjsonres('删除文档成功！', 0, rs)
@@ -1757,7 +1756,7 @@ const githubroute = async (request, config, hinfo) => {
                     filename: apireq.filename,
                     token: config.hpp_githubdoctoken
                 })
-                rs = await rs.status
+                rs = await r.status
                 if (rs == 200) {
                     await KVNAME.delete("hpp_doc_list_index")
                     return genjsonres('删除艹稿成功！', 0, rs)
@@ -1774,7 +1773,7 @@ const githubroute = async (request, config, hinfo) => {
                     filename: apireq.filename,
                     token: config.hpp_githubimagetoken
                 })
-                rs = await rs.status
+                rs = await r.status
                 if (rs == 200) {
                     await KVNAME.delete("hpp_doc_list_index")
                     return genjsonres('删除图片成功！', 0, rs)
@@ -2192,12 +2191,9 @@ async function handleRequest(request) {
 
 
     for (var w = 0; w < getJsonLength(username); w++) {
-      if (getCookie(request, "password") == md5(password[w]) && getCookie(request, "username") == md5(username[w])) {
+      if ((getCookie(request, "password") == md5(password[w]) && getCookie(request, "username") == md5(username[w]))||((() => { try { if (maph.get('h_basic_auth') == `${md5(username[w])}:${md5(password[w])}`) { return true } else { return false } } catch (p) { return false } })())) {
         hpp_logstatus = true
       }
-    }
-    if (hinfo.dev && (() => { try { if (maph.get('hpp_dev_auth') == HDEV_TOKEN) { return true } else { return false } } catch (p) { return false } })()) {
-      hpp_logstatus = true
     }
     if (path.startsWith('/hpp/admin')) {
       if (hpp_logstatus) {
