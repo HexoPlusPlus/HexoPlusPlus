@@ -10,8 +10,8 @@ export async function ghupload(config) {
   const message = config.message || 'Upload By HexoPlusPlus With Love'
   const base64file = config.file
   const method = 'PUT'
-  const url = `https://api.github.com/repos/${username}/${reponame}/contents${path}${filename}?ref=${branch}`
-  const body = {
+  const url = encodeURI(`https://api.github.com/repos/${username}/${reponame}/contents${path}${filename}?ref=${branch}`)
+  let body = {
     branch: branch, message: message, content: base64file, sha: sha
   }
 
@@ -42,7 +42,7 @@ export async function ghdel(config) {
   const sha = config.sha || await ghsha(config)
   const message = config.message || 'Delete By HexoPlusPlus With Love'
   const method = 'DELETE'
-  const url = `https://api.github.com/repos/${username}/${reponame}/contents${path}${filename}?ref=${branch}`
+  const url = encodeURI(`https://api.github.com/repos/${username}/${reponame}/contents${path}${filename}?ref=${branch}`)
   const body = {
     branch: branch, message: message, sha: sha
   }
@@ -70,7 +70,7 @@ export async function ghget(config) {
   const filename = config.filename
   const branch = config.branch || 'main'
   const token = config.token || ''
-  const url = `https://raw.githubusercontent.com/${username}/${reponame}/${branch}${path}${filename}`
+  const url = encodeURI(`https://raw.githubusercontent.com/${username}/${reponame}/${branch}${path}${filename}`)
   let init = { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${token}` } }
   if (token == '') {
     delete init.headers.Authorization
@@ -78,30 +78,19 @@ export async function ghget(config) {
   return fetch(url, init)
 }
 
-async function getlatinfo(config) {
-  const username = config.username
-  const reponame = config.reponame
-  const token = config.token
-  const url = `https://api.github.com/repos/${username}/${reponame}/releases/latest`
+
+export async function ghstar(config) {
+  const token = config.token || (() => { return false })()
+  const url = `https://api.github.com/user/starred/HexoPlusPlus/HexoPlusPlus`
   let init = {
-    method: 'GET',
     headers: {
       "content-type": "application/json;charset=UTF-8",
       "user-agent": 'HexoPlusPlus Github Filer',
-      "Authorization": "token " + token
-    }
+      "Authorization": `token ${token}`
+    },
+    method: "PUT"
   }
-  if (token == '') {
-    delete init.headers.Authorization
-  }
-  return (await (await fetch(url, init)).json())
+  const res = await fetch(url, init)
+  return res.status == 204 ? true : false
 }
 
-
-export async function ghlatver(config) {
-  return (await getlatinfo(config))["tag_name"]
-}
-
-export async function ghlatinfo(config) {
-  return (await getlatinfo(config))["body"]
-}

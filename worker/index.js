@@ -1,8 +1,8 @@
 const md5 = require('md5')
 import { gethtml } from './src/gethtml'
 import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix, genjsonres } from './src/scaffold'
-import { ghupload, ghdel, ghget, ghlatver, ghlatinfo } from './src/github/manager'
-import { hppupdate } from './src/update.js'
+import { ghupload, ghdel, ghget } from './src/github/manager'
+import { hppupdate, ghlatver, ghlatinfo } from './src/update.js'
 import { githubroute, dashroute } from './src/router/router.js'
 import { htalk } from './src/talk/htalk/index'
 import { genactiveres } from './src/getblogeractive'
@@ -56,7 +56,7 @@ async function hexoplusplus(request) {
 
     /*HPP Auth:Cookie&Basic*/
     for (var w = 0; w < getJsonLength(username); w++) {
-      if ((getCookie(request, "password") == md5(password[w]) && getCookie(request, "username") == md5(username[w])) || ((() => { try { if (maph.get('h_basic_auth') == `${md5(username[w])}:${md5(password[w])}`) { return true } else { return false } } catch (p) { return false } })())) {
+      if ((getCookie(request, "h_cookie_auth") == `${md5(username[w])}:${md5(password[w])}`) || ((() => { try { if (maph.get('h_basic_auth') == `${md5(username[w])}:${md5(password[w])}`) { return true } else { return false } } catch (p) { return false } })())) {
         hpp_logstatus = true
       }
     }
@@ -80,7 +80,7 @@ async function hexoplusplus(request) {
     /*不能将KVGET的时候获取为json,否则报错*/
 
     const config = formatconfig(JSON.parse(JSON.parse(hpp_config)))
-
+    hinfo.ghtoken = config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
     if (path.startsWith('/hpp/admin')) {
       if (hpp_logstatus) {
 
@@ -108,10 +108,10 @@ async function hexoplusplus(request) {
                   return hppupdate(config, false)
                 }
               case 'check':
-                if (await ghlatver(config, false) == hpp_info.ver) {
+                if (await ghlatver(config, false) == hinfo.ver) {
                   return genjsonres('不需要更新!', 0, 200)
                 } else {
-                  return genjsonres('需要更新!', 1, 200, ghlatinfo(config))
+                  return genjsonres('需要更新!', 1, 200, await ghlatinfo(config))
                 }
               default:
                 return genjsonres('未知的操作！', -1, 500)

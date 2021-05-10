@@ -1,21 +1,21 @@
-import {getJsonLength} from './../scaffold'
+import { getJsonLength } from './../scaffold'
 export async function ghlist(config) {
-    const username = config.username
-    const reponame = config.reponame
-    const path = config.path.substr(0, (config.path).length - 1) || '/'
-    const branch = config.branch || 'main'
-    const token = config.token || ''
-    const url = `https://api.github.com/repos/${username}/${reponame}/contents${path}?ref=${branch}` 
-    const init = {
-        method: 'GET',
-        headers: {
-          "content-type": "application/json;charset=UTF-8",
-          "user-agent": 'HexoPlusPlus Github Filer',
-          "Authorization": "token " + token
-        }
+  const username = config.username
+  const reponame = config.reponame
+  const path = config.path.substr(0, (config.path).length - 1) || '/'
+  const branch = config.branch || 'main'
+  const token = config.token || ''
+  const url = encodeURI(`https://api.github.com/repos/${username}/${reponame}/contents${path}?ref=${branch}`)
+  const init = {
+    method: 'GET',
+    headers: {
+      "content-type": "application/json;charset=UTF-8",
+      "user-agent": 'HexoPlusPlus Github Filer',
+      "Authorization": "token " + token
     }
-    if(token == ''){delete init.headers.Authorization}
-    return await(await fetch(url,init)).json() 
+  }
+  if (token == '') { delete init.headers.Authorization }
+  return await (await fetch(url, init)).json()
 }
 
 
@@ -25,16 +25,16 @@ export async function ghtreelist(config) {
   const path = config.path.substr(0, (config.path).length - 1) || '/'
   const branch = config.branch || 'main'
   const token = config.token || ''
-  const url = `https://api.github.com/repos/${username}/${reponame}/contents${path}?ref=${branch}` 
+  const url = encodeURI(`https://api.github.com/repos/${username}/${reponame}/contents${path}?ref=${branch}`)
   const init = {
-      method: 'GET',
-      headers: {
-        "content-type": "application/json;charset=UTF-8",
-        "user-agent": 'HexoPlusPlus Github Filer',
-        "Authorization": "token " + token
-      }
+    method: 'GET',
+    headers: {
+      "content-type": "application/json;charset=UTF-8",
+      "user-agent": 'HexoPlusPlus Github Filer',
+      "Authorization": "token " + token
+    }
   }
-  if(token == ''){delete init.headers.Authorization}
+  if (token == '') { delete init.headers.Authorization }
   return fetch_bfs([], url, init)
 }
 
@@ -42,7 +42,7 @@ export async function ghtreelist(config) {
 
 async function fetch_bfs(arr, url, getinit) {
   try {
-    const hpp_getlist =await (await fetch(url, getinit)).json()
+    const hpp_getlist = await (await fetch(url, getinit)).json()
     for (var i = 0; i < getJsonLength(hpp_getlist); i++) {
       if (hpp_getlist[i]["type"] != "dir") {
         arr.push(hpp_getlist[i])

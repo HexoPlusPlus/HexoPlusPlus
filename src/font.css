@@ -364,7 +364,3 @@ div.black2 a:active{border:0px;color:#000;background-color:rgba(241,241,241,.98)
 div.black2 span.current{border:0px;padding:2px 5px;font-weight:bold;margin:2px;color:#000;background-color:rgba(241,241,241,.98);}
 div.black2 span.disabled{border:0px;padding:2px 5px;margin:2px;color:#ddd;}
 
-img.hpp_pre{
-max-width:60%;
-border-radius:20px;
-}

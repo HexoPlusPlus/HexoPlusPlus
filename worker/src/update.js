@@ -1,4 +1,3 @@
-import { ghlatver } from './github/manager'
 import { genjsonres } from './scaffold'
 export const hppupdate = async (config, newest) => {
     let ver = 'dist'
@@ -31,3 +30,29 @@ export const hppupdate = async (config, newest) => {
 
 
 }
+async function getlatinfo(config) {
+    const token = config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
+    const url = `https://api.github.com/repos/HexoPlusPlus/HexoPlusPlus/releases/latest`
+    let init = {
+      method: 'GET',
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        "user-agent": 'HexoPlusPlus Github Filer',
+        "Authorization": "token " + token
+      }
+    }
+    if (token == '') {
+      delete init.headers.Authorization
+    }
+    return (await (await fetch(url, init)).json())
+  }
+  
+  
+  export async function ghlatver(config) {
+    return (await getlatinfo(config))["tag_name"]
+  }
+  
+  export async function ghlatinfo(config) {
+    return (await getlatinfo(config))["body"]
+  }
+  
