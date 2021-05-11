@@ -1,9 +1,7 @@
 const md5 = require('md5')
 import { gethtml } from './src/gethtml'
 import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix, genjsonres } from './src/scaffold'
-import { ghupload, ghdel, ghget } from './src/github/manager'
-import { hppupdate, ghlatver, ghlatinfo } from './src/update.js'
-import { githubroute, dashroute } from './src/router/router.js'
+import { githubroute, dashroute, updateroute } from './src/router/router.js'
 import { htalk } from './src/talk/htalk/index'
 import { genactiveres } from './src/getblogeractive'
 import { install } from './src/install'
@@ -15,9 +13,8 @@ let hinfo = {
   dev: true
 }
 
-const hpp_ver = hinfo.ver
-const hpp_CDN = hinfo.CDN
-/*历史遗留原因，未来将删除*/
+if (hinfo.dev) { hinfo.CDN = 'https://127.0.0.1:9999/' }
+
 
 let hpp_logstatus
 addEventListener("fetch", event => {
@@ -98,26 +95,7 @@ async function hexoplusplus(request) {
         }
         /*更新*/
         if (rp(path) == '/hpp/admin/api/update') {
-          try {
-            const apireq = await request.json()
-            switch (apireq.action) {
-              case 'update':
-                if (apireq.dev) {
-                  return hppupdate(config, true)
-                } else {
-                  return hppupdate(config, false)
-                }
-              case 'check':
-                if (await ghlatver(config, false) == hinfo.ver) {
-                  return genjsonres('不需要更新!', 0, 200)
-                } else {
-                  return genjsonres('需要更新!', 1, 200, await ghlatinfo(config))
-                }
-              default:
-                return genjsonres('未知的操作！', -1, 500)
-            }
-          } catch (lo) { throw lo }
-
+          return updateroute(request, config, hinfo)
         }
 
         /*签到*/

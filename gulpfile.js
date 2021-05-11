@@ -3,6 +3,42 @@ const concat = require('gulp-concat')
 const minifycss = require('gulp-minify-css')
 const terser = require('gulp-terser')
 
+
+
+
+task('default', series([
+    () => {
+        return src(['src/js/lib/md5.js', 'src/js/login.js'])
+            .pipe(concat('login.js'))
+            .pipe(terser())
+            .pipe(dest('dist/login'))
+            .pipe(terser())
+    },
+    () => {
+        return src(['src/css/login.css'])
+            .pipe(minifycss())
+            .pipe(dest('dist/login'))
+            .pipe(minifycss())
+    },
+
+
+    () => {
+        return src(['src/css/material-dashboard/dark.css'])
+            .pipe(minifycss())
+            .pipe(dest('dist/dash/theme'))
+            .pipe(minifycss())
+    },
+    () => {
+        return src(['src/css/material-dashboard/light.css'])
+            .pipe(minifycss())
+            .pipe(dest('dist/dash/theme'))
+            .pipe(minifycss())
+    }
+]))
+
+
+
+/*
 const css = function () {
     return src(['src/*.css'])
         .pipe(minifycss())
@@ -24,7 +60,7 @@ task(js)
 const user_talk = function () {
     return src(['src/plugin/marked.js','src/talk_user.js'])
         .pipe(concat('talk_user.js'))
-		.pipe(terser())
+        .pipe(terser())
         .pipe(dest('dist'))
         .pipe(terser())
 }
@@ -34,7 +70,7 @@ task(user_talk)
 const talk = function () {
     return src(['src/plugin/marked.js','src/plugin/OwO.js','src/talk.js'])
         .pipe(concat('talk.js'))
-		.pipe(terser())
+        .pipe(terser())
         .pipe(dest('dist'))
         .pipe(terser())
 }
@@ -44,11 +80,18 @@ task(talk)
 const edit = function () {
     return src(['src/plugin/marked.js','src/plugin/OwO.js','src/edit.js'])
         .pipe(concat('edit.js'))
-		.pipe(terser())
+        .pipe(terser())
         .pipe(dest('dist'))
         .pipe(terser())
 }
 edit.displayName = 'edit'
 task(edit)
+*/
 
-task('default', series(['minifycss','minifyjs','user_talk','talk','edit']))
+/*const dash_dark =  () => {
+    return src(['src/css/material-dashboard/dark.css'])
+        .pipe(minifycss())
+        .pipe(dest('dist'))
+        .pipe(minifycss())
+}
+*/

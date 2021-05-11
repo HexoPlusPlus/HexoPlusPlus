@@ -2,24 +2,32 @@ import { getJsonLength } from './../src/scaffold'
 export const gethtml = {
 
   loginhtml: (config, hinfo) => {
+    const gc = { "#58C9B9": "#9DC8C8", "#77AF9C": "#D7FFF1", "#0396FF": "#ABDCFF" }
+    const hc = (() => {
+      let y = []
+      for (var i in gc) {
+        y.push(i)
+      }
+      return y
+    })()
+    const c = hc[Math.floor(Math.random() * hc.length)];
     return `
     <!DOCTYPE html>
     <html lang="zh-cmn-Hans">
      <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
-      <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1"></script>
       <title>后台</title>
       <style>
-      .rv-root{
-          z-index:999;
-      }
-      a:link { text-decoration: none;color: white}
-    　　 a:active { text-decoration:blink}
-    　　 a:hover { text-decoration:underline;color: white} 
-    　　 a:visited { text-decoration: none;color: white}
+      
+.wrapper{
+      background: linear-gradient(to bottom right,${c} 0,${gc[c]} 100%)!important;
+}
+button{
+  color:${c}!important
+}
       </style>
-      <link rel="stylesheet" href="${hinfo.CDN}login.css" /> 
+      <link rel="stylesheet" href="${hinfo.CDN}login/login.css" /> 
      </head>
      <body>
       <div id="all">
@@ -51,23 +59,7 @@ export const gethtml = {
         </ul>
        </div>
       </div>
-      <script src="${hinfo.CDN}md5.js"></script>
-      <script>
-    document.onkeydown=keyListener;
-    function login(){
-    document.cookie = "username=" + md5(document.getElementById("username").value);
-    document.cookie = "password=" + md5(document.getElementById("password").value);
-    window.location.href = '/hpp/admin/dash/home';
-    }
-    function keyListener(e){
-        if(e.keyCode == 13){
-            login();
-        }
-    }
-    $("#login-button").click(function(event) {
-    login();
-    });
-      </script>
+      <script src="${hinfo.CDN}login/login.js"></script>
       </body>
     </html>
     `},

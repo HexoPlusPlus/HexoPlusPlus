@@ -2,6 +2,7 @@ import { ghupload, ghdel, ghget } from './../github/manager'
 import { ghtreelist } from './../github/getlist'
 import { gethtml } from './../gethtml'
 import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix, genjsonres } from './../scaffold'
+import { hppupdate, ghlatver, ghlatinfo } from './../update.js'
 export const githubroute = async (request, config, hinfo) => {
     try {
         let r, rs, name, msgd, hpp_list_index
@@ -271,4 +272,26 @@ export const dashroute = async (request, config, hinfo) => {
     })
 
 
+}
+
+export const updateroute = async (request, config, hinfo) => {
+    try {
+        const apireq = await request.json()
+        switch (apireq.action) {
+            case 'update':
+                if (apireq.dev) {
+                    return hppupdate(config, true)
+                } else {
+                    return hppupdate(config, false)
+                }
+            case 'check':
+                if (await ghlatver(config, false) == hinfo.ver) {
+                    return genjsonres('不需要更新!', 0, 200)
+                } else {
+                    return genjsonres('需要更新!', 1, 200, await ghlatinfo(config))
+                }
+            default:
+                return genjsonres('未知的操作！', -1, 500)
+        }
+    } catch (lo) { throw lo }
 }
