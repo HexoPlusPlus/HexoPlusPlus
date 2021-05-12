@@ -1,4 +1,4 @@
-name: gulp
+name: build
 
 on:
   push:

@@ -74,6 +74,7 @@ export const formatconfig = (config) => {
 }
 
 const defaultconfig = {
+    hpp_theme_mode: "dark"
     /*
         const hpp_domain = config["hpp_domain"]
         const hpp_userimage = config["hpp_userimage"]

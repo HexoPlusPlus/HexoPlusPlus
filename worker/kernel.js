@@ -86,7 +86,7 @@ export async function hexoplusplus(request) {
         if (rp(path) == '/hpp/admin/api/kick') {
           const now = Date.now(new Date())
           await KVNAME.put("hpp_activetime", now)
-          return new Response("OK")
+          return genjsonres("签到成功！",0,200,"")
         }
 
         /*HTALK*/
@@ -194,4 +194,3 @@ export async function hexoplusplus(request) {
 
   }
 }
-

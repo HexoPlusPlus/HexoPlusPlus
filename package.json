@@ -1,8 +1,8 @@
 {
-  "name": "hexoplusplus",
-  "version": "1.2.1",
+  "name": "chenyfan-test-hexoplusplus",
+  "version": "0.0.20210512",
   "description": "A Serverless Hexo Back DashBoard",
-  "main": "index.js",
+  "main": "worker/kernel.js",
   "scripts": {
     "build": "npm run build-worker && npm run build-static",
     "build-worker": "webpack",
@@ -13,7 +13,7 @@
     "build-server": "npm run build-worker & npm run build-static-server"
   },
   "author": "ChenYFan",
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HexoPlusPlus/HexoPlusPlus.git"
@@ -34,5 +34,6 @@
     "md5": "^2.3.0",
     "webpack": "^5.30.0",
     "webpack-cli": "^4.6.0"
-  }
+  },
+  "devDependencies": {}
 }

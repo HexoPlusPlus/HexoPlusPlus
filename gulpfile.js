@@ -8,6 +8,23 @@ const terser = require('gulp-terser')
 
 task('default', series([
     () => {
+        return src(['src/js/error.js'])
+            .pipe(concat('error.js'))
+            .pipe(terser())
+            .pipe(dest('dist/error'))
+            .pipe(terser())
+    },
+    () => {
+        return src(['src/css/error.css', 'src/css/font/error.css'])
+            .pipe(concat('error.css'))
+            .pipe(minifycss())
+            .pipe(dest('dist/error'))
+            .pipe(minifycss())
+    },
+
+
+
+    () => {
         return src(['src/js/lib/md5.js', 'src/js/login.js'])
             .pipe(concat('login.js'))
             .pipe(terser())
@@ -23,17 +40,28 @@ task('default', series([
 
 
     () => {
-        return src(['src/css/material-dashboard/dark.css'])
+        return src(['src/css/font/dash.css', 'src/css/material-dashboard/dark.css', 'src/css/theme/dark.css'])
+            .pipe(concat('dark.css'))
             .pipe(minifycss())
             .pipe(dest('dist/dash/theme'))
             .pipe(minifycss())
     },
     () => {
-        return src(['src/css/material-dashboard/light.css'])
+        return src(['src/css/font/dash.css', 'src/css/material-dashboard/light.css', 'src/css/theme/light.css'])
+            .pipe(concat('light.css'))
             .pipe(minifycss())
             .pipe(dest('dist/dash/theme'))
             .pipe(minifycss())
+    },
+
+    () => {
+        return src(['src/js/lib/jq.js', 'src/js/material-dashboard/dash.js'])
+            .pipe(concat('dash.js'))
+            //.pipe(terser())
+            .pipe(dest('dist/dash/theme'))
+        //.pipe(terser())
     }
+
 ]))
 
 

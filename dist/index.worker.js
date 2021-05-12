@@ -447,6 +447,7 @@ const formatconfig = (config) => {
 }
 
 const defaultconfig = {
+    hpp_theme_mode: "dark"
     /*
         const hpp_domain = config["hpp_domain"]
         const hpp_userimage = config["hpp_userimage"]
@@ -549,7 +550,7 @@ button{
            <button type="button" id="login-button">登录</button>
            <br />
            <br />
-           <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips" style="color: #fff;">@${config.ver}</a>
+           <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips" style="color: #fff;">💗${hinfo.ver}</a>
           </form>
          </div>
         </div>
@@ -928,7 +929,7 @@ button{
             <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
             <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" /> 
             <title>HexoPlusPlusError</title>
-            <link rel="stylesheet" type="text/css" href="${hinfo.CDN}error.css" />
+            <link rel="stylesheet" type="text/css" href="${hinfo.CDN}error/error.css" />
       </head>
       <body>
         <div class="container demo-2">
@@ -953,7 +954,7 @@ button{
                     </div>
                 </div>
         </div>
-            <script src="${hinfo.CDN}error.js"></script>
+            <script src="${hinfo.CDN}error/error.js"></script>
       </body>
     </html>
     `
@@ -969,8 +970,8 @@ button{
               <link rel="icon" type="image/png" href="${config.hpp_usericon}">
               <title>${config.hpp_title}</title>
               <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-              <link rel="stylesheet" type="text/css" href="${hinfo.CDN}font.css" />
-              <link href="${hinfo.CDN}admin_all_${config.hpp_theme_mode}.css" rel="stylesheet" />
+              <link href="${hinfo.CDN}dash/theme/${config.hpp_theme_mode == 'light'?'light':'dark'}.css" rel="stylesheet" />
+              <script src="${hinfo.CDN}dash/theme/dash.js"></script>
               <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
               <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
               <script>
@@ -1052,9 +1053,9 @@ button{
                               </p>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                              <a class="dropdown-item" href="javascript:kick()">签到</a>
+                              <a class="dropdown-item" id="kick">签到</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="javascript:hpp_logout()">退出</a>
+                              <a class="dropdown-item" id="logout">退出</a>
                             </div>
                           </li>
                         </ul>
@@ -1071,7 +1072,6 @@ button{
   </div>
   <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="${hinfo.CDN}admin_all.js"></script>
   ${hpp_js}
   </body>
   
@@ -2291,8 +2291,6 @@ if (hinfo.dev) { hinfo.CDN = 'https://127.0.0.1:9999/' }
 
 
 let hpp_logstatus
-
-
 async function hexoplusplus(request) {
   try {
     hpp_logstatus = false
@@ -2362,7 +2360,7 @@ async function hexoplusplus(request) {
         if (rp(path) == '/hpp/admin/api/kick') {
           const now = Date.now(new Date())
           await KVNAME.put("hpp_activetime", now)
-          return new Response("OK")
+          return genjsonres("签到成功！",0,200,"")
         }
 
         /*HTALK*/
@@ -2470,7 +2468,6 @@ async function hexoplusplus(request) {
 
   }
 }
-
 
 ;// CONCATENATED MODULE: ./worker/index.js
 

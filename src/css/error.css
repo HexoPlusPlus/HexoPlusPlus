@@ -41,7 +41,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 	height: 20vw;
 	min-width: 3.5em;
 	min-height: 3.5em;
-	background: url(../img/deco.svg) no-repeat center center;
 	background-size: cover;
 	position: absolute;
 	top: 50%;
