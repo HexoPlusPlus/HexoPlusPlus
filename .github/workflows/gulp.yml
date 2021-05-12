@@ -16,8 +16,7 @@ jobs:
     - name: install&gulp
       run: |
         npm i -D && npx gulp
-        gulp 
-        webpack
+        npm run build
         
     - name: Commit files
       run: |

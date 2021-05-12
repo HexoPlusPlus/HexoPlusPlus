@@ -2271,7 +2271,7 @@ const hpage = (config) => {
         
             */
 }
-;// CONCATENATED MODULE: ./worker/index.js
+;// CONCATENATED MODULE: ./worker/kernel.js
 const md5 = __webpack_require__(229)
 ;
 
@@ -2291,20 +2291,6 @@ if (hinfo.dev) { hinfo.CDN = 'https://127.0.0.1:9999/' }
 
 
 let hpp_logstatus
-addEventListener("fetch", event => {
-  /*
-    const req = event.request
-    const urlStr = req.url
-    const urlObj = new URL(urlStr)
-    const path = urlObj.href.substr(urlObj.origin.length)
-    console.log(path)
-    */
-
-  /*
-  使用WorkerSite + HPP 为未来提升兼容性
-  */
-  event.respondWith(hexoplusplus(event.request))
-})
 
 
 async function hexoplusplus(request) {
@@ -2485,6 +2471,12 @@ async function hexoplusplus(request) {
   }
 }
 
+
+;// CONCATENATED MODULE: ./worker/index.js
+
+addEventListener("fetch", event => {
+  event.respondWith(hexoplusplus(event.request))
+})
 
 })();
 
