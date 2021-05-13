@@ -461,8 +461,8 @@ button{
               <link rel="icon" type="image/png" href="${config.hpp_usericon}">
               <title>${config.hpp_title}</title>
               <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-              <link href="${hinfo.CDN}dash/theme/${config.hpp_theme_mode == 'light'?'light':'dark'}.css" rel="stylesheet" />
-              <script src="${hinfo.CDN}dash/theme/dash.js"></script>
+              <link href="${hinfo.CDN}dash/theme/${config.hpp_theme_mode == 'light' ? 'light' : 'dark'}.css" rel="stylesheet" />
+              
               <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
               <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
               <script>
@@ -561,7 +561,7 @@ button{
               <!--innerHTMLEND-->
   </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
+  <script src="${hinfo.CDN}dash/theme/dash.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
   ${hpp_js}
   </body>

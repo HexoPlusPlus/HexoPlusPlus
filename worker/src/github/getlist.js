@@ -2,7 +2,16 @@ import { getJsonLength } from './../scaffold'
 export async function ghlist(config) {
   const username = config.username
   const reponame = config.reponame
-  const path = config.path.substr(0, (config.path).length - 1) || '/'
+  const path = (() => {
+    const pathsplit = config.path.split('/')
+    let formatpath = ""
+    for (var i = 0; i < pathsplit.length - 1; i++) {
+      if (pathsplit[i] != "") {
+        formatpath += `/${pathsplit[i]}`
+      }
+    }
+    return formatpath
+  })()
   const branch = config.branch || 'main'
   const token = config.token || ''
   const url = encodeURI(`https://api.github.com/repos/${username}/${reponame}/contents${path}?ref=${branch}`)
@@ -22,7 +31,16 @@ export async function ghlist(config) {
 export async function ghtreelist(config) {
   const username = config.username
   const reponame = config.reponame
-  const path = config.path.substr(0, (config.path).length - 1) || '/'
+  const path = (() => {
+    const pathsplit = config.path.split('/')
+    let formatpath = ""
+    for (var i = 0; i < pathsplit.length - 1; i++) {
+      if (pathsplit[i] != "") {
+        formatpath += `/${pathsplit[i]}`
+      }
+    }
+    return formatpath
+  })()
   const branch = config.branch || 'main'
   const token = config.token || ''
   const url = encodeURI(`https://api.github.com/repos/${username}/${reponame}/contents${path}?ref=${branch}`)

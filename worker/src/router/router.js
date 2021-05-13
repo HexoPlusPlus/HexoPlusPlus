@@ -1,5 +1,5 @@
 import { ghupload, ghdel, ghget } from './../github/manager'
-import { ghtreelist } from './../github/getlist'
+import { ghtreelist, ghlist } from './../github/getlist'
 import { gethtml } from './../gethtml'
 import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix, genjsonres } from './../scaffold'
 import { hppupdate, ghlatver, ghlatinfo } from './../update.js'
@@ -8,6 +8,72 @@ export const githubroute = async (request, config, hinfo) => {
         let r, rs, name, msgd, hpp_list_index
         const apireq = await request.json()
         switch (apireq.action) {
+            case 'add':
+                r = await ghupload({
+                    file: apireq.file,
+                    username: apireq.username,
+                    reponame: apireq.reponame,
+                    path: apireq.path,
+                    branch: apireq.branch,
+                    token: apireq.token
+                })
+                rs = r.status
+                if (rs == 200 || rs == 201) {
+                    /*
+                    if (rs == 201) {
+                        await KVNAME.delete("hpp_doc_list_index");
+                        return genjsonres('新建文档成功！', 0, rs)
+                    }*/
+                    return genjsonres('上传文档成功！', 0, rs)
+                } else {
+                    return genjsonres('上传/新建文档失败！', 1, rs)
+                }
+            case 'get':
+                r = await ghget({
+                    username: apireq.username,
+                    reponame: apireq.reponame,
+                    path: apireq.path,
+                    branch: apireq.branch,
+                    token: apireq.token
+                })
+                if (apireq.json) {
+                    return genjsonres('获取文件成功', 0, 200, await r.text())
+                } else {
+                    return r
+                }
+
+            case 'del':
+                r = await ghdel({
+                    username: apireq.username,
+                    reponame: apireq.reponame,
+                    path: apireq.path,
+                    branch: apireq.branch,
+                    token: apireq.token
+                })
+                rs = r.status
+                if (rs == 200) {
+                    return genjsonres('删除文件成功！', 0, rs)
+                } else {
+                    return genjsonres('删除文件失败！', 1, rs)
+                }
+            case 'list':
+                return genjsonres('列表成功！', 0, 200, JSON.stringify(await ghlist({
+                    username: apireq.username,
+                    reponame: apireq.reponame,
+                    path: apireq.path,
+                    branch: apireq.branch,
+                    token: apireq.token
+                })))
+            case 'listtree':
+                return genjsonres('全列表成功！', 0, 200, JSON.stringify(await ghtreelist({
+                    username: apireq.username,
+                    reponame: apireq.reponame,
+                    path: apireq.path,
+                    branch: apireq.branch,
+                    token: apireq.token
+                })))
+
+            /*
             case 'adddoc':
                 r = await ghupload({
                     file: apireq.file,
@@ -211,6 +277,7 @@ export const githubroute = async (request, config, hinfo) => {
                 await KVNAME.delete("hpp_doc_list_index")
                 await KVNAME.delete("hpp_img_list_index")
                 return genjsonres('清除索引缓存成功!', 0, 200)
+                */
             default:
                 return genjsonres('未知的操作', -1, 500)
         }

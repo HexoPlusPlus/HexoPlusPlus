@@ -1,9 +1,9 @@
-import { ghtreelist } from './getlist'
+import { ghlist } from './getlist'
 export async function ghsha(config) {
-    const list = await ghtreelist(config)
+    const list = await ghlist(config)
     try {
         return list.filter(function (fp) {
-            return `/${fp.path}` == `${config.path}${config.filename}`
+            return `/${fp.path}` == `${config.path}`
         })[0]["sha"]
     }
     catch (e) {

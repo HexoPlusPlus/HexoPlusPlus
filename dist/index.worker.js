@@ -970,8 +970,8 @@ button{
               <link rel="icon" type="image/png" href="${config.hpp_usericon}">
               <title>${config.hpp_title}</title>
               <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-              <link href="${hinfo.CDN}dash/theme/${config.hpp_theme_mode == 'light'?'light':'dark'}.css" rel="stylesheet" />
-              <script src="${hinfo.CDN}dash/theme/dash.js"></script>
+              <link href="${hinfo.CDN}dash/theme/${config.hpp_theme_mode == 'light' ? 'light' : 'dark'}.css" rel="stylesheet" />
+              
               <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
               <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
               <script>
@@ -1070,7 +1070,7 @@ button{
               <!--innerHTMLEND-->
   </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4"></script>
+  <script src="${hinfo.CDN}dash/theme/dash.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
   ${hpp_js}
   </body>
@@ -1084,7 +1084,16 @@ button{
 async function ghlist(config) {
   const username = config.username
   const reponame = config.reponame
-  const path = config.path.substr(0, (config.path).length - 1) || '/'
+  const path = (() => {
+    const pathsplit = config.path.split('/')
+    let formatpath = ""
+    for (var i = 0; i < pathsplit.length - 1; i++) {
+      if (pathsplit[i] != "") {
+        formatpath += `/${pathsplit[i]}`
+      }
+    }
+    return formatpath
+  })()
   const branch = config.branch || 'main'
   const token = config.token || ''
   const url = encodeURI(`https://api.github.com/repos/${username}/${reponame}/contents${path}?ref=${branch}`)
@@ -1104,7 +1113,16 @@ async function ghlist(config) {
 async function ghtreelist(config) {
   const username = config.username
   const reponame = config.reponame
-  const path = config.path.substr(0, (config.path).length - 1) || '/'
+  const path = (() => {
+    const pathsplit = config.path.split('/')
+    let formatpath = ""
+    for (var i = 0; i < pathsplit.length - 1; i++) {
+      if (pathsplit[i] != "") {
+        formatpath += `/${pathsplit[i]}`
+      }
+    }
+    return formatpath
+  })()
   const branch = config.branch || 'main'
   const token = config.token || ''
   const url = encodeURI(`https://api.github.com/repos/${username}/${reponame}/contents${path}?ref=${branch}`)
@@ -1138,10 +1156,10 @@ async function fetch_bfs(arr, url, getinit) {
 ;// CONCATENATED MODULE: ./worker/src/github/getsha.js
 
 async function ghsha(config) {
-    const list = await ghtreelist(config)
+    const list = await ghlist(config)
     try {
         return list.filter(function (fp) {
-            return `/${fp.path}` == `${config.path}${config.filename}`
+            return `/${fp.path}` == `${config.path}`
         })[0]["sha"]
     }
     catch (e) {
@@ -1153,15 +1171,14 @@ async function ghsha(config) {
 async function ghupload(config) {
   const username = config.username
   const reponame = config.reponame
-  const path = config.path || '/'
-  const filename = config.filename
+  const path = config.path
   const branch = config.branch || 'main'
   const token = config.token || ''
   const sha = config.sha || await ghsha(config)
   const message = config.message || 'Upload By HexoPlusPlus With Love'
   const base64file = config.file
   const method = 'PUT'
-  const url = encodeURI(`https://api.github.com/repos/${username}/${reponame}/contents${path}${filename}?ref=${branch}`)
+  const url = encodeURI(`https://api.github.com/repos/${username}/${reponame}/contents${path}?ref=${branch}`)
   let body = {
     branch: branch, message: message, content: base64file, sha: sha
   }
@@ -1186,18 +1203,17 @@ async function ghupload(config) {
 async function ghdel(config) {
   const username = config.username
   const reponame = config.reponame
-  const path = config.path || '/'
-  const filename = config.filename
+  const path = config.path
   const branch = config.branch || 'main'
-  const token = config.token || ''
+  const token = config.token
   const sha = config.sha || await ghsha(config)
   const message = config.message || 'Delete By HexoPlusPlus With Love'
   const method = 'DELETE'
-  const url = encodeURI(`https://api.github.com/repos/${username}/${reponame}/contents${path}${filename}?ref=${branch}`)
+  const url = encodeURI(`https://api.github.com/repos/${username}/${reponame}/contents${path}?ref=${branch}`)
   const body = {
     branch: branch, message: message, sha: sha
   }
-
+  console.log(body)
   let init = {
     body: JSON.stringify(body),
     method: method,
@@ -1217,11 +1233,10 @@ async function ghdel(config) {
 async function ghget(config) {
   const username = config.username
   const reponame = config.reponame
-  const path = config.path || '/'
-  const filename = config.filename
+  const path = config.path
   const branch = config.branch || 'main'
   const token = config.token || ''
-  const url = encodeURI(`https://raw.githubusercontent.com/${username}/${reponame}/${branch}${path}${filename}`)
+  const url = encodeURI(`https://raw.githubusercontent.com/${username}/${reponame}/${branch}${path}`)
   let init = { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${token}` } }
   if (token == '') {
     delete init.headers.Authorization
@@ -1316,6 +1331,72 @@ const githubroute = async (request, config, hinfo) => {
         let r, rs, name, msgd, hpp_list_index
         const apireq = await request.json()
         switch (apireq.action) {
+            case 'add':
+                r = await ghupload({
+                    file: apireq.file,
+                    username: apireq.username,
+                    reponame: apireq.reponame,
+                    path: apireq.path,
+                    branch: apireq.branch,
+                    token: apireq.token
+                })
+                rs = r.status
+                if (rs == 200 || rs == 201) {
+                    /*
+                    if (rs == 201) {
+                        await KVNAME.delete("hpp_doc_list_index");
+                        return genjsonres('新建文档成功！', 0, rs)
+                    }*/
+                    return genjsonres('上传文档成功！', 0, rs)
+                } else {
+                    return genjsonres('上传/新建文档失败！', 1, rs)
+                }
+            case 'get':
+                r = await ghget({
+                    username: apireq.username,
+                    reponame: apireq.reponame,
+                    path: apireq.path,
+                    branch: apireq.branch,
+                    token: apireq.token
+                })
+                if (apireq.json) {
+                    return genjsonres('获取文件成功', 0, 200, await r.text())
+                } else {
+                    return r
+                }
+
+            case 'del':
+                r = await ghdel({
+                    username: apireq.username,
+                    reponame: apireq.reponame,
+                    path: apireq.path,
+                    branch: apireq.branch,
+                    token: apireq.token
+                })
+                rs = r.status
+                if (rs == 200) {
+                    return genjsonres('删除文件成功！', 0, rs)
+                } else {
+                    return genjsonres('删除文件失败！', 1, rs)
+                }
+            case 'list':
+                return genjsonres('列表成功！', 0, 200, JSON.stringify(await ghlist({
+                    username: apireq.username,
+                    reponame: apireq.reponame,
+                    path: apireq.path,
+                    branch: apireq.branch,
+                    token: apireq.token
+                })))
+            case 'listtree':
+                return genjsonres('全列表成功！', 0, 200, JSON.stringify(await ghtreelist({
+                    username: apireq.username,
+                    reponame: apireq.reponame,
+                    path: apireq.path,
+                    branch: apireq.branch,
+                    token: apireq.token
+                })))
+
+            /*
             case 'adddoc':
                 r = await ghupload({
                     file: apireq.file,
@@ -1519,6 +1600,7 @@ const githubroute = async (request, config, hinfo) => {
                 await KVNAME.delete("hpp_doc_list_index")
                 await KVNAME.delete("hpp_img_list_index")
                 return genjsonres('清除索引缓存成功!', 0, 200)
+                */
             default:
                 return genjsonres('未知的操作', -1, 500)
         }
