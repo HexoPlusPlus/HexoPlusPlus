@@ -1,4 +1,5 @@
 const md5 = require('md5')
+import { lang } from './src/i18n/language'
 import { gethtml } from './src/gethtml'
 import { formatconfig } from './src/config'
 import { getCookie, getJsonLength, rp, getname, getsuffix, genjsonres } from './src/scaffold'
@@ -31,6 +32,9 @@ export async function hexoplusplus(request) {
     const maph = new Map(request.headers);
     hinfo.username = username
 
+    if (rp(path) == '/hpp/langtest') {
+      return new Response(lang.lang)
+    }
 
 
 
@@ -59,9 +63,15 @@ export async function hexoplusplus(request) {
     }
 
     if (path.startsWith('/hpp/admin')) {
+      if (rp(path) == "/hpp/admin/check") {
+        if (hpp_logstatus) {
+          return genjsonres("已登录！", 0, 200)
+        } else {
+          return genjsonres("Ooops！尚未登陆！", -1, 403)
+        }
+      }
+
       if (hpp_logstatus) {
-
-
 
         /*主面板*/
         if (path.startsWith("/hpp/admin/dash")) {
