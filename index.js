@@ -6,9 +6,9 @@ addEventListener('fetch', event => {
 
 async function handleRequest(request) {
   const config = JSON.parse(JSON.parse("hpp_config"))
-  await KVNAME.put("hpp_config", hpp_config)
-  const htalk = await KVNAME.get("hpp_talk_data", { type: "json" });
-  const htalkid = await KVNAME.get("hpp_talk_id");
+  await HKV.put("hpp_config", hpp_config)
+  const htalk = await HKV.get("hpp_talk_data", { type: "json" });
+  const htalkid = await HKV.get("hpp_talk_id");
   /*脑残的双重JSON格式化*/
   const newhtalk = {
     nid: htalkid,
@@ -26,9 +26,9 @@ async function handleRequest(request) {
     })()
   }
 
-  await KVNAME.put("htalk", JSON.stringify(newhtalk))
-  await KVNAME.delete("hpp_talk_id")
-  await KVNAME.delete("hpp_talk_data")
+  await HKV.put("htalk", JSON.stringify(newhtalk))
+  await HKV.delete("hpp_talk_id")
+  await HKV.delete("hpp_talk_data")
 
 
   /*使用全新的htalk存储格式*/

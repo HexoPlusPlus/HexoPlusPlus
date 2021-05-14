@@ -3,7 +3,7 @@ export const install = (config, hinfo, request) => {
     /*
     if (rp(path) == '/hpp/admin/api/upconfig') {
               const config_r = JSON.stringify(await request.text())
-              await KVNAME.put("hpp_config", config_r)
+              await HKV.put("hpp_config", config_r)
               return new Response("OK")
             }
             if (rp(path) == "/hpp/admin/install") {

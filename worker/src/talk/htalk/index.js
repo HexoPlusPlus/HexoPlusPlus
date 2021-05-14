@@ -7,10 +7,10 @@ export async function htalk(config, request, loginstatus, hinfo) {
         if (login) {
             switch (r.action) {
                 case 'initialization':
-                    await KVNAME.put("htalk", "{}")
+                    await HKV.put("htalk", "{}")
                     return genres(config, "初始化成功", 200, 0, '')
                 case 'get':
-                    htalk = await KVNAME.get("htalk", { type: "json" });
+                    htalk = await HKV.get("htalk", { type: "json" });
                     limit = r.limit
                     start = r.start || htalk.nid
                     hres = []
@@ -26,7 +26,7 @@ export async function htalk(config, request, loginstatus, hinfo) {
                     }
                     return genres(config, `在${(function () { if (login) { return '已登录' } else { return '未登录' } })()}的状态下,已成功获得说说数据`, 200, 0, JSON.stringify(hres))
                 case 'add':
-                    htalk = await KVNAME.get("htalk", { type: "json" })
+                    htalk = await HKV.get("htalk", { type: "json" })
                     add = {
                         id: htalk["nid"] + 1,
                         time: r.time,
@@ -38,24 +38,24 @@ export async function htalk(config, request, loginstatus, hinfo) {
                     htalk.data.push(add);
                     htalk.nid += 1
 
-                    await KVNAME.put("htalk", JSON.stringify(htalk))
+                    await HKV.put("htalk", JSON.stringify(htalk))
                     return genres(config, `已成功上传说说数据`, 200, 0, '')
                 case 'del':
-                    htalk = await KVNAME.get("htalk", { type: "json" })
+                    htalk = await HKV.get("htalk", { type: "json" })
                     delete htalk.data[r.id]
-                    await KVNAME.put("htalk", JSON.stringify(htalk))
+                    await HKV.put("htalk", JSON.stringify(htalk))
                     return genres(config, `已成功删除id为${r.id}的数据`, 200, 0, '')
                 case 'visible':
-                    htalk = await KVNAME.get("htalk", { type: "json" })
+                    htalk = await HKV.get("htalk", { type: "json" })
                     htalk.data[r.id].visible = htalk.data[r.id].visible ? false : true
-                    await KVNAME.put("htalk", JSON.stringify(htalk))
+                    await HKV.put("htalk", JSON.stringify(htalk))
                     return genres(config, `已改变id为${r.id}的数据的可见性`, 200, 0, '')
 
 
                 case 'inputartitalk':
 
 
-                    htalk = await KVNAME.get("htalk", { type: "json" })
+                    htalk = await HKV.get("htalk", { type: "json" })
                     for (var i = 0; i < r.ctx.length; i++) {
                         htalk.nid++;
                         talk_init = {
@@ -68,7 +68,7 @@ export async function htalk(config, request, loginstatus, hinfo) {
                         }
                         htalk.data[htalk.nid] = talk_init
                     }
-                    await KVNAME.put("htalk", JSON.stringify(htalk))
+                    await HKV.put("htalk", JSON.stringify(htalk))
                     return genres(config, `已导入${r.ctx.length}条!`, 200, 0, '')
                 default:
                     return genres(config, `未知的操作`, 500, -1, '')
@@ -76,7 +76,7 @@ export async function htalk(config, request, loginstatus, hinfo) {
         } else {
             switch (r.action) {
                 case 'get':
-                    htalk = await KVNAME.get("htalk", { type: "json" });
+                    htalk = await HKV.get("htalk", { type: "json" });
                     limit = r.limit
                     start = r.start || htalk.nid
                     hres = []

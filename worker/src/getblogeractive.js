@@ -1,5 +1,5 @@
 export async function genactiveres(config) {
-    var k = (Date.parse(new Date()) - (await KVNAME.get("hpp_activetime"))) / 1000
+    var k = (Date.parse(new Date()) - (await HKV.get("hpp_activetime"))) / 1000
     if (k < 30) {
         return genactres(config, '博主刚刚还在这里')
     }

@@ -21,7 +21,7 @@ export const githubroute = async (request, config, hinfo) => {
                 if (rs == 200 || rs == 201) {
                     /*
                     if (rs == 201) {
-                        await KVNAME.delete("hpp_doc_list_index");
+                        await HKV.delete("hpp_doc_list_index");
                         return genjsonres('新建文档成功！', 0, rs)
                     }*/
                     return genjsonres('上传文档成功！', 0, rs)
@@ -86,7 +86,7 @@ export const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200 || rs == 201) {
-                    if (rs == 201) { await KVNAME.delete("hpp_doc_list_index"); return genjsonres('新建文档成功！', 0, rs) }
+                    if (rs == 201) { await HKV.delete("hpp_doc_list_index"); return genjsonres('新建文档成功！', 0, rs) }
                     return genjsonres('上传文档成功！', 0, rs)
                 } else {
                     return genjsonres('上传/新建文档失败！', 1, rs)
@@ -104,7 +104,7 @@ export const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200 || rs == 201) {
-                    if (rs == 201) { await KVNAME.delete("hpp_doc_draft_list_index"); return genjsonres('上传草稿成功！', 0, rs) }
+                    if (rs == 201) { await HKV.delete("hpp_doc_draft_list_index"); return genjsonres('上传草稿成功！', 0, rs) }
                     return genjsonres('上传草稿成功！', 0, rs)
                 } else {
                     return genjsonres('上传/新建草稿失败！', -1, rs)
@@ -140,7 +140,7 @@ export const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200) {
-                    await KVNAME.delete("hpp_doc_list_index")
+                    await HKV.delete("hpp_doc_list_index")
                     return genjsonres('删除文档成功！', 0, rs)
                 } else {
                     return genjsonres('删除文档失败！', -1, rs)
@@ -156,7 +156,7 @@ export const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200) {
-                    await KVNAME.delete("hpp_doc_list_index")
+                    await HKV.delete("hpp_doc_list_index")
                     return genjsonres('删除艹稿成功！', 0, rs)
                 } else {
                     return genjsonres('删除艹稿失败！', -1, rs)
@@ -173,7 +173,7 @@ export const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200) {
-                    await KVNAME.delete("hpp_doc_list_index")
+                    await HKV.delete("hpp_doc_list_index")
                     return genjsonres('删除图片成功！', 0, rs)
                 } else {
                     return genjsonres('删除图片失败！', -1, rs)
@@ -207,7 +207,7 @@ export const githubroute = async (request, config, hinfo) => {
                 })
             case 'getdoclist':
 
-                hpp_list_index = await KVNAME.get("hpp_doc_list_index")
+                hpp_list_index = await HKV.get("hpp_doc_list_index")
                 if (hpp_list_index === null) {
                     hpp_list_index = JSON.stringify(await ghtreelist({
                         username: config.hpp_githubdocusername,
@@ -217,7 +217,7 @@ export const githubroute = async (request, config, hinfo) => {
                         token: config.hpp_githubdoctoken
                     }))
                     if (!hinfo.dev) {
-                        await KVNAME.put("hpp_doc_list_index", hpp_list_index)
+                        await HKV.put("hpp_doc_list_index", hpp_list_index)
                         msgd = '没有命中缓存,获取文章列表成功！'
                     } else {
 
@@ -230,7 +230,7 @@ export const githubroute = async (request, config, hinfo) => {
 
             case 'getdraftlist':
 
-                hpp_list_index = await KVNAME.get("hpp_doc_draft_list_index")
+                hpp_list_index = await HKV.get("hpp_doc_draft_list_index")
                 if (hpp_list_index === null) {
                     hpp_list_index = JSON.stringify(await ghtreelist({
                         username: config.hpp_githubdocusername,
@@ -240,7 +240,7 @@ export const githubroute = async (request, config, hinfo) => {
                         token: config.hpp_githubdoctoken
                     }))
                     if (!hinfo.dev) {
-                        await KVNAME.put("hpp_doc_draft_list_index", hpp_list_index)
+                        await HKV.put("hpp_doc_draft_list_index", hpp_list_index)
                         msgd = '没有命中缓存,获取艹稿列表成功！'
                     } else {
                         msgd = '没有命中缓存,处于开发模式,获取艹稿列表成功！'
@@ -253,7 +253,7 @@ export const githubroute = async (request, config, hinfo) => {
 
             case 'getimglist':
 
-                hpp_list_index = await KVNAME.get("hpp_img_list_index")
+                hpp_list_index = await HKV.get("hpp_img_list_index")
                 if (hpp_list_index === null) {
                     hpp_list_index = JSON.stringify(await ghtreelist({
                         username: config.hpp_githubimageusername,
@@ -263,7 +263,7 @@ export const githubroute = async (request, config, hinfo) => {
                         token: config.hpp_githubimagetoken
                     }))
                     if (!hinfo.dev) {
-                        await KVNAME.put("hpp_img_list_index", hpp_list_index)
+                        await HKV.put("hpp_img_list_index", hpp_list_index)
                         msgd = '没有命中缓存,获取图片列表成功！'
                     } else {
                         msgd = '没有命中缓存,处于开发模式,获取图片列表成功！'
@@ -273,9 +273,9 @@ export const githubroute = async (request, config, hinfo) => {
                 }
                 return genjsonres(msgd, 0, 200, hpp_list_index)
             case 'delindex':
-                await KVNAME.delete("hpp_doc_draft_list_index")
-                await KVNAME.delete("hpp_doc_list_index")
-                await KVNAME.delete("hpp_img_list_index")
+                await HKV.delete("hpp_doc_draft_list_index")
+                await HKV.delete("hpp_doc_list_index")
+                await HKV.delete("hpp_img_list_index")
                 return genjsonres('清除索引缓存成功!', 0, 200)
                 */
             default:
@@ -302,8 +302,8 @@ export const dashroute = async (request, config, hinfo) => {
     let hpp_init = gethtml.dash404
     if (rp(path) == "/hpp/admin/dash/home") {
         ainfo.hpp_home_act = " active"
-        hpp_init = gethtml.dashhome(hinfo)
-        hpp_js = gethtml.dashhomejs(hinfo)
+        hpp_init = gethtml.dashhome(config, hinfo)
+        hpp_js = gethtml.dashhomejs(config, hinfo)
     }
     if (rp(path) == "/hpp/admin/dash/edit") {
         ainfo.hpp_edit_act = " active"

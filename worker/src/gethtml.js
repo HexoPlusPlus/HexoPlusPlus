@@ -64,46 +64,57 @@ button{
     </html>
     `},
   dash404: `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`,
-  dashhome: (hinfo) => {
+  dashhome: (config, hinfo) => {
     return `<div class="content">
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <div class="card card-stats">
-        <div class="card-header card-header-warning card-header-icon">
-          <div class="card-icon">
-            <i class="fa fa-file"></i>
-          </div>
-          <p class="card-category">总文档数</p>
-          <h3 class="card-title" id="document_all">NaN
-            <small>个</small>
-          </h3>
-        </div>
-        <div class="card-footer">
-        <div class="stats">
-            <a href="/hpp/admin/dash/edit" style="color: #cf6ae0 !important"><i class="fa fa-pencil"></i>前往管理</a>
-          </div>
-        </div>
+  ${(() => {
+        if (config.hexo.switch) {
+          return `<div class="col-lg-6 col-md-6 col-sm-6">
+  <div class="card card-stats">
+    <div class="card-header card-header-warning card-header-icon">
+      <div class="card-icon">
+        <i class="fa fa-file"></i>
+      </div>
+      <p class="card-category">总文档数</p>
+      <h3 class="card-title" id="document_all">NaN
+        <small>个</small>
+      </h3>
+    </div>
+    <div class="card-footer">
+    <div class="stats">
+        <a href="/hpp/admin/dash/edit" style="color: #cf6ae0 !important"><i class="fa fa-pencil"></i>前往管理</a>
       </div>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <div class="card card-stats">
-        <div class="card-header card-header-success card-header-icon">
-          <div class="card-icon">
-            <i class="fa fa-image"></i>
-          </div>
-          <p class="card-category">总图片数</p>
-          <h3 class="card-title" id="img_all">NaN
-            <small>张</small>
-          </h3>
-        </div>
-        <div class="card-footer">
-        <div class="stats">
-            <a href="/hpp/admin/dash/img_man" style="color: #cf6ae0 !important"><i class="fa fa-upload"></i>前往管理</a>
-          </div>
-        </div>
-      </div>
+  </div>
+</div>`}else{return ''}
+      })()}
+    
+
+
+${(() => {
+        if (config.img.switch) {
+          return `<div class="col-lg-6 col-md-6 col-sm-6">
+<div class="card card-stats">
+  <div class="card-header card-header-success card-header-icon">
+    <div class="card-icon">
+      <i class="fa fa-image"></i>
     </div>
+    <p class="card-category">总图片数</p>
+    <h3 class="card-title" id="img_all">NaN
+      <small>张</small>
+    </h3>
+  </div>
+  <div class="card-footer">
+  <div class="stats">
+      <a href="/hpp/admin/dash/img_man" style="color: #cf6ae0 !important"><i class="fa fa-upload"></i>前往管理</a>
+    </div>
+  </div>
+</div>
+</div>`
+        }else{return ''}
+      })()}
+    
     <div class="col-lg-6 col-md- col-sm-6">
       <a href="javascript:checkUpdate()">
       <div class="card card-stats">
@@ -389,7 +400,7 @@ button{
       </div>
     </div>
   </div>`,
-  dashimgjs: (hinfo) => {
+  dashimgjs: (config,hinfo) => {
     return `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/css/swipebox.css">
     <script src='${hinfo.CDN}img_man.js'></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>

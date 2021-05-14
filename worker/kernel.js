@@ -1,6 +1,7 @@
 const md5 = require('md5')
 import { gethtml } from './src/gethtml'
-import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix, genjsonres } from './src/scaffold'
+import { formatconfig } from './src/config'
+import { getCookie, getJsonLength, rp, getname, getsuffix, genjsonres } from './src/scaffold'
 import { githubroute, dashroute, updateroute } from './src/router/router.js'
 import { htalk } from './src/talk/htalk/index'
 import { genactiveres } from './src/getblogeractive'
@@ -42,12 +43,14 @@ export async function hexoplusplus(request) {
       }
     }
 
-
-    const hpp_config = await KVNAME.get("hpp_config")
-
+    const config = await formatconfig()
 
 
-    if (hpp_config === null && hpp_logstatus) {
+    if (rp(path) == '/hpp/admin/install' && hpp_logstatus) {
+      return install(config, hinfo, request)
+    }
+
+    if (!config.installed && hpp_logstatus) {
       return new Response(gethtml.errorpage('配置文件是空的，请安装', hinfo, [
         { url: `/hpp/admin/install`, des: "开始安装" }
       ]), {
@@ -55,13 +58,6 @@ export async function hexoplusplus(request) {
       })
     }
 
-    if (path.startsWith('/hpp/admin/install')) {
-      return install(config, hinfo, request)
-    }
-    /*不能将KVGET的时候获取为json,否则报错*/
-
-    const config = formatconfig(JSON.parse(JSON.parse(hpp_config)))
-    hinfo.ghtoken = config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
     if (path.startsWith('/hpp/admin')) {
       if (hpp_logstatus) {
 
@@ -85,8 +81,8 @@ export async function hexoplusplus(request) {
         /*签到*/
         if (rp(path) == '/hpp/admin/api/kick') {
           const now = Date.now(new Date())
-          await KVNAME.put("hpp_activetime", now)
-          return genjsonres("签到成功！",0,200,"")
+          await HKV.put("hpp_activetime", now)
+          return genjsonres("签到成功！", 0, 200, "")
         }
 
         /*HTALK*/

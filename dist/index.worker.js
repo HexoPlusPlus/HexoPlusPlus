@@ -431,81 +431,6 @@ const genjsonres = (msg, code, status, content) => {
     })
 }
 
-const formatconfig = (config) => {
-    config = config || defaultconfig
-    for (var i in defaultconfig) {
-        if (config[i] == undefined) {
-            config[i] = defaultconfig[i]
-        }
-    }
-    config.hpp_githubdocpath = config.hpp_githubdocroot + "source/_posts/"
-    config.hpp_githubdocdraftpath = config.hpp_githubdocroot + "source/_drafts/"
-    config.githubdocdraftpath = encodeURI(config.hpp_githubdocdraftpath)
-    config.githubdocpath = encodeURI(config.hpp_githubdocpath)
-    config.githubimagepath = encodeURI(config.hpp_githubimagepath)
-    return config
-}
-
-const defaultconfig = {
-    hpp_theme_mode: "dark"
-    /*
-        const hpp_domain = config["hpp_domain"]
-        const hpp_userimage = config["hpp_userimage"]
-        const hpp_title = config["hpp_title"]
-        const hpp_usericon = config["hpp_usericon"]
-        const hpp_cors = config["hpp_cors"]
-        const hpp_githubdoctoken = config["hpp_githubdoctoken"]
-    
-        const hpp_githubdocusername = config["hpp_githubdocusername"]
-        const hpp_githubdocrepo = config["hpp_githubdocrepo"]
-        const hpp_githubdocroot = config["hpp_githubdocroot"]
-        const hpp_githubdocbranch = config["hpp_githubdocbranch"]
-    
-        const hpp_githubpage = config["hpp_githubpage"]
-        const hpp_githubpagetoken = config["hpp_githubpagetoken"]
-        const hpp_githubpageusername = config["hpp_githubpageusername"]
-        const hpp_githubpagerepo = config["hpp_githubpagerepo"]
-        const hpp_githubpageroot = config["hpp_githubpageroot"]
-        const hpp_githubpagebranch = config["hpp_githubpagebranch"]
-    
-        const hpp_img = config["hpp_img"] || "false"
-    
-        const hpp_ownimgurl = config["hpp_ownimgurl"]
-        const hpp_ownimgname = config["hpp_ownimgname"]
-        const hpp_ownimgjsonpath = config["hpp_ownimgjsonpath"]
-        const hpp_ownimgheader = config["hpp_ownimgheader"]
-        const hpp_ownimgmethod = config["hpp_ownimgmethod"]
-    
-        const hpp_githubimagetoken = config["hpp_githubimagetoken"]
-        const hpp_githubimageusername = config["hpp_githubimageusername"]
-        const hpp_githubimagerepo = config["hpp_githubimagerepo"]
-        const hpp_githubimagepath = config["hpp_githubimagepath"]
-        const hpp_githubimagebranch = config["hpp_githubimagebranch"]
-    
-        const hpp_autodate = config["hpp_autodate"]
-        const hpp_account_identifier = config["hpp_account_identifier"]
-        const hpp_script_name = config["hpp_script_name"]
-        const hpp_CF_Auth_Key = config["hpp_CF_Auth_Key"]
-        const hpp_Auth_Email = config["hpp_Auth_Email"]
-        const hpp_twikoo_envId = config["hpp_twikoo-envId"]
-        const hpp_twikoo = config["hpp_twikoo"] || "false"
-        const hpp_OwO = config["hpp_OwO"]
-        const hpp_back = config["hpp_back"]
-        const hpp_lazy_img = config["hpp_lazy_img"]
-        const hpp_highlight_style = config["hpp_highlight_style"]
-        const hpp_plugin_js = config["hpp_plugin_js"]
-        const hpp_plugin_css = config["hpp_plugin_css"]
-        const hpp_githubdocpath = hpp_githubdocroot + "source/_posts/"
-        const hpp_githubdocdraftpath = hpp_githubdocroot + "source/_drafts/"
-        const githubdocdraftpath = encodeURI(hpp_githubdocdraftpath)
-        const githubdocpath = encodeURI(hpp_githubdocpath)
-        const githubimagepath = encodeURI(hpp_githubimagepath)
-        const hpp_color = config["hpp_color"] || "rose"
-        const hpp_bg_color = config["hpp_bg_color"] || "white"
-        const hpp_theme_mode = config["hpp_theme_mode"] || "light"
-        const hpp_page_limit = config["hpp_page_limit"] || "10"
-    */
-}
 ;// CONCATENATED MODULE: ./worker/src/gethtml.js
 
 const gethtml = {
@@ -573,46 +498,57 @@ button{
     </html>
     `},
   dash404: `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`,
-  dashhome: (hinfo) => {
+  dashhome: (config, hinfo) => {
     return `<div class="content">
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <div class="card card-stats">
-        <div class="card-header card-header-warning card-header-icon">
-          <div class="card-icon">
-            <i class="fa fa-file"></i>
-          </div>
-          <p class="card-category">总文档数</p>
-          <h3 class="card-title" id="document_all">NaN
-            <small>个</small>
-          </h3>
-        </div>
-        <div class="card-footer">
-        <div class="stats">
-            <a href="/hpp/admin/dash/edit" style="color: #cf6ae0 !important"><i class="fa fa-pencil"></i>前往管理</a>
-          </div>
-        </div>
+  ${(() => {
+        if (config.hexo.switch) {
+          return `<div class="col-lg-6 col-md-6 col-sm-6">
+  <div class="card card-stats">
+    <div class="card-header card-header-warning card-header-icon">
+      <div class="card-icon">
+        <i class="fa fa-file"></i>
+      </div>
+      <p class="card-category">总文档数</p>
+      <h3 class="card-title" id="document_all">NaN
+        <small>个</small>
+      </h3>
+    </div>
+    <div class="card-footer">
+    <div class="stats">
+        <a href="/hpp/admin/dash/edit" style="color: #cf6ae0 !important"><i class="fa fa-pencil"></i>前往管理</a>
       </div>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <div class="card card-stats">
-        <div class="card-header card-header-success card-header-icon">
-          <div class="card-icon">
-            <i class="fa fa-image"></i>
-          </div>
-          <p class="card-category">总图片数</p>
-          <h3 class="card-title" id="img_all">NaN
-            <small>张</small>
-          </h3>
-        </div>
-        <div class="card-footer">
-        <div class="stats">
-            <a href="/hpp/admin/dash/img_man" style="color: #cf6ae0 !important"><i class="fa fa-upload"></i>前往管理</a>
-          </div>
-        </div>
-      </div>
+  </div>
+</div>`}else{return ''}
+      })()}
+    
+
+
+${(() => {
+        if (config.img.switch) {
+          return `<div class="col-lg-6 col-md-6 col-sm-6">
+<div class="card card-stats">
+  <div class="card-header card-header-success card-header-icon">
+    <div class="card-icon">
+      <i class="fa fa-image"></i>
     </div>
+    <p class="card-category">总图片数</p>
+    <h3 class="card-title" id="img_all">NaN
+      <small>张</small>
+    </h3>
+  </div>
+  <div class="card-footer">
+  <div class="stats">
+      <a href="/hpp/admin/dash/img_man" style="color: #cf6ae0 !important"><i class="fa fa-upload"></i>前往管理</a>
+    </div>
+  </div>
+</div>
+</div>`
+        }else{return ''}
+      })()}
+    
     <div class="col-lg-6 col-md- col-sm-6">
       <a href="javascript:checkUpdate()">
       <div class="card card-stats">
@@ -898,7 +834,7 @@ button{
       </div>
     </div>
   </div>`,
-  dashimgjs: (hinfo) => {
+  dashimgjs: (config,hinfo) => {
     return `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/css/swipebox.css">
     <script src='${hinfo.CDN}img_man.js'></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
@@ -1079,6 +1015,69 @@ button{
   }
 }
 
+;// CONCATENATED MODULE: ./worker/src/config.js
+const formatconfig = async () => {
+    const config = await HKV.get("hconfig", { type: "json" })
+    if (config === null) { return defaultconfig }
+    config.hexo.docpath = config.hexo.gh_root + "source/_posts/"
+    config.hexo.draftpath = config.hexo.gh_root + "source/_drafts/"
+    return config
+}
+
+const defaultconfig = {
+    installed: true,
+    dash: {
+        image: "https://cdn.jsdelivr.net/gh/ChenYFan/CDN@master/img/hpp_upload/1612610340000.jpg",
+        icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@master/doc_img/icon.png",
+        title: "HexoPlusPlus小飞机✈",
+        theme: "dark",//dark | light
+        bgcolor: "default",//black | white | default
+        color: "danger",//purple | azure | green | orange | danger | rose
+        usericon: "",
+        cors: "*",
+        OwO: "https://cdn.jsdelivr.net/gh/2X-ercha/Twikoo-Magic@master/hppowo.json",
+        back: "https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg",
+        lazyimg: "https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif",
+        hljsstyle: "github"
+    },
+    hexo: {
+        switch: true,
+        type: "gh",
+        gh_username: "",
+        gh_reponame: "",
+        gh_branch: "",
+        gh_token: "",
+        gh_root: "/",
+        gh_dispatch_token: ""
+    },
+
+    img: {
+        switch: true,
+        type: "gh", //custom
+        gh_username: "",
+        gh_reponame: "",
+        gh_branch: "",
+        gh_token: "",
+        gh_root: "/",
+
+
+        c_url: "",
+        c_post_name: "file",
+        c_headers: {
+
+        },
+        c_body: {
+
+        }
+
+    },
+    cloudflare: {
+        account_identifier: "",
+        Auth_Key: "",
+        Auth_Email: "",
+        script_name: ""
+    }
+}
 ;// CONCATENATED MODULE: ./worker/src/github/getlist.js
 
 async function ghlist(config) {
@@ -1344,7 +1343,7 @@ const githubroute = async (request, config, hinfo) => {
                 if (rs == 200 || rs == 201) {
                     /*
                     if (rs == 201) {
-                        await KVNAME.delete("hpp_doc_list_index");
+                        await HKV.delete("hpp_doc_list_index");
                         return genjsonres('新建文档成功！', 0, rs)
                     }*/
                     return genjsonres('上传文档成功！', 0, rs)
@@ -1409,7 +1408,7 @@ const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200 || rs == 201) {
-                    if (rs == 201) { await KVNAME.delete("hpp_doc_list_index"); return genjsonres('新建文档成功！', 0, rs) }
+                    if (rs == 201) { await HKV.delete("hpp_doc_list_index"); return genjsonres('新建文档成功！', 0, rs) }
                     return genjsonres('上传文档成功！', 0, rs)
                 } else {
                     return genjsonres('上传/新建文档失败！', 1, rs)
@@ -1427,7 +1426,7 @@ const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200 || rs == 201) {
-                    if (rs == 201) { await KVNAME.delete("hpp_doc_draft_list_index"); return genjsonres('上传草稿成功！', 0, rs) }
+                    if (rs == 201) { await HKV.delete("hpp_doc_draft_list_index"); return genjsonres('上传草稿成功！', 0, rs) }
                     return genjsonres('上传草稿成功！', 0, rs)
                 } else {
                     return genjsonres('上传/新建草稿失败！', -1, rs)
@@ -1463,7 +1462,7 @@ const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200) {
-                    await KVNAME.delete("hpp_doc_list_index")
+                    await HKV.delete("hpp_doc_list_index")
                     return genjsonres('删除文档成功！', 0, rs)
                 } else {
                     return genjsonres('删除文档失败！', -1, rs)
@@ -1479,7 +1478,7 @@ const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200) {
-                    await KVNAME.delete("hpp_doc_list_index")
+                    await HKV.delete("hpp_doc_list_index")
                     return genjsonres('删除艹稿成功！', 0, rs)
                 } else {
                     return genjsonres('删除艹稿失败！', -1, rs)
@@ -1496,7 +1495,7 @@ const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200) {
-                    await KVNAME.delete("hpp_doc_list_index")
+                    await HKV.delete("hpp_doc_list_index")
                     return genjsonres('删除图片成功！', 0, rs)
                 } else {
                     return genjsonres('删除图片失败！', -1, rs)
@@ -1530,7 +1529,7 @@ const githubroute = async (request, config, hinfo) => {
                 })
             case 'getdoclist':
 
-                hpp_list_index = await KVNAME.get("hpp_doc_list_index")
+                hpp_list_index = await HKV.get("hpp_doc_list_index")
                 if (hpp_list_index === null) {
                     hpp_list_index = JSON.stringify(await ghtreelist({
                         username: config.hpp_githubdocusername,
@@ -1540,7 +1539,7 @@ const githubroute = async (request, config, hinfo) => {
                         token: config.hpp_githubdoctoken
                     }))
                     if (!hinfo.dev) {
-                        await KVNAME.put("hpp_doc_list_index", hpp_list_index)
+                        await HKV.put("hpp_doc_list_index", hpp_list_index)
                         msgd = '没有命中缓存,获取文章列表成功！'
                     } else {
 
@@ -1553,7 +1552,7 @@ const githubroute = async (request, config, hinfo) => {
 
             case 'getdraftlist':
 
-                hpp_list_index = await KVNAME.get("hpp_doc_draft_list_index")
+                hpp_list_index = await HKV.get("hpp_doc_draft_list_index")
                 if (hpp_list_index === null) {
                     hpp_list_index = JSON.stringify(await ghtreelist({
                         username: config.hpp_githubdocusername,
@@ -1563,7 +1562,7 @@ const githubroute = async (request, config, hinfo) => {
                         token: config.hpp_githubdoctoken
                     }))
                     if (!hinfo.dev) {
-                        await KVNAME.put("hpp_doc_draft_list_index", hpp_list_index)
+                        await HKV.put("hpp_doc_draft_list_index", hpp_list_index)
                         msgd = '没有命中缓存,获取艹稿列表成功！'
                     } else {
                         msgd = '没有命中缓存,处于开发模式,获取艹稿列表成功！'
@@ -1576,7 +1575,7 @@ const githubroute = async (request, config, hinfo) => {
 
             case 'getimglist':
 
-                hpp_list_index = await KVNAME.get("hpp_img_list_index")
+                hpp_list_index = await HKV.get("hpp_img_list_index")
                 if (hpp_list_index === null) {
                     hpp_list_index = JSON.stringify(await ghtreelist({
                         username: config.hpp_githubimageusername,
@@ -1586,7 +1585,7 @@ const githubroute = async (request, config, hinfo) => {
                         token: config.hpp_githubimagetoken
                     }))
                     if (!hinfo.dev) {
-                        await KVNAME.put("hpp_img_list_index", hpp_list_index)
+                        await HKV.put("hpp_img_list_index", hpp_list_index)
                         msgd = '没有命中缓存,获取图片列表成功！'
                     } else {
                         msgd = '没有命中缓存,处于开发模式,获取图片列表成功！'
@@ -1596,9 +1595,9 @@ const githubroute = async (request, config, hinfo) => {
                 }
                 return genjsonres(msgd, 0, 200, hpp_list_index)
             case 'delindex':
-                await KVNAME.delete("hpp_doc_draft_list_index")
-                await KVNAME.delete("hpp_doc_list_index")
-                await KVNAME.delete("hpp_img_list_index")
+                await HKV.delete("hpp_doc_draft_list_index")
+                await HKV.delete("hpp_doc_list_index")
+                await HKV.delete("hpp_img_list_index")
                 return genjsonres('清除索引缓存成功!', 0, 200)
                 */
             default:
@@ -1625,8 +1624,8 @@ const dashroute = async (request, config, hinfo) => {
     let hpp_init = gethtml.dash404
     if (rp(path) == "/hpp/admin/dash/home") {
         ainfo.hpp_home_act = " active"
-        hpp_init = gethtml.dashhome(hinfo)
-        hpp_js = gethtml.dashhomejs(hinfo)
+        hpp_init = gethtml.dashhome(config, hinfo)
+        hpp_js = gethtml.dashhomejs(config, hinfo)
     }
     if (rp(path) == "/hpp/admin/dash/edit") {
         ainfo.hpp_edit_act = " active"
@@ -1714,10 +1713,10 @@ async function htalk(config, request, loginstatus, hinfo) {
         if (login) {
             switch (r.action) {
                 case 'initialization':
-                    await KVNAME.put("htalk", "{}")
+                    await HKV.put("htalk", "{}")
                     return genres(config, "初始化成功", 200, 0, '')
                 case 'get':
-                    htalk = await KVNAME.get("htalk", { type: "json" });
+                    htalk = await HKV.get("htalk", { type: "json" });
                     limit = r.limit
                     start = r.start || htalk.nid
                     hres = []
@@ -1733,7 +1732,7 @@ async function htalk(config, request, loginstatus, hinfo) {
                     }
                     return genres(config, `在${(function () { if (login) { return '已登录' } else { return '未登录' } })()}的状态下,已成功获得说说数据`, 200, 0, JSON.stringify(hres))
                 case 'add':
-                    htalk = await KVNAME.get("htalk", { type: "json" })
+                    htalk = await HKV.get("htalk", { type: "json" })
                     add = {
                         id: htalk["nid"] + 1,
                         time: r.time,
@@ -1745,24 +1744,24 @@ async function htalk(config, request, loginstatus, hinfo) {
                     htalk.data.push(add);
                     htalk.nid += 1
 
-                    await KVNAME.put("htalk", JSON.stringify(htalk))
+                    await HKV.put("htalk", JSON.stringify(htalk))
                     return genres(config, `已成功上传说说数据`, 200, 0, '')
                 case 'del':
-                    htalk = await KVNAME.get("htalk", { type: "json" })
+                    htalk = await HKV.get("htalk", { type: "json" })
                     delete htalk.data[r.id]
-                    await KVNAME.put("htalk", JSON.stringify(htalk))
+                    await HKV.put("htalk", JSON.stringify(htalk))
                     return genres(config, `已成功删除id为${r.id}的数据`, 200, 0, '')
                 case 'visible':
-                    htalk = await KVNAME.get("htalk", { type: "json" })
+                    htalk = await HKV.get("htalk", { type: "json" })
                     htalk.data[r.id].visible = htalk.data[r.id].visible ? false : true
-                    await KVNAME.put("htalk", JSON.stringify(htalk))
+                    await HKV.put("htalk", JSON.stringify(htalk))
                     return genres(config, `已改变id为${r.id}的数据的可见性`, 200, 0, '')
 
 
                 case 'inputartitalk':
 
 
-                    htalk = await KVNAME.get("htalk", { type: "json" })
+                    htalk = await HKV.get("htalk", { type: "json" })
                     for (var i = 0; i < r.ctx.length; i++) {
                         htalk.nid++;
                         talk_init = {
@@ -1775,7 +1774,7 @@ async function htalk(config, request, loginstatus, hinfo) {
                         }
                         htalk.data[htalk.nid] = talk_init
                     }
-                    await KVNAME.put("htalk", JSON.stringify(htalk))
+                    await HKV.put("htalk", JSON.stringify(htalk))
                     return genres(config, `已导入${r.ctx.length}条!`, 200, 0, '')
                 default:
                     return genres(config, `未知的操作`, 500, -1, '')
@@ -1783,7 +1782,7 @@ async function htalk(config, request, loginstatus, hinfo) {
         } else {
             switch (r.action) {
                 case 'get':
-                    htalk = await KVNAME.get("htalk", { type: "json" });
+                    htalk = await HKV.get("htalk", { type: "json" });
                     limit = r.limit
                     start = r.start || htalk.nid
                     hres = []
@@ -1807,7 +1806,7 @@ async function htalk(config, request, loginstatus, hinfo) {
 }
 ;// CONCATENATED MODULE: ./worker/src/getblogeractive.js
 async function genactiveres(config) {
-    var k = (Date.parse(new Date()) - (await KVNAME.get("hpp_activetime"))) / 1000
+    var k = (Date.parse(new Date()) - (await HKV.get("hpp_activetime"))) / 1000
     if (k < 30) {
         return genactres(config, '博主刚刚还在这里')
     }
@@ -1836,7 +1835,7 @@ const install = (config, hinfo, request) => {
     /*
     if (rp(path) == '/hpp/admin/api/upconfig') {
               const config_r = JSON.stringify(await request.text())
-              await KVNAME.put("hpp_config", config_r)
+              await HKV.put("hpp_config", config_r)
               return new Response("OK")
             }
             if (rp(path) == "/hpp/admin/install") {
@@ -2363,6 +2362,7 @@ const md5 = __webpack_require__(229)
 
 
 
+
 let hinfo = {
   ver: "HexoPlusPlus@2.0.0β3",
   CDN: `https://hppstatic.pages.dev/`,
@@ -2398,12 +2398,14 @@ async function hexoplusplus(request) {
       }
     }
 
-
-    const hpp_config = await KVNAME.get("hpp_config")
-
+    const config = await formatconfig()
 
 
-    if (hpp_config === null && hpp_logstatus) {
+    if (rp(path) == '/hpp/admin/install' && hpp_logstatus) {
+      return install(config, hinfo, request)
+    }
+
+    if (!config.installed && hpp_logstatus) {
       return new Response(gethtml.errorpage('配置文件是空的，请安装', hinfo, [
         { url: `/hpp/admin/install`, des: "开始安装" }
       ]), {
@@ -2411,13 +2413,6 @@ async function hexoplusplus(request) {
       })
     }
 
-    if (path.startsWith('/hpp/admin/install')) {
-      return install(config, hinfo, request)
-    }
-    /*不能将KVGET的时候获取为json,否则报错*/
-
-    const config = formatconfig(JSON.parse(JSON.parse(hpp_config)))
-    hinfo.ghtoken = config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
     if (path.startsWith('/hpp/admin')) {
       if (hpp_logstatus) {
 
@@ -2441,8 +2436,8 @@ async function hexoplusplus(request) {
         /*签到*/
         if (rp(path) == '/hpp/admin/api/kick') {
           const now = Date.now(new Date())
-          await KVNAME.put("hpp_activetime", now)
-          return genjsonres("签到成功！",0,200,"")
+          await HKV.put("hpp_activetime", now)
+          return genjsonres("签到成功！", 0, 200, "")
         }
 
         /*HTALK*/
