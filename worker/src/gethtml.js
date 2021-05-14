@@ -87,7 +87,7 @@ button{
       </div>
     </div>
   </div>
-</div>`}else{return ''}
+</div>`} else { return '' }
       })()}
     
 
@@ -112,7 +112,7 @@ ${(() => {
   </div>
 </div>
 </div>`
-        }else{return ''}
+        } else { return '' }
       })()}
     
     <div class="col-lg-6 col-md- col-sm-6">
@@ -240,7 +240,7 @@ ${(() => {
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>
 <link rel="stylesheet" href="${hinfo.CDN}OwO.min.css">
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/highlight.min.js"></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${config.hpp_highlight_style}.min.css' />`
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${config.dash.hljsstyle}.min.css' />`
   },
   dashtalk: `<div class="content">
     <div class="container-fluid">
@@ -287,7 +287,7 @@ ${(() => {
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>
     <link rel="stylesheet" href="${hinfo.CDN}OwO.min.css">
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/highlight.min.js"></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${config.hpp_highlight_style}.min.css' />`
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${config.dash.hljsstyle}.min.css' />`
   },
   dashdocs: `
 <div class="content">
@@ -400,7 +400,7 @@ ${(() => {
       </div>
     </div>
   </div>`,
-  dashimgjs: (config,hinfo) => {
+  dashimgjs: (config, hinfo) => {
     return `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/css/swipebox.css">
     <script src='${hinfo.CDN}img_man.js'></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
@@ -408,7 +408,7 @@ ${(() => {
     <script src="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/js/jquery.swipebox.min.js"></script>`
 
   },
-  dashhomejs: (hinfo) => {
+  dashhomejs: (config, hinfo) => {
     return `<script src='${hinfo.CDN}home.js'></script>`
   },
   dashdocsjs: (hinfo) => {
@@ -468,11 +468,11 @@ ${(() => {
             
             <head>
               <meta charset="utf-8" />
-              <link rel="apple-touch-icon" sizes="76x76" href="${config.hpp_usericon}">
-              <link rel="icon" type="image/png" href="${config.hpp_usericon}">
-              <title>${config.hpp_title}</title>
+              <link rel="apple-touch-icon" sizes="76x76" href="${config.dash.icon}">
+              <link rel="icon" type="image/png" href="${config.dash.icon}">
+              <title>${config.dash.title}</title>
               <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-              <link href="${hinfo.CDN}dash/theme/${config.hpp_theme_mode == 'light' ? 'light' : 'dark'}.css" rel="stylesheet" />
+              <link href="${hinfo.CDN}dash/theme/${(() => { if (config.dash.dark) { return 'dark' } else { return 'light' } })()}.css" rel="stylesheet" />
               
               <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
               <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
@@ -481,42 +481,89 @@ ${(() => {
               const config = ${JSON.stringify(config)}
               </script>
             </head>
-            <body class="${config.hpp_theme_mode == 'dark' ? 'dark-edition' : ''}">
+            <body class="${(() => { if (config.dash.dark) { return 'dark-edition' } else { return '' } })()}">
               <div class="wrapper ">
-                <div class="sidebar" data-color="${config.hpp_color}" data-background-color="${config.hpp_theme_mode == 'dark' ? 'default' : config.hpp_bg_color}" data-image="${config.hpp_back}">
-                  <div class="logo"><a class="simple-text logo-normal">${config.hpp_title}</a></div>
+                <div class="sidebar" data-color="${config.dash.color}" data-background-color="${(() => { if (config.dash.dark) { return 'default' } else { return config.dash.bgcolor } })()}" data-image="${config.dash.back}">
+                  <div class="logo"><a class="simple-text logo-normal">${config.dash.title}</a></div>
                   <div class="sidebar-wrapper">
                     <ul class="nav">
+                    
+                  
                       <li class="nav-item${ainfo.hpp_home_act}">
                         <a class="nav-link" href="/hpp/admin/dash/home">
                           <i class="material-icons">dashboard</i>
                           <p>主页</p>
                         </a>
                       </li>
-                      <li class="nav-item${ainfo.hpp_edit_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/edit">
-                          <i class="material-icons">create</i>
-                          <p>书写</p>
-                        </a>
-                      </li>
-                      <li class="nav-item${ainfo.hpp_talk_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/talk">
-                          <i class="material-icons">chat</i>
-                          <p>说说</p>
-                        </a>
-                      </li>
-                      <li class="nav-item${ainfo.hpp_docs_man_act}">
+
+                      ${(() => {
+        if (config.hexo.switch) {
+          return `
+                        <li class="nav-item${ainfo.hpp_edit_act}">
+                          <a class="nav-link" href="/hpp/admin/dash/edit">
+                            <i class="material-icons">create</i>
+                            <p>书写</p>
+                          </a>
+                        </li>
+                        
+                        <li class="nav-item${ainfo.hpp_site_act}">
+                          <a class="nav-link" href="/hpp/admin/dash/site">
+                          <i class="mdui-icon material-icons">wifi_tethering</i>
+                            <p>站点</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item${ainfo.hpp_docs_man_act}">
                         <a class="nav-link" href="/hpp/admin/dash/docs_man">
                           <i class="material-icons">descriptionoutlined</i>
                           <p>文档管理</p>
                         </a>
                       </li>
+                        
+                        `} else { return '' }
+      })()}
+
+
+                      
+
+
+                      ${(() => {
+        if (config.talk.switch.htalk) {
+          return `
+                        <li class="nav-item${ainfo.hpp_talk_act}">
+                          <a class="nav-link" href="/hpp/admin/dash/talk">
+                            <i class="material-icons">chat</i>
+                            <p>说说</p>
+                          </a>
+                        </li>
+                        
+                        `} else { return '' }
+      })()}
+
+
+                      
+
+
+      ${(() => {
+        if (config.img.switch && config.img.type == "gh") {
+          return `
+                        
                       <li class="nav-item${ainfo.hpp_img_man_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/img_man">
-                          <i class="material-icons">imagerounded</i>
-                          <p>图片管理</p>
-                        </a>
-                      </li>
+                      <a class="nav-link" href="/hpp/admin/dash/img_man">
+                        <i class="material-icons">imagerounded</i>
+                        <p>图片管理</p>
+                      </a>
+                    </li>
+                        
+                        `} else { return '' }
+      })()}
+
+
+
+                      
+
+
+
                       <li class="nav-item${ainfo.hpp_tool_act}">
                         <a class="nav-link" href="/hpp/admin/dash/tool">
                           <i class="material-icons">widgets</i>
@@ -524,7 +571,7 @@ ${(() => {
                         </a>
                       </li>
                       <li class="nav-item${ainfo.hpp_set_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/set">
+                        <a class="nav-link" href="/hpp/admin/install?step=end">
                           <i class="material-icons">settings</i>
                           <p>设置</p>
                         </a>

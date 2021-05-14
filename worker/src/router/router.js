@@ -293,6 +293,7 @@ export const dashroute = async (request, config, hinfo) => {
     let ainfo = {
         hpp_home_act: "",
         hpp_edit_act: "",
+        hpp_site_act: "",
         hpp_talk_act: "",
         hpp_docs_man_act: "",
         hpp_img_man_act: "",
@@ -309,6 +310,11 @@ export const dashroute = async (request, config, hinfo) => {
         ainfo.hpp_edit_act = " active"
         hpp_init = gethtml.dashedit
         hpp_js = gethtml.dasheditjs(config, hinfo)
+    }
+    if (rp(path) == "/hpp/admin/dash/site") {
+        ainfo.hpp_site_act = " active"
+        hpp_init = gethtml.dashsite
+        hpp_js = gethtml.dashsitejs(config, hinfo)
     }
     if (rp(path) == "/hpp/admin/dash/talk") {
         ainfo.hpp_talk_act = " active"

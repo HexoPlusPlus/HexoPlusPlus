@@ -12,7 +12,7 @@ const defaultconfig = {
         image: "https://cdn.jsdelivr.net/gh/ChenYFan/CDN@master/img/hpp_upload/1612610340000.jpg",
         icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@master/doc_img/icon.png",
         title: "HexoPlusPlus小飞机✈",
-        theme: "dark",//dark | light
+        dark: true,
         bgcolor: "default",//black | white | default
         color: "danger",//purple | azure | green | orange | danger | rose
         usericon: "",
@@ -58,5 +58,19 @@ const defaultconfig = {
         Auth_Key: "",
         Auth_Email: "",
         script_name: ""
+    },
+    talk: {
+        switch: {
+            htalk: true,
+            artitalk: {
+                agent: false,
+                feign: false
+            }
+        },
+        artitalk_agent_config: {
+            APPID: "",
+            APPKEY: ""
+        }
+
     }
 }
