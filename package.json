@@ -1,6 +1,6 @@
 {
-  "name": "chenyfan-test-hexoplusplus",
-  "version": "0.0.20210512",
+  "name": "hexoplusplus",
+  "version": "2.0.0",
   "description": "A Serverless Hexo Back DashBoard",
   "main": "worker/kernel.js",
   "scripts": {
@@ -8,9 +8,10 @@
     "build-worker": "webpack",
     "build-worker-dev": "webpack --watch",
     "build-static": "gulp",
-    "static-server": "http-server -S -C ./ssl/cert.pem -K ./ssl/key.pem ./dist/ -p 9999",
-    "build-static-server": "npm run build-static & npm run static-server",
-    "build-server": "npm run build-worker & npm run build-static-server"
+    "server": "http-server -S -C ./ssl/cert.pem -K ./ssl/key.pem ./dist/ -p 9999",
+    "server-nossl": "http-server ./dist/ -p 9999",
+    "build-static-server": "npm run build-static & npm run server",
+    "build-server": "npm run build & npm run server"
   },
   "author": "ChenYFan",
   "license": "GPL-3.0-or-later",

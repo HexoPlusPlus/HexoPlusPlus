@@ -49,27 +49,45 @@ HexoPlusPlus的诞生离不开以下项目的支持：
 ![](https://starchart.cc/HexoPlusPlus/HexoPlusPlus.svg)
 
 
-# 对于开发者来说
+# 贡献
 
-## 前端
+## 赞助
 
-直接改`/src/`文件夹下项目
+HPP项目暂时没有开通赞助项目
 
-## 后端
+## 翻译
 
-```shell
-cd ./worker
-npm i 
-webpack ./index.js
+在`/worker/src/i18n/`下存在`zh_CN.json`,请根据此格式和内容进行翻译
+
+## For Developers
+
+HPP项目较其他项目有些特殊，项目分为前端和后端部分
+
+### 前端
+
+文件均存储与`/src/`以下
+
+```sh
+npm run build-static //构建前端静态文件
+npm run server //运行基于http-server的https本地服务器
+npm run server-nossl //运行基于http-server的http本地服务器
+npm run build-static-server //构建并打开服务器
 ```
 
-将在`/worker/dist/main.js`生成编译后的脚本。
+### 后端[WorkerJS]
+
+文件均存储与`/worker/`以下
+
+```sh
+npm run build-worker //构建workerjs
+npm run build-worker-dev //构建workerjs并监控
+```
 
 # 贡献名单
 
-| <img src="https://avatars.githubusercontent.com/u/53730587?s=460&u=0c56dc9cd4eef4a3afc3f911915f234742baebf7&v=4" width="60px"></br> ChenYFan | <img src="https://avatars.githubusercontent.com/u/72645310?s=460&u=c95ac0a574648a9389a60ce2ff341a8004f49f20&v=4" width="60px"></br> noionion |
-| :---: | :---: |
-| ![](https://shields.io/badge/Coding-green?logo=visual-studio-code&style=for-the-badge)<br>![](https://shields.io/badge/BugTester-yellow?logo=open-bug-bounty&style=for-the-badge) | ![](https://shields.io/badge/BugTester-yellow?logo=open-bug-bounty&style=for-the-badge)<br>![](https://shields.io/badge/CSSCoder-orange?logo=css3&style=for-the-badge) |
+| <img src="https://avatars.githubusercontent.com/u/53730587?s=460&u=0c56dc9cd4eef4a3afc3f911915f234742baebf7&v=4" width="60px"></br> ChenYFan | <img src="https://avatars.githubusercontent.com/u/72645310?s=460&u=c95ac0a574648a9389a60ce2ff341a8004f49f20&v=4" width="60px"></br> noionion | <img src="https://avatars.githubusercontent.com/u/64446074?v=4&s=460" width="60px"></br> Hajeeknspo |
+| :---: | :---: | :---: |
+| ![](https://shields.io/badge/Coding-green?logo=visual-studio-code&style=for-the-badge)<br>![](https://shields.io/badge/BugTester-yellow?logo=open-bug-bounty&style=for-the-badge) | ![](https://shields.io/badge/BugTester-yellow?logo=open-bug-bounty&style=for-the-badge)<br>![](https://shields.io/badge/CSSCoder-orange?logo=css3&style=for-the-badge) | ![](https://shields.io/badge/Translater-white?logo=google-translate&style=for-the-badge) |
 
 
 # 许可
