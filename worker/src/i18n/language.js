@@ -1,6 +1,8 @@
 import zh_CN from './zh_CN.json'
+import en_US from './en_US.json'
 const all_lan = {
-    zh_CN: zh_CN
+    zh_CN: zh_CN,
+    en_US: en_US
 }
 const langtype = (() => {
     try {
