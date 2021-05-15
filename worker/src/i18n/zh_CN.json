@@ -1,3 +1,22 @@
 {
-    "lang": "中文 - 简体"
+    "LANG": "中文 - 简体",
+    "EMPTY_HCONFIG": "配置文件是空的，请安装",
+    "START_INSTALL": "开始安装",
+    "CHECK_LOGIN_SUCCESS": "已登录！",
+    "CHECK_LOGIN_ERROR": "Ooops！尚未登陆！",
+    "ATTENDANCE_SUCCESS": "签到成功！",
+    "COMING_SOON": "即将到来！",
+    "UNKNOW_ACTION": "未知的操作",
+    "UNKNOW_ERROR": "未知的错误",
+    "DASHBOARD": "仪表盘",
+    "GH_UPLOAD_SUCCESS": "上传文件到Github成功！",
+    "GH_UPLOAD_ERROR": "上传文件到Github失败！",
+    "GH_DELETE_SUCCESS": "从Github删除文件成功！",
+    "GH_DELETE_ERROR": "从Github删除文件失败！",
+    "GH_GET_SUCCESS": "获取文件成功！",
+    "GH_LIST_SUCCESS": "列表成功！",
+    "GH_TREELIST_SUCCESS": "树状列表成功！",
+
+    "NEED_UPDATE":"需要更新！",
+    "NEED_NOT_UPDATE":"不需要更新！"
 }

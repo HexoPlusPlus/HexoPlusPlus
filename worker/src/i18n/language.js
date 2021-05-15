@@ -8,6 +8,7 @@ const langtype = (() => {
         if (!all_lan[lan]) {
             return 'zh_CN'
         }
+        return lan
     } catch (n) {
         return 'zh_CN'
     }

@@ -1,6 +1,8 @@
+import { lang } from './../i18n/language'
 import { ghupload, ghdel, ghget } from './../github/manager'
 import { ghtreelist, ghlist } from './../github/getlist'
 import { gethtml } from './../gethtml'
+
 import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix, genjsonres } from './../scaffold'
 import { hppupdate, ghlatver, ghlatinfo } from './../update.js'
 export const githubroute = async (request, config, hinfo) => {
@@ -24,9 +26,9 @@ export const githubroute = async (request, config, hinfo) => {
                         await HKV.delete("hpp_doc_list_index");
                         return genjsonres('新建文档成功！', 0, rs)
                     }*/
-                    return genjsonres('上传文档成功！', 0, rs)
+                    return genjsonres(lang.GH_UPLOAD_SUCCESS, 0, rs)
                 } else {
-                    return genjsonres('上传/新建文档失败！', 1, rs)
+                    return genjsonres(lang.GH_UPLOAD_ERROR, 1, rs)
                 }
             case 'get':
                 r = await ghget({
@@ -37,7 +39,7 @@ export const githubroute = async (request, config, hinfo) => {
                     token: apireq.token
                 })
                 if (apireq.json) {
-                    return genjsonres('获取文件成功', 0, 200, await r.text())
+                    return genjsonres(lang.GH_GET_SUCCESS, 0, 200, await r.text())
                 } else {
                     return r
                 }
@@ -52,12 +54,12 @@ export const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200) {
-                    return genjsonres('删除文件成功！', 0, rs)
+                    return genjsonres(lang.GH_DELETE_SUCCESS, 0, rs)
                 } else {
-                    return genjsonres('删除文件失败！', 1, rs)
+                    return genjsonres(lang.GH_DELETE_ERROR, 1, rs)
                 }
             case 'list':
-                return genjsonres('列表成功！', 0, 200, JSON.stringify(await ghlist({
+                return genjsonres(lang.GH_LIST_SUCCESS, 0, 200, JSON.stringify(await ghlist({
                     username: apireq.username,
                     reponame: apireq.reponame,
                     path: apireq.path,
@@ -65,7 +67,7 @@ export const githubroute = async (request, config, hinfo) => {
                     token: apireq.token
                 })))
             case 'listtree':
-                return genjsonres('全列表成功！', 0, 200, JSON.stringify(await ghtreelist({
+                return genjsonres(lang.GH_TREELIST_SUCCESS, 0, 200, JSON.stringify(await ghtreelist({
                     username: apireq.username,
                     reponame: apireq.reponame,
                     path: apireq.path,
@@ -279,9 +281,9 @@ export const githubroute = async (request, config, hinfo) => {
                 return genjsonres('清除索引缓存成功!', 0, 200)
                 */
             default:
-                return genjsonres('未知的操作', -1, 500)
+                return genjsonres(lang.UNKNOW_ACTION, -1, 500)
         }
-    } catch (lo) { return genjsonres('出现了异常', -1, 500, lo) }
+    } catch (lo) { return genjsonres(lang.UNKNOW_ERROR, -1, 500, lo) }
 }
 
 export const dashroute = async (request, config, hinfo) => {
@@ -359,12 +361,12 @@ export const updateroute = async (request, config, hinfo) => {
                 }
             case 'check':
                 if (await ghlatver(config, false) == hinfo.ver) {
-                    return genjsonres('不需要更新!', 0, 200)
+                    return genjsonres(lang.NEED_UPDATE, 0, 200)
                 } else {
-                    return genjsonres('需要更新!', 1, 200, await ghlatinfo(config))
+                    return genjsonres(lang.NEED_NOT_UPDATE, 1, 200, await ghlatinfo(config))
                 }
             default:
-                return genjsonres('未知的操作！', -1, 500)
+                return genjsonres(lang.UNKNOW_ACTION, -1, 500)
         }
     } catch (lo) { throw lo }
 }

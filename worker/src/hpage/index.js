@@ -1,5 +1,5 @@
 export const hpage = (config) => {
-    return new Response('Coming Soon!')
+    return new Response(lang.COMING_SOON)
     /* 
             if (hpp_githubpage != "true") {
         

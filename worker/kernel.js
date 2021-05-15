@@ -32,8 +32,8 @@ export async function hexoplusplus(request) {
     const maph = new Map(request.headers);
     hinfo.username = username
 
-    if (rp(path) == '/hpp/langtest') {
-      return new Response(lang.lang)
+    if (rp(path) == '/hpp/lang') {
+      return new Response(lang.LANG)
     }
 
 
@@ -55,8 +55,8 @@ export async function hexoplusplus(request) {
     }
 
     if (!config.installed && hpp_logstatus) {
-      return new Response(gethtml.errorpage('配置文件是空的，请安装', hinfo, [
-        { url: `/hpp/admin/install`, des: "开始安装" }
+      return new Response(gethtml.errorpage(lang.EMPTY_HCONFIG, hinfo, [
+        { url: `/hpp/admin/install`, des: lang.START_INSTALL }
       ]), {
         headers: { "content-type": "text/html;charset=UTF-8" }
       })
@@ -65,9 +65,9 @@ export async function hexoplusplus(request) {
     if (path.startsWith('/hpp/admin')) {
       if (rp(path) == "/hpp/admin/check") {
         if (hpp_logstatus) {
-          return genjsonres("已登录！", 0, 200)
+          return genjsonres(lang.CHECK_LOGIN_SUCCESS, 0, 200)
         } else {
-          return genjsonres("Ooops！尚未登陆！", -1, 403)
+          return genjsonres(lang.CHECK_LOGIN_ERROR, -1, 403)
         }
       }
 
@@ -92,7 +92,7 @@ export async function hexoplusplus(request) {
         if (rp(path) == '/hpp/admin/api/kick') {
           const now = Date.now(new Date())
           await HKV.put("hpp_activetime", now)
-          return genjsonres("签到成功！", 0, 200, "")
+          return genjsonres(lang.ATTENDANCE_SUCCESS, 0, 200, "")
         }
 
         /*HTALK*/
@@ -102,7 +102,7 @@ export async function hexoplusplus(request) {
 
 
         if (rp(path) == '/hpp/admin/api/talk/artitalk') {
-          return new Response('Coming Soon!')
+          return new Response(lang.COMING_SOON)
         }
 
 
@@ -132,50 +132,50 @@ export async function hexoplusplus(request) {
         }
 
         if (rp(path) == '/hpp/api/talk/artitalk') {
-          return new Response('Coming Soon!')
+          return new Response(lang.COMING_SOON)
         }
       }
       if (path.startsWith('/hpp/api/comment/')) {
 
         /*评论区，Feign为KV+Worker伪装后端，Agent为代理和隐藏前端重要数据*/
         if (rp(path) == "/hpp/api/comment/Feign_Valine") {
-          return new Response('Coming Soon!')
+          return new Response(lang.COMING_SOON)
         }
         if (rp(path) == "/hpp/api/comment/Agent_Valine") {
-          return new Response('Coming Soon!')
+          return new Response(lang.COMING_SOON)
         }
 
 
 
         if (rp(path) == "/hpp/api/comment/Feign_Waline") {
-          return new Response('Coming Soon!')
+          return new Response(lang.COMING_SOON)
         }
         if (rp(path) == "/hpp/api/comment/Agent_Waline") {
-          return new Response('Coming Soon!')
+          return new Response(lang.COMING_SOON)
         }
 
 
         if (rp(path) == "/hpp/api/comment/Feign_Artalk") {
-          return new Response('Coming Soon!')
+          return new Response(lang.COMING_SOON)
         }
         if (rp(path) == "/hpp/api/comment/Agent_Artalk") {
-          return new Response('Coming Soon!')
+          return new Response(lang.COMING_SOON)
         }
 
 
         if (rp(path) == "/hpp/api/comment/Feign_Twikoo") {
-          return new Response('Coming Soon!')
+          return new Response(lang.COMING_SOON)
         }
         if (rp(path) == "/hpp/api/comment/Feign_Twikoo") {
-          return new Response('Coming Soon!')
+          return new Response(lang.COMING_SOON)
         }
 
         if (rp(path) == "/hpp/api/comment/Agent_Disqus") {
-          return new Response('Coming Soon!')
+          return new Response(lang.COMING_SOON)
         }
 
         if (rp(path) == "/hpp/api/comment/Agent_Gitalk") {
-          return new Response('Coming Soon!')
+          return new Response(lang.COMING_SOON)
         }
       }
 
@@ -187,8 +187,8 @@ export async function hexoplusplus(request) {
     }
 
 
-    return new Response(gethtml.errorpage('未知的操作', hinfo, [
-      { url: `/hpp/admin/dash/home`, des: "仪表盘" }
+    return new Response(gethtml.errorpage(lang.UNKNOW_ACTION, hinfo, [
+      { url: `/hpp/admin/dash/home`, des: lang.DASHBOARD }
     ]), {
       headers: { "content-type": "text/html;charset=UTF-8" }
     })

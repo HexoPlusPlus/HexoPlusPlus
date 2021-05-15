@@ -1,17 +1,21 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 207:
+/***/ 244:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
 
 ;// CONCATENATED MODULE: ./worker/src/i18n/zh_CN.json
-const zh_CN_namespaceObject = {"lang":"中文 - 简体"};
+const zh_CN_namespaceObject = JSON.parse('{"LANG":"中文 - 简体","EMPTY_HCONFIG":"配置文件是空的，请安装","START_INSTALL":"开始安装","CHECK_LOGIN_SUCCESS":"已登录！","CHECK_LOGIN_ERROR":"Ooops！尚未登陆！","ATTENDANCE_SUCCESS":"签到成功！","COMING_SOON":"即将到来！","UNKNOW_ACTION":"未知的操作","UNKNOW_ERROR":"未知的错误","DASHBOARD":"仪表盘","GH_UPLOAD_SUCCESS":"上传文件到Github成功！","GH_UPLOAD_ERROR":"上传文件到Github失败！","GH_DELETE_SUCCESS":"从Github删除文件成功！","GH_DELETE_ERROR":"从Github删除文件失败！","GH_GET_SUCCESS":"获取文件成功！","GH_LIST_SUCCESS":"列表成功！","GH_TREELIST_SUCCESS":"树状列表成功！","NEED_UPDATE":"需要更新！","NEED_NOT_UPDATE":"不需要更新！"}');
+;// CONCATENATED MODULE: ./worker/src/i18n/zh_TW.json
+const zh_TW_namespaceObject = JSON.parse('{"LANG":"中文 - 繁體","EMPTY_HCONFIG":"蓜置妏件湜涳哋，請鮟裝","START_INSTALL":"開始鮟裝","CHECK_LOGIN_SUCCESS":"巳憕錄！","CHECK_LOGIN_ERROR":"Ooops！尙沬憕陸！","ATTENDANCE_SUCCESS":"簽菿荿糼！","COMING_SOON":"旣將菿來！","UNKNOW_ACTION":"沬倁哋懆莋","UNKNOW_ERROR":"沬倁哋錯誤","DASHBOARD":"儀錶盤","GH_UPLOAD_SUCCESS":"仩傳妏件菿Github荿糼！","GH_UPLOAD_ERROR":"仩傳妏件菿Github妷敗！","GH_DELETE_SUCCESS":"從Github剼篨妏件荿糼！","GH_DELETE_ERROR":"從Github剼篨妏件妷敗！","GH_GET_SUCCESS":"獲掫妏件荿糼！","GH_LIST_SUCCESS":"烮錶荿糼！","GH_TREELIST_SUCCESS":"樹狀烮錶荿糼！","NEED_UPDATE":"濡婹浭噺！","NEED_NOT_UPDATE":"芣濡婹浭噺！"}');
 ;// CONCATENATED MODULE: ./worker/src/i18n/language.js
 
+
 const all_lan = {
-    zh_CN: zh_CN_namespaceObject
+    zh_CN: zh_CN_namespaceObject,
+    zh_TW: zh_TW_namespaceObject
 }
 const langtype = (() => {
     try {
@@ -19,12 +23,13 @@ const langtype = (() => {
         if (!all_lan[lan]) {
             return 'zh_CN'
         }
+        return lan
     } catch (n) {
         return 'zh_CN'
     }
 })()
 
-const lang = all_lan[langtype]
+const language_lang = all_lan[langtype]
 ;// CONCATENATED MODULE: ./worker/src/scaffold.js
 const getCookie = (request, name) => {
     let result = ""
@@ -1041,6 +1046,8 @@ async function getlatinfo(config) {
 
 
 
+
+
 const githubroute = async (request, config, hinfo) => {
     try {
         let r, rs, name, msgd, hpp_list_index
@@ -1062,9 +1069,9 @@ const githubroute = async (request, config, hinfo) => {
                         await HKV.delete("hpp_doc_list_index");
                         return genjsonres('新建文档成功！', 0, rs)
                     }*/
-                    return genjsonres('上传文档成功！', 0, rs)
+                    return genjsonres(language_lang.GH_UPLOAD_SUCCESS, 0, rs)
                 } else {
-                    return genjsonres('上传/新建文档失败！', 1, rs)
+                    return genjsonres(language_lang.GH_UPLOAD_ERROR, 1, rs)
                 }
             case 'get':
                 r = await ghget({
@@ -1075,7 +1082,7 @@ const githubroute = async (request, config, hinfo) => {
                     token: apireq.token
                 })
                 if (apireq.json) {
-                    return genjsonres('获取文件成功', 0, 200, await r.text())
+                    return genjsonres(language_lang.GH_GET_SUCCESS, 0, 200, await r.text())
                 } else {
                     return r
                 }
@@ -1090,12 +1097,12 @@ const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200) {
-                    return genjsonres('删除文件成功！', 0, rs)
+                    return genjsonres(language_lang.GH_DELETE_SUCCESS, 0, rs)
                 } else {
-                    return genjsonres('删除文件失败！', 1, rs)
+                    return genjsonres(language_lang.GH_DELETE_ERROR, 1, rs)
                 }
             case 'list':
-                return genjsonres('列表成功！', 0, 200, JSON.stringify(await ghlist({
+                return genjsonres(language_lang.GH_LIST_SUCCESS, 0, 200, JSON.stringify(await ghlist({
                     username: apireq.username,
                     reponame: apireq.reponame,
                     path: apireq.path,
@@ -1103,7 +1110,7 @@ const githubroute = async (request, config, hinfo) => {
                     token: apireq.token
                 })))
             case 'listtree':
-                return genjsonres('全列表成功！', 0, 200, JSON.stringify(await ghtreelist({
+                return genjsonres(language_lang.GH_TREELIST_SUCCESS, 0, 200, JSON.stringify(await ghtreelist({
                     username: apireq.username,
                     reponame: apireq.reponame,
                     path: apireq.path,
@@ -1317,9 +1324,9 @@ const githubroute = async (request, config, hinfo) => {
                 return genjsonres('清除索引缓存成功!', 0, 200)
                 */
             default:
-                return genjsonres('未知的操作', -1, 500)
+                return genjsonres(language_lang.UNKNOW_ACTION, -1, 500)
         }
-    } catch (lo) { return genjsonres('出现了异常', -1, 500, lo) }
+    } catch (lo) { return genjsonres(language_lang.UNKNOW_ERROR, -1, 500, lo) }
 }
 
 const dashroute = async (request, config, hinfo) => {
@@ -1397,12 +1404,12 @@ const updateroute = async (request, config, hinfo) => {
                 }
             case 'check':
                 if (await ghlatver(config, false) == hinfo.ver) {
-                    return genjsonres('不需要更新!', 0, 200)
+                    return genjsonres(language_lang.NEED_UPDATE, 0, 200)
                 } else {
-                    return genjsonres('需要更新!', 1, 200, await ghlatinfo(config))
+                    return genjsonres(language_lang.NEED_NOT_UPDATE, 1, 200, await ghlatinfo(config))
                 }
             default:
-                return genjsonres('未知的操作！', -1, 500)
+                return genjsonres(language_lang.UNKNOW_ACTION, -1, 500)
         }
     } catch (lo) { throw lo }
 }
@@ -1997,7 +2004,7 @@ const install = (config, hinfo, request) => {
 }
 ;// CONCATENATED MODULE: ./worker/src/hpage/index.js
 const hpage = (config) => {
-    return new Response('Coming Soon!')
+    return new Response(lang.COMING_SOON)
     /* 
             if (hpp_githubpage != "true") {
         
@@ -2109,8 +2116,8 @@ async function hexoplusplus(request) {
     const maph = new Map(request.headers);
     hinfo.username = username
 
-    if (rp(path) == '/hpp/langtest') {
-      return new Response(lang.lang)
+    if (rp(path) == '/hpp/lang') {
+      return new Response(language_lang.LANG)
     }
 
 
@@ -2132,8 +2139,8 @@ async function hexoplusplus(request) {
     }
 
     if (!config.installed && hpp_logstatus) {
-      return new Response(gethtml.errorpage('配置文件是空的，请安装', hinfo, [
-        { url: `/hpp/admin/install`, des: "开始安装" }
+      return new Response(gethtml.errorpage(language_lang.EMPTY_HCONFIG, hinfo, [
+        { url: `/hpp/admin/install`, des: language_lang.START_INSTALL }
       ]), {
         headers: { "content-type": "text/html;charset=UTF-8" }
       })
@@ -2142,9 +2149,9 @@ async function hexoplusplus(request) {
     if (path.startsWith('/hpp/admin')) {
       if (rp(path) == "/hpp/admin/check") {
         if (hpp_logstatus) {
-          return genjsonres("已登录！", 0, 200)
+          return genjsonres(language_lang.CHECK_LOGIN_SUCCESS, 0, 200)
         } else {
-          return genjsonres("Ooops！尚未登陆！", -1, 403)
+          return genjsonres(language_lang.CHECK_LOGIN_ERROR, -1, 403)
         }
       }
 
@@ -2169,7 +2176,7 @@ async function hexoplusplus(request) {
         if (rp(path) == '/hpp/admin/api/kick') {
           const now = Date.now(new Date())
           await HKV.put("hpp_activetime", now)
-          return genjsonres("签到成功！", 0, 200, "")
+          return genjsonres(language_lang.ATTENDANCE_SUCCESS, 0, 200, "")
         }
 
         /*HTALK*/
@@ -2179,7 +2186,7 @@ async function hexoplusplus(request) {
 
 
         if (rp(path) == '/hpp/admin/api/talk/artitalk') {
-          return new Response('Coming Soon!')
+          return new Response(language_lang.COMING_SOON)
         }
 
 
@@ -2209,50 +2216,50 @@ async function hexoplusplus(request) {
         }
 
         if (rp(path) == '/hpp/api/talk/artitalk') {
-          return new Response('Coming Soon!')
+          return new Response(language_lang.COMING_SOON)
         }
       }
       if (path.startsWith('/hpp/api/comment/')) {
 
         /*评论区，Feign为KV+Worker伪装后端，Agent为代理和隐藏前端重要数据*/
         if (rp(path) == "/hpp/api/comment/Feign_Valine") {
-          return new Response('Coming Soon!')
+          return new Response(language_lang.COMING_SOON)
         }
         if (rp(path) == "/hpp/api/comment/Agent_Valine") {
-          return new Response('Coming Soon!')
+          return new Response(language_lang.COMING_SOON)
         }
 
 
 
         if (rp(path) == "/hpp/api/comment/Feign_Waline") {
-          return new Response('Coming Soon!')
+          return new Response(language_lang.COMING_SOON)
         }
         if (rp(path) == "/hpp/api/comment/Agent_Waline") {
-          return new Response('Coming Soon!')
+          return new Response(language_lang.COMING_SOON)
         }
 
 
         if (rp(path) == "/hpp/api/comment/Feign_Artalk") {
-          return new Response('Coming Soon!')
+          return new Response(language_lang.COMING_SOON)
         }
         if (rp(path) == "/hpp/api/comment/Agent_Artalk") {
-          return new Response('Coming Soon!')
+          return new Response(language_lang.COMING_SOON)
         }
 
 
         if (rp(path) == "/hpp/api/comment/Feign_Twikoo") {
-          return new Response('Coming Soon!')
+          return new Response(language_lang.COMING_SOON)
         }
         if (rp(path) == "/hpp/api/comment/Feign_Twikoo") {
-          return new Response('Coming Soon!')
+          return new Response(language_lang.COMING_SOON)
         }
 
         if (rp(path) == "/hpp/api/comment/Agent_Disqus") {
-          return new Response('Coming Soon!')
+          return new Response(language_lang.COMING_SOON)
         }
 
         if (rp(path) == "/hpp/api/comment/Agent_Gitalk") {
-          return new Response('Coming Soon!')
+          return new Response(language_lang.COMING_SOON)
         }
       }
 
@@ -2264,8 +2271,8 @@ async function hexoplusplus(request) {
     }
 
 
-    return new Response(gethtml.errorpage('未知的操作', hinfo, [
-      { url: `/hpp/admin/dash/home`, des: "仪表盘" }
+    return new Response(gethtml.errorpage(language_lang.UNKNOW_ACTION, hinfo, [
+      { url: `/hpp/admin/dash/home`, des: language_lang.DASHBOARD }
     ]), {
       headers: { "content-type": "text/html;charset=UTF-8" }
     })
@@ -2655,7 +2662,7 @@ function isSlowBuffer (obj) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(207);
+/******/ 	var __webpack_exports__ = __webpack_require__(244);
 /******/ 	
 /******/ })()
 ;
