@@ -1,0 +1,22 @@
+{
+    "LANG": "English - United States of America",
+    "EMPTY_HCONFIG": "The configuration file is empty, please install!",
+    "START_INSTALL": "Installation has started",
+    "CHECK_LOGIN_SUCCESS": "Already logged in!",
+    "CHECK_LOGIN_ERROR": "Ooops! You are not logged in yet!",
+    "ATTENDANCE_SUCCESS": "check-in successfully!",
+    "COMING_SOON": "Coming soon!",
+    "UNKNOW_ACTION": "Unknown action",
+    "UNKNOW_ERROR": "Unknown error",
+    "DASHBOARD": "Dashboard",
+    "GH_UPLOAD_SUCCESS": "Upload file to GitHub successfully!",
+    "GH_UPLOAD_ERROR": "Error to upload file to GitHub!",
+    "GH_DELETE_SUCCESS": "File deleted from GitHub successfully!",
+    "GH_DELETE_ERROR": "Error to delete file from GitHub!",
+    "GH_GET_SUCCESS": "The file was successfully obtained!",
+    "GH_LIST_SUCCESS": "List successfully!",
+    "GH_TREELIST_SUCCESS": "Trees list successfully!",
+
+    "NEED_UPDATE":"Need to be updated!!!",
+    "NEED_NOT_UPDATE":"No need to be updated"
+}
