@@ -37,7 +37,18 @@
     "PASSWORD":"密码",
 
     "DASH_404":"我们不知道您的需求",
-    "DASH_BACK_TO_HOME":"回到主页"
+    "DASH_BACK_TO_HOME":"回到主页",
+    "HPP":"HexoPlusPlus后台",
+    "HOME":"主页",
+    "MANAGE_IMG":"图片管理",
+    "MANAGE_SITE":"站点管理",
+    "MANAGE_DOC":"文章管理",
+    "EDIT":"书写",
+    "TALK":"说说",
+    "TOOL":"工具",
+    "SETTING":"设置",
+    "ATTENDANCE":"签到",
+    "EXIT":"退出登陆"
 
 
 }

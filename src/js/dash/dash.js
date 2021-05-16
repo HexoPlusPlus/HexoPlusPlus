@@ -77,16 +77,16 @@ window.h_api_helper = {
             ew("未知的错误", "后端返回了我们无法理解的数据")
         }
     }
-}
+};
 
 
-    (async () => {
-        document.getElementById('logout').addEventListener('click', () => {
-            document.cookie = `h_cookie_auth=;path=/hpp/admin;Max-Age=86400`; window.location.href = '/hpp/admin/login';
-        })
-        document.getElementById('logout').addEventListener('kick', () => {
-            h_api_helper.kick()
-        })
-
-
+(async () => {
+    document.getElementById('logout').addEventListener('click', () => {
+        document.cookie = `h_cookie_auth=;path=/hpp/admin;Max-Age=86400`; window.location.href = '/hpp/admin/login';
     })
+    document.getElementById('kick').addEventListener('click', () => {
+        h_api_helper.kick()
+    })
+
+
+})()

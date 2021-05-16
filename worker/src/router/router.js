@@ -360,7 +360,7 @@ export const updateroute = async (request, config, hinfo) => {
                     return hppupdate(config, false)
                 }
             case 'check':
-                if (await ghlatver(config, false) == hinfo.ver) {
+                if (await ghlatver(config, false) != hinfo.ver) {
                     return genjsonres(lang.NEED_UPDATE, 0, 200)
                 } else {
                     return genjsonres(lang.NEED_NOT_UPDATE, 1, 200, await ghlatinfo(config))

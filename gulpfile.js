@@ -55,11 +55,17 @@ task('default', series([
     },
 
     () => {
-        return src(['src/js/lib/jq.js', 'src/js/material-dashboard/dash.js'])
+        return src(['src/js/lib/jq.js', 'src/js/material-dashboard/dash.js','src/js/dash/dash.js'])
             .pipe(concat('dash.js'))
-            //.pipe(terser())
+            .pipe(terser())
             .pipe(dest('dist/dash/theme'))
-        //.pipe(terser())
+            .pipe(terser())
+    },
+    () => {
+        return src(['src/js/dash/home.js'])
+            .pipe(terser())
+            .pipe(dest('dist/dash'))
+            .pipe(terser())
     }
 
 ]))

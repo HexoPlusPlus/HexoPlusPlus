@@ -1,351 +1,13 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 751:
-/***/ ((module) => {
-
-var charenc = {
-  // UTF-8 encoding
-  utf8: {
-    // Convert a string to a byte array
-    stringToBytes: function(str) {
-      return charenc.bin.stringToBytes(unescape(encodeURIComponent(str)));
-    },
-
-    // Convert a byte array to a string
-    bytesToString: function(bytes) {
-      return decodeURIComponent(escape(charenc.bin.bytesToString(bytes)));
-    }
-  },
-
-  // Binary encoding
-  bin: {
-    // Convert a string to a byte array
-    stringToBytes: function(str) {
-      for (var bytes = [], i = 0; i < str.length; i++)
-        bytes.push(str.charCodeAt(i) & 0xFF);
-      return bytes;
-    },
-
-    // Convert a byte array to a string
-    bytesToString: function(bytes) {
-      for (var str = [], i = 0; i < bytes.length; i++)
-        str.push(String.fromCharCode(bytes[i]));
-      return str.join('');
-    }
-  }
-};
-
-module.exports = charenc;
-
-
-/***/ }),
-
-/***/ 41:
-/***/ ((module) => {
-
-(function() {
-  var base64map
-      = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
-
-  crypt = {
-    // Bit-wise rotation left
-    rotl: function(n, b) {
-      return (n << b) | (n >>> (32 - b));
-    },
-
-    // Bit-wise rotation right
-    rotr: function(n, b) {
-      return (n << (32 - b)) | (n >>> b);
-    },
-
-    // Swap big-endian to little-endian and vice versa
-    endian: function(n) {
-      // If number given, swap endian
-      if (n.constructor == Number) {
-        return crypt.rotl(n, 8) & 0x00FF00FF | crypt.rotl(n, 24) & 0xFF00FF00;
-      }
-
-      // Else, assume array and swap all items
-      for (var i = 0; i < n.length; i++)
-        n[i] = crypt.endian(n[i]);
-      return n;
-    },
-
-    // Generate an array of any length of random bytes
-    randomBytes: function(n) {
-      for (var bytes = []; n > 0; n--)
-        bytes.push(Math.floor(Math.random() * 256));
-      return bytes;
-    },
-
-    // Convert a byte array to big-endian 32-bit words
-    bytesToWords: function(bytes) {
-      for (var words = [], i = 0, b = 0; i < bytes.length; i++, b += 8)
-        words[b >>> 5] |= bytes[i] << (24 - b % 32);
-      return words;
-    },
-
-    // Convert big-endian 32-bit words to a byte array
-    wordsToBytes: function(words) {
-      for (var bytes = [], b = 0; b < words.length * 32; b += 8)
-        bytes.push((words[b >>> 5] >>> (24 - b % 32)) & 0xFF);
-      return bytes;
-    },
-
-    // Convert a byte array to a hex string
-    bytesToHex: function(bytes) {
-      for (var hex = [], i = 0; i < bytes.length; i++) {
-        hex.push((bytes[i] >>> 4).toString(16));
-        hex.push((bytes[i] & 0xF).toString(16));
-      }
-      return hex.join('');
-    },
-
-    // Convert a hex string to a byte array
-    hexToBytes: function(hex) {
-      for (var bytes = [], c = 0; c < hex.length; c += 2)
-        bytes.push(parseInt(hex.substr(c, 2), 16));
-      return bytes;
-    },
-
-    // Convert a byte array to a base-64 string
-    bytesToBase64: function(bytes) {
-      for (var base64 = [], i = 0; i < bytes.length; i += 3) {
-        var triplet = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
-        for (var j = 0; j < 4; j++)
-          if (i * 8 + j * 6 <= bytes.length * 8)
-            base64.push(base64map.charAt((triplet >>> 6 * (3 - j)) & 0x3F));
-          else
-            base64.push('=');
-      }
-      return base64.join('');
-    },
-
-    // Convert a base-64 string to a byte array
-    base64ToBytes: function(base64) {
-      // Remove non-base-64 characters
-      base64 = base64.replace(/[^A-Z0-9+\/]/ig, '');
-
-      for (var bytes = [], i = 0, imod4 = 0; i < base64.length;
-          imod4 = ++i % 4) {
-        if (imod4 == 0) continue;
-        bytes.push(((base64map.indexOf(base64.charAt(i - 1))
-            & (Math.pow(2, -2 * imod4 + 8) - 1)) << (imod4 * 2))
-            | (base64map.indexOf(base64.charAt(i)) >>> (6 - imod4 * 2)));
-      }
-      return bytes;
-    }
-  };
-
-  module.exports = crypt;
-})();
-
-
-/***/ }),
-
-/***/ 34:
-/***/ ((module) => {
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-
-// The _isBuffer check is for Safari 5-7 support, because it's missing
-// Object.prototype.constructor. Remove this eventually
-module.exports = function (obj) {
-  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
-}
-
-function isBuffer (obj) {
-  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
-
-// For Node v0.10 support. Remove this eventually.
-function isSlowBuffer (obj) {
-  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
-}
-
-
-/***/ }),
-
-/***/ 735:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-(function(){
-  var crypt = __webpack_require__(41),
-      utf8 = __webpack_require__(751).utf8,
-      isBuffer = __webpack_require__(34),
-      bin = __webpack_require__(751).bin,
-
-  // The core
-  md5 = function (message, options) {
-    // Convert to byte array
-    if (message.constructor == String)
-      if (options && options.encoding === 'binary')
-        message = bin.stringToBytes(message);
-      else
-        message = utf8.stringToBytes(message);
-    else if (isBuffer(message))
-      message = Array.prototype.slice.call(message, 0);
-    else if (!Array.isArray(message) && message.constructor !== Uint8Array)
-      message = message.toString();
-    // else, assume byte array already
-
-    var m = crypt.bytesToWords(message),
-        l = message.length * 8,
-        a =  1732584193,
-        b = -271733879,
-        c = -1732584194,
-        d =  271733878;
-
-    // Swap endian
-    for (var i = 0; i < m.length; i++) {
-      m[i] = ((m[i] <<  8) | (m[i] >>> 24)) & 0x00FF00FF |
-             ((m[i] << 24) | (m[i] >>>  8)) & 0xFF00FF00;
-    }
-
-    // Padding
-    m[l >>> 5] |= 0x80 << (l % 32);
-    m[(((l + 64) >>> 9) << 4) + 14] = l;
-
-    // Method shortcuts
-    var FF = md5._ff,
-        GG = md5._gg,
-        HH = md5._hh,
-        II = md5._ii;
-
-    for (var i = 0; i < m.length; i += 16) {
-
-      var aa = a,
-          bb = b,
-          cc = c,
-          dd = d;
-
-      a = FF(a, b, c, d, m[i+ 0],  7, -680876936);
-      d = FF(d, a, b, c, m[i+ 1], 12, -389564586);
-      c = FF(c, d, a, b, m[i+ 2], 17,  606105819);
-      b = FF(b, c, d, a, m[i+ 3], 22, -1044525330);
-      a = FF(a, b, c, d, m[i+ 4],  7, -176418897);
-      d = FF(d, a, b, c, m[i+ 5], 12,  1200080426);
-      c = FF(c, d, a, b, m[i+ 6], 17, -1473231341);
-      b = FF(b, c, d, a, m[i+ 7], 22, -45705983);
-      a = FF(a, b, c, d, m[i+ 8],  7,  1770035416);
-      d = FF(d, a, b, c, m[i+ 9], 12, -1958414417);
-      c = FF(c, d, a, b, m[i+10], 17, -42063);
-      b = FF(b, c, d, a, m[i+11], 22, -1990404162);
-      a = FF(a, b, c, d, m[i+12],  7,  1804603682);
-      d = FF(d, a, b, c, m[i+13], 12, -40341101);
-      c = FF(c, d, a, b, m[i+14], 17, -1502002290);
-      b = FF(b, c, d, a, m[i+15], 22,  1236535329);
-
-      a = GG(a, b, c, d, m[i+ 1],  5, -165796510);
-      d = GG(d, a, b, c, m[i+ 6],  9, -1069501632);
-      c = GG(c, d, a, b, m[i+11], 14,  643717713);
-      b = GG(b, c, d, a, m[i+ 0], 20, -373897302);
-      a = GG(a, b, c, d, m[i+ 5],  5, -701558691);
-      d = GG(d, a, b, c, m[i+10],  9,  38016083);
-      c = GG(c, d, a, b, m[i+15], 14, -660478335);
-      b = GG(b, c, d, a, m[i+ 4], 20, -405537848);
-      a = GG(a, b, c, d, m[i+ 9],  5,  568446438);
-      d = GG(d, a, b, c, m[i+14],  9, -1019803690);
-      c = GG(c, d, a, b, m[i+ 3], 14, -187363961);
-      b = GG(b, c, d, a, m[i+ 8], 20,  1163531501);
-      a = GG(a, b, c, d, m[i+13],  5, -1444681467);
-      d = GG(d, a, b, c, m[i+ 2],  9, -51403784);
-      c = GG(c, d, a, b, m[i+ 7], 14,  1735328473);
-      b = GG(b, c, d, a, m[i+12], 20, -1926607734);
-
-      a = HH(a, b, c, d, m[i+ 5],  4, -378558);
-      d = HH(d, a, b, c, m[i+ 8], 11, -2022574463);
-      c = HH(c, d, a, b, m[i+11], 16,  1839030562);
-      b = HH(b, c, d, a, m[i+14], 23, -35309556);
-      a = HH(a, b, c, d, m[i+ 1],  4, -1530992060);
-      d = HH(d, a, b, c, m[i+ 4], 11,  1272893353);
-      c = HH(c, d, a, b, m[i+ 7], 16, -155497632);
-      b = HH(b, c, d, a, m[i+10], 23, -1094730640);
-      a = HH(a, b, c, d, m[i+13],  4,  681279174);
-      d = HH(d, a, b, c, m[i+ 0], 11, -358537222);
-      c = HH(c, d, a, b, m[i+ 3], 16, -722521979);
-      b = HH(b, c, d, a, m[i+ 6], 23,  76029189);
-      a = HH(a, b, c, d, m[i+ 9],  4, -640364487);
-      d = HH(d, a, b, c, m[i+12], 11, -421815835);
-      c = HH(c, d, a, b, m[i+15], 16,  530742520);
-      b = HH(b, c, d, a, m[i+ 2], 23, -995338651);
-
-      a = II(a, b, c, d, m[i+ 0],  6, -198630844);
-      d = II(d, a, b, c, m[i+ 7], 10,  1126891415);
-      c = II(c, d, a, b, m[i+14], 15, -1416354905);
-      b = II(b, c, d, a, m[i+ 5], 21, -57434055);
-      a = II(a, b, c, d, m[i+12],  6,  1700485571);
-      d = II(d, a, b, c, m[i+ 3], 10, -1894986606);
-      c = II(c, d, a, b, m[i+10], 15, -1051523);
-      b = II(b, c, d, a, m[i+ 1], 21, -2054922799);
-      a = II(a, b, c, d, m[i+ 8],  6,  1873313359);
-      d = II(d, a, b, c, m[i+15], 10, -30611744);
-      c = II(c, d, a, b, m[i+ 6], 15, -1560198380);
-      b = II(b, c, d, a, m[i+13], 21,  1309151649);
-      a = II(a, b, c, d, m[i+ 4],  6, -145523070);
-      d = II(d, a, b, c, m[i+11], 10, -1120210379);
-      c = II(c, d, a, b, m[i+ 2], 15,  718787259);
-      b = II(b, c, d, a, m[i+ 9], 21, -343485551);
-
-      a = (a + aa) >>> 0;
-      b = (b + bb) >>> 0;
-      c = (c + cc) >>> 0;
-      d = (d + dd) >>> 0;
-    }
-
-    return crypt.endian([a, b, c, d]);
-  };
-
-  // Auxiliary functions
-  md5._ff  = function (a, b, c, d, x, s, t) {
-    var n = a + (b & c | ~b & d) + (x >>> 0) + t;
-    return ((n << s) | (n >>> (32 - s))) + b;
-  };
-  md5._gg  = function (a, b, c, d, x, s, t) {
-    var n = a + (b & d | c & ~d) + (x >>> 0) + t;
-    return ((n << s) | (n >>> (32 - s))) + b;
-  };
-  md5._hh  = function (a, b, c, d, x, s, t) {
-    var n = a + (b ^ c ^ d) + (x >>> 0) + t;
-    return ((n << s) | (n >>> (32 - s))) + b;
-  };
-  md5._ii  = function (a, b, c, d, x, s, t) {
-    var n = a + (c ^ (b | ~d)) + (x >>> 0) + t;
-    return ((n << s) | (n >>> (32 - s))) + b;
-  };
-
-  // Package private blocksize
-  md5._blocksize = 16;
-  md5._digestsize = 16;
-
-  module.exports = function (message, options) {
-    if (message === undefined || message === null)
-      throw new Error('Illegal argument ' + message);
-
-    var digestbytes = crypt.wordsToBytes(md5(message, options));
-    return options && options.asBytes ? digestbytes :
-        options && options.asString ? bin.bytesToString(digestbytes) :
-        crypt.bytesToHex(digestbytes);
-  };
-
-})();
-
-
-/***/ }),
-
-/***/ 776:
+/***/ 302:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
 
 ;// CONCATENATED MODULE: ./worker/src/i18n/zh_CN.json
-const zh_CN_namespaceObject = JSON.parse('{"LANG":"中文 - 简体","EMPTY_HCONFIG":"配置文件是空的，请安装","START_INSTALL":"开始安装","CHECK_LOGIN_SUCCESS":"已登录！","CHECK_LOGIN_ERROR":"Ooops！尚未登陆！","ATTENDANCE_SUCCESS":"签到成功！","COMING_SOON":"即将到来！","UNKNOW_ACTION":"未知的操作","UNKNOW_ERROR":"未知的错误","DASHBOARD":"仪表盘","GH_UPLOAD_SUCCESS":"上传文件到Github成功！","GH_UPLOAD_ERROR":"上传文件到Github失败！","GH_DELETE_SUCCESS":"从Github删除文件成功！","GH_DELETE_ERROR":"从Github删除文件失败！","GH_GET_SUCCESS":"获取文件成功！","GH_LIST_SUCCESS":"列表成功！","GH_TREELIST_SUCCESS":"树状列表成功！","NEED_UPDATE":"需要更新！","NEED_NOT_UPDATE":"不需要更新！","LOGIN_TRUE":"已登录","LOGIN_FALSE":"未登录","HTALK":"HTALK组件信息","HTALK_INIT_SUCCESS":"初始化成功！","HTALK_GET_SUCCESS":"在${1}的状态下,已成功获得说说数据","HTALK_UPLOAD_SUCCESS":"已成功上传说说数据","HTALK_DEL_SUCCESS":"已成功删除id为${1}的数据","HTALK_VISIBLE_SUCCESS":"已改变id为${1}的数据的可见性","HTALK_INPUT_SUCCESS":"已导入${1}条!","UPDATE_SUCCESS":"更新是成功的！","UPDATE_ERROR":"更新是失败的！","LOGIN":"登陆","LOGIN_DASH":"Hexo后台管理系统","WELCOME":"欢迎！","USERNAME":"用户名","PASSWORD":"密码","DASH_404":"我们不知道您的需求","DASH_BACK_TO_HOME":"回到主页"}');
+const zh_CN_namespaceObject = JSON.parse('{"LANG":"中文 - 简体","EMPTY_HCONFIG":"配置文件是空的，请安装","START_INSTALL":"开始安装","CHECK_LOGIN_SUCCESS":"已登录！","CHECK_LOGIN_ERROR":"Ooops！尚未登陆！","ATTENDANCE_SUCCESS":"签到成功！","COMING_SOON":"即将到来！","UNKNOW_ACTION":"未知的操作","UNKNOW_ERROR":"未知的错误","DASHBOARD":"仪表盘","GH_UPLOAD_SUCCESS":"上传文件到Github成功！","GH_UPLOAD_ERROR":"上传文件到Github失败！","GH_DELETE_SUCCESS":"从Github删除文件成功！","GH_DELETE_ERROR":"从Github删除文件失败！","GH_GET_SUCCESS":"获取文件成功！","GH_LIST_SUCCESS":"列表成功！","GH_TREELIST_SUCCESS":"树状列表成功！","NEED_UPDATE":"需要更新！","NEED_NOT_UPDATE":"不需要更新！","LOGIN_TRUE":"已登录","LOGIN_FALSE":"未登录","HTALK":"HTALK组件信息","HTALK_INIT_SUCCESS":"初始化成功！","HTALK_GET_SUCCESS":"在${1}的状态下,已成功获得说说数据","HTALK_UPLOAD_SUCCESS":"已成功上传说说数据","HTALK_DEL_SUCCESS":"已成功删除id为${1}的数据","HTALK_VISIBLE_SUCCESS":"已改变id为${1}的数据的可见性","HTALK_INPUT_SUCCESS":"已导入${1}条!","UPDATE_SUCCESS":"更新是成功的！","UPDATE_ERROR":"更新是失败的！","LOGIN":"登陆","LOGIN_DASH":"Hexo后台管理系统","WELCOME":"欢迎！","USERNAME":"用户名","PASSWORD":"密码","DASH_404":"我们不知道您的需求","DASH_BACK_TO_HOME":"回到主页","HPP":"HexoPlusPlus后台","HOME":"主页","MANAGE_IMG":"图片管理","MANAGE_SITE":"站点管理","MANAGE_DOC":"文章管理","EDIT":"书写","TALK":"说说","TOOL":"工具","SETTING":"设置","ATTENDANCE":"签到","EXIT":"退出登陆"}');
 ;// CONCATENATED MODULE: ./worker/src/i18n/en_US.json
 const en_US_namespaceObject = JSON.parse('{"LANG":"English - United States of America","EMPTY_HCONFIG":"The configuration file is empty, please install!","START_INSTALL":"Installation has started","CHECK_LOGIN_SUCCESS":"Already logged in!","CHECK_LOGIN_ERROR":"Ooops! You are not logged in yet!","ATTENDANCE_SUCCESS":"check-in successfully!","COMING_SOON":"Coming soon!","UNKNOW_ACTION":"Unknown action","UNKNOW_ERROR":"Unknown error","DASHBOARD":"Dashboard","GH_UPLOAD_SUCCESS":"Upload file to GitHub successfully!","GH_UPLOAD_ERROR":"Error to upload file to GitHub!","GH_DELETE_SUCCESS":"File deleted from GitHub successfully!","GH_DELETE_ERROR":"Error to delete file from GitHub!","GH_GET_SUCCESS":"The file was successfully obtained!","GH_LIST_SUCCESS":"List successfully!","GH_TREELIST_SUCCESS":"Trees list successfully!","NEED_UPDATE":"Need to be updated!!!","NEED_NOT_UPDATE":"No need to be updated"}');
 ;// CONCATENATED MODULE: ./worker/src/i18n/language.js
@@ -368,81 +30,18 @@ const langtype = (() => {
 })()
 
 const language_lang = all_lan[langtype]
-;// CONCATENATED MODULE: ./worker/src/html/login.html
-const login = `
-<!DOCTYPE html>
-<html lang="zh-cmn-Hans">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>
-        <!--lang.LOGIN_DASH-->
-    </title>
-    <!--LOGIN_STYLE-->
-    <link rel="stylesheet" href="<!--hinfo.CDN-->login/login.css" />
-</head>
-
-<body>
-    <div id="all">
-        <div class="wrapper">
-            <div class="bg-container">
-                <div class="container">
-                    <h1 style="margin: 0;" id="bar">
-                        <!--lang.WELCOME-->
-                    </h1>
-                    <form class="form" id="fm">
-                        <input id="username" type="text" placeholder="<!--lang.USERNAME-->" value="" name="username" />
-                        <input id="password" type="password" placeholder="<!--lang.PASSWORD-->" value=""
-                            name="password" />
-                        <button type="button" id="login-button">
-                            <!--lang.LOGIN-->
-                        </button>
-                        <br />
-                        <br />
-                        <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips" style="color: #fff;">💗
-                            <!--hinfo.ver-->
-                        </a>
-                    </form>
-                </div>
-            </div>
-            <ul class="bg-bubbles">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-    </div>
-    <script src="<!--hinfo.CDN-->login/login.js"></script>
-</body>
-
-</html>
-`
-;// CONCATENATED MODULE: ./worker/src/html/dash/404.html
-const h404 = `<div class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-primary">
-                        <h4 class="card-title">404</h4>
-                        <p class="card-category"><!--lang.DASH_404--></p>
-                    </div></br>
-                    <div class="card-body"><a href="/hpp/admin/dash/home"><!--lang.DASH_BACK_TO_HOME--></a></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-`
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/login.html
+/* harmony default export */ const login = ("<!DOCTYPE html>\r\n<html lang=\"zh-cmn-Hans\">\r\n\r\n<head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\"\r\n        content=\"width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no\" />\r\n    <title>\r\n        <!--lang.LOGIN_DASH-->\r\n    </title>\r\n    <!--LOGIN_STYLE-->\r\n    <link rel=\"stylesheet\" href=\"<!--hinfo.CDN-->login/login.css\" />\r\n</head>\r\n\r\n<body>\r\n    <div id=\"all\">\r\n        <div class=\"wrapper\">\r\n            <div class=\"bg-container\">\r\n                <div class=\"container\">\r\n                    <h1 style=\"margin: 0;\" id=\"bar\">\r\n                        <!--lang.WELCOME-->\r\n                    </h1>\r\n                    <form class=\"form\" id=\"fm\">\r\n                        <input id=\"username\" type=\"text\" placeholder=\"<!--lang.USERNAME-->\" value=\"\" name=\"username\" />\r\n                        <input id=\"password\" type=\"password\" placeholder=\"<!--lang.PASSWORD-->\" value=\"\"\r\n                            name=\"password\" />\r\n                        <button type=\"button\" id=\"login-button\">\r\n                            <!--lang.LOGIN-->\r\n                        </button>\r\n                        <br />\r\n                        <br />\r\n                        <a href=\"https://github.com/HexoPlusPlus/HexoPlusPlus\" id=\"tips\" style=\"color: #fff;\">💗\r\n                            <!--hinfo.ver-->\r\n                        </a>\r\n                    </form>\r\n                </div>\r\n            </div>\r\n            <ul class=\"bg-bubbles\">\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n    <script src=\"<!--hinfo.CDN-->login/login.js\"></script>\r\n</body>\r\n\r\n</html>");
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/404.html
+/* harmony default export */ const _404 = ("<div class=\"content\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"card\">\r\n                    <div class=\"card-header card-header-primary\">\r\n                        <h4 class=\"card-title\">404</h4>\r\n                        <p class=\"card-category\"><!--lang.DASH_404--></p>\r\n                    </div></br>\r\n                    <div class=\"card-body\"><a href=\"/hpp/admin/dash/home\"><!--lang.DASH_BACK_TO_HOME--></a></div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>");
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/head.html
+/* harmony default export */ const head = ("<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"utf-8\" />\r\n    <link rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"<!--config.dash.icon-->\">\r\n    <link rel=\"icon\" type=\"image/png\" href=\"<!--config.dash.icon-->\">\r\n    <title>\r\n        <!--config.dash.title-->\r\n    </title>\r\n    <meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\" name=\"viewport\" />\r\n    <!--DASH_STYLE-->\r\n    <link rel=\"stylesheet\"\r\n        href=\"https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css\">\r\n    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css\">\r\n\r\n    <!--JS_CONFIG-->\r\n</head>\r\n\r\n<body class=\"<!--BODY_CLASS-->\">\r\n    <div class=\"wrapper \">\r\n        <div class=\"sidebar\" data-color=\"<!--config.dash.color-->\" data-background-color=\"<!--DASH_BACKGROUND_COLOR-->\"\r\n            data-image=\"<!--config.dash.back-->\">\r\n            <div class=\"logo\"><a class=\"simple-text logo-normal\">\r\n                    <!--config.dash.title-->\r\n                </a></div>\r\n            <div class=\"sidebar-wrapper\">\r\n                <ul class=\"nav\">\r\n\r\n\r\n                    <li class=\"nav-item<!--ainfo.hpp_home_act-->\">\r\n                        <a class=\"nav-link\" href=\"/hpp/admin/dash/home\">\r\n                            <i class=\"material-icons\">dashboard</i>\r\n                            <p>\r\n                                <!--lang.HOME-->\r\n                            </p>\r\n                        </a>\r\n                    </li>\r\n\r\n                    <!--config.hexo.switch-->\r\n\r\n\r\n\r\n\r\n                    <!--config.talk.switch.htalk-->\r\n\r\n\r\n\r\n\r\n                    <!--config.img.switch-->\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n                    <li class=\"nav-item<!--ainfo.hpp_tool_act-->\">\r\n                        <a class=\"nav-link\" href=\"/hpp/admin/dash/tool\">\r\n                            <i class=\"material-icons\">widgets</i>\r\n                            <p>\r\n                                <!--lang.TOOL-->\r\n                            </p>\r\n                        </a>\r\n                    </li>\r\n                    <li class=\"nav-item<!--ainfo.hpp_set_act-->\">\r\n                        <a class=\"nav-link\" href=\"/hpp/admin/install?step=end\">\r\n                            <i class=\"material-icons\">settings</i>\r\n                            <p>\r\n                                <!--lang.SETTING-->\r\n                            </p>\r\n                        </a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n        <div class=\"main-panel\">\r\n            <nav class=\"navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top \">\r\n                <div class=\"container-fluid\">\r\n                    <div class=\"navbar-wrapper\">\r\n                        <a class=\"navbar-brand\" href=\"javascript:;\">\r\n                            <!--lang.HPP-->\r\n                        </a>\r\n                    </div>\r\n                    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" aria-controls=\"navigation-index\"\r\n                        aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n                        <span class=\"sr-only\">Toggle navigation</span>\r\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\r\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\r\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\r\n                    </button>\r\n                    <div class=\"collapse navbar-collapse justify-content-end\">\r\n                        <ul class=\"navbar-nav\">\r\n                            <li class=\"nav-item dropdown\">\r\n                                <a class=\"nav-link\" href=\"javascript:;\" id=\"navbarDropdownProfile\"\r\n                                    data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                                    <img src=\"<!--config.dash.image-->\"\r\n                                        style=\"width: 30px;border-radius: 50%;border: 0;\">\r\n                                    <p class=\"d-lg-none d-md-block\">\r\n                                        Account\r\n                                    </p>\r\n                                </a>\r\n                                <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownProfile\">\r\n                                    <a class=\"dropdown-item\" id=\"kick\">\r\n                                        <!--lang.ATTENDANCE-->\r\n                                    </a>\r\n                                    <div class=\"dropdown-divider\"></div>\r\n                                    <a class=\"dropdown-item\" id=\"logout\">\r\n                                        <!--lang.EXIT-->\r\n                                    </a>\r\n                                </div>\r\n                            </li>\r\n                        </ul>\r\n                    </div>\r\n                </div>\r\n            </nav>\r\n            <!-- End Navbar -->\r\n\r\n            <!--innerHTMLSTART-->");
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/hexo.html
+/* harmony default export */ const hexo = ("<li class=\"nav-item<!--ainfo.hpp_edit_act-->\">\r\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/edit\">\r\n        <i class=\"material-icons\">create</i>\r\n        <p><!--lang.EDIT--></p>\r\n    </a>\r\n</li>\r\n\r\n<li class=\"nav-item<!--ainfo.hpp_site_act-->\">\r\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/site\">\r\n        <i class=\"mdui-icon material-icons\">wifi_tethering</i>\r\n        <p><!--lang.MANAGE_SITE--></p>\r\n    </a>\r\n</li>\r\n\r\n<li class=\"nav-item<!--ainfo.hpp_docs_man_act-->\">\r\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/docs_man\">\r\n        <i class=\"material-icons\">descriptionoutlined</i>\r\n        <p><!--lang.MANAGE_DOC--></p>\r\n    </a>\r\n</li>");
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/talk.html
+/* harmony default export */ const talk = ("<li class=\"nav-item<!--ainfo.hpp_talk_act-->\">\r\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/talk\">\r\n        <i class=\"material-icons\">chat</i>\r\n        <p><!--lang.TALK--></p>\r\n    </a>\r\n</li>");
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/img.html
+/* harmony default export */ const img = ("<li class=\"nav-item<!--ainfo.hpp_img_man_act-->\">\r\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/img_man\">\r\n        <i class=\"material-icons\">imagerounded</i>\r\n        <p><!--lang.MANAGE_IMG--></p>\r\n    </a>\r\n</li>");
 ;// CONCATENATED MODULE: ./worker/src/scaffold.js
 
 const getCookie = (request, name) => {
@@ -510,8 +109,66 @@ const genjsonres = (msg, code, status, content) => {
 
 
 
-const gethtml = {
 
+
+
+
+const gethtml = {
+  dash_head: (config, hinfo, ainfo) => {
+    return head.replace(/<!--config.dash.title-->/g, config.dash.title)
+
+
+
+
+      .replace(/<!--DASH_STYLE-->/g, (() => {
+        return `<link href="${hinfo.CDN}dash/theme/${(() => { if (config.dash.dark) { return 'dark' } else { return 'light' } })()}.css" rel="stylesheet" />`
+      })())
+      .replace(/JSON.stringify(config)/g, JSON.stringify(config))
+      .replace(/<!--BODY_CLASS-->/, (() => { if (config.dash.dark) { return 'dark-edition' } else { return '' } })())
+      .replace(/<!--config.dash.color-->/g, config.dash.color)
+      .replace(/<!--DASH_BACKGROUND_COLOR-->/g, (() => { if (config.dash.dark) { return 'default' } else { return config.dash.bgcolor } })())
+      .replace(/<!--config.dash.back-->/g, config.dash.back)
+      .replace(/<!--config.dash.image-->/g, config.dash.image)
+      .replace(/<!--config.dash.icon-->/g, config.dash.icon)
+      .replace(/<!--ainfo.hpp_home_act-->/g, ainfo.hpp_home_act)
+      .replace(/<!--ainfo.hpp_tool_act-->/g, ainfo.hpp_tool_act)
+      .replace(/<!--ainfo.hpp_set_act-->/g, ainfo.hpp_set_act)
+      .replace(/<!--config.hexo.switch-->/g, (() => {
+        if (config.hexo.switch) {
+          return hexo.replace(/<!--ainfo.hpp_edit_act-->/g, ainfo.hpp_edit_act)
+            .replace(/<!--ainfo.hpp_site_act-->/g, ainfo.hpp_site_act)
+            .replace(/<!--ainfo.hpp_docs_man_act-->/g, ainfo.hpp_docs_man_act)
+        } else {
+          return ""
+        }
+      })())
+      .replace(/<!--config.talk.switch.htalk-->/g, (() => {
+        if (config.talk.switch.htalk) {
+          return talk.replace(/<!--ainfo.hpp_talk_act-->/g, ainfo.hpp_talk_act)
+        }
+        else { return '' }
+      })())
+      .replace(/<!--config.img.switch-->/g, (() => {
+        if (config.img.switch && config.img.type == "gh") {
+          return img.replace(/<!--ainfo.hpp_img_man_act-->/g, ainfo.hpp_img_man_act)
+        }
+        else { return '' }
+      })())
+      .replace(/<!--JS_CONFIG-->/, `<script>window.config = ${JSON.stringify(config)}</script>`)
+
+
+      .replace(/<!--lang.HOME-->/g, language_lang.HOME)
+      .replace(/<!--lang.MANAGE_IMG-->/g, language_lang.MANAGE_IMG)
+      .replace(/<!--lang.EDIT-->/g, language_lang.EDIT)
+      .replace(/<!--lang.MANAGE_SITE-->/g, language_lang.MANAGE_SITE)
+      .replace(/<!--lang.MANAGE_DOC-->/g, language_lang.MANAGE_DOC)
+      .replace(/<!--lang.TALK-->/g, language_lang.TALK)
+      .replace(/<!--lang.TOOL-->/g, language_lang.TOOL)
+      .replace(/<!--lang.SETTING-->/g, language_lang.SETTING)
+      .replace(/<!--lang.HPP-->/, language_lang.HPP)
+      .replace(/<!--lang.ATTENDANCE-->/g, language_lang.ATTENDANCE)
+      .replace(/<!--lang.EXIT-->/g, language_lang.EXIT)
+  },
   loginhtml: (config, hinfo) => {
     const gc = { "#58C9B9": "#9DC8C8", "#77AF9C": "#D7FFF1", "#0396FF": "#ABDCFF" }
     const hc = (() => {
@@ -541,9 +198,9 @@ const gethtml = {
         </style>`
       })())
   },
-  dash404: (()=>{
-    return h404.replace(/<!--lang.DASH_404-->/g,language_lang.DASH_404)
-    .replace(/<!--lang.DASH_BACK_TO_HOME-->/g,language_lang.DASH_BACK_TO_HOME)
+  dash404: (() => {
+    return _404.replace(/<!--lang.DASH_404-->/g, language_lang.DASH_404)
+      .replace(/<!--lang.DASH_BACK_TO_HOME-->/g, language_lang.DASH_BACK_TO_HOME)
   })(),
   dashhome: (config, hinfo) => {
     return `<div class="content">
@@ -890,7 +547,7 @@ ${(() => {
 
   },
   dashhomejs: (config, hinfo) => {
-    return `<script src='${hinfo.CDN}home.js'></script>`
+    return `<script src='${hinfo.CDN}/dash/home.js'></script>`
   },
   dashdocsjs: (hinfo) => {
     return `<script src='${hinfo.CDN}doc_man.js'></script>`
@@ -944,157 +601,7 @@ ${(() => {
   },
 
 
-  dash_head: (config, hinfo, ainfo) => {
-    return `<!DOCTYPE html>            <html lang="en">
-            
-            <head>
-              <meta charset="utf-8" />
-              <link rel="apple-touch-icon" sizes="76x76" href="${config.dash.icon}">
-              <link rel="icon" type="image/png" href="${config.dash.icon}">
-              <title>${config.dash.title}</title>
-              <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-              <link href="${hinfo.CDN}dash/theme/${(() => { if (config.dash.dark) { return 'dark' } else { return 'light' } })()}.css" rel="stylesheet" />
-              
-              <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
-              <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-              <script>
-              //这个脚本的用途是前端变量传递
-              const config = ${JSON.stringify(config)}
-              </script>
-            </head>
-            <body class="${(() => { if (config.dash.dark) { return 'dark-edition' } else { return '' } })()}">
-              <div class="wrapper ">
-                <div class="sidebar" data-color="${config.dash.color}" data-background-color="${(() => { if (config.dash.dark) { return 'default' } else { return config.dash.bgcolor } })()}" data-image="${config.dash.back}">
-                  <div class="logo"><a class="simple-text logo-normal">${config.dash.title}</a></div>
-                  <div class="sidebar-wrapper">
-                    <ul class="nav">
-                    
-                  
-                      <li class="nav-item${ainfo.hpp_home_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/home">
-                          <i class="material-icons">dashboard</i>
-                          <p>主页</p>
-                        </a>
-                      </li>
 
-                      ${(() => {
-        if (config.hexo.switch) {
-          return `
-                        <li class="nav-item${ainfo.hpp_edit_act}">
-                          <a class="nav-link" href="/hpp/admin/dash/edit">
-                            <i class="material-icons">create</i>
-                            <p>书写</p>
-                          </a>
-                        </li>
-                        
-                        <li class="nav-item${ainfo.hpp_site_act}">
-                          <a class="nav-link" href="/hpp/admin/dash/site">
-                          <i class="mdui-icon material-icons">wifi_tethering</i>
-                            <p>站点</p>
-                          </a>
-                        </li>
-
-                        <li class="nav-item${ainfo.hpp_docs_man_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/docs_man">
-                          <i class="material-icons">descriptionoutlined</i>
-                          <p>文档管理</p>
-                        </a>
-                      </li>
-                        
-                        `} else { return '' }
-      })()}
-
-
-                      
-
-
-                      ${(() => {
-        if (config.talk.switch.htalk) {
-          return `
-                        <li class="nav-item${ainfo.hpp_talk_act}">
-                          <a class="nav-link" href="/hpp/admin/dash/talk">
-                            <i class="material-icons">chat</i>
-                            <p>说说</p>
-                          </a>
-                        </li>
-                        
-                        `} else { return '' }
-      })()}
-
-
-                      
-
-
-      ${(() => {
-        if (config.img.switch && config.img.type == "gh") {
-          return `
-                        
-                      <li class="nav-item${ainfo.hpp_img_man_act}">
-                      <a class="nav-link" href="/hpp/admin/dash/img_man">
-                        <i class="material-icons">imagerounded</i>
-                        <p>图片管理</p>
-                      </a>
-                    </li>
-                        
-                        `} else { return '' }
-      })()}
-
-
-
-                      
-
-
-
-                      <li class="nav-item${ainfo.hpp_tool_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/tool">
-                          <i class="material-icons">widgets</i>
-                          <p>工具</p>
-                        </a>
-                      </li>
-                      <li class="nav-item${ainfo.hpp_set_act}">
-                        <a class="nav-link" href="/hpp/admin/install?step=end">
-                          <i class="material-icons">settings</i>
-                          <p>设置</p>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="main-panel">
-                  <!-- Navbar -->
-                  <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-                    <div class="container-fluid">
-                      <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="javascript:;">HexoPlusPlus后台</a>
-                      </div>
-                      <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="navbar-toggler-icon icon-bar"></span>
-                        <span class="navbar-toggler-icon icon-bar"></span>
-                        <span class="navbar-toggler-icon icon-bar"></span>
-                      </button>
-                      <div class="collapse navbar-collapse justify-content-end">
-                        <ul class="navbar-nav">
-                          <li class="nav-item dropdown">
-                            <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <img src="${config.hpp_userimage}" style="width: 30px;border-radius: 50%;border: 0;">
-                              <p class="d-lg-none d-md-block">
-                                Account
-                              </p>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                              <a class="dropdown-item" id="kick">签到</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" id="logout">退出</a>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </nav>
-                  <!-- End Navbar --> 
-            
-            <!--innerHTMLSTART-->`},
   dash_foot: (hinfo, hpp_js) => {
     return `
               <!--innerHTMLEND-->
@@ -1113,8 +620,8 @@ ${(() => {
 const formatconfig = async () => {
     const config = await HKV.get("hconfig", { type: "json" })
     if (config === null) { return defaultconfig }
-    config.hexo.docpath = config.hexo.gh_root + "source/_posts/"
-    config.hexo.draftpath = config.hexo.gh_root + "source/_drafts/"
+    config.hexo.gh_docpath = config.hexo.gh_root + "source/_posts/"
+    config.hexo.gh_draftpath = config.hexo.gh_root + "source/_drafts/"
     return config
 }
 
@@ -1790,7 +1297,7 @@ const updateroute = async (request, config, hinfo) => {
                     return hppupdate(config, false)
                 }
             case 'check':
-                if (await ghlatver(config, false) == hinfo.ver) {
+                if (await ghlatver(config, false) != hinfo.ver) {
                     return genjsonres(language_lang.NEED_UPDATE, 0, 200)
                 } else {
                     return genjsonres(language_lang.NEED_NOT_UPDATE, 1, 200, await ghlatinfo(config))
@@ -2463,7 +1970,7 @@ const hpage = (config) => {
             */
 }
 ;// CONCATENATED MODULE: ./worker/kernel.js
-const md5 = __webpack_require__(735)
+const md5 = __webpack_require__(229)
 ;
 
 
@@ -2673,6 +2180,344 @@ addEventListener("fetch", event => {
 })
 
 
+/***/ }),
+
+/***/ 480:
+/***/ ((module) => {
+
+var charenc = {
+  // UTF-8 encoding
+  utf8: {
+    // Convert a string to a byte array
+    stringToBytes: function(str) {
+      return charenc.bin.stringToBytes(unescape(encodeURIComponent(str)));
+    },
+
+    // Convert a byte array to a string
+    bytesToString: function(bytes) {
+      return decodeURIComponent(escape(charenc.bin.bytesToString(bytes)));
+    }
+  },
+
+  // Binary encoding
+  bin: {
+    // Convert a string to a byte array
+    stringToBytes: function(str) {
+      for (var bytes = [], i = 0; i < str.length; i++)
+        bytes.push(str.charCodeAt(i) & 0xFF);
+      return bytes;
+    },
+
+    // Convert a byte array to a string
+    bytesToString: function(bytes) {
+      for (var str = [], i = 0; i < bytes.length; i++)
+        str.push(String.fromCharCode(bytes[i]));
+      return str.join('');
+    }
+  }
+};
+
+module.exports = charenc;
+
+
+/***/ }),
+
+/***/ 595:
+/***/ ((module) => {
+
+(function() {
+  var base64map
+      = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
+
+  crypt = {
+    // Bit-wise rotation left
+    rotl: function(n, b) {
+      return (n << b) | (n >>> (32 - b));
+    },
+
+    // Bit-wise rotation right
+    rotr: function(n, b) {
+      return (n << (32 - b)) | (n >>> b);
+    },
+
+    // Swap big-endian to little-endian and vice versa
+    endian: function(n) {
+      // If number given, swap endian
+      if (n.constructor == Number) {
+        return crypt.rotl(n, 8) & 0x00FF00FF | crypt.rotl(n, 24) & 0xFF00FF00;
+      }
+
+      // Else, assume array and swap all items
+      for (var i = 0; i < n.length; i++)
+        n[i] = crypt.endian(n[i]);
+      return n;
+    },
+
+    // Generate an array of any length of random bytes
+    randomBytes: function(n) {
+      for (var bytes = []; n > 0; n--)
+        bytes.push(Math.floor(Math.random() * 256));
+      return bytes;
+    },
+
+    // Convert a byte array to big-endian 32-bit words
+    bytesToWords: function(bytes) {
+      for (var words = [], i = 0, b = 0; i < bytes.length; i++, b += 8)
+        words[b >>> 5] |= bytes[i] << (24 - b % 32);
+      return words;
+    },
+
+    // Convert big-endian 32-bit words to a byte array
+    wordsToBytes: function(words) {
+      for (var bytes = [], b = 0; b < words.length * 32; b += 8)
+        bytes.push((words[b >>> 5] >>> (24 - b % 32)) & 0xFF);
+      return bytes;
+    },
+
+    // Convert a byte array to a hex string
+    bytesToHex: function(bytes) {
+      for (var hex = [], i = 0; i < bytes.length; i++) {
+        hex.push((bytes[i] >>> 4).toString(16));
+        hex.push((bytes[i] & 0xF).toString(16));
+      }
+      return hex.join('');
+    },
+
+    // Convert a hex string to a byte array
+    hexToBytes: function(hex) {
+      for (var bytes = [], c = 0; c < hex.length; c += 2)
+        bytes.push(parseInt(hex.substr(c, 2), 16));
+      return bytes;
+    },
+
+    // Convert a byte array to a base-64 string
+    bytesToBase64: function(bytes) {
+      for (var base64 = [], i = 0; i < bytes.length; i += 3) {
+        var triplet = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
+        for (var j = 0; j < 4; j++)
+          if (i * 8 + j * 6 <= bytes.length * 8)
+            base64.push(base64map.charAt((triplet >>> 6 * (3 - j)) & 0x3F));
+          else
+            base64.push('=');
+      }
+      return base64.join('');
+    },
+
+    // Convert a base-64 string to a byte array
+    base64ToBytes: function(base64) {
+      // Remove non-base-64 characters
+      base64 = base64.replace(/[^A-Z0-9+\/]/ig, '');
+
+      for (var bytes = [], i = 0, imod4 = 0; i < base64.length;
+          imod4 = ++i % 4) {
+        if (imod4 == 0) continue;
+        bytes.push(((base64map.indexOf(base64.charAt(i - 1))
+            & (Math.pow(2, -2 * imod4 + 8) - 1)) << (imod4 * 2))
+            | (base64map.indexOf(base64.charAt(i)) >>> (6 - imod4 * 2)));
+      }
+      return bytes;
+    }
+  };
+
+  module.exports = crypt;
+})();
+
+
+/***/ }),
+
+/***/ 86:
+/***/ ((module) => {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+// The _isBuffer check is for Safari 5-7 support, because it's missing
+// Object.prototype.constructor. Remove this eventually
+module.exports = function (obj) {
+  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
+}
+
+function isBuffer (obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+// For Node v0.10 support. Remove this eventually.
+function isSlowBuffer (obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
+}
+
+
+/***/ }),
+
+/***/ 229:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+(function(){
+  var crypt = __webpack_require__(595),
+      utf8 = __webpack_require__(480).utf8,
+      isBuffer = __webpack_require__(86),
+      bin = __webpack_require__(480).bin,
+
+  // The core
+  md5 = function (message, options) {
+    // Convert to byte array
+    if (message.constructor == String)
+      if (options && options.encoding === 'binary')
+        message = bin.stringToBytes(message);
+      else
+        message = utf8.stringToBytes(message);
+    else if (isBuffer(message))
+      message = Array.prototype.slice.call(message, 0);
+    else if (!Array.isArray(message) && message.constructor !== Uint8Array)
+      message = message.toString();
+    // else, assume byte array already
+
+    var m = crypt.bytesToWords(message),
+        l = message.length * 8,
+        a =  1732584193,
+        b = -271733879,
+        c = -1732584194,
+        d =  271733878;
+
+    // Swap endian
+    for (var i = 0; i < m.length; i++) {
+      m[i] = ((m[i] <<  8) | (m[i] >>> 24)) & 0x00FF00FF |
+             ((m[i] << 24) | (m[i] >>>  8)) & 0xFF00FF00;
+    }
+
+    // Padding
+    m[l >>> 5] |= 0x80 << (l % 32);
+    m[(((l + 64) >>> 9) << 4) + 14] = l;
+
+    // Method shortcuts
+    var FF = md5._ff,
+        GG = md5._gg,
+        HH = md5._hh,
+        II = md5._ii;
+
+    for (var i = 0; i < m.length; i += 16) {
+
+      var aa = a,
+          bb = b,
+          cc = c,
+          dd = d;
+
+      a = FF(a, b, c, d, m[i+ 0],  7, -680876936);
+      d = FF(d, a, b, c, m[i+ 1], 12, -389564586);
+      c = FF(c, d, a, b, m[i+ 2], 17,  606105819);
+      b = FF(b, c, d, a, m[i+ 3], 22, -1044525330);
+      a = FF(a, b, c, d, m[i+ 4],  7, -176418897);
+      d = FF(d, a, b, c, m[i+ 5], 12,  1200080426);
+      c = FF(c, d, a, b, m[i+ 6], 17, -1473231341);
+      b = FF(b, c, d, a, m[i+ 7], 22, -45705983);
+      a = FF(a, b, c, d, m[i+ 8],  7,  1770035416);
+      d = FF(d, a, b, c, m[i+ 9], 12, -1958414417);
+      c = FF(c, d, a, b, m[i+10], 17, -42063);
+      b = FF(b, c, d, a, m[i+11], 22, -1990404162);
+      a = FF(a, b, c, d, m[i+12],  7,  1804603682);
+      d = FF(d, a, b, c, m[i+13], 12, -40341101);
+      c = FF(c, d, a, b, m[i+14], 17, -1502002290);
+      b = FF(b, c, d, a, m[i+15], 22,  1236535329);
+
+      a = GG(a, b, c, d, m[i+ 1],  5, -165796510);
+      d = GG(d, a, b, c, m[i+ 6],  9, -1069501632);
+      c = GG(c, d, a, b, m[i+11], 14,  643717713);
+      b = GG(b, c, d, a, m[i+ 0], 20, -373897302);
+      a = GG(a, b, c, d, m[i+ 5],  5, -701558691);
+      d = GG(d, a, b, c, m[i+10],  9,  38016083);
+      c = GG(c, d, a, b, m[i+15], 14, -660478335);
+      b = GG(b, c, d, a, m[i+ 4], 20, -405537848);
+      a = GG(a, b, c, d, m[i+ 9],  5,  568446438);
+      d = GG(d, a, b, c, m[i+14],  9, -1019803690);
+      c = GG(c, d, a, b, m[i+ 3], 14, -187363961);
+      b = GG(b, c, d, a, m[i+ 8], 20,  1163531501);
+      a = GG(a, b, c, d, m[i+13],  5, -1444681467);
+      d = GG(d, a, b, c, m[i+ 2],  9, -51403784);
+      c = GG(c, d, a, b, m[i+ 7], 14,  1735328473);
+      b = GG(b, c, d, a, m[i+12], 20, -1926607734);
+
+      a = HH(a, b, c, d, m[i+ 5],  4, -378558);
+      d = HH(d, a, b, c, m[i+ 8], 11, -2022574463);
+      c = HH(c, d, a, b, m[i+11], 16,  1839030562);
+      b = HH(b, c, d, a, m[i+14], 23, -35309556);
+      a = HH(a, b, c, d, m[i+ 1],  4, -1530992060);
+      d = HH(d, a, b, c, m[i+ 4], 11,  1272893353);
+      c = HH(c, d, a, b, m[i+ 7], 16, -155497632);
+      b = HH(b, c, d, a, m[i+10], 23, -1094730640);
+      a = HH(a, b, c, d, m[i+13],  4,  681279174);
+      d = HH(d, a, b, c, m[i+ 0], 11, -358537222);
+      c = HH(c, d, a, b, m[i+ 3], 16, -722521979);
+      b = HH(b, c, d, a, m[i+ 6], 23,  76029189);
+      a = HH(a, b, c, d, m[i+ 9],  4, -640364487);
+      d = HH(d, a, b, c, m[i+12], 11, -421815835);
+      c = HH(c, d, a, b, m[i+15], 16,  530742520);
+      b = HH(b, c, d, a, m[i+ 2], 23, -995338651);
+
+      a = II(a, b, c, d, m[i+ 0],  6, -198630844);
+      d = II(d, a, b, c, m[i+ 7], 10,  1126891415);
+      c = II(c, d, a, b, m[i+14], 15, -1416354905);
+      b = II(b, c, d, a, m[i+ 5], 21, -57434055);
+      a = II(a, b, c, d, m[i+12],  6,  1700485571);
+      d = II(d, a, b, c, m[i+ 3], 10, -1894986606);
+      c = II(c, d, a, b, m[i+10], 15, -1051523);
+      b = II(b, c, d, a, m[i+ 1], 21, -2054922799);
+      a = II(a, b, c, d, m[i+ 8],  6,  1873313359);
+      d = II(d, a, b, c, m[i+15], 10, -30611744);
+      c = II(c, d, a, b, m[i+ 6], 15, -1560198380);
+      b = II(b, c, d, a, m[i+13], 21,  1309151649);
+      a = II(a, b, c, d, m[i+ 4],  6, -145523070);
+      d = II(d, a, b, c, m[i+11], 10, -1120210379);
+      c = II(c, d, a, b, m[i+ 2], 15,  718787259);
+      b = II(b, c, d, a, m[i+ 9], 21, -343485551);
+
+      a = (a + aa) >>> 0;
+      b = (b + bb) >>> 0;
+      c = (c + cc) >>> 0;
+      d = (d + dd) >>> 0;
+    }
+
+    return crypt.endian([a, b, c, d]);
+  };
+
+  // Auxiliary functions
+  md5._ff  = function (a, b, c, d, x, s, t) {
+    var n = a + (b & c | ~b & d) + (x >>> 0) + t;
+    return ((n << s) | (n >>> (32 - s))) + b;
+  };
+  md5._gg  = function (a, b, c, d, x, s, t) {
+    var n = a + (b & d | c & ~d) + (x >>> 0) + t;
+    return ((n << s) | (n >>> (32 - s))) + b;
+  };
+  md5._hh  = function (a, b, c, d, x, s, t) {
+    var n = a + (b ^ c ^ d) + (x >>> 0) + t;
+    return ((n << s) | (n >>> (32 - s))) + b;
+  };
+  md5._ii  = function (a, b, c, d, x, s, t) {
+    var n = a + (c ^ (b | ~d)) + (x >>> 0) + t;
+    return ((n << s) | (n >>> (32 - s))) + b;
+  };
+
+  // Package private blocksize
+  md5._blocksize = 16;
+  md5._digestsize = 16;
+
+  module.exports = function (message, options) {
+    if (message === undefined || message === null)
+      throw new Error('Illegal argument ' + message);
+
+    var digestbytes = crypt.wordsToBytes(md5(message, options));
+    return options && options.asBytes ? digestbytes :
+        options && options.asString ? bin.bytesToString(digestbytes) :
+        crypt.bytesToHex(digestbytes);
+  };
+
+})();
+
+
 /***/ })
 
 /******/ 	});
@@ -2683,9 +2528,8 @@ addEventListener("fetch", event => {
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
+/******/ 		if(__webpack_module_cache__[moduleId]) {
+/******/ 			return __webpack_module_cache__[moduleId].exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -2706,7 +2550,7 @@ addEventListener("fetch", event => {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(776);
+/******/ 	var __webpack_exports__ = __webpack_require__(302);
 /******/ 	
 /******/ })()
 ;

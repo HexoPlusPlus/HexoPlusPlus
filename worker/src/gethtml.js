@@ -1,9 +1,67 @@
-import { login } from './html/login.html'
-import { h404 } from './html/dash/404.html'
+import login from 'raw-loader!./html/login.html'
+import h404 from 'raw-loader!./html/dash/404.html'
+import dash_head from 'raw-loader!./html/dash/head.html'
+import dash_nav_hexo from 'raw-loader!./html/dash/nav/hexo.html'
+import dash_nav_talk from 'raw-loader!./html/dash/nav/talk.html'
+import dash_nav_img from 'raw-loader!./html/dash/nav/img.html'
 import { lang } from './i18n/language'
 import { getJsonLength } from './../src/scaffold'
 export const gethtml = {
+  dash_head: (config, hinfo, ainfo) => {
+    return dash_head.replace(/<!--config.dash.title-->/g, config.dash.title)
 
+
+
+
+      .replace(/<!--DASH_STYLE-->/g, (() => {
+        return `<link href="${hinfo.CDN}dash/theme/${(() => { if (config.dash.dark) { return 'dark' } else { return 'light' } })()}.css" rel="stylesheet" />`
+      })())
+      .replace(/JSON.stringify(config)/g, JSON.stringify(config))
+      .replace(/<!--BODY_CLASS-->/, (() => { if (config.dash.dark) { return 'dark-edition' } else { return '' } })())
+      .replace(/<!--config.dash.color-->/g, config.dash.color)
+      .replace(/<!--DASH_BACKGROUND_COLOR-->/g, (() => { if (config.dash.dark) { return 'default' } else { return config.dash.bgcolor } })())
+      .replace(/<!--config.dash.back-->/g, config.dash.back)
+      .replace(/<!--config.dash.image-->/g, config.dash.image)
+      .replace(/<!--config.dash.icon-->/g, config.dash.icon)
+      .replace(/<!--ainfo.hpp_home_act-->/g, ainfo.hpp_home_act)
+      .replace(/<!--ainfo.hpp_tool_act-->/g, ainfo.hpp_tool_act)
+      .replace(/<!--ainfo.hpp_set_act-->/g, ainfo.hpp_set_act)
+      .replace(/<!--config.hexo.switch-->/g, (() => {
+        if (config.hexo.switch) {
+          return dash_nav_hexo.replace(/<!--ainfo.hpp_edit_act-->/g, ainfo.hpp_edit_act)
+            .replace(/<!--ainfo.hpp_site_act-->/g, ainfo.hpp_site_act)
+            .replace(/<!--ainfo.hpp_docs_man_act-->/g, ainfo.hpp_docs_man_act)
+        } else {
+          return ""
+        }
+      })())
+      .replace(/<!--config.talk.switch.htalk-->/g, (() => {
+        if (config.talk.switch.htalk) {
+          return dash_nav_talk.replace(/<!--ainfo.hpp_talk_act-->/g, ainfo.hpp_talk_act)
+        }
+        else { return '' }
+      })())
+      .replace(/<!--config.img.switch-->/g, (() => {
+        if (config.img.switch && config.img.type == "gh") {
+          return dash_nav_img.replace(/<!--ainfo.hpp_img_man_act-->/g, ainfo.hpp_img_man_act)
+        }
+        else { return '' }
+      })())
+      .replace(/<!--JS_CONFIG-->/, `<script>window.config = ${JSON.stringify(config)}</script>`)
+
+
+      .replace(/<!--lang.HOME-->/g, lang.HOME)
+      .replace(/<!--lang.MANAGE_IMG-->/g, lang.MANAGE_IMG)
+      .replace(/<!--lang.EDIT-->/g, lang.EDIT)
+      .replace(/<!--lang.MANAGE_SITE-->/g, lang.MANAGE_SITE)
+      .replace(/<!--lang.MANAGE_DOC-->/g, lang.MANAGE_DOC)
+      .replace(/<!--lang.TALK-->/g, lang.TALK)
+      .replace(/<!--lang.TOOL-->/g, lang.TOOL)
+      .replace(/<!--lang.SETTING-->/g, lang.SETTING)
+      .replace(/<!--lang.HPP-->/, lang.HPP)
+      .replace(/<!--lang.ATTENDANCE-->/g, lang.ATTENDANCE)
+      .replace(/<!--lang.EXIT-->/g, lang.EXIT)
+  },
   loginhtml: (config, hinfo) => {
     const gc = { "#58C9B9": "#9DC8C8", "#77AF9C": "#D7FFF1", "#0396FF": "#ABDCFF" }
     const hc = (() => {
@@ -33,9 +91,9 @@ export const gethtml = {
         </style>`
       })())
   },
-  dash404: (()=>{
-    return h404.replace(/<!--lang.DASH_404-->/g,lang.DASH_404)
-    .replace(/<!--lang.DASH_BACK_TO_HOME-->/g,lang.DASH_BACK_TO_HOME)
+  dash404: (() => {
+    return h404.replace(/<!--lang.DASH_404-->/g, lang.DASH_404)
+      .replace(/<!--lang.DASH_BACK_TO_HOME-->/g, lang.DASH_BACK_TO_HOME)
   })(),
   dashhome: (config, hinfo) => {
     return `<div class="content">
@@ -382,7 +440,7 @@ ${(() => {
 
   },
   dashhomejs: (config, hinfo) => {
-    return `<script src='${hinfo.CDN}home.js'></script>`
+    return `<script src='${hinfo.CDN}/dash/home.js'></script>`
   },
   dashdocsjs: (hinfo) => {
     return `<script src='${hinfo.CDN}doc_man.js'></script>`
@@ -436,157 +494,7 @@ ${(() => {
   },
 
 
-  dash_head: (config, hinfo, ainfo) => {
-    return `<!DOCTYPE html>            <html lang="en">
-            
-            <head>
-              <meta charset="utf-8" />
-              <link rel="apple-touch-icon" sizes="76x76" href="${config.dash.icon}">
-              <link rel="icon" type="image/png" href="${config.dash.icon}">
-              <title>${config.dash.title}</title>
-              <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-              <link href="${hinfo.CDN}dash/theme/${(() => { if (config.dash.dark) { return 'dark' } else { return 'light' } })()}.css" rel="stylesheet" />
-              
-              <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
-              <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-              <script>
-              //这个脚本的用途是前端变量传递
-              const config = ${JSON.stringify(config)}
-              </script>
-            </head>
-            <body class="${(() => { if (config.dash.dark) { return 'dark-edition' } else { return '' } })()}">
-              <div class="wrapper ">
-                <div class="sidebar" data-color="${config.dash.color}" data-background-color="${(() => { if (config.dash.dark) { return 'default' } else { return config.dash.bgcolor } })()}" data-image="${config.dash.back}">
-                  <div class="logo"><a class="simple-text logo-normal">${config.dash.title}</a></div>
-                  <div class="sidebar-wrapper">
-                    <ul class="nav">
-                    
-                  
-                      <li class="nav-item${ainfo.hpp_home_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/home">
-                          <i class="material-icons">dashboard</i>
-                          <p>主页</p>
-                        </a>
-                      </li>
 
-                      ${(() => {
-        if (config.hexo.switch) {
-          return `
-                        <li class="nav-item${ainfo.hpp_edit_act}">
-                          <a class="nav-link" href="/hpp/admin/dash/edit">
-                            <i class="material-icons">create</i>
-                            <p>书写</p>
-                          </a>
-                        </li>
-                        
-                        <li class="nav-item${ainfo.hpp_site_act}">
-                          <a class="nav-link" href="/hpp/admin/dash/site">
-                          <i class="mdui-icon material-icons">wifi_tethering</i>
-                            <p>站点</p>
-                          </a>
-                        </li>
-
-                        <li class="nav-item${ainfo.hpp_docs_man_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/docs_man">
-                          <i class="material-icons">descriptionoutlined</i>
-                          <p>文档管理</p>
-                        </a>
-                      </li>
-                        
-                        `} else { return '' }
-      })()}
-
-
-                      
-
-
-                      ${(() => {
-        if (config.talk.switch.htalk) {
-          return `
-                        <li class="nav-item${ainfo.hpp_talk_act}">
-                          <a class="nav-link" href="/hpp/admin/dash/talk">
-                            <i class="material-icons">chat</i>
-                            <p>说说</p>
-                          </a>
-                        </li>
-                        
-                        `} else { return '' }
-      })()}
-
-
-                      
-
-
-      ${(() => {
-        if (config.img.switch && config.img.type == "gh") {
-          return `
-                        
-                      <li class="nav-item${ainfo.hpp_img_man_act}">
-                      <a class="nav-link" href="/hpp/admin/dash/img_man">
-                        <i class="material-icons">imagerounded</i>
-                        <p>图片管理</p>
-                      </a>
-                    </li>
-                        
-                        `} else { return '' }
-      })()}
-
-
-
-                      
-
-
-
-                      <li class="nav-item${ainfo.hpp_tool_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/tool">
-                          <i class="material-icons">widgets</i>
-                          <p>工具</p>
-                        </a>
-                      </li>
-                      <li class="nav-item${ainfo.hpp_set_act}">
-                        <a class="nav-link" href="/hpp/admin/install?step=end">
-                          <i class="material-icons">settings</i>
-                          <p>设置</p>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="main-panel">
-                  <!-- Navbar -->
-                  <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-                    <div class="container-fluid">
-                      <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="javascript:;">HexoPlusPlus后台</a>
-                      </div>
-                      <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="navbar-toggler-icon icon-bar"></span>
-                        <span class="navbar-toggler-icon icon-bar"></span>
-                        <span class="navbar-toggler-icon icon-bar"></span>
-                      </button>
-                      <div class="collapse navbar-collapse justify-content-end">
-                        <ul class="navbar-nav">
-                          <li class="nav-item dropdown">
-                            <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <img src="${config.hpp_userimage}" style="width: 30px;border-radius: 50%;border: 0;">
-                              <p class="d-lg-none d-md-block">
-                                Account
-                              </p>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                              <a class="dropdown-item" id="kick">签到</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" id="logout">退出</a>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </nav>
-                  <!-- End Navbar --> 
-            
-            <!--innerHTMLSTART-->`},
   dash_foot: (hinfo, hpp_js) => {
     return `
               <!--innerHTMLEND-->
