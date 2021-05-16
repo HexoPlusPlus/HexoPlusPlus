@@ -1,3 +1,6 @@
+import { login } from './html/login.html'
+import { h404 } from './html/dash/404.html'
+import { lang } from './i18n/language'
 import { getJsonLength } from './../src/scaffold'
 export const gethtml = {
 
@@ -10,60 +13,30 @@ export const gethtml = {
       }
       return y
     })()
-    const c = hc[Math.floor(Math.random() * hc.length)];
-    return `
-    <!DOCTYPE html>
-    <html lang="zh-cmn-Hans">
-     <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
-      <title>后台</title>
-      <style>
-      
-.wrapper{
-      background: linear-gradient(to bottom right,${c} 0,${gc[c]} 100%)!important;
-}
-button{
-  color:${c}!important
-}
-      </style>
-      <link rel="stylesheet" href="${hinfo.CDN}login/login.css" /> 
-     </head>
-     <body>
-      <div id="all">
-       <div class="wrapper">
-        <div class="bg-container">
-         <div class="container">
-          <h1 style="margin: 0;" id="bar">Welcome</h1>
-          <form class="form" id="fm">
-           <input id="username" type="text" placeholder="用户名" value="" name="username" />
-           <input id="password" type="password" placeholder="密码" value="" name="password" />
-           <button type="button" id="login-button">登录</button>
-           <br />
-           <br />
-           <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips" style="color: #fff;">💗${hinfo.ver}</a>
-          </form>
-         </div>
-        </div>
-        <ul class="bg-bubbles">
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-        </ul>
-       </div>
-      </div>
-      <script src="${hinfo.CDN}login/login.js"></script>
-      </body>
-    </html>
-    `},
-  dash404: `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`,
+    const color = hc[Math.floor(Math.random() * hc.length)];
+    const lcolor = gc[color];
+    return login.replace(/<!--lang.LOGIN_DASH-->/g, lang.LOGIN_DASH)
+      .replace(/<!--hinfo.CDN-->/g, hinfo.CDN)
+      .replace(/<!--lang.WELCOME-->/g, lang.WELCOME)
+      .replace(/<!--lang.USERNAME-->/g, lang.USERNAME)
+      .replace(/<!--lang.PASSWORD-->/g, lang.PASSWORD)
+      .replace(/<!--lang.LOGIN-->/g, lang.LOGIN)
+      .replace(/<!--hinfo.ver-->/g, hinfo.ver)
+      .replace(/<!--LOGIN_STYLE-->/g, (() => {
+        return `<style>
+      .wrapper{
+        background: linear-gradient(to bottom right,${color} 0,${lcolor} 100%)!important;
+      }
+      button{
+      color:${color} !important
+      }
+        </style>`
+      })())
+  },
+  dash404: (()=>{
+    return h404.replace(/<!--lang.DASH_404-->/g,lang.DASH_404)
+    .replace(/<!--lang.DASH_BACK_TO_HOME-->/g,lang.DASH_BACK_TO_HOME)
+  })(),
   dashhome: (config, hinfo) => {
     return `<div class="content">
 <div class="container-fluid">

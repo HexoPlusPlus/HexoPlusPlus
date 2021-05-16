@@ -339,13 +339,13 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ 475:
+/***/ 776:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
 
 ;// CONCATENATED MODULE: ./worker/src/i18n/zh_CN.json
-const zh_CN_namespaceObject = JSON.parse('{"LANG":"中文 - 简体","EMPTY_HCONFIG":"配置文件是空的，请安装","START_INSTALL":"开始安装","CHECK_LOGIN_SUCCESS":"已登录！","CHECK_LOGIN_ERROR":"Ooops！尚未登陆！","ATTENDANCE_SUCCESS":"签到成功！","COMING_SOON":"即将到来！","UNKNOW_ACTION":"未知的操作","UNKNOW_ERROR":"未知的错误","DASHBOARD":"仪表盘","GH_UPLOAD_SUCCESS":"上传文件到Github成功！","GH_UPLOAD_ERROR":"上传文件到Github失败！","GH_DELETE_SUCCESS":"从Github删除文件成功！","GH_DELETE_ERROR":"从Github删除文件失败！","GH_GET_SUCCESS":"获取文件成功！","GH_LIST_SUCCESS":"列表成功！","GH_TREELIST_SUCCESS":"树状列表成功！","NEED_UPDATE":"需要更新！","NEED_NOT_UPDATE":"不需要更新！","LOGIN_TRUE":"已登录","LOGIN_FALSE":"未登录","HTALK":"HTALK组件信息","HTALK_INIT_SUCCESS":"初始化成功！","HTALK_GET_SUCCESS":"在${1}的状态下,已成功获得说说数据","HTALK_UPLOAD_SUCCESS":"已成功上传说说数据","HTALK_DEL_SUCCESS":"已成功删除id为${1}的数据","HTALK_VISIBLE_SUCCESS":"已改变id为${1}的数据的可见性","HTALK_INPUT_SUCCESS":"已导入${1}条!","UPDATE_SUCCESS":"更新是成功的！","UPDATE_ERROR":"更新是失败的！"}');
+const zh_CN_namespaceObject = JSON.parse('{"LANG":"中文 - 简体","EMPTY_HCONFIG":"配置文件是空的，请安装","START_INSTALL":"开始安装","CHECK_LOGIN_SUCCESS":"已登录！","CHECK_LOGIN_ERROR":"Ooops！尚未登陆！","ATTENDANCE_SUCCESS":"签到成功！","COMING_SOON":"即将到来！","UNKNOW_ACTION":"未知的操作","UNKNOW_ERROR":"未知的错误","DASHBOARD":"仪表盘","GH_UPLOAD_SUCCESS":"上传文件到Github成功！","GH_UPLOAD_ERROR":"上传文件到Github失败！","GH_DELETE_SUCCESS":"从Github删除文件成功！","GH_DELETE_ERROR":"从Github删除文件失败！","GH_GET_SUCCESS":"获取文件成功！","GH_LIST_SUCCESS":"列表成功！","GH_TREELIST_SUCCESS":"树状列表成功！","NEED_UPDATE":"需要更新！","NEED_NOT_UPDATE":"不需要更新！","LOGIN_TRUE":"已登录","LOGIN_FALSE":"未登录","HTALK":"HTALK组件信息","HTALK_INIT_SUCCESS":"初始化成功！","HTALK_GET_SUCCESS":"在${1}的状态下,已成功获得说说数据","HTALK_UPLOAD_SUCCESS":"已成功上传说说数据","HTALK_DEL_SUCCESS":"已成功删除id为${1}的数据","HTALK_VISIBLE_SUCCESS":"已改变id为${1}的数据的可见性","HTALK_INPUT_SUCCESS":"已导入${1}条!","UPDATE_SUCCESS":"更新是成功的！","UPDATE_ERROR":"更新是失败的！","LOGIN":"登陆","LOGIN_DASH":"Hexo后台管理系统","WELCOME":"欢迎！","USERNAME":"用户名","PASSWORD":"密码","DASH_404":"我们不知道您的需求","DASH_BACK_TO_HOME":"回到主页"}');
 ;// CONCATENATED MODULE: ./worker/src/i18n/en_US.json
 const en_US_namespaceObject = JSON.parse('{"LANG":"English - United States of America","EMPTY_HCONFIG":"The configuration file is empty, please install!","START_INSTALL":"Installation has started","CHECK_LOGIN_SUCCESS":"Already logged in!","CHECK_LOGIN_ERROR":"Ooops! You are not logged in yet!","ATTENDANCE_SUCCESS":"check-in successfully!","COMING_SOON":"Coming soon!","UNKNOW_ACTION":"Unknown action","UNKNOW_ERROR":"Unknown error","DASHBOARD":"Dashboard","GH_UPLOAD_SUCCESS":"Upload file to GitHub successfully!","GH_UPLOAD_ERROR":"Error to upload file to GitHub!","GH_DELETE_SUCCESS":"File deleted from GitHub successfully!","GH_DELETE_ERROR":"Error to delete file from GitHub!","GH_GET_SUCCESS":"The file was successfully obtained!","GH_LIST_SUCCESS":"List successfully!","GH_TREELIST_SUCCESS":"Trees list successfully!","NEED_UPDATE":"Need to be updated!!!","NEED_NOT_UPDATE":"No need to be updated"}');
 ;// CONCATENATED MODULE: ./worker/src/i18n/language.js
@@ -368,6 +368,81 @@ const langtype = (() => {
 })()
 
 const language_lang = all_lan[langtype]
+;// CONCATENATED MODULE: ./worker/src/html/login.html
+const login = `
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>
+        <!--lang.LOGIN_DASH-->
+    </title>
+    <!--LOGIN_STYLE-->
+    <link rel="stylesheet" href="<!--hinfo.CDN-->login/login.css" />
+</head>
+
+<body>
+    <div id="all">
+        <div class="wrapper">
+            <div class="bg-container">
+                <div class="container">
+                    <h1 style="margin: 0;" id="bar">
+                        <!--lang.WELCOME-->
+                    </h1>
+                    <form class="form" id="fm">
+                        <input id="username" type="text" placeholder="<!--lang.USERNAME-->" value="" name="username" />
+                        <input id="password" type="password" placeholder="<!--lang.PASSWORD-->" value=""
+                            name="password" />
+                        <button type="button" id="login-button">
+                            <!--lang.LOGIN-->
+                        </button>
+                        <br />
+                        <br />
+                        <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips" style="color: #fff;">💗
+                            <!--hinfo.ver-->
+                        </a>
+                    </form>
+                </div>
+            </div>
+            <ul class="bg-bubbles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <script src="<!--hinfo.CDN-->login/login.js"></script>
+</body>
+
+</html>
+`
+;// CONCATENATED MODULE: ./worker/src/html/dash/404.html
+const h404 = `<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">404</h4>
+                        <p class="card-category"><!--lang.DASH_404--></p>
+                    </div></br>
+                    <div class="card-body"><a href="/hpp/admin/dash/home"><!--lang.DASH_BACK_TO_HOME--></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+`
 ;// CONCATENATED MODULE: ./worker/src/scaffold.js
 
 const getCookie = (request, name) => {
@@ -432,6 +507,9 @@ const genjsonres = (msg, code, status, content) => {
 
 ;// CONCATENATED MODULE: ./worker/src/gethtml.js
 
+
+
+
 const gethtml = {
 
   loginhtml: (config, hinfo) => {
@@ -443,60 +521,30 @@ const gethtml = {
       }
       return y
     })()
-    const c = hc[Math.floor(Math.random() * hc.length)];
-    return `
-    <!DOCTYPE html>
-    <html lang="zh-cmn-Hans">
-     <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
-      <title>后台</title>
-      <style>
-      
-.wrapper{
-      background: linear-gradient(to bottom right,${c} 0,${gc[c]} 100%)!important;
-}
-button{
-  color:${c}!important
-}
-      </style>
-      <link rel="stylesheet" href="${hinfo.CDN}login/login.css" /> 
-     </head>
-     <body>
-      <div id="all">
-       <div class="wrapper">
-        <div class="bg-container">
-         <div class="container">
-          <h1 style="margin: 0;" id="bar">Welcome</h1>
-          <form class="form" id="fm">
-           <input id="username" type="text" placeholder="用户名" value="" name="username" />
-           <input id="password" type="password" placeholder="密码" value="" name="password" />
-           <button type="button" id="login-button">登录</button>
-           <br />
-           <br />
-           <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips" style="color: #fff;">💗${hinfo.ver}</a>
-          </form>
-         </div>
-        </div>
-        <ul class="bg-bubbles">
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-        </ul>
-       </div>
-      </div>
-      <script src="${hinfo.CDN}login/login.js"></script>
-      </body>
-    </html>
-    `},
-  dash404: `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`,
+    const color = hc[Math.floor(Math.random() * hc.length)];
+    const lcolor = gc[color];
+    return login.replace(/<!--lang.LOGIN_DASH-->/g, language_lang.LOGIN_DASH)
+      .replace(/<!--hinfo.CDN-->/g, hinfo.CDN)
+      .replace(/<!--lang.WELCOME-->/g, language_lang.WELCOME)
+      .replace(/<!--lang.USERNAME-->/g, language_lang.USERNAME)
+      .replace(/<!--lang.PASSWORD-->/g, language_lang.PASSWORD)
+      .replace(/<!--lang.LOGIN-->/g, language_lang.LOGIN)
+      .replace(/<!--hinfo.ver-->/g, hinfo.ver)
+      .replace(/<!--LOGIN_STYLE-->/g, (() => {
+        return `<style>
+      .wrapper{
+        background: linear-gradient(to bottom right,${color} 0,${lcolor} 100%)!important;
+      }
+      button{
+      color:${color} !important
+      }
+        </style>`
+      })())
+  },
+  dash404: (()=>{
+    return h404.replace(/<!--lang.DASH_404-->/g,language_lang.DASH_404)
+    .replace(/<!--lang.DASH_BACK_TO_HOME-->/g,language_lang.DASH_BACK_TO_HOME)
+  })(),
   dashhome: (config, hinfo) => {
     return `<div class="content">
 <div class="container-fluid">
@@ -2658,7 +2706,7 @@ addEventListener("fetch", event => {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(475);
+/******/ 	var __webpack_exports__ = __webpack_require__(776);
 /******/ 	
 /******/ })()
 ;
