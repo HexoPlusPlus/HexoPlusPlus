@@ -1,9 +1,10 @@
-export async function genres(config,msg,code,status,content){
-    m = msg ? "HPPTALK组件:"+msg : "HPPTALK组件:未知的错误"
-    c = code ? code : "-1"
-    s = status ? status : 500
-    co = content ? content : ''
-    r = {
+import { lang } from './../../i18n/language'
+export async function genres(config, msg, status, code, content) {
+    const m = msg ? `${lang.HTALK}:${msg}` : `${lang.HTALK}:${lang.UNKNOW_ERROR}`
+    const c = code ? code : "-1"
+    const s = status ? status : 500
+    const co = content ? content : ''
+    const r = {
         msg: m,
         code: c,
         content: co

@@ -345,7 +345,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 ;// CONCATENATED MODULE: ./worker/src/i18n/zh_CN.json
-const zh_CN_namespaceObject = JSON.parse('{"LANG":"中文 - 简体","EMPTY_HCONFIG":"配置文件是空的，请安装","START_INSTALL":"开始安装","CHECK_LOGIN_SUCCESS":"已登录！","CHECK_LOGIN_ERROR":"Ooops！尚未登陆！","ATTENDANCE_SUCCESS":"签到成功！","COMING_SOON":"即将到来！","UNKNOW_ACTION":"未知的操作","UNKNOW_ERROR":"未知的错误","DASHBOARD":"仪表盘","GH_UPLOAD_SUCCESS":"上传文件到Github成功！","GH_UPLOAD_ERROR":"上传文件到Github失败！","GH_DELETE_SUCCESS":"从Github删除文件成功！","GH_DELETE_ERROR":"从Github删除文件失败！","GH_GET_SUCCESS":"获取文件成功！","GH_LIST_SUCCESS":"列表成功！","GH_TREELIST_SUCCESS":"树状列表成功！","NEED_UPDATE":"需要更新！","NEED_NOT_UPDATE":"不需要更新！"}');
+const zh_CN_namespaceObject = JSON.parse('{"LANG":"中文 - 简体","EMPTY_HCONFIG":"配置文件是空的，请安装","START_INSTALL":"开始安装","CHECK_LOGIN_SUCCESS":"已登录！","CHECK_LOGIN_ERROR":"Ooops！尚未登陆！","ATTENDANCE_SUCCESS":"签到成功！","COMING_SOON":"即将到来！","UNKNOW_ACTION":"未知的操作","UNKNOW_ERROR":"未知的错误","DASHBOARD":"仪表盘","GH_UPLOAD_SUCCESS":"上传文件到Github成功！","GH_UPLOAD_ERROR":"上传文件到Github失败！","GH_DELETE_SUCCESS":"从Github删除文件成功！","GH_DELETE_ERROR":"从Github删除文件失败！","GH_GET_SUCCESS":"获取文件成功！","GH_LIST_SUCCESS":"列表成功！","GH_TREELIST_SUCCESS":"树状列表成功！","NEED_UPDATE":"需要更新！","NEED_NOT_UPDATE":"不需要更新！","LOGIN_TRUE":"已登录","LOGIN_FALSE":"未登录","HTALK":"HTALK组件信息","HTALK_INIT_SUCCESS":"初始化成功！","HTALK_GET_SUCCESS":"在${1}的状态下,已成功获得说说数据","HTALK_UPLOAD_SUCCESS":"已成功上传说说数据","HTALK_DEL_SUCCESS":"已成功删除id为${1}的数据","HTALK_VISIBLE_SUCCESS":"已改变id为${1}的数据的可见性","HTALK_INPUT_SUCCESS":"已导入${1}条!","UPDATE_SUCCESS":"更新是成功的！","UPDATE_ERROR":"更新是失败的！"}');
 ;// CONCATENATED MODULE: ./worker/src/i18n/en_US.json
 const en_US_namespaceObject = JSON.parse('{"LANG":"English - United States of America","EMPTY_HCONFIG":"The configuration file is empty, please install!","START_INSTALL":"Installation has started","CHECK_LOGIN_SUCCESS":"Already logged in!","CHECK_LOGIN_ERROR":"Ooops! You are not logged in yet!","ATTENDANCE_SUCCESS":"check-in successfully!","COMING_SOON":"Coming soon!","UNKNOW_ACTION":"Unknown action","UNKNOW_ERROR":"Unknown error","DASHBOARD":"Dashboard","GH_UPLOAD_SUCCESS":"Upload file to GitHub successfully!","GH_UPLOAD_ERROR":"Error to upload file to GitHub!","GH_DELETE_SUCCESS":"File deleted from GitHub successfully!","GH_DELETE_ERROR":"Error to delete file from GitHub!","GH_GET_SUCCESS":"The file was successfully obtained!","GH_LIST_SUCCESS":"List successfully!","GH_TREELIST_SUCCESS":"Trees list successfully!","NEED_UPDATE":"Need to be updated!!!","NEED_NOT_UPDATE":"No need to be updated"}');
 ;// CONCATENATED MODULE: ./worker/src/i18n/language.js
@@ -369,6 +369,7 @@ const langtype = (() => {
 
 const language_lang = all_lan[langtype]
 ;// CONCATENATED MODULE: ./worker/src/scaffold.js
+
 const getCookie = (request, name) => {
     let result = ""
     const cookieString = request.headers.get("Cookie")
@@ -412,8 +413,8 @@ const getsuffix = (path) => {
 }
 
 const genjsonres = (msg, code, status, content) => {
-    let m = msg ? msg : "未知的错误"
-    let c = (code || code == 0) ? code : "-1"
+    let m = msg ? msg : language_lang.UNKNOW_ERROR
+    let c = (code || code == 0) ? code : -1
     let s = status ? status : 500
     let co = content ? content : ''
     let r = {
@@ -1322,62 +1323,62 @@ async function ghstar(config) {
 ;// CONCATENATED MODULE: ./worker/src/update.js
 
 const hppupdate = async (config, newest) => {
-    let ver = 'dist'
-    if (!newest) {
-        ver = await ghlatver({
-            username: "HexoPlusPlus",
-            reponame: "HexoPlusPlus",
-            token: config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
-        })
-    }
-    const url = `https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/${ver}/index.worker.js`
+  let ver = 'dist'
+  if (!newest) {
+    ver = await ghlatver({
+      username: "HexoPlusPlus",
+      reponame: "HexoPlusPlus",
+      token: config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
+    })
+  }
+  const url = `https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/${ver}/index.worker.js`
 
 
-    const script = await (await fetch(url)).text()
-    const up_init = {
-        body: script,
-        method: "PUT",
-        headers: {
-            "content-type": "application/javascript",
-            "X-Auth-Key": config.hpp_CF_Auth_Key,
-            "X-Auth-Email": config.hpp_Auth_Email
-        }
+  const script = await (await fetch(url)).text()
+  const up_init = {
+    body: script,
+    method: "PUT",
+    headers: {
+      "content-type": "application/javascript",
+      "X-Auth-Key": config.hpp_CF_Auth_Key,
+      "X-Auth-Email": config.hpp_Auth_Email
     }
-    const update_resul = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${config.hpp_account_identifier}/workers/scripts/${config.hpp_script_name}`, up_init)).json()
-    if (update_resul["success"]) {
-        return genjsonres('更新是成功的!', 0, 200)
-    } else {
-        return genjsonres('更新是失败的!', -1, 500)
-    }
+  }
+  const update_resul = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${config.hpp_account_identifier}/workers/scripts/${config.hpp_script_name}`, up_init)).json()
+  if (update_resul["success"]) {
+    return genjsonres(lang.UPDATE_SUCCESS, 0, 200)
+  } else {
+    return genjsonres(lang.UPDATE_ERROR, -1, 500)
+  }
 
 
 }
 async function getlatinfo(config) {
-    const token = config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
-    const url = `https://api.github.com/repos/HexoPlusPlus/HexoPlusPlus/releases/latest`
-    let init = {
-      method: 'GET',
-      headers: {
-        "content-type": "application/json;charset=UTF-8",
-        "user-agent": 'HexoPlusPlus Github Filer',
-        "Authorization": "token " + token
-      }
+  const token = config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
+  const url = `https://api.github.com/repos/HexoPlusPlus/HexoPlusPlus/releases/latest`
+  let init = {
+    method: 'GET',
+    headers: {
+      "content-type": "application/json;charset=UTF-8",
+      "user-agent": 'HexoPlusPlus Github Filer',
+      "Authorization": "token " + token
     }
-    if (token == '') {
-      delete init.headers.Authorization
-    }
-    return (await (await fetch(url, init)).json())
   }
-  
-  
-  async function ghlatver(config) {
-    return (await getlatinfo(config))["tag_name"]
+  if (token == '') {
+    delete init.headers.Authorization
   }
-  
-  async function ghlatinfo(config) {
-    return (await getlatinfo(config))["body"]
-  }
-  
+  return (await (await fetch(url, init)).json())
+}
+
+
+async function ghlatver(config) {
+  return (await getlatinfo(config))["tag_name"]
+}
+
+async function ghlatinfo(config) {
+  return (await getlatinfo(config))["body"]
+}
+
 ;// CONCATENATED MODULE: ./worker/src/router/router.js
 
 
@@ -1752,12 +1753,13 @@ const updateroute = async (request, config, hinfo) => {
     } catch (lo) { throw lo }
 }
 ;// CONCATENATED MODULE: ./worker/src/talk/htalk/genres.js
-async function genres(config,msg,code,status,content){
-    m = msg ? "HPPTALK组件:"+msg : "HPPTALK组件:未知的错误"
-    c = code ? code : "-1"
-    s = status ? status : 500
-    co = content ? content : ''
-    r = {
+
+async function genres(config, msg, status, code, content) {
+    const m = msg ? `${language_lang.HTALK}:${msg}` : `${language_lang.HTALK}:${language_lang.UNKNOW_ERROR}`
+    const c = code ? code : "-1"
+    const s = status ? status : 500
+    const co = content ? content : ''
+    const r = {
         msg: m,
         code: c,
         content: co
@@ -1772,16 +1774,18 @@ async function genres(config,msg,code,status,content){
 }
 ;// CONCATENATED MODULE: ./worker/src/talk/htalk/index.js
 
+
 async function htalk(config, request, loginstatus, hinfo) {
     try {
         const r = await request.json()
         let limit, start, htalk, p, hres, add, talk_init
-        login = loginstatus || false
+
+        const login = loginstatus || false
         if (login) {
             switch (r.action) {
                 case 'initialization':
                     await HKV.put("htalk", "{}")
-                    return genres(config, "初始化成功", 200, 0, '')
+                    return genres(config, `${language_lang.HTALK}:${language_lang.HTALK_INIT_SUCCESS}`, 200, 0, '')
                 case 'get':
                     htalk = await HKV.get("htalk", { type: "json" });
                     limit = r.limit
@@ -1797,7 +1801,8 @@ async function htalk(config, request, loginstatus, hinfo) {
                             p--
                         }
                     }
-                    return genres(config, `在${(function () { if (login) { return '已登录' } else { return '未登录' } })()}的状态下,已成功获得说说数据`, 200, 0, JSON.stringify(hres))
+                    return genres(config, language_lang.HTALK_GET_SUCCESS.replace("${1}", language_lang.LOGIN_TRUE), 200, 0, JSON.stringify(hres))
+
                 case 'add':
                     htalk = await HKV.get("htalk", { type: "json" })
                     add = {
@@ -1812,17 +1817,17 @@ async function htalk(config, request, loginstatus, hinfo) {
                     htalk.nid += 1
 
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, `已成功上传说说数据`, 200, 0, '')
+                    return genres(config, language_lang.HTALK_UPLOAD_SUCCESS, 200, 0, '')
                 case 'del':
                     htalk = await HKV.get("htalk", { type: "json" })
                     delete htalk.data[r.id]
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, `已成功删除id为${r.id}的数据`, 200, 0, '')
+                    return genres(config, language_lang.HTALK_DEL_SUCCESS.replace("${1}", r.id), 200, 0, '')
                 case 'visible':
                     htalk = await HKV.get("htalk", { type: "json" })
                     htalk.data[r.id].visible = htalk.data[r.id].visible ? false : true
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, `已改变id为${r.id}的数据的可见性`, 200, 0, '')
+                    return genres(config, language_lang.HTALK_VISIBLE_SUCCESS.replace("${1}", r.id), 200, 0, '')
 
 
                 case 'inputartitalk':
@@ -1842,9 +1847,9 @@ async function htalk(config, request, loginstatus, hinfo) {
                         htalk.data[htalk.nid] = talk_init
                     }
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, `已导入${r.ctx.length}条!`, 200, 0, '')
+                    return genres(config, language_lang.HTALK_INPUT_SUCCESS.replace("${1}", r.ctx.length), 200, 0, '')
                 default:
-                    return genres(config, `未知的操作`, 500, -1, '')
+                    return genres(config, language_lang.UNKNOW_ACTION, 500, -1, '')
             }
         } else {
             switch (r.action) {
@@ -1863,9 +1868,9 @@ async function htalk(config, request, loginstatus, hinfo) {
                             p--
                         }
                     }
-                    return genres(config, `在${(function () { if (login) { return '已登录' } else { return '未登录' } })()}的状态下,已成功获得说说数据`, 200, 0, JSON.stringify(hres))
+                    return genres(config, language_lang.HTALK_GET_SUCCESS.replace("${1}", LOGIN_FALSE), 200, 0, JSON.stringify(hres))
                 default:
-                    return genres(config, `未知的操作`, 500, -1, '')
+                    return genres(config, language_lang.UNKNOW_ACTION, 500, -1, '')
             }
         }
     }
@@ -1873,25 +1878,15 @@ async function htalk(config, request, loginstatus, hinfo) {
 }
 ;// CONCATENATED MODULE: ./worker/src/getblogeractive.js
 async function genactiveres(config) {
-    var k = (Date.parse(new Date()) - (await HKV.get("hpp_activetime"))) / 1000
-    if (k < 30) {
-        return genactres(config, '博主刚刚还在这里')
-    }
-    else if (k < 60) {
-        return genactres(config, `博主在${Math.round(k)}秒前离开`)
-    }
-    else if (k < 3600) {
-        return genactres(config, `博主在${Math.round(k / 60)}分钟前偷偷瞄了一眼博客`)
-    }
-    else {
-        return genactres(config, `博主在${Math.round(k / 3600)}小时前活跃了一次`)
-    }
+    const t = await HKV.get("hpp_activetime") || -1
+    var k = (Date.parse(new Date()) - (t)) / 1000
+    return genactres(config, k)
 }
 
 function genactres(config, t) {
-    return new Response(`document.getElementById("bloggeractivetime").innerHTML='${t}'`, {
+    return new Response(JSON.stringify({ time: t }), {
         headers: {
-            "content-type": "application/javascript; charset=utf-8",
+            "content-type": "application/json; charset=utf-8",
             "Access-Control-Allow-Origin": config.hpp_cors
         }
     })
@@ -2519,7 +2514,7 @@ async function hexoplusplus(request) {
 
         /*HTALK*/
         if (rp(path) == '/hpp/admin/api/talk/htalk') {
-          return htalk(config, request, loginstatus, hinfo)
+          return htalk(config, request, hpp_logstatus, hinfo)
         }
 
 

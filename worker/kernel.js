@@ -97,7 +97,7 @@ export async function hexoplusplus(request) {
 
         /*HTALK*/
         if (rp(path) == '/hpp/admin/api/talk/htalk') {
-          return htalk(config, request, loginstatus, hinfo)
+          return htalk(config, request, hpp_logstatus, hinfo)
         }
 
 

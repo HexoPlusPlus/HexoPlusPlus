@@ -16,7 +16,18 @@
     "GH_GET_SUCCESS": "获取文件成功！",
     "GH_LIST_SUCCESS": "列表成功！",
     "GH_TREELIST_SUCCESS": "树状列表成功！",
+    "NEED_UPDATE": "需要更新！",
+    "NEED_NOT_UPDATE": "不需要更新！",
 
-    "NEED_UPDATE":"需要更新！",
-    "NEED_NOT_UPDATE":"不需要更新！"
+    "LOGIN_TRUE": "已登录",
+    "LOGIN_FALSE": "未登录",
+    "HTALK": "HTALK组件信息",
+    "HTALK_INIT_SUCCESS": "初始化成功！",
+    "HTALK_GET_SUCCESS": "在${1}的状态下,已成功获得说说数据",
+    "HTALK_UPLOAD_SUCCESS": "已成功上传说说数据",
+    "HTALK_DEL_SUCCESS": "已成功删除id为${1}的数据",
+    "HTALK_VISIBLE_SUCCESS": "已改变id为${1}的数据的可见性",
+    "HTALK_INPUT_SUCCESS": "已导入${1}条!",
+    "UPDATE_SUCCESS": "更新是成功的！",
+    "UPDATE_ERROR": "更新是失败的！"
 }
