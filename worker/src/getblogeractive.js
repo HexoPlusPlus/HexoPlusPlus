@@ -1,23 +1,13 @@
 export async function genactiveres(config) {
-    var k = (Date.parse(new Date()) - (await HKV.get("hpp_activetime"))) / 1000
-    if (k < 30) {
-        return genactres(config, '博主刚刚还在这里')
-    }
-    else if (k < 60) {
-        return genactres(config, `博主在${Math.round(k)}秒前离开`)
-    }
-    else if (k < 3600) {
-        return genactres(config, `博主在${Math.round(k / 60)}分钟前偷偷瞄了一眼博客`)
-    }
-    else {
-        return genactres(config, `博主在${Math.round(k / 3600)}小时前活跃了一次`)
-    }
+    const t = await HKV.get("hpp_activetime") || -1
+    var k = (Date.parse(new Date()) - (t)) / 1000
+    return genactres(config, k)
 }
 
 function genactres(config, t) {
-    return new Response(`document.getElementById("bloggeractivetime").innerHTML='${t}'`, {
+    return new Response(JSON.stringify({ time: t }), {
         headers: {
-            "content-type": "application/javascript; charset=utf-8",
+            "content-type": "application/json; charset=utf-8",
             "Access-Control-Allow-Origin": config.hpp_cors
         }
     })

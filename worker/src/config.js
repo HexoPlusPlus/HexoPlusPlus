@@ -1,8 +1,8 @@
 export const formatconfig = async () => {
     const config = await HKV.get("hconfig", { type: "json" })
     if (config === null) { return defaultconfig }
-    config.hexo.docpath = config.hexo.gh_root + "source/_posts/"
-    config.hexo.draftpath = config.hexo.gh_root + "source/_drafts/"
+    config.hexo.gh_docpath = config.hexo.gh_root + "source/_posts/"
+    config.hexo.gh_draftpath = config.hexo.gh_root + "source/_drafts/"
     return config
 }
 

@@ -1,21 +1,21 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 244:
+/***/ 302:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
 
 ;// CONCATENATED MODULE: ./worker/src/i18n/zh_CN.json
-const zh_CN_namespaceObject = JSON.parse('{"LANG":"中文 - 简体","EMPTY_HCONFIG":"配置文件是空的，请安装","START_INSTALL":"开始安装","CHECK_LOGIN_SUCCESS":"已登录！","CHECK_LOGIN_ERROR":"Ooops！尚未登陆！","ATTENDANCE_SUCCESS":"签到成功！","COMING_SOON":"即将到来！","UNKNOW_ACTION":"未知的操作","UNKNOW_ERROR":"未知的错误","DASHBOARD":"仪表盘","GH_UPLOAD_SUCCESS":"上传文件到Github成功！","GH_UPLOAD_ERROR":"上传文件到Github失败！","GH_DELETE_SUCCESS":"从Github删除文件成功！","GH_DELETE_ERROR":"从Github删除文件失败！","GH_GET_SUCCESS":"获取文件成功！","GH_LIST_SUCCESS":"列表成功！","GH_TREELIST_SUCCESS":"树状列表成功！","NEED_UPDATE":"需要更新！","NEED_NOT_UPDATE":"不需要更新！"}');
-;// CONCATENATED MODULE: ./worker/src/i18n/zh_TW.json
-const zh_TW_namespaceObject = JSON.parse('{"LANG":"中文 - 繁體","EMPTY_HCONFIG":"蓜置妏件湜涳哋，請鮟裝","START_INSTALL":"開始鮟裝","CHECK_LOGIN_SUCCESS":"巳憕錄！","CHECK_LOGIN_ERROR":"Ooops！尙沬憕陸！","ATTENDANCE_SUCCESS":"簽菿荿糼！","COMING_SOON":"旣將菿來！","UNKNOW_ACTION":"沬倁哋懆莋","UNKNOW_ERROR":"沬倁哋錯誤","DASHBOARD":"儀錶盤","GH_UPLOAD_SUCCESS":"仩傳妏件菿Github荿糼！","GH_UPLOAD_ERROR":"仩傳妏件菿Github妷敗！","GH_DELETE_SUCCESS":"從Github剼篨妏件荿糼！","GH_DELETE_ERROR":"從Github剼篨妏件妷敗！","GH_GET_SUCCESS":"獲掫妏件荿糼！","GH_LIST_SUCCESS":"烮錶荿糼！","GH_TREELIST_SUCCESS":"樹狀烮錶荿糼！","NEED_UPDATE":"濡婹浭噺！","NEED_NOT_UPDATE":"芣濡婹浭噺！"}');
+const zh_CN_namespaceObject = JSON.parse('{"LANG":"中文 - 简体","EMPTY_HCONFIG":"配置文件是空的，请安装","START_INSTALL":"开始安装","CHECK_LOGIN_SUCCESS":"已登录！","CHECK_LOGIN_ERROR":"Ooops！尚未登陆！","ATTENDANCE_SUCCESS":"签到成功！","COMING_SOON":"即将到来！","UNKNOW_ACTION":"未知的操作","UNKNOW_ERROR":"未知的错误","DASHBOARD":"仪表盘","GH_UPLOAD_SUCCESS":"上传文件到Github成功！","GH_UPLOAD_ERROR":"上传文件到Github失败！","GH_DELETE_SUCCESS":"从Github删除文件成功！","GH_DELETE_ERROR":"从Github删除文件失败！","GH_GET_SUCCESS":"获取文件成功！","GH_LIST_SUCCESS":"列表成功！","GH_TREELIST_SUCCESS":"树状列表成功！","NEED_UPDATE":"需要更新！","NEED_NOT_UPDATE":"不需要更新！","LOGIN_TRUE":"已登录","LOGIN_FALSE":"未登录","HTALK":"HTALK组件信息","HTALK_INIT_SUCCESS":"初始化成功！","HTALK_GET_SUCCESS":"在${1}的状态下,已成功获得说说数据","HTALK_UPLOAD_SUCCESS":"已成功上传说说数据","HTALK_DEL_SUCCESS":"已成功删除id为${1}的数据","HTALK_VISIBLE_SUCCESS":"已改变id为${1}的数据的可见性","HTALK_INPUT_SUCCESS":"已导入${1}条!","UPDATE_SUCCESS":"更新是成功的！","UPDATE_ERROR":"更新是失败的！","LOGIN":"登陆","LOGIN_DASH":"Hexo后台管理系统","WELCOME":"欢迎！","USERNAME":"用户名","PASSWORD":"密码","DASH_404":"我们不知道您的需求","DASH_BACK_TO_HOME":"回到主页","HPP":"HexoPlusPlus后台","HOME":"主页","MANAGE_IMG":"图片管理","MANAGE_SITE":"站点管理","MANAGE_DOC":"文章管理","EDIT":"书写","TALK":"说说","TOOL":"工具","SETTING":"设置","ATTENDANCE":"签到","EXIT":"退出登陆"}');
+;// CONCATENATED MODULE: ./worker/src/i18n/en_US.json
+const en_US_namespaceObject = JSON.parse('{"LANG":"English - United States of America","EMPTY_HCONFIG":"The configuration file is empty, please install!","START_INSTALL":"Installation has started","CHECK_LOGIN_SUCCESS":"Already logged in!","CHECK_LOGIN_ERROR":"Ooops! You are not logged in yet!","ATTENDANCE_SUCCESS":"check-in successfully!","COMING_SOON":"Coming soon!","UNKNOW_ACTION":"Unknown action","UNKNOW_ERROR":"Unknown error","DASHBOARD":"Dashboard","GH_UPLOAD_SUCCESS":"Upload file to GitHub successfully!","GH_UPLOAD_ERROR":"Error to upload file to GitHub!","GH_DELETE_SUCCESS":"File deleted from GitHub successfully!","GH_DELETE_ERROR":"Error to delete file from GitHub!","GH_GET_SUCCESS":"The file was successfully obtained!","GH_LIST_SUCCESS":"List successfully!","GH_TREELIST_SUCCESS":"Trees list successfully!","NEED_UPDATE":"Need to be updated!!!","NEED_NOT_UPDATE":"No need to be updated"}');
 ;// CONCATENATED MODULE: ./worker/src/i18n/language.js
 
 
 const all_lan = {
     zh_CN: zh_CN_namespaceObject,
-    zh_TW: zh_TW_namespaceObject
+    en_US: en_US_namespaceObject
 }
 const langtype = (() => {
     try {
@@ -30,7 +30,20 @@ const langtype = (() => {
 })()
 
 const language_lang = all_lan[langtype]
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/login.html
+/* harmony default export */ const login = ("<!DOCTYPE html>\r\n<html lang=\"zh-cmn-Hans\">\r\n\r\n<head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\"\r\n        content=\"width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no\" />\r\n    <title>\r\n        <!--lang.LOGIN_DASH-->\r\n    </title>\r\n    <!--LOGIN_STYLE-->\r\n    <link rel=\"stylesheet\" href=\"<!--hinfo.CDN-->login/login.css\" />\r\n</head>\r\n\r\n<body>\r\n    <div id=\"all\">\r\n        <div class=\"wrapper\">\r\n            <div class=\"bg-container\">\r\n                <div class=\"container\">\r\n                    <h1 style=\"margin: 0;\" id=\"bar\">\r\n                        <!--lang.WELCOME-->\r\n                    </h1>\r\n                    <form class=\"form\" id=\"fm\">\r\n                        <input id=\"username\" type=\"text\" placeholder=\"<!--lang.USERNAME-->\" value=\"\" name=\"username\" />\r\n                        <input id=\"password\" type=\"password\" placeholder=\"<!--lang.PASSWORD-->\" value=\"\"\r\n                            name=\"password\" />\r\n                        <button type=\"button\" id=\"login-button\">\r\n                            <!--lang.LOGIN-->\r\n                        </button>\r\n                        <br />\r\n                        <br />\r\n                        <a href=\"https://github.com/HexoPlusPlus/HexoPlusPlus\" id=\"tips\" style=\"color: #fff;\">💗\r\n                            <!--hinfo.ver-->\r\n                        </a>\r\n                    </form>\r\n                </div>\r\n            </div>\r\n            <ul class=\"bg-bubbles\">\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n    <script src=\"<!--hinfo.CDN-->login/login.js\"></script>\r\n</body>\r\n\r\n</html>");
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/404.html
+/* harmony default export */ const _404 = ("<div class=\"content\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"card\">\r\n                    <div class=\"card-header card-header-primary\">\r\n                        <h4 class=\"card-title\">404</h4>\r\n                        <p class=\"card-category\"><!--lang.DASH_404--></p>\r\n                    </div></br>\r\n                    <div class=\"card-body\"><a href=\"/hpp/admin/dash/home\"><!--lang.DASH_BACK_TO_HOME--></a></div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>");
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/head.html
+/* harmony default export */ const head = ("<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"utf-8\" />\r\n    <link rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"<!--config.dash.icon-->\">\r\n    <link rel=\"icon\" type=\"image/png\" href=\"<!--config.dash.icon-->\">\r\n    <title>\r\n        <!--config.dash.title-->\r\n    </title>\r\n    <meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\" name=\"viewport\" />\r\n    <!--DASH_STYLE-->\r\n    <link rel=\"stylesheet\"\r\n        href=\"https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css\">\r\n    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css\">\r\n\r\n    <!--JS_CONFIG-->\r\n</head>\r\n\r\n<body class=\"<!--BODY_CLASS-->\">\r\n    <div class=\"wrapper \">\r\n        <div class=\"sidebar\" data-color=\"<!--config.dash.color-->\" data-background-color=\"<!--DASH_BACKGROUND_COLOR-->\"\r\n            data-image=\"<!--config.dash.back-->\">\r\n            <div class=\"logo\"><a class=\"simple-text logo-normal\">\r\n                    <!--config.dash.title-->\r\n                </a></div>\r\n            <div class=\"sidebar-wrapper\">\r\n                <ul class=\"nav\">\r\n\r\n\r\n                    <li class=\"nav-item<!--ainfo.hpp_home_act-->\">\r\n                        <a class=\"nav-link\" href=\"/hpp/admin/dash/home\">\r\n                            <i class=\"material-icons\">dashboard</i>\r\n                            <p>\r\n                                <!--lang.HOME-->\r\n                            </p>\r\n                        </a>\r\n                    </li>\r\n\r\n                    <!--config.hexo.switch-->\r\n\r\n\r\n\r\n\r\n                    <!--config.talk.switch.htalk-->\r\n\r\n\r\n\r\n\r\n                    <!--config.img.switch-->\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n                    <li class=\"nav-item<!--ainfo.hpp_tool_act-->\">\r\n                        <a class=\"nav-link\" href=\"/hpp/admin/dash/tool\">\r\n                            <i class=\"material-icons\">widgets</i>\r\n                            <p>\r\n                                <!--lang.TOOL-->\r\n                            </p>\r\n                        </a>\r\n                    </li>\r\n                    <li class=\"nav-item<!--ainfo.hpp_set_act-->\">\r\n                        <a class=\"nav-link\" href=\"/hpp/admin/install?step=end\">\r\n                            <i class=\"material-icons\">settings</i>\r\n                            <p>\r\n                                <!--lang.SETTING-->\r\n                            </p>\r\n                        </a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n        <div class=\"main-panel\">\r\n            <nav class=\"navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top \">\r\n                <div class=\"container-fluid\">\r\n                    <div class=\"navbar-wrapper\">\r\n                        <a class=\"navbar-brand\" href=\"javascript:;\">\r\n                            <!--lang.HPP-->\r\n                        </a>\r\n                    </div>\r\n                    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" aria-controls=\"navigation-index\"\r\n                        aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n                        <span class=\"sr-only\">Toggle navigation</span>\r\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\r\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\r\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\r\n                    </button>\r\n                    <div class=\"collapse navbar-collapse justify-content-end\">\r\n                        <ul class=\"navbar-nav\">\r\n                            <li class=\"nav-item dropdown\">\r\n                                <a class=\"nav-link\" href=\"javascript:;\" id=\"navbarDropdownProfile\"\r\n                                    data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                                    <img src=\"<!--config.dash.image-->\"\r\n                                        style=\"width: 30px;border-radius: 50%;border: 0;\">\r\n                                    <p class=\"d-lg-none d-md-block\">\r\n                                        Account\r\n                                    </p>\r\n                                </a>\r\n                                <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownProfile\">\r\n                                    <a class=\"dropdown-item\" id=\"kick\">\r\n                                        <!--lang.ATTENDANCE-->\r\n                                    </a>\r\n                                    <div class=\"dropdown-divider\"></div>\r\n                                    <a class=\"dropdown-item\" id=\"logout\">\r\n                                        <!--lang.EXIT-->\r\n                                    </a>\r\n                                </div>\r\n                            </li>\r\n                        </ul>\r\n                    </div>\r\n                </div>\r\n            </nav>\r\n            <!-- End Navbar -->\r\n\r\n            <!--innerHTMLSTART-->");
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/hexo.html
+/* harmony default export */ const hexo = ("<li class=\"nav-item<!--ainfo.hpp_edit_act-->\">\r\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/edit\">\r\n        <i class=\"material-icons\">create</i>\r\n        <p><!--lang.EDIT--></p>\r\n    </a>\r\n</li>\r\n\r\n<li class=\"nav-item<!--ainfo.hpp_site_act-->\">\r\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/site\">\r\n        <i class=\"mdui-icon material-icons\">wifi_tethering</i>\r\n        <p><!--lang.MANAGE_SITE--></p>\r\n    </a>\r\n</li>\r\n\r\n<li class=\"nav-item<!--ainfo.hpp_docs_man_act-->\">\r\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/docs_man\">\r\n        <i class=\"material-icons\">descriptionoutlined</i>\r\n        <p><!--lang.MANAGE_DOC--></p>\r\n    </a>\r\n</li>");
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/talk.html
+/* harmony default export */ const talk = ("<li class=\"nav-item<!--ainfo.hpp_talk_act-->\">\r\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/talk\">\r\n        <i class=\"material-icons\">chat</i>\r\n        <p><!--lang.TALK--></p>\r\n    </a>\r\n</li>");
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/img.html
+/* harmony default export */ const img = ("<li class=\"nav-item<!--ainfo.hpp_img_man_act-->\">\r\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/img_man\">\r\n        <i class=\"material-icons\">imagerounded</i>\r\n        <p><!--lang.MANAGE_IMG--></p>\r\n    </a>\r\n</li>");
 ;// CONCATENATED MODULE: ./worker/src/scaffold.js
+
 const getCookie = (request, name) => {
     let result = ""
     const cookieString = request.headers.get("Cookie")
@@ -74,8 +87,8 @@ const getsuffix = (path) => {
 }
 
 const genjsonres = (msg, code, status, content) => {
-    let m = msg ? msg : "未知的错误"
-    let c = (code || code == 0) ? code : "-1"
+    let m = msg ? msg : language_lang.UNKNOW_ERROR
+    let c = (code || code == 0) ? code : -1
     let s = status ? status : 500
     let co = content ? content : ''
     let r = {
@@ -93,8 +106,69 @@ const genjsonres = (msg, code, status, content) => {
 
 ;// CONCATENATED MODULE: ./worker/src/gethtml.js
 
-const gethtml = {
 
+
+
+
+
+
+
+const gethtml = {
+  dash_head: (config, hinfo, ainfo) => {
+    return head.replace(/<!--config.dash.title-->/g, config.dash.title)
+
+
+
+
+      .replace(/<!--DASH_STYLE-->/g, (() => {
+        return `<link href="${hinfo.CDN}dash/theme/${(() => { if (config.dash.dark) { return 'dark' } else { return 'light' } })()}.css" rel="stylesheet" />`
+      })())
+      .replace(/JSON.stringify(config)/g, JSON.stringify(config))
+      .replace(/<!--BODY_CLASS-->/, (() => { if (config.dash.dark) { return 'dark-edition' } else { return '' } })())
+      .replace(/<!--config.dash.color-->/g, config.dash.color)
+      .replace(/<!--DASH_BACKGROUND_COLOR-->/g, (() => { if (config.dash.dark) { return 'default' } else { return config.dash.bgcolor } })())
+      .replace(/<!--config.dash.back-->/g, config.dash.back)
+      .replace(/<!--config.dash.image-->/g, config.dash.image)
+      .replace(/<!--config.dash.icon-->/g, config.dash.icon)
+      .replace(/<!--ainfo.hpp_home_act-->/g, ainfo.hpp_home_act)
+      .replace(/<!--ainfo.hpp_tool_act-->/g, ainfo.hpp_tool_act)
+      .replace(/<!--ainfo.hpp_set_act-->/g, ainfo.hpp_set_act)
+      .replace(/<!--config.hexo.switch-->/g, (() => {
+        if (config.hexo.switch) {
+          return hexo.replace(/<!--ainfo.hpp_edit_act-->/g, ainfo.hpp_edit_act)
+            .replace(/<!--ainfo.hpp_site_act-->/g, ainfo.hpp_site_act)
+            .replace(/<!--ainfo.hpp_docs_man_act-->/g, ainfo.hpp_docs_man_act)
+        } else {
+          return ""
+        }
+      })())
+      .replace(/<!--config.talk.switch.htalk-->/g, (() => {
+        if (config.talk.switch.htalk) {
+          return talk.replace(/<!--ainfo.hpp_talk_act-->/g, ainfo.hpp_talk_act)
+        }
+        else { return '' }
+      })())
+      .replace(/<!--config.img.switch-->/g, (() => {
+        if (config.img.switch && config.img.type == "gh") {
+          return img.replace(/<!--ainfo.hpp_img_man_act-->/g, ainfo.hpp_img_man_act)
+        }
+        else { return '' }
+      })())
+      .replace(/<!--JS_CONFIG-->/, `<script>window.config = ${JSON.stringify(config)}</script>`)
+
+
+      .replace(/<!--lang.HOME-->/g, language_lang.HOME)
+      .replace(/<!--lang.MANAGE_IMG-->/g, language_lang.MANAGE_IMG)
+      .replace(/<!--lang.EDIT-->/g, language_lang.EDIT)
+      .replace(/<!--lang.MANAGE_SITE-->/g, language_lang.MANAGE_SITE)
+      .replace(/<!--lang.MANAGE_DOC-->/g, language_lang.MANAGE_DOC)
+      .replace(/<!--lang.TALK-->/g, language_lang.TALK)
+      .replace(/<!--lang.TOOL-->/g, language_lang.TOOL)
+      .replace(/<!--lang.SETTING-->/g, language_lang.SETTING)
+      .replace(/<!--lang.HPP-->/, language_lang.HPP)
+      .replace(/<!--lang.ATTENDANCE-->/g, language_lang.ATTENDANCE)
+      .replace(/<!--lang.EXIT-->/g, language_lang.EXIT)
+  },
   loginhtml: (config, hinfo) => {
     const gc = { "#58C9B9": "#9DC8C8", "#77AF9C": "#D7FFF1", "#0396FF": "#ABDCFF" }
     const hc = (() => {
@@ -104,60 +178,30 @@ const gethtml = {
       }
       return y
     })()
-    const c = hc[Math.floor(Math.random() * hc.length)];
-    return `
-    <!DOCTYPE html>
-    <html lang="zh-cmn-Hans">
-     <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
-      <title>后台</title>
-      <style>
-      
-.wrapper{
-      background: linear-gradient(to bottom right,${c} 0,${gc[c]} 100%)!important;
-}
-button{
-  color:${c}!important
-}
-      </style>
-      <link rel="stylesheet" href="${hinfo.CDN}login/login.css" /> 
-     </head>
-     <body>
-      <div id="all">
-       <div class="wrapper">
-        <div class="bg-container">
-         <div class="container">
-          <h1 style="margin: 0;" id="bar">Welcome</h1>
-          <form class="form" id="fm">
-           <input id="username" type="text" placeholder="用户名" value="" name="username" />
-           <input id="password" type="password" placeholder="密码" value="" name="password" />
-           <button type="button" id="login-button">登录</button>
-           <br />
-           <br />
-           <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" id="tips" style="color: #fff;">💗${hinfo.ver}</a>
-          </form>
-         </div>
-        </div>
-        <ul class="bg-bubbles">
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-         <li></li>
-        </ul>
-       </div>
-      </div>
-      <script src="${hinfo.CDN}login/login.js"></script>
-      </body>
-    </html>
-    `},
-  dash404: `<div class="content"><div class="container-fluid"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header card-header-primary"><h4 class="card-title">404</h4><p class="card-category">我们不知道您的需求</p></div></br><div class="card-body"><a href="/hpp/admin/dash/home">回到主页</a></div></div></div></div></div></div>`,
+    const color = hc[Math.floor(Math.random() * hc.length)];
+    const lcolor = gc[color];
+    return login.replace(/<!--lang.LOGIN_DASH-->/g, language_lang.LOGIN_DASH)
+      .replace(/<!--hinfo.CDN-->/g, hinfo.CDN)
+      .replace(/<!--lang.WELCOME-->/g, language_lang.WELCOME)
+      .replace(/<!--lang.USERNAME-->/g, language_lang.USERNAME)
+      .replace(/<!--lang.PASSWORD-->/g, language_lang.PASSWORD)
+      .replace(/<!--lang.LOGIN-->/g, language_lang.LOGIN)
+      .replace(/<!--hinfo.ver-->/g, hinfo.ver)
+      .replace(/<!--LOGIN_STYLE-->/g, (() => {
+        return `<style>
+      .wrapper{
+        background: linear-gradient(to bottom right,${color} 0,${lcolor} 100%)!important;
+      }
+      button{
+      color:${color} !important
+      }
+        </style>`
+      })())
+  },
+  dash404: (() => {
+    return _404.replace(/<!--lang.DASH_404-->/g, language_lang.DASH_404)
+      .replace(/<!--lang.DASH_BACK_TO_HOME-->/g, language_lang.DASH_BACK_TO_HOME)
+  })(),
   dashhome: (config, hinfo) => {
     return `<div class="content">
 <div class="container-fluid">
@@ -503,7 +547,7 @@ ${(() => {
 
   },
   dashhomejs: (config, hinfo) => {
-    return `<script src='${hinfo.CDN}home.js'></script>`
+    return `<script src='${hinfo.CDN}/dash/home.js'></script>`
   },
   dashdocsjs: (hinfo) => {
     return `<script src='${hinfo.CDN}doc_man.js'></script>`
@@ -557,157 +601,7 @@ ${(() => {
   },
 
 
-  dash_head: (config, hinfo, ainfo) => {
-    return `<!DOCTYPE html>            <html lang="en">
-            
-            <head>
-              <meta charset="utf-8" />
-              <link rel="apple-touch-icon" sizes="76x76" href="${config.dash.icon}">
-              <link rel="icon" type="image/png" href="${config.dash.icon}">
-              <title>${config.dash.title}</title>
-              <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-              <link href="${hinfo.CDN}dash/theme/${(() => { if (config.dash.dark) { return 'dark' } else { return 'light' } })()}.css" rel="stylesheet" />
-              
-              <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css">
-              <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-              <script>
-              //这个脚本的用途是前端变量传递
-              const config = ${JSON.stringify(config)}
-              </script>
-            </head>
-            <body class="${(() => { if (config.dash.dark) { return 'dark-edition' } else { return '' } })()}">
-              <div class="wrapper ">
-                <div class="sidebar" data-color="${config.dash.color}" data-background-color="${(() => { if (config.dash.dark) { return 'default' } else { return config.dash.bgcolor } })()}" data-image="${config.dash.back}">
-                  <div class="logo"><a class="simple-text logo-normal">${config.dash.title}</a></div>
-                  <div class="sidebar-wrapper">
-                    <ul class="nav">
-                    
-                  
-                      <li class="nav-item${ainfo.hpp_home_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/home">
-                          <i class="material-icons">dashboard</i>
-                          <p>主页</p>
-                        </a>
-                      </li>
 
-                      ${(() => {
-        if (config.hexo.switch) {
-          return `
-                        <li class="nav-item${ainfo.hpp_edit_act}">
-                          <a class="nav-link" href="/hpp/admin/dash/edit">
-                            <i class="material-icons">create</i>
-                            <p>书写</p>
-                          </a>
-                        </li>
-                        
-                        <li class="nav-item${ainfo.hpp_site_act}">
-                          <a class="nav-link" href="/hpp/admin/dash/site">
-                          <i class="mdui-icon material-icons">wifi_tethering</i>
-                            <p>站点</p>
-                          </a>
-                        </li>
-
-                        <li class="nav-item${ainfo.hpp_docs_man_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/docs_man">
-                          <i class="material-icons">descriptionoutlined</i>
-                          <p>文档管理</p>
-                        </a>
-                      </li>
-                        
-                        `} else { return '' }
-      })()}
-
-
-                      
-
-
-                      ${(() => {
-        if (config.talk.switch.htalk) {
-          return `
-                        <li class="nav-item${ainfo.hpp_talk_act}">
-                          <a class="nav-link" href="/hpp/admin/dash/talk">
-                            <i class="material-icons">chat</i>
-                            <p>说说</p>
-                          </a>
-                        </li>
-                        
-                        `} else { return '' }
-      })()}
-
-
-                      
-
-
-      ${(() => {
-        if (config.img.switch && config.img.type == "gh") {
-          return `
-                        
-                      <li class="nav-item${ainfo.hpp_img_man_act}">
-                      <a class="nav-link" href="/hpp/admin/dash/img_man">
-                        <i class="material-icons">imagerounded</i>
-                        <p>图片管理</p>
-                      </a>
-                    </li>
-                        
-                        `} else { return '' }
-      })()}
-
-
-
-                      
-
-
-
-                      <li class="nav-item${ainfo.hpp_tool_act}">
-                        <a class="nav-link" href="/hpp/admin/dash/tool">
-                          <i class="material-icons">widgets</i>
-                          <p>工具</p>
-                        </a>
-                      </li>
-                      <li class="nav-item${ainfo.hpp_set_act}">
-                        <a class="nav-link" href="/hpp/admin/install?step=end">
-                          <i class="material-icons">settings</i>
-                          <p>设置</p>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="main-panel">
-                  <!-- Navbar -->
-                  <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-                    <div class="container-fluid">
-                      <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="javascript:;">HexoPlusPlus后台</a>
-                      </div>
-                      <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="navbar-toggler-icon icon-bar"></span>
-                        <span class="navbar-toggler-icon icon-bar"></span>
-                        <span class="navbar-toggler-icon icon-bar"></span>
-                      </button>
-                      <div class="collapse navbar-collapse justify-content-end">
-                        <ul class="navbar-nav">
-                          <li class="nav-item dropdown">
-                            <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <img src="${config.hpp_userimage}" style="width: 30px;border-radius: 50%;border: 0;">
-                              <p class="d-lg-none d-md-block">
-                                Account
-                              </p>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                              <a class="dropdown-item" id="kick">签到</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" id="logout">退出</a>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </nav>
-                  <!-- End Navbar --> 
-            
-            <!--innerHTMLSTART-->`},
   dash_foot: (hinfo, hpp_js) => {
     return `
               <!--innerHTMLEND-->
@@ -726,8 +620,8 @@ ${(() => {
 const formatconfig = async () => {
     const config = await HKV.get("hconfig", { type: "json" })
     if (config === null) { return defaultconfig }
-    config.hexo.docpath = config.hexo.gh_root + "source/_posts/"
-    config.hexo.draftpath = config.hexo.gh_root + "source/_drafts/"
+    config.hexo.gh_docpath = config.hexo.gh_root + "source/_posts/"
+    config.hexo.gh_draftpath = config.hexo.gh_root + "source/_drafts/"
     return config
 }
 
@@ -984,62 +878,62 @@ async function ghstar(config) {
 ;// CONCATENATED MODULE: ./worker/src/update.js
 
 const hppupdate = async (config, newest) => {
-    let ver = 'dist'
-    if (!newest) {
-        ver = await ghlatver({
-            username: "HexoPlusPlus",
-            reponame: "HexoPlusPlus",
-            token: config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
-        })
-    }
-    const url = `https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/${ver}/index.worker.js`
+  let ver = 'dist'
+  if (!newest) {
+    ver = await ghlatver({
+      username: "HexoPlusPlus",
+      reponame: "HexoPlusPlus",
+      token: config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
+    })
+  }
+  const url = `https://raw.githubusercontent.com/HexoPlusPlus/HexoPlusPlus/${ver}/index.worker.js`
 
 
-    const script = await (await fetch(url)).text()
-    const up_init = {
-        body: script,
-        method: "PUT",
-        headers: {
-            "content-type": "application/javascript",
-            "X-Auth-Key": config.hpp_CF_Auth_Key,
-            "X-Auth-Email": config.hpp_Auth_Email
-        }
+  const script = await (await fetch(url)).text()
+  const up_init = {
+    body: script,
+    method: "PUT",
+    headers: {
+      "content-type": "application/javascript",
+      "X-Auth-Key": config.hpp_CF_Auth_Key,
+      "X-Auth-Email": config.hpp_Auth_Email
     }
-    const update_resul = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${config.hpp_account_identifier}/workers/scripts/${config.hpp_script_name}`, up_init)).json()
-    if (update_resul["success"]) {
-        return genjsonres('更新是成功的!', 0, 200)
-    } else {
-        return genjsonres('更新是失败的!', -1, 500)
-    }
+  }
+  const update_resul = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${config.hpp_account_identifier}/workers/scripts/${config.hpp_script_name}`, up_init)).json()
+  if (update_resul["success"]) {
+    return genjsonres(lang.UPDATE_SUCCESS, 0, 200)
+  } else {
+    return genjsonres(lang.UPDATE_ERROR, -1, 500)
+  }
 
 
 }
 async function getlatinfo(config) {
-    const token = config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
-    const url = `https://api.github.com/repos/HexoPlusPlus/HexoPlusPlus/releases/latest`
-    let init = {
-      method: 'GET',
-      headers: {
-        "content-type": "application/json;charset=UTF-8",
-        "user-agent": 'HexoPlusPlus Github Filer',
-        "Authorization": "token " + token
-      }
+  const token = config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
+  const url = `https://api.github.com/repos/HexoPlusPlus/HexoPlusPlus/releases/latest`
+  let init = {
+    method: 'GET',
+    headers: {
+      "content-type": "application/json;charset=UTF-8",
+      "user-agent": 'HexoPlusPlus Github Filer',
+      "Authorization": "token " + token
     }
-    if (token == '') {
-      delete init.headers.Authorization
-    }
-    return (await (await fetch(url, init)).json())
   }
-  
-  
-  async function ghlatver(config) {
-    return (await getlatinfo(config))["tag_name"]
+  if (token == '') {
+    delete init.headers.Authorization
   }
-  
-  async function ghlatinfo(config) {
-    return (await getlatinfo(config))["body"]
-  }
-  
+  return (await (await fetch(url, init)).json())
+}
+
+
+async function ghlatver(config) {
+  return (await getlatinfo(config))["tag_name"]
+}
+
+async function ghlatinfo(config) {
+  return (await getlatinfo(config))["body"]
+}
+
 ;// CONCATENATED MODULE: ./worker/src/router/router.js
 
 
@@ -1403,7 +1297,7 @@ const updateroute = async (request, config, hinfo) => {
                     return hppupdate(config, false)
                 }
             case 'check':
-                if (await ghlatver(config, false) == hinfo.ver) {
+                if (await ghlatver(config, false) != hinfo.ver) {
                     return genjsonres(language_lang.NEED_UPDATE, 0, 200)
                 } else {
                     return genjsonres(language_lang.NEED_NOT_UPDATE, 1, 200, await ghlatinfo(config))
@@ -1414,12 +1308,13 @@ const updateroute = async (request, config, hinfo) => {
     } catch (lo) { throw lo }
 }
 ;// CONCATENATED MODULE: ./worker/src/talk/htalk/genres.js
-async function genres(config,msg,code,status,content){
-    m = msg ? "HPPTALK组件:"+msg : "HPPTALK组件:未知的错误"
-    c = code ? code : "-1"
-    s = status ? status : 500
-    co = content ? content : ''
-    r = {
+
+async function genres(config, msg, status, code, content) {
+    const m = msg ? `${language_lang.HTALK}:${msg}` : `${language_lang.HTALK}:${language_lang.UNKNOW_ERROR}`
+    const c = code ? code : "-1"
+    const s = status ? status : 500
+    const co = content ? content : ''
+    const r = {
         msg: m,
         code: c,
         content: co
@@ -1434,16 +1329,18 @@ async function genres(config,msg,code,status,content){
 }
 ;// CONCATENATED MODULE: ./worker/src/talk/htalk/index.js
 
+
 async function htalk(config, request, loginstatus, hinfo) {
     try {
         const r = await request.json()
         let limit, start, htalk, p, hres, add, talk_init
-        login = loginstatus || false
+
+        const login = loginstatus || false
         if (login) {
             switch (r.action) {
                 case 'initialization':
                     await HKV.put("htalk", "{}")
-                    return genres(config, "初始化成功", 200, 0, '')
+                    return genres(config, `${language_lang.HTALK}:${language_lang.HTALK_INIT_SUCCESS}`, 200, 0, '')
                 case 'get':
                     htalk = await HKV.get("htalk", { type: "json" });
                     limit = r.limit
@@ -1459,7 +1356,8 @@ async function htalk(config, request, loginstatus, hinfo) {
                             p--
                         }
                     }
-                    return genres(config, `在${(function () { if (login) { return '已登录' } else { return '未登录' } })()}的状态下,已成功获得说说数据`, 200, 0, JSON.stringify(hres))
+                    return genres(config, language_lang.HTALK_GET_SUCCESS.replace("${1}", language_lang.LOGIN_TRUE), 200, 0, JSON.stringify(hres))
+
                 case 'add':
                     htalk = await HKV.get("htalk", { type: "json" })
                     add = {
@@ -1474,17 +1372,17 @@ async function htalk(config, request, loginstatus, hinfo) {
                     htalk.nid += 1
 
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, `已成功上传说说数据`, 200, 0, '')
+                    return genres(config, language_lang.HTALK_UPLOAD_SUCCESS, 200, 0, '')
                 case 'del':
                     htalk = await HKV.get("htalk", { type: "json" })
                     delete htalk.data[r.id]
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, `已成功删除id为${r.id}的数据`, 200, 0, '')
+                    return genres(config, language_lang.HTALK_DEL_SUCCESS.replace("${1}", r.id), 200, 0, '')
                 case 'visible':
                     htalk = await HKV.get("htalk", { type: "json" })
                     htalk.data[r.id].visible = htalk.data[r.id].visible ? false : true
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, `已改变id为${r.id}的数据的可见性`, 200, 0, '')
+                    return genres(config, language_lang.HTALK_VISIBLE_SUCCESS.replace("${1}", r.id), 200, 0, '')
 
 
                 case 'inputartitalk':
@@ -1504,9 +1402,9 @@ async function htalk(config, request, loginstatus, hinfo) {
                         htalk.data[htalk.nid] = talk_init
                     }
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, `已导入${r.ctx.length}条!`, 200, 0, '')
+                    return genres(config, language_lang.HTALK_INPUT_SUCCESS.replace("${1}", r.ctx.length), 200, 0, '')
                 default:
-                    return genres(config, `未知的操作`, 500, -1, '')
+                    return genres(config, language_lang.UNKNOW_ACTION, 500, -1, '')
             }
         } else {
             switch (r.action) {
@@ -1525,9 +1423,9 @@ async function htalk(config, request, loginstatus, hinfo) {
                             p--
                         }
                     }
-                    return genres(config, `在${(function () { if (login) { return '已登录' } else { return '未登录' } })()}的状态下,已成功获得说说数据`, 200, 0, JSON.stringify(hres))
+                    return genres(config, language_lang.HTALK_GET_SUCCESS.replace("${1}", LOGIN_FALSE), 200, 0, JSON.stringify(hres))
                 default:
-                    return genres(config, `未知的操作`, 500, -1, '')
+                    return genres(config, language_lang.UNKNOW_ACTION, 500, -1, '')
             }
         }
     }
@@ -1535,25 +1433,15 @@ async function htalk(config, request, loginstatus, hinfo) {
 }
 ;// CONCATENATED MODULE: ./worker/src/getblogeractive.js
 async function genactiveres(config) {
-    var k = (Date.parse(new Date()) - (await HKV.get("hpp_activetime"))) / 1000
-    if (k < 30) {
-        return genactres(config, '博主刚刚还在这里')
-    }
-    else if (k < 60) {
-        return genactres(config, `博主在${Math.round(k)}秒前离开`)
-    }
-    else if (k < 3600) {
-        return genactres(config, `博主在${Math.round(k / 60)}分钟前偷偷瞄了一眼博客`)
-    }
-    else {
-        return genactres(config, `博主在${Math.round(k / 3600)}小时前活跃了一次`)
-    }
+    const t = await HKV.get("hpp_activetime") || -1
+    var k = (Date.parse(new Date()) - (t)) / 1000
+    return genactres(config, k)
 }
 
 function genactres(config, t) {
-    return new Response(`document.getElementById("bloggeractivetime").innerHTML='${t}'`, {
+    return new Response(JSON.stringify({ time: t }), {
         headers: {
-            "content-type": "application/javascript; charset=utf-8",
+            "content-type": "application/json; charset=utf-8",
             "Access-Control-Allow-Origin": config.hpp_cors
         }
     })
@@ -2181,7 +2069,7 @@ async function hexoplusplus(request) {
 
         /*HTALK*/
         if (rp(path) == '/hpp/admin/api/talk/htalk') {
-          return htalk(config, request, loginstatus, hinfo)
+          return htalk(config, request, hpp_logstatus, hinfo)
         }
 
 
@@ -2662,7 +2550,7 @@ function isSlowBuffer (obj) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(244);
+/******/ 	var __webpack_exports__ = __webpack_require__(302);
 /******/ 	
 /******/ })()
 ;

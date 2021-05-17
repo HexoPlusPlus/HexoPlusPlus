@@ -1,3 +1,4 @@
+import { lang } from './i18n/language'
 export const getCookie = (request, name) => {
     let result = ""
     const cookieString = request.headers.get("Cookie")
@@ -41,8 +42,8 @@ export const getsuffix = (path) => {
 }
 
 export const genjsonres = (msg, code, status, content) => {
-    let m = msg ? msg : "未知的错误"
-    let c = (code || code == 0) ? code : "-1"
+    let m = msg ? msg : lang.UNKNOW_ERROR
+    let c = (code || code == 0) ? code : -1
     let s = status ? status : 500
     let co = content ? content : ''
     let r = {

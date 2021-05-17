@@ -1,14 +1,16 @@
+import { lang } from './../../i18n/language'
 import { genres } from './genres'
 export async function htalk(config, request, loginstatus, hinfo) {
     try {
         const r = await request.json()
         let limit, start, htalk, p, hres, add, talk_init
-        login = loginstatus || false
+
+        const login = loginstatus || false
         if (login) {
             switch (r.action) {
                 case 'initialization':
                     await HKV.put("htalk", "{}")
-                    return genres(config, "初始化成功", 200, 0, '')
+                    return genres(config, `${lang.HTALK}:${lang.HTALK_INIT_SUCCESS}`, 200, 0, '')
                 case 'get':
                     htalk = await HKV.get("htalk", { type: "json" });
                     limit = r.limit
@@ -24,7 +26,8 @@ export async function htalk(config, request, loginstatus, hinfo) {
                             p--
                         }
                     }
-                    return genres(config, `在${(function () { if (login) { return '已登录' } else { return '未登录' } })()}的状态下,已成功获得说说数据`, 200, 0, JSON.stringify(hres))
+                    return genres(config, lang.HTALK_GET_SUCCESS.replace("${1}", lang.LOGIN_TRUE), 200, 0, JSON.stringify(hres))
+
                 case 'add':
                     htalk = await HKV.get("htalk", { type: "json" })
                     add = {
@@ -39,17 +42,17 @@ export async function htalk(config, request, loginstatus, hinfo) {
                     htalk.nid += 1
 
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, `已成功上传说说数据`, 200, 0, '')
+                    return genres(config, lang.HTALK_UPLOAD_SUCCESS, 200, 0, '')
                 case 'del':
                     htalk = await HKV.get("htalk", { type: "json" })
                     delete htalk.data[r.id]
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, `已成功删除id为${r.id}的数据`, 200, 0, '')
+                    return genres(config, lang.HTALK_DEL_SUCCESS.replace("${1}", r.id), 200, 0, '')
                 case 'visible':
                     htalk = await HKV.get("htalk", { type: "json" })
                     htalk.data[r.id].visible = htalk.data[r.id].visible ? false : true
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, `已改变id为${r.id}的数据的可见性`, 200, 0, '')
+                    return genres(config, lang.HTALK_VISIBLE_SUCCESS.replace("${1}", r.id), 200, 0, '')
 
 
                 case 'inputartitalk':
@@ -69,9 +72,9 @@ export async function htalk(config, request, loginstatus, hinfo) {
                         htalk.data[htalk.nid] = talk_init
                     }
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, `已导入${r.ctx.length}条!`, 200, 0, '')
+                    return genres(config, lang.HTALK_INPUT_SUCCESS.replace("${1}", r.ctx.length), 200, 0, '')
                 default:
-                    return genres(config, `未知的操作`, 500, -1, '')
+                    return genres(config, lang.UNKNOW_ACTION, 500, -1, '')
             }
         } else {
             switch (r.action) {
@@ -90,9 +93,9 @@ export async function htalk(config, request, loginstatus, hinfo) {
                             p--
                         }
                     }
-                    return genres(config, `在${(function () { if (login) { return '已登录' } else { return '未登录' } })()}的状态下,已成功获得说说数据`, 200, 0, JSON.stringify(hres))
+                    return genres(config, lang.HTALK_GET_SUCCESS.replace("${1}", LOGIN_FALSE), 200, 0, JSON.stringify(hres))
                 default:
-                    return genres(config, `未知的操作`, 500, -1, '')
+                    return genres(config, lang.UNKNOW_ACTION, 500, -1, '')
             }
         }
     }
