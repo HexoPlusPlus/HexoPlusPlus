@@ -1,6 +1,6 @@
 
 const checkUpdate = async () => {
-    uw();
+    cw();
     let req = await (await fetch('/hpp/admin/api/update', { method: "POST", body: JSON.stringify({ action: "check" }) })).json()
     let icon
     if (req.code == 1) { icon = "warning" } else if (req.code == -1) { icon = "error" } else { icon = "success" }

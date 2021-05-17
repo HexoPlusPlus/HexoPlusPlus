@@ -361,9 +361,9 @@ export const updateroute = async (request, config, hinfo) => {
                 }
             case 'check':
                 if (await ghlatver(config, false) != hinfo.ver) {
-                    return genjsonres(lang.NEED_UPDATE, 0, 200)
+                    return genjsonres(lang.NEED_UPDATE, 0, 200, await ghlatinfo(config))
                 } else {
-                    return genjsonres(lang.NEED_NOT_UPDATE, 1, 200, await ghlatinfo(config))
+                    return genjsonres(lang.NEED_NOT_UPDATE, 1, 200)
                 }
             default:
                 return genjsonres(lang.UNKNOW_ACTION, -1, 500)

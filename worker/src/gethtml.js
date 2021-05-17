@@ -1,5 +1,6 @@
 import login from 'raw-loader!./html/login.html'
 import h404 from 'raw-loader!./html/dash/404.html'
+import dash_home from 'raw-loader!./html/dash/home/index.html'
 import dash_head from 'raw-loader!./html/dash/head.html'
 import dash_nav_hexo from 'raw-loader!./html/dash/nav/hexo.html'
 import dash_nav_talk from 'raw-loader!./html/dash/nav/talk.html'
@@ -96,127 +97,8 @@ export const gethtml = {
       .replace(/<!--lang.DASH_BACK_TO_HOME-->/g, lang.DASH_BACK_TO_HOME)
   })(),
   dashhome: (config, hinfo) => {
-    return `<div class="content">
-<div class="container-fluid">
-  <div class="row">
-  ${(() => {
-        if (config.hexo.switch) {
-          return `<div class="col-lg-6 col-md-6 col-sm-6">
-  <div class="card card-stats">
-    <div class="card-header card-header-warning card-header-icon">
-      <div class="card-icon">
-        <i class="fa fa-file"></i>
-      </div>
-      <p class="card-category">总文档数</p>
-      <h3 class="card-title" id="document_all">NaN
-        <small>个</small>
-      </h3>
-    </div>
-    <div class="card-footer">
-    <div class="stats">
-        <a href="/hpp/admin/dash/edit" style="color: #cf6ae0 !important"><i class="fa fa-pencil"></i>前往管理</a>
-      </div>
-    </div>
-  </div>
-</div>`} else { return '' }
-      })()}
-    
-
-
-${(() => {
-        if (config.img.switch) {
-          return `<div class="col-lg-6 col-md-6 col-sm-6">
-<div class="card card-stats">
-  <div class="card-header card-header-success card-header-icon">
-    <div class="card-icon">
-      <i class="fa fa-image"></i>
-    </div>
-    <p class="card-category">总图片数</p>
-    <h3 class="card-title" id="img_all">NaN
-      <small>张</small>
-    </h3>
-  </div>
-  <div class="card-footer">
-  <div class="stats">
-      <a href="/hpp/admin/dash/img_man" style="color: #cf6ae0 !important"><i class="fa fa-upload"></i>前往管理</a>
-    </div>
-  </div>
-</div>
-</div>`
-        } else { return '' }
-      })()}
-    
-    <div class="col-lg-6 col-md- col-sm-6">
-      <a href="javascript:checkUpdate()">
-      <div class="card card-stats">
-        <div class="card-header card-header-info card-header-icon">
-          <div class="card-icon">
-            <i class="fa fa-upload"></i>
-          </div>
-          <p class="card-category">当前版本</p>
-          <h3 class="card-title">${hinfo.ver}</h3>
-        </div>
-        <div class="card-footer">
-          <div class="stats">
-            <i class="material-icons">update</i>点击更新
-          </div>
-        </div>
-      </div>
-    </a>
-    </div>
-    
-    
-    
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <a href="https://jq.qq.com/?_wv=1027&k=rAcnhzqK" target="_blank">
-      <div class="card card-stats">
-        <div class="card-header card-header-success card-header-icon">
-          <div class="card-icon">
-            <i class="fa fa-qq"></i>
-          </div>
-          <h3 class="card-title">QQ群聊天去？</h3>
-        </div>
-        <div class="card-footer">
-        诚聘小白鼠(bushi
-        </div>
-      </div>
-    </a>
-    </div>
-    
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <a href="https://hexoplusplus.js.org" target="_blank">
-      <div class="card card-stats">
-        <div class="card-header card-header-normal card-header-icon">
-          <div class="card-icon">
-            <i class="fa fa-book"></i>
-          </div>
-          <h3 class="card-title">文档地址</h3>
-        </div>
-        <div class="card-footer">有多少人没看文档来提issues？
-        </div>
-      </div>
-    </a>
-    </div>
-    
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" target="_blank">
-      <div class="card card-stats">
-        <div class="card-header card-header-primary card-header-icon">
-          <div class="card-icon">
-            <i class="fa fa-github"></i>
-          </div>
-          <h3 class="card-title">Github</h3>
-        </div>
-        <div class="card-footer">
-        欢迎PR
-        </div>
-      </div>
-    </a>
-    </div>
-    
-  </div>
-</div>
-</div>`},
+    return dash_home.replace()
+  },
   dashedit: `<div class="content">
 <div class="container-fluid">
   <div class="row">

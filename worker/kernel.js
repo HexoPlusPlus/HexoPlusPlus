@@ -1,5 +1,7 @@
 const md5 = require('md5')
 import { lang } from './src/i18n/language'
+//import yaml from  'js-yaml'
+//yaml.load()
 import { gethtml } from './src/gethtml'
 import { formatconfig } from './src/config'
 import { getCookie, getJsonLength, rp, getname, getsuffix, genjsonres } from './src/scaffold'

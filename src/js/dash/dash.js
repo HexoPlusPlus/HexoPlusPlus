@@ -29,7 +29,7 @@ window.sw = () => {
 }
 /*Show Error*/
 window.se = (t, e) => {
-    uw()
+    cw()
     swal({ title: `\n${t}`, icon: "error", text: e });
     throw e
 }
