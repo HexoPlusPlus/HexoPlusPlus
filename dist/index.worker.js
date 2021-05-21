@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 302:
+/***/ 838:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -34,6 +34,8 @@ const language_lang = all_lan[langtype]
 /* harmony default export */ const login = ("<!DOCTYPE html>\r\n<html lang=\"zh-cmn-Hans\">\r\n\r\n<head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\"\r\n        content=\"width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no\" />\r\n    <title>\r\n        <!--lang.LOGIN_DASH-->\r\n    </title>\r\n    <!--LOGIN_STYLE-->\r\n    <link rel=\"stylesheet\" href=\"<!--hinfo.CDN-->login/login.css\" />\r\n</head>\r\n\r\n<body>\r\n    <div id=\"all\">\r\n        <div class=\"wrapper\">\r\n            <div class=\"bg-container\">\r\n                <div class=\"container\">\r\n                    <h1 style=\"margin: 0;\" id=\"bar\">\r\n                        <!--lang.WELCOME-->\r\n                    </h1>\r\n                    <form class=\"form\" id=\"fm\">\r\n                        <input id=\"username\" type=\"text\" placeholder=\"<!--lang.USERNAME-->\" value=\"\" name=\"username\" />\r\n                        <input id=\"password\" type=\"password\" placeholder=\"<!--lang.PASSWORD-->\" value=\"\"\r\n                            name=\"password\" />\r\n                        <button type=\"button\" id=\"login-button\">\r\n                            <!--lang.LOGIN-->\r\n                        </button>\r\n                        <br />\r\n                        <br />\r\n                        <a href=\"https://github.com/HexoPlusPlus/HexoPlusPlus\" id=\"tips\" style=\"color: #fff;\">💗\r\n                            <!--hinfo.ver-->\r\n                        </a>\r\n                    </form>\r\n                </div>\r\n            </div>\r\n            <ul class=\"bg-bubbles\">\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n                <li></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n    <script src=\"<!--hinfo.CDN-->login/login.js\"></script>\r\n</body>\r\n\r\n</html>");
 ;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/404.html
 /* harmony default export */ const _404 = ("<div class=\"content\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"card\">\r\n                    <div class=\"card-header card-header-primary\">\r\n                        <h4 class=\"card-title\">404</h4>\r\n                        <p class=\"card-category\"><!--lang.DASH_404--></p>\r\n                    </div></br>\r\n                    <div class=\"card-body\"><a href=\"/hpp/admin/dash/home\"><!--lang.DASH_BACK_TO_HOME--></a></div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>");
+;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/home/index.html
+/* harmony default export */ const home = ("`<div class=\"content\">\r\n    <div class=\"container-fluid\">\r\n      <div class=\"row\">\r\n      ${(() => {\r\n            if (config.hexo.switch) {\r\n              return `<div class=\"col-lg-6 col-md-6 col-sm-6\">\r\n      <div class=\"card card-stats\">\r\n        <div class=\"card-header card-header-warning card-header-icon\">\r\n          <div class=\"card-icon\">\r\n            <i class=\"fa fa-file\"></i>\r\n          </div>\r\n          <p class=\"card-category\">总文档数</p>\r\n          <h3 class=\"card-title\" id=\"document_all\">NaN\r\n            <small>个</small>\r\n          </h3>\r\n        </div>\r\n        <div class=\"card-footer\">\r\n        <div class=\"stats\">\r\n            <a href=\"/hpp/admin/dash/edit\" style=\"color: #cf6ae0 !important\"><i class=\"fa fa-pencil\"></i>前往管理</a>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>`} else { return '' }\r\n          })()}\r\n        \r\n    \r\n    \r\n    ${(() => {\r\n            if (config.img.switch) {\r\n              return `<div class=\"col-lg-6 col-md-6 col-sm-6\">\r\n    <div class=\"card card-stats\">\r\n      <div class=\"card-header card-header-success card-header-icon\">\r\n        <div class=\"card-icon\">\r\n          <i class=\"fa fa-image\"></i>\r\n        </div>\r\n        <p class=\"card-category\">总图片数</p>\r\n        <h3 class=\"card-title\" id=\"img_all\">NaN\r\n          <small>张</small>\r\n        </h3>\r\n      </div>\r\n      <div class=\"card-footer\">\r\n      <div class=\"stats\">\r\n          <a href=\"/hpp/admin/dash/img_man\" style=\"color: #cf6ae0 !important\"><i class=\"fa fa-upload\"></i>前往管理</a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    </div>`\r\n            } else { return '' }\r\n          })()}\r\n        \r\n        <div class=\"col-lg-6 col-md- col-sm-6\">\r\n          <a href=\"javascript:checkUpdate()\">\r\n          <div class=\"card card-stats\">\r\n            <div class=\"card-header card-header-info card-header-icon\">\r\n              <div class=\"card-icon\">\r\n                <i class=\"fa fa-upload\"></i>\r\n              </div>\r\n              <p class=\"card-category\">当前版本</p>\r\n              <h3 class=\"card-title\">${hinfo.ver}</h3>\r\n            </div>\r\n            <div class=\"card-footer\">\r\n              <div class=\"stats\">\r\n                <i class=\"material-icons\">update</i>点击更新\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </a>\r\n        </div>\r\n        \r\n        \r\n        \r\n        <div class=\"col-lg-6 col-md-6 col-sm-6\">\r\n          <a href=\"https://jq.qq.com/?_wv=1027&k=rAcnhzqK\" target=\"_blank\">\r\n          <div class=\"card card-stats\">\r\n            <div class=\"card-header card-header-success card-header-icon\">\r\n              <div class=\"card-icon\">\r\n                <i class=\"fa fa-qq\"></i>\r\n              </div>\r\n              <h3 class=\"card-title\">QQ群聊天去？</h3>\r\n            </div>\r\n            <div class=\"card-footer\">\r\n            诚聘小白鼠(bushi\r\n            </div>\r\n          </div>\r\n        </a>\r\n        </div>\r\n        \r\n        <div class=\"col-lg-6 col-md-6 col-sm-6\">\r\n          <a href=\"https://hexoplusplus.js.org\" target=\"_blank\">\r\n          <div class=\"card card-stats\">\r\n            <div class=\"card-header card-header-normal card-header-icon\">\r\n              <div class=\"card-icon\">\r\n                <i class=\"fa fa-book\"></i>\r\n              </div>\r\n              <h3 class=\"card-title\">文档地址</h3>\r\n            </div>\r\n            <div class=\"card-footer\">有多少人没看文档来提issues？\r\n            </div>\r\n          </div>\r\n        </a>\r\n        </div>\r\n        \r\n        <div class=\"col-lg-6 col-md-6 col-sm-6\">\r\n          <a href=\"https://github.com/HexoPlusPlus/HexoPlusPlus\" target=\"_blank\">\r\n          <div class=\"card card-stats\">\r\n            <div class=\"card-header card-header-primary card-header-icon\">\r\n              <div class=\"card-icon\">\r\n                <i class=\"fa fa-github\"></i>\r\n              </div>\r\n              <h3 class=\"card-title\">Github</h3>\r\n            </div>\r\n            <div class=\"card-footer\">\r\n            欢迎PR\r\n            </div>\r\n          </div>\r\n        </a>\r\n        </div>\r\n        \r\n      </div>\r\n    </div>\r\n    </div>`");
 ;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/head.html
 /* harmony default export */ const head = ("<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"utf-8\" />\r\n    <link rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"<!--config.dash.icon-->\">\r\n    <link rel=\"icon\" type=\"image/png\" href=\"<!--config.dash.icon-->\">\r\n    <title>\r\n        <!--config.dash.title-->\r\n    </title>\r\n    <meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\" name=\"viewport\" />\r\n    <!--DASH_STYLE-->\r\n    <link rel=\"stylesheet\"\r\n        href=\"https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css\">\r\n    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css\">\r\n\r\n    <!--JS_CONFIG-->\r\n</head>\r\n\r\n<body class=\"<!--BODY_CLASS-->\">\r\n    <div class=\"wrapper \">\r\n        <div class=\"sidebar\" data-color=\"<!--config.dash.color-->\" data-background-color=\"<!--DASH_BACKGROUND_COLOR-->\"\r\n            data-image=\"<!--config.dash.back-->\">\r\n            <div class=\"logo\"><a class=\"simple-text logo-normal\">\r\n                    <!--config.dash.title-->\r\n                </a></div>\r\n            <div class=\"sidebar-wrapper\">\r\n                <ul class=\"nav\">\r\n\r\n\r\n                    <li class=\"nav-item<!--ainfo.hpp_home_act-->\">\r\n                        <a class=\"nav-link\" href=\"/hpp/admin/dash/home\">\r\n                            <i class=\"material-icons\">dashboard</i>\r\n                            <p>\r\n                                <!--lang.HOME-->\r\n                            </p>\r\n                        </a>\r\n                    </li>\r\n\r\n                    <!--config.hexo.switch-->\r\n\r\n\r\n\r\n\r\n                    <!--config.talk.switch.htalk-->\r\n\r\n\r\n\r\n\r\n                    <!--config.img.switch-->\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n                    <li class=\"nav-item<!--ainfo.hpp_tool_act-->\">\r\n                        <a class=\"nav-link\" href=\"/hpp/admin/dash/tool\">\r\n                            <i class=\"material-icons\">widgets</i>\r\n                            <p>\r\n                                <!--lang.TOOL-->\r\n                            </p>\r\n                        </a>\r\n                    </li>\r\n                    <li class=\"nav-item<!--ainfo.hpp_set_act-->\">\r\n                        <a class=\"nav-link\" href=\"/hpp/admin/install?step=end\">\r\n                            <i class=\"material-icons\">settings</i>\r\n                            <p>\r\n                                <!--lang.SETTING-->\r\n                            </p>\r\n                        </a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n        <div class=\"main-panel\">\r\n            <nav class=\"navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top \">\r\n                <div class=\"container-fluid\">\r\n                    <div class=\"navbar-wrapper\">\r\n                        <a class=\"navbar-brand\" href=\"javascript:;\">\r\n                            <!--lang.HPP-->\r\n                        </a>\r\n                    </div>\r\n                    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" aria-controls=\"navigation-index\"\r\n                        aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n                        <span class=\"sr-only\">Toggle navigation</span>\r\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\r\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\r\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\r\n                    </button>\r\n                    <div class=\"collapse navbar-collapse justify-content-end\">\r\n                        <ul class=\"navbar-nav\">\r\n                            <li class=\"nav-item dropdown\">\r\n                                <a class=\"nav-link\" href=\"javascript:;\" id=\"navbarDropdownProfile\"\r\n                                    data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                                    <img src=\"<!--config.dash.image-->\"\r\n                                        style=\"width: 30px;border-radius: 50%;border: 0;\">\r\n                                    <p class=\"d-lg-none d-md-block\">\r\n                                        Account\r\n                                    </p>\r\n                                </a>\r\n                                <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownProfile\">\r\n                                    <a class=\"dropdown-item\" id=\"kick\">\r\n                                        <!--lang.ATTENDANCE-->\r\n                                    </a>\r\n                                    <div class=\"dropdown-divider\"></div>\r\n                                    <a class=\"dropdown-item\" id=\"logout\">\r\n                                        <!--lang.EXIT-->\r\n                                    </a>\r\n                                </div>\r\n                            </li>\r\n                        </ul>\r\n                    </div>\r\n                </div>\r\n            </nav>\r\n            <!-- End Navbar -->\r\n\r\n            <!--innerHTMLSTART-->");
 ;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/hexo.html
@@ -105,6 +107,7 @@ const genjsonres = (msg, code, status, content) => {
 }
 
 ;// CONCATENATED MODULE: ./worker/src/gethtml.js
+
 
 
 
@@ -203,127 +206,8 @@ const gethtml = {
       .replace(/<!--lang.DASH_BACK_TO_HOME-->/g, language_lang.DASH_BACK_TO_HOME)
   })(),
   dashhome: (config, hinfo) => {
-    return `<div class="content">
-<div class="container-fluid">
-  <div class="row">
-  ${(() => {
-        if (config.hexo.switch) {
-          return `<div class="col-lg-6 col-md-6 col-sm-6">
-  <div class="card card-stats">
-    <div class="card-header card-header-warning card-header-icon">
-      <div class="card-icon">
-        <i class="fa fa-file"></i>
-      </div>
-      <p class="card-category">总文档数</p>
-      <h3 class="card-title" id="document_all">NaN
-        <small>个</small>
-      </h3>
-    </div>
-    <div class="card-footer">
-    <div class="stats">
-        <a href="/hpp/admin/dash/edit" style="color: #cf6ae0 !important"><i class="fa fa-pencil"></i>前往管理</a>
-      </div>
-    </div>
-  </div>
-</div>`} else { return '' }
-      })()}
-    
-
-
-${(() => {
-        if (config.img.switch) {
-          return `<div class="col-lg-6 col-md-6 col-sm-6">
-<div class="card card-stats">
-  <div class="card-header card-header-success card-header-icon">
-    <div class="card-icon">
-      <i class="fa fa-image"></i>
-    </div>
-    <p class="card-category">总图片数</p>
-    <h3 class="card-title" id="img_all">NaN
-      <small>张</small>
-    </h3>
-  </div>
-  <div class="card-footer">
-  <div class="stats">
-      <a href="/hpp/admin/dash/img_man" style="color: #cf6ae0 !important"><i class="fa fa-upload"></i>前往管理</a>
-    </div>
-  </div>
-</div>
-</div>`
-        } else { return '' }
-      })()}
-    
-    <div class="col-lg-6 col-md- col-sm-6">
-      <a href="javascript:checkUpdate()">
-      <div class="card card-stats">
-        <div class="card-header card-header-info card-header-icon">
-          <div class="card-icon">
-            <i class="fa fa-upload"></i>
-          </div>
-          <p class="card-category">当前版本</p>
-          <h3 class="card-title">${hinfo.ver}</h3>
-        </div>
-        <div class="card-footer">
-          <div class="stats">
-            <i class="material-icons">update</i>点击更新
-          </div>
-        </div>
-      </div>
-    </a>
-    </div>
-    
-    
-    
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <a href="https://jq.qq.com/?_wv=1027&k=rAcnhzqK" target="_blank">
-      <div class="card card-stats">
-        <div class="card-header card-header-success card-header-icon">
-          <div class="card-icon">
-            <i class="fa fa-qq"></i>
-          </div>
-          <h3 class="card-title">QQ群聊天去？</h3>
-        </div>
-        <div class="card-footer">
-        诚聘小白鼠(bushi
-        </div>
-      </div>
-    </a>
-    </div>
-    
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <a href="https://hexoplusplus.js.org" target="_blank">
-      <div class="card card-stats">
-        <div class="card-header card-header-normal card-header-icon">
-          <div class="card-icon">
-            <i class="fa fa-book"></i>
-          </div>
-          <h3 class="card-title">文档地址</h3>
-        </div>
-        <div class="card-footer">有多少人没看文档来提issues？
-        </div>
-      </div>
-    </a>
-    </div>
-    
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <a href="https://github.com/HexoPlusPlus/HexoPlusPlus" target="_blank">
-      <div class="card card-stats">
-        <div class="card-header card-header-primary card-header-icon">
-          <div class="card-icon">
-            <i class="fa fa-github"></i>
-          </div>
-          <h3 class="card-title">Github</h3>
-        </div>
-        <div class="card-footer">
-        欢迎PR
-        </div>
-      </div>
-    </a>
-    </div>
-    
-  </div>
-</div>
-</div>`},
+    return home.replace()
+  },
   dashedit: `<div class="content">
 <div class="container-fluid">
   <div class="row">
@@ -627,6 +511,7 @@ const formatconfig = async () => {
 
 const defaultconfig = {
     installed: true,
+    cors: "*",
     dash: {
         image: "https://cdn.jsdelivr.net/gh/ChenYFan/CDN@master/img/hpp_upload/1612610340000.jpg",
         icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@master/doc_img/icon.png",
@@ -635,7 +520,6 @@ const defaultconfig = {
         bgcolor: "default",//black | white | default
         color: "danger",//purple | azure | green | orange | danger | rose
         usericon: "",
-        cors: "*",
         OwO: "https://cdn.jsdelivr.net/gh/2X-ercha/Twikoo-Magic@master/hppowo.json",
         back: "https://cdn.jsdelivr.net/gh/ChenYFan-Tester/DailyGet@gh-pages/bingpic/bing.jpg",
         lazyimg: "https://cdn.jsdelivr.net/gh/ChenYFan/blog@master/themes/fluid/source/img/loading.gif",
@@ -1298,9 +1182,9 @@ const updateroute = async (request, config, hinfo) => {
                 }
             case 'check':
                 if (await ghlatver(config, false) != hinfo.ver) {
-                    return genjsonres(language_lang.NEED_UPDATE, 0, 200)
+                    return genjsonres(language_lang.NEED_UPDATE, 0, 200, await ghlatinfo(config))
                 } else {
-                    return genjsonres(language_lang.NEED_NOT_UPDATE, 1, 200, await ghlatinfo(config))
+                    return genjsonres(language_lang.NEED_NOT_UPDATE, 1, 200)
                 }
             default:
                 return genjsonres(language_lang.UNKNOW_ACTION, -1, 500)
@@ -1310,8 +1194,10 @@ const updateroute = async (request, config, hinfo) => {
 ;// CONCATENATED MODULE: ./worker/src/talk/htalk/genres.js
 
 async function genres(config, msg, status, code, content) {
+    console.log(config)
     const m = msg ? `${language_lang.HTALK}:${msg}` : `${language_lang.HTALK}:${language_lang.UNKNOW_ERROR}`
-    const c = code ? code : "-1"
+    const c = (code || code == 0) ? code : -1
+
     const s = status ? status : 500
     const co = content ? content : ''
     const r = {
@@ -1322,7 +1208,7 @@ async function genres(config, msg, status, code, content) {
     return new Response(JSON.stringify(r), {
         status: s, headers: {
             "content-type": "application/javascript; charset=utf-8",
-            "Access-Control-Allow-Origin": config.hpp_cors
+            "Access-Control-Allow-Origin": config.cors
         }
     })
 
@@ -1345,14 +1231,21 @@ async function htalk(config, request, loginstatus, hinfo) {
                     htalk = await HKV.get("htalk", { type: "json" });
                     limit = r.limit
                     start = r.start || htalk.nid
-                    hres = []
+                    hres = {
+                        nid: 0,
+                        ctx: []
+                    }
                     p = start
                     for (var i = 0; i < limit; i++) {
                         if (!!(htalk["data"][p])) {
-                            hres.push(htalk["data"][p])
+                            hres.ctx.push(htalk["data"][p])
                             p--
+
+                            i++
+                            hres.nid = p
+                            if (p <= 0) { break; }
                         } else {
-                            i--
+
                             p--
                         }
                     }
@@ -1412,18 +1305,25 @@ async function htalk(config, request, loginstatus, hinfo) {
                     htalk = await HKV.get("htalk", { type: "json" });
                     limit = r.limit
                     start = r.start || htalk.nid
-                    hres = []
+                    hres = {
+                        nid: 0,
+                        ctx: []
+                    }
                     p = start
-                    for (var i = 0; i < limit; i++) {
+                    for (var i = 0; i < limit;) {
                         if ((function () { try { return htalk["data"][p]["visible"] } catch (m) { return false } }()) && !!(htalk["data"][p])) {
-                            hres.push(htalk["data"][p])
+                            hres.ctx.push(htalk["data"][p])
                             p--
+
+                            i++
+                            hres.nid = p
+                            if (p <= 0) { break; }
                         } else {
-                            i--
+
                             p--
                         }
                     }
-                    return genres(config, language_lang.HTALK_GET_SUCCESS.replace("${1}", LOGIN_FALSE), 200, 0, JSON.stringify(hres))
+                    return genres(config, language_lang.HTALK_GET_SUCCESS.replace("${1}", language_lang.LOGIN_FALSE), 200, 0, JSON.stringify(hres))
                 default:
                     return genres(config, language_lang.UNKNOW_ACTION, 500, -1, '')
             }
@@ -1972,6 +1872,8 @@ const hpage = (config) => {
 ;// CONCATENATED MODULE: ./worker/kernel.js
 const md5 = __webpack_require__(229)
 ;
+//import yaml from  'js-yaml'
+//yaml.load()
 
 
 
@@ -2528,8 +2430,9 @@ function isSlowBuffer (obj) {
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -2550,7 +2453,7 @@ function isSlowBuffer (obj) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(302);
+/******/ 	var __webpack_exports__ = __webpack_require__(838);
 /******/ 	
 /******/ })()
 ;

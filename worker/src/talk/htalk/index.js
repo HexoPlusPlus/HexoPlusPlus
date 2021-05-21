@@ -15,14 +15,21 @@ export async function htalk(config, request, loginstatus, hinfo) {
                     htalk = await HKV.get("htalk", { type: "json" });
                     limit = r.limit
                     start = r.start || htalk.nid
-                    hres = []
+                    hres = {
+                        nid: 0,
+                        ctx: []
+                    }
                     p = start
                     for (var i = 0; i < limit; i++) {
                         if (!!(htalk["data"][p])) {
-                            hres.push(htalk["data"][p])
+                            hres.ctx.push(htalk["data"][p])
                             p--
+
+                            i++
+                            hres.nid = p
+                            if (p <= 0) { break; }
                         } else {
-                            i--
+
                             p--
                         }
                     }
@@ -82,18 +89,25 @@ export async function htalk(config, request, loginstatus, hinfo) {
                     htalk = await HKV.get("htalk", { type: "json" });
                     limit = r.limit
                     start = r.start || htalk.nid
-                    hres = []
+                    hres = {
+                        nid: 0,
+                        ctx: []
+                    }
                     p = start
-                    for (var i = 0; i < limit; i++) {
+                    for (var i = 0; i < limit;) {
                         if ((function () { try { return htalk["data"][p]["visible"] } catch (m) { return false } }()) && !!(htalk["data"][p])) {
-                            hres.push(htalk["data"][p])
+                            hres.ctx.push(htalk["data"][p])
                             p--
+
+                            i++
+                            hres.nid = p
+                            if (p <= 0) { break; }
                         } else {
-                            i--
+
                             p--
                         }
                     }
-                    return genres(config, lang.HTALK_GET_SUCCESS.replace("${1}", LOGIN_FALSE), 200, 0, JSON.stringify(hres))
+                    return genres(config, lang.HTALK_GET_SUCCESS.replace("${1}", lang.LOGIN_FALSE), 200, 0, JSON.stringify(hres))
                 default:
                     return genres(config, lang.UNKNOW_ACTION, 500, -1, '')
             }

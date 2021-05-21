@@ -11,7 +11,7 @@ async function handleRequest(request) {
   const htalkid = await HKV.get("hpp_talk_id");
   /*脑残的双重JSON格式化*/
   const newhtalk = {
-    nid: htalkid,
+    nid: Number(htalkid),
     data: (function () {
       let d = {}
       for (var l in htalk) {
