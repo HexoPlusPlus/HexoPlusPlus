@@ -1,6 +1,5 @@
 import { lang } from './../../i18n/language'
 export async function genres(config, msg, status, code, content) {
-    console.log(config)
     const m = msg ? `${lang.HTALK}:${msg}` : `${lang.HTALK}:${lang.UNKNOW_ERROR}`
     const c = (code || code == 0) ? code : -1
 

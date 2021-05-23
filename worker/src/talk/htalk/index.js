@@ -90,24 +90,40 @@ export async function htalk(config, request, loginstatus, hinfo) {
                     limit = r.limit
                     start = r.start || htalk.nid
                     hres = {
+                        ver: hinfo.ver,
                         nid: 0,
                         ctx: []
                     }
                     p = start
                     for (var i = 0; i < limit;) {
                         if ((function () { try { return htalk["data"][p]["visible"] } catch (m) { return false } }()) && !!(htalk["data"][p])) {
-                            hres.ctx.push(htalk["data"][p])
+                            hres.ctx.push((() => {
+                                let u = htalk["data"][p]
+                                u.id = p
+                                return u
+                            })())
                             p--
 
                             i++
                             hres.nid = p
                             if (p <= 0) { break; }
                         } else {
-
                             p--
                         }
                     }
                     return genres(config, lang.HTALK_GET_SUCCESS.replace("${1}", lang.LOGIN_FALSE), 200, 0, JSON.stringify(hres))
+                case 'love':
+                    htalk = await HKV.get("htalk", { type: "json" });
+                    htalk.data[r.id].love = (()=>{
+                        if(!htalk.data[r.id].love){
+                            return 1
+                        }else{
+                            return htalk.data[r.id].love+1
+                        }
+                    })()
+                    await HKV.put("htalk", JSON.stringify(htalk))
+                    return genres(config, 'YES', 200, 0, htalk.data[r.id].love)
+                
                 default:
                     return genres(config, lang.UNKNOW_ACTION, 500, -1, '')
             }

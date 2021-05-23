@@ -9,6 +9,7 @@ export const formatconfig = async () => {
 const defaultconfig = {
     installed: true,
     cors: "*",
+    recaptcha:"",
     dash: {
         image: "https://cdn.jsdelivr.net/gh/ChenYFan/CDN@master/img/hpp_upload/1612610340000.jpg",
         icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@master/doc_img/icon.png",
