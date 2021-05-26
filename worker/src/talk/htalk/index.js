@@ -1,5 +1,6 @@
 import { lang } from './../../i18n/language'
 import { genres } from './genres'
+import recaptcha from '../../../captcha/recaptcha'
 export async function htalk(config, request, loginstatus, hinfo) {
     try {
         const r = await request.json()
@@ -113,17 +114,20 @@ export async function htalk(config, request, loginstatus, hinfo) {
                     }
                     return genres(config, lang.HTALK_GET_SUCCESS.replace("${1}", lang.LOGIN_FALSE), 200, 0, JSON.stringify(hres))
                 case 'love':
-                    htalk = await HKV.get("htalk", { type: "json" });
-                    htalk.data[r.id].love = (()=>{
-                        if(!htalk.data[r.id].love){
-                            return 1
-                        }else{
-                            return htalk.data[r.id].love+1
-                        }
-                    })()
-                    await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, 'YES', 200, 0, htalk.data[r.id].love)
-                
+                    if (!!config.recaptcha && await recaptcha(config.recaptcha, r.recaptcha, "love")) {
+                        htalk = await HKV.get("htalk", { type: "json" });
+                        htalk.data[r.id].love = (() => {
+                            if (!htalk.data[r.id].love) {
+                                return 1
+                            } else {
+                                return htalk.data[r.id].love + 1
+                            }
+                        })()
+                        await HKV.put("htalk", JSON.stringify(htalk))
+                        return genres(config, lang.LOVE_SUCCESS, 200, 0, htalk.data[r.id].love)
+                    } else {
+                        return genres(config, lang.LOVE_ERROR, 403, -1, lang.RECAP_ERROR)
+                    }
                 default:
                     return genres(config, lang.UNKNOW_ACTION, 500, -1, '')
             }

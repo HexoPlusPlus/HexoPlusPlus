@@ -1,8 +1,9 @@
 {
   "name": "hexoplusplus",
-  "version": "2.0.0-beta-1",
-  "description": "A Serverless Hexo Back DashBoard",
+  "version": "2.0.1-beta-8",
+  "description": "A Serverless And Modern Hexo Backend DashBoard",
   "main": "worker/kernel.js",
+  "CDN": "https://cdn.jsdelivr.net/npm/hexoplusplus/",
   "scripts": {
     "build": "npm run build-worker && npm run build-static",
     "build-worker": "webpack",

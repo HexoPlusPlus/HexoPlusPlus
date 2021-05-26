@@ -10,10 +10,11 @@ import { htalk } from './src/talk/htalk/index'
 import { genactiveres } from './src/getblogeractive'
 import { install } from './src/install'
 import { hpage } from './src/hpage'
+import pack from './../package.json'
 
 let hinfo = {
-  ver: "HexoPlusPlus@2.0.0β3",
-  CDN: `https://hppstatic.pages.dev/`,
+  ver: pack.version,
+  CDN: pack.CDN,
   dev: true
 }
 
