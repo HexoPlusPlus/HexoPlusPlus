@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 751:
+/***/ 487:
 /***/ ((module) => {
 
 var charenc = {
@@ -41,7 +41,7 @@ module.exports = charenc;
 
 /***/ }),
 
-/***/ 41:
+/***/ 12:
 /***/ ((module) => {
 
 (function() {
@@ -144,7 +144,7 @@ module.exports = charenc;
 
 /***/ }),
 
-/***/ 34:
+/***/ 738:
 /***/ ((module) => {
 
 /*!
@@ -172,14 +172,14 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ 735:
+/***/ 568:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 (function(){
-  var crypt = __webpack_require__(41),
-      utf8 = __webpack_require__(751).utf8,
-      isBuffer = __webpack_require__(34),
-      bin = __webpack_require__(751).bin,
+  var crypt = __webpack_require__(12),
+      utf8 = __webpack_require__(487).utf8,
+      isBuffer = __webpack_require__(738),
+      bin = __webpack_require__(487).bin,
 
   // The core
   md5 = function (message, options) {
@@ -339,7 +339,7 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ 507:
+/***/ 395:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -368,19 +368,19 @@ const langtype = (() => {
 })()
 
 const language_lang = all_lan[langtype]
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/login.html
+;// CONCATENATED MODULE: ./node_modules/raw-loader/dist/cjs.js!./worker/src/html/login.html
 /* harmony default export */ const login = ("<!DOCTYPE html>\n<html lang=\"zh-cmn-Hans\">\n\n<head>\n    <meta charset=\"utf-8\" />\n    <meta name=\"viewport\"\n        content=\"width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no\" />\n    <title>\n        <!--lang.LOGIN_DASH-->\n    </title>\n    <!--LOGIN_STYLE-->\n    <link rel=\"stylesheet\" href=\"<!--hinfo.CDN-->login/login.css\" />\n</head>\n\n<body>\n    <div id=\"all\">\n        <div class=\"wrapper\">\n            <div class=\"bg-container\">\n                <div class=\"container\">\n                    <h1 style=\"margin: 0;\" id=\"bar\">\n                        <!--lang.WELCOME-->\n                    </h1>\n                    <form class=\"form\" id=\"fm\">\n                        <input id=\"username\" type=\"text\" placeholder=\"<!--lang.USERNAME-->\" value=\"\" name=\"username\" />\n                        <input id=\"password\" type=\"password\" placeholder=\"<!--lang.PASSWORD-->\" value=\"\"\n                            name=\"password\" />\n                        <button type=\"button\" id=\"login-button\">\n                            <!--lang.LOGIN-->\n                        </button>\n                        <br />\n                        <br />\n                        <a href=\"https://github.com/HexoPlusPlus/HexoPlusPlus\" id=\"tips\" style=\"color: #fff;\">💗\n                            <!--hinfo.ver-->\n                        </a>\n                    </form>\n                </div>\n            </div>\n            <ul class=\"bg-bubbles\">\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n            </ul>\n        </div>\n    </div>\n    <script src=\"<!--hinfo.CDN-->login/login.js\"></script>\n</body>\n\n</html>");
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/404.html
+;// CONCATENATED MODULE: ./node_modules/raw-loader/dist/cjs.js!./worker/src/html/dash/404.html
 /* harmony default export */ const _404 = ("<div class=\"content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-primary\">\n                        <h4 class=\"card-title\">404</h4>\n                        <p class=\"card-category\"><!--lang.DASH_404--></p>\n                    </div></br>\n                    <div class=\"card-body\"><a href=\"/hpp/admin/dash/home\"><!--lang.DASH_BACK_TO_HOME--></a></div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>");
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/home/index.html
+;// CONCATENATED MODULE: ./node_modules/raw-loader/dist/cjs.js!./worker/src/html/dash/home/index.html
 /* harmony default export */ const home = ("`<div class=\"content\">\n    <div class=\"container-fluid\">\n      <div class=\"row\">\n      ${(() => {\n            if (config.hexo.switch) {\n              return `<div class=\"col-lg-6 col-md-6 col-sm-6\">\n      <div class=\"card card-stats\">\n        <div class=\"card-header card-header-warning card-header-icon\">\n          <div class=\"card-icon\">\n            <i class=\"fa fa-file\"></i>\n          </div>\n          <p class=\"card-category\">总文档数</p>\n          <h3 class=\"card-title\" id=\"document_all\">NaN\n            <small>个</small>\n          </h3>\n        </div>\n        <div class=\"card-footer\">\n        <div class=\"stats\">\n            <a href=\"/hpp/admin/dash/edit\" style=\"color: #cf6ae0 !important\"><i class=\"fa fa-pencil\"></i>前往管理</a>\n          </div>\n        </div>\n      </div>\n    </div>`} else { return '' }\n          })()}\n        \n    \n    \n    ${(() => {\n            if (config.img.switch) {\n              return `<div class=\"col-lg-6 col-md-6 col-sm-6\">\n    <div class=\"card card-stats\">\n      <div class=\"card-header card-header-success card-header-icon\">\n        <div class=\"card-icon\">\n          <i class=\"fa fa-image\"></i>\n        </div>\n        <p class=\"card-category\">总图片数</p>\n        <h3 class=\"card-title\" id=\"img_all\">NaN\n          <small>张</small>\n        </h3>\n      </div>\n      <div class=\"card-footer\">\n      <div class=\"stats\">\n          <a href=\"/hpp/admin/dash/img_man\" style=\"color: #cf6ae0 !important\"><i class=\"fa fa-upload\"></i>前往管理</a>\n        </div>\n      </div>\n    </div>\n    </div>`\n            } else { return '' }\n          })()}\n        \n        <div class=\"col-lg-6 col-md- col-sm-6\">\n          <a href=\"javascript:checkUpdate()\">\n          <div class=\"card card-stats\">\n            <div class=\"card-header card-header-info card-header-icon\">\n              <div class=\"card-icon\">\n                <i class=\"fa fa-upload\"></i>\n              </div>\n              <p class=\"card-category\">当前版本</p>\n              <h3 class=\"card-title\">${hinfo.ver}</h3>\n            </div>\n            <div class=\"card-footer\">\n              <div class=\"stats\">\n                <i class=\"material-icons\">update</i>点击更新\n              </div>\n            </div>\n          </div>\n        </a>\n        </div>\n        \n        \n        \n        <div class=\"col-lg-6 col-md-6 col-sm-6\">\n          <a href=\"https://jq.qq.com/?_wv=1027&k=rAcnhzqK\" target=\"_blank\">\n          <div class=\"card card-stats\">\n            <div class=\"card-header card-header-success card-header-icon\">\n              <div class=\"card-icon\">\n                <i class=\"fa fa-qq\"></i>\n              </div>\n              <h3 class=\"card-title\">QQ群聊天去？</h3>\n            </div>\n            <div class=\"card-footer\">\n            诚聘小白鼠(bushi\n            </div>\n          </div>\n        </a>\n        </div>\n        \n        <div class=\"col-lg-6 col-md-6 col-sm-6\">\n          <a href=\"https://hexoplusplus.js.org\" target=\"_blank\">\n          <div class=\"card card-stats\">\n            <div class=\"card-header card-header-normal card-header-icon\">\n              <div class=\"card-icon\">\n                <i class=\"fa fa-book\"></i>\n              </div>\n              <h3 class=\"card-title\">文档地址</h3>\n            </div>\n            <div class=\"card-footer\">有多少人没看文档来提issues？\n            </div>\n          </div>\n        </a>\n        </div>\n        \n        <div class=\"col-lg-6 col-md-6 col-sm-6\">\n          <a href=\"https://github.com/HexoPlusPlus/HexoPlusPlus\" target=\"_blank\">\n          <div class=\"card card-stats\">\n            <div class=\"card-header card-header-primary card-header-icon\">\n              <div class=\"card-icon\">\n                <i class=\"fa fa-github\"></i>\n              </div>\n              <h3 class=\"card-title\">Github</h3>\n            </div>\n            <div class=\"card-footer\">\n            欢迎PR\n            </div>\n          </div>\n        </a>\n        </div>\n        \n      </div>\n    </div>\n    </div>`");
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/head.html
+;// CONCATENATED MODULE: ./node_modules/raw-loader/dist/cjs.js!./worker/src/html/dash/head.html
 /* harmony default export */ const head = ("<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\" />\n    <link rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"<!--config.dash.icon-->\">\n    <link rel=\"icon\" type=\"image/png\" href=\"<!--config.dash.icon-->\">\n    <title>\n        <!--config.dash.title-->\n    </title>\n    <meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\" name=\"viewport\" />\n    <!--DASH_STYLE-->\n    <link rel=\"stylesheet\"\n        href=\"https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css\">\n    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css\">\n\n    <!--JS_CONFIG-->\n</head>\n\n<body class=\"<!--BODY_CLASS-->\">\n    <div class=\"wrapper \">\n        <div class=\"sidebar\" data-color=\"<!--config.dash.color-->\" data-background-color=\"<!--DASH_BACKGROUND_COLOR-->\"\n            data-image=\"<!--config.dash.back-->\">\n            <div class=\"logo\"><a class=\"simple-text logo-normal\">\n                    <!--config.dash.title-->\n                </a></div>\n            <div class=\"sidebar-wrapper\">\n                <ul class=\"nav\">\n\n\n                    <li class=\"nav-item<!--ainfo.hpp_home_act-->\">\n                        <a class=\"nav-link\" href=\"/hpp/admin/dash/home\">\n                            <i class=\"material-icons\">dashboard</i>\n                            <p>\n                                <!--lang.HOME-->\n                            </p>\n                        </a>\n                    </li>\n\n                    <!--config.hexo.switch-->\n\n\n\n\n                    <!--config.talk.switch.htalk-->\n\n\n\n\n                    <!--config.img.switch-->\n\n\n\n\n\n\n\n                    <li class=\"nav-item<!--ainfo.hpp_tool_act-->\">\n                        <a class=\"nav-link\" href=\"/hpp/admin/dash/tool\">\n                            <i class=\"material-icons\">widgets</i>\n                            <p>\n                                <!--lang.TOOL-->\n                            </p>\n                        </a>\n                    </li>\n                    <li class=\"nav-item<!--ainfo.hpp_set_act-->\">\n                        <a class=\"nav-link\" href=\"/hpp/admin/install?step=end\">\n                            <i class=\"material-icons\">settings</i>\n                            <p>\n                                <!--lang.SETTING-->\n                            </p>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n        <div class=\"main-panel\">\n            <nav class=\"navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top \">\n                <div class=\"container-fluid\">\n                    <div class=\"navbar-wrapper\">\n                        <a class=\"navbar-brand\" href=\"javascript:;\">\n                            <!--lang.HPP-->\n                        </a>\n                    </div>\n                    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" aria-controls=\"navigation-index\"\n                        aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n                        <span class=\"sr-only\">Toggle navigation</span>\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\n                    </button>\n                    <div class=\"collapse navbar-collapse justify-content-end\">\n                        <ul class=\"navbar-nav\">\n                            <li class=\"nav-item dropdown\">\n                                <a class=\"nav-link\" href=\"javascript:;\" id=\"navbarDropdownProfile\"\n                                    data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                    <img src=\"<!--config.dash.image-->\"\n                                        style=\"width: 30px;border-radius: 50%;border: 0;\">\n                                    <p class=\"d-lg-none d-md-block\">\n                                        Account\n                                    </p>\n                                </a>\n                                <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownProfile\">\n                                    <a class=\"dropdown-item\" id=\"kick\">\n                                        <!--lang.ATTENDANCE-->\n                                    </a>\n                                    <div class=\"dropdown-divider\"></div>\n                                    <a class=\"dropdown-item\" id=\"logout\">\n                                        <!--lang.EXIT-->\n                                    </a>\n                                </div>\n                            </li>\n                        </ul>\n                    </div>\n                </div>\n            </nav>\n            <!-- End Navbar -->\n\n            <!--innerHTMLSTART-->");
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/hexo.html
+;// CONCATENATED MODULE: ./node_modules/raw-loader/dist/cjs.js!./worker/src/html/dash/nav/hexo.html
 /* harmony default export */ const hexo = ("<li class=\"nav-item<!--ainfo.hpp_edit_act-->\">\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/edit\">\n        <i class=\"material-icons\">create</i>\n        <p><!--lang.EDIT--></p>\n    </a>\n</li>\n\n<li class=\"nav-item<!--ainfo.hpp_site_act-->\">\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/site\">\n        <i class=\"mdui-icon material-icons\">wifi_tethering</i>\n        <p><!--lang.MANAGE_SITE--></p>\n    </a>\n</li>\n\n<li class=\"nav-item<!--ainfo.hpp_docs_man_act-->\">\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/docs_man\">\n        <i class=\"material-icons\">descriptionoutlined</i>\n        <p><!--lang.MANAGE_DOC--></p>\n    </a>\n</li>");
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/talk.html
+;// CONCATENATED MODULE: ./node_modules/raw-loader/dist/cjs.js!./worker/src/html/dash/nav/talk.html
 /* harmony default export */ const talk = ("<li class=\"nav-item<!--ainfo.hpp_talk_act-->\">\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/talk\">\n        <i class=\"material-icons\">chat</i>\n        <p><!--lang.TALK--></p>\n    </a>\n</li>");
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/img.html
+;// CONCATENATED MODULE: ./node_modules/raw-loader/dist/cjs.js!./worker/src/html/dash/nav/img.html
 /* harmony default export */ const img = ("<li class=\"nav-item<!--ainfo.hpp_img_man_act-->\">\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/img_man\">\n        <i class=\"material-icons\">imagerounded</i>\n        <p><!--lang.MANAGE_IMG--></p>\n    </a>\n</li>");
 ;// CONCATENATED MODULE: ./worker/src/scaffold.js
 
@@ -2237,8 +2237,10 @@ const hpage = (config) => {
         
             */
 }
+;// CONCATENATED MODULE: ./package.json
+const package_namespaceObject = JSON.parse('{"i8":"2.0.1-beta-8","G3":"https://cdn.jsdelivr.net/npm/hexoplusplus/"}');
 ;// CONCATENATED MODULE: ./worker/kernel.js
-const md5 = __webpack_require__(735)
+const md5 = __webpack_require__(568)
 ;
 //import yaml from  'js-yaml'
 //yaml.load()
@@ -2251,9 +2253,10 @@ const md5 = __webpack_require__(735)
 
 
 
+
 let hinfo = {
-  ver: "HexoPlusPlus@2.0.0β3",
-  CDN: `https://hppstatic.pages.dev/`,
+  ver: package_namespaceObject.i8,
+  CDN: package_namespaceObject.G3,
   dev: true
 }
 
@@ -2483,7 +2486,7 @@ addEventListener("fetch", event => {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(507);
+/******/ 	var __webpack_exports__ = __webpack_require__(395);
 /******/ 	
 /******/ })()
 ;
