@@ -5,14 +5,15 @@
   "main": "worker/kernel.js",
   "CDN": "https://cdn.jsdelivr.net/npm/hexoplusplus/",
   "scripts": {
-    "build": "npm run build-worker && npm run build-static",
-    "build-worker": "webpack",
-    "build-worker-dev": "webpack --watch",
-    "build-static": "gulp",
+    "build:worker": "webpack -c webpack.worker.js",
+    "build:static": "webpack -c webpack.static.js",
+    "build:worker:dev": "webpack -c webpack.worker.js --watch",
+    "build:static:dev": "webpack -c webpack.static.js --watch",
     "server": "http-server -S -C ./ssl/cert.pem -K ./ssl/key.pem ./dist/ -p 9999",
-    "server-nossl": "http-server ./dist/ -p 9999",
-    "build-static-server": "npm run build-static & npm run server",
-    "build-server": "npm run build & npm run server"
+    "server:nossl": "http-server ./dist/ -p 9999",
+    "build": "npm run build:worker && npm run build:static",
+    "build:server": "npm run build && npm run server",
+    "build:server:nossl": "npm run build && npm run server:nossl"
   },
   "author": "ChenYFan",
   "license": "GPL-3.0-or-later",
@@ -29,15 +30,14 @@
   },
   "homepage": "https://github.com/HexoPlusPlus/HexoPlusPlus#readme",
   "dependencies": {
-    "gulp": "^4.0.2",
-    "gulp-concat": "^2.6.1",
-    "gulp-minify-css": "^1.2.4",
-    "gulp-terser": "^2.0.1",
     "js-yaml": "^4.1.0",
     "md5": "^2.3.0",
     "raw-loader": "^4.0.2",
     "webpack": "^5.30.0",
-    "webpack-cli": "^4.6.0"
+    "webpack-cli": "^4.7.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "cssnano": "^5.0.4",
+    "optimize-css-assets-webpack-plugin": "^6.0.0"
+  }
 }

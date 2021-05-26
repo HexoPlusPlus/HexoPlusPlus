@@ -1,3 +1,4 @@
+import './../css/login.css'
 (() => {
     document.onkeydown = (e) => {
         if (e.keyCode == 13) {
