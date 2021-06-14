@@ -18,7 +18,6 @@
     "GH_TREELIST_SUCCESS": "樹狀列表成功！",
     "NEED_UPDATE":"更新可用！",
     "NEED_NOT_UPDATE":"暫無更新！",
-
     "LOGIN_TRUE": "已登入",
     "LOGIN_FALSE": "未登入",
     "HTALK": "動態套件資訊",
@@ -35,7 +34,6 @@
     "WELCOME":"歡迎！",
     "USERNAME":"管理員賬戶",
     "PASSWORD":"請輸入密码",
-
     "DASH_404":"我們無法處理您的需求",
     "DASH_BACK_TO_HOME":"回到首頁",
     "HPP":"HPP 控制台",
@@ -48,7 +46,8 @@
     "TOOL":"工具",
     "SETTING":"設定",
     "ATTENDANCE":"簽到",
-    "EXIT":"登出"
-
-    
+    "EXIT":"登出",
+    "LOVE_SUCCESS": "按贊成功",
+    "LOVE_ERROR": "按贊失敗",
+    "RECAP_ERROR": "未通過人機識別驗證，請重試！"
 }
