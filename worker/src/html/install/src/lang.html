@@ -1,0 +1,11 @@
+选择你的语言：
+<select class="mdui-select" id="lang">
+    <option value="zh-CN" selected>中文 - 简体</option>
+</select>
+<button class="mdui-btn mdui-btn-raised mdui-ripple" onclick='next()'>下一步</button>
+<script>
+    const next = () => {
+        setCookie('hpp_lang', document.getElementById(id).value)
+        document.location.search = "?step=choose"
+    }
+</script>
