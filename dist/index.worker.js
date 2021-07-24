@@ -339,7 +339,7 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ 222:
+/***/ 798:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -372,19 +372,29 @@ const language_lang = all_lan[langtype]
 /* harmony default export */ const language = (language_lang); 
 ;// CONCATENATED MODULE: ./node_modules/html-loader/dist/cjs.js!./worker/src/html/install/hello.html
 // Module
-var code = "<!DOCTYPE html> <html> <head> <title>欢迎使用</title> </head> <link href=\"https://fonts.geekzu.org/css2?family=Noto+Sans+TC:wght@300&display=swap\" rel=\"stylesheet\"> <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no\"/> <style>body,html{width:100%;height:100%;margin:0;padding:0}body,div{display:flex;align-items:center;justify-content:center}*{font-family:'Noto Sans TC',sans-serif;text-align:center}.s{font-size:80px;animation:loading-fadein 4s infinite}.n{font-size:30px;animation:loading-fadein 8s infinite}@keyframes loading-fadein{0%{opacity:0}50%{opacity:.6}to{opacity:0}}</style> <body> <div> <h1 id=\"index\" class=\"s\">你好</h1> </div> </body> <script>window.get=e=>all[e%all.length],window.all=[\"欢迎！点我开始安装\",\"Welcome!Click Me To Install!\",\"Hola!¡Haga clic en mí para iniciar la instalación!\",\"你好！點擊我開始安裝！\"],document.body.addEventListener(\"click\",()=>{document.location.search=\"?step=lang\"}),t=0,setInterval(()=>{const e=get(t);document.getElementById(\"index\").innerHTML=e,document.title=e,t++},4e3)</script> </html>";
+var code = "<!DOCTYPE html> <html> <head> <title>欢迎使用</title> </head> <link href=\"https://fonts.geekzu.org/css2?family=Noto+Sans+TC:wght@300&display=swap\" rel=\"stylesheet\"> <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no\"/> <style>body,html{width:100%;height:100%;margin:0;padding:0}body,div{display:flex;align-items:center;justify-content:center}*{font-family:'Noto Sans TC',sans-serif;text-align:center}.s{font-size:80px;animation:loading-fadein 4s infinite}.n{font-size:30px;animation:loading-fadein 8s infinite}@keyframes loading-fadein{0%{opacity:0}50%{opacity:.6}to{opacity:0}}</style> <body> <div> <h1 id=\"index\" class=\"s\">你好</h1> </div> </body> <script>window.get=e=>all[e%all.length],window.all=[\"欢迎！点我开始安装\",\"Welcome!Click Me To Install!\",\"Hola!¡Haga clic en mí para iniciar la instalación!\",\"你好！點擊我開始安裝！\"],document.body.addEventListener(\"click\",()=>{document.location.search=\"?step=check\"}),t=0,setInterval(()=>{const e=get(t);document.getElementById(\"index\").innerHTML=e,document.title=e,t++},4e3)</script> </html>";
 // Exports
 /* harmony default export */ const hello = (code);
 ;// CONCATENATED MODULE: ./node_modules/html-loader/dist/cjs.js!./worker/src/html/install/index.html
 // Module
-var install_code = "<!doctype html> <html lang=\"zh-cmn-Hans\"> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no\"/> <meta name=\"renderer\" content=\"webkit\"/> <meta name=\"force-rendering\" content=\"webkit\"/> <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/> <title>HexoPlusPlus Installation</title> <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css\"/> <style>.m-card{max-width:768px;margin:auto;margin-bottom:20px}</style> <title>Hello, world!</title> </head> <body> <div class=\"mdui-container\"> <div class=\"mdui-toolbar\"> <a class=\"mdui-btn mdui-btn-icon\" id=\"_menu\"><i class=\"mdui-icon material-icons\">menu</i></a> <span class=\"mdui-typo-title\">::VER::</span> <div class=\"mdui-toolbar-spacer\"></div> </div> </div> <div class=\"mdui-drawer mdui-drawer-close\" id=\"drawer\"> <ul class=\"mdui-list\"> <li class=\"mdui-list-item mdui-ripple\" onclick='window.location.href=\"https://hexoplusplus.js.org\"'> <i class=\"mdui-icon material-icons\">book</i> <div class=\"mdui-list-item-content\">文档|Document</div> </li> <li class=\"mdui-list-item mdui-ripple\" onclick='window.location.href=\"https://github.com/HexoPlusPlus/HexoPlusPlus\"'> <i class=\"mdui-icon material-icons\">code</i> <div class=\"mdui-list-item-content\">Github</div> </li> </ul> </div> <div class=\"mdui-card m-card\"> <div class=\"mdui-card-content mdui-typo\"> ::BODY:: </div> </div> <script src=\"https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js\"></script> <script>var inst=new mdui.Drawer(\"#drawer\");document.getElementById(\"_menu\").addEventListener(\"click\",(function(){inst.toggle()}));const setCookie=(e,t,n)=>{var i=new Date;i.setTime(i.getTime()+(n||2592e6));var r=\"expires=\"+i.toGMTString();document.cookie=e+\"=\"+t+\"; \"+r},getCookie=e=>{for(var t=e+\"=\",n=document.cookie.split(\";\"),i=0;i<n.length;i++){var r=n[i].trim();if(0==r.indexOf(t))return r.substring(t.length,r.length)}return\"\"}</script> </body> </html>";
+var install_code = "<!doctype html> <html lang=\"zh-cmn-Hans\"> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no\"/> <meta name=\"renderer\" content=\"webkit\"/> <meta name=\"force-rendering\" content=\"webkit\"/> <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/> <title>HexoPlusPlus Installation</title> <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css\"/> <style>.m-card{max-width:768px;margin:auto;margin-bottom:20px}</style> </head> <body> <div class=\"mdui-container\"> <div class=\"mdui-toolbar\"> <a class=\"mdui-btn mdui-btn-icon\" id=\"_menu\"><i class=\"mdui-icon material-icons\">menu</i></a> <span class=\"mdui-typo-title\">HexoPlusPlus - ::VER::</span> <div class=\"mdui-toolbar-spacer\"></div> </div> </div> <div class=\"mdui-drawer mdui-drawer-close\" id=\"drawer\"> <ul class=\"mdui-list\"> <li class=\"mdui-list-item mdui-ripple\" onclick='window.location.href=\"https://hexoplusplus.js.org\"'> <i class=\"mdui-icon material-icons\">book</i> <div class=\"mdui-list-item-content\">::DOCUMENT::</div> </li> <li class=\"mdui-list-item mdui-ripple\" onclick='window.location.href=\"https://github.com/HexoPlusPlus/HexoPlusPlus\"'> <i class=\"mdui-icon material-icons\">code</i> <div class=\"mdui-list-item-content\">Github</div> </li> </ul> </div> <div class=\"mdui-card m-card\"> <div class=\"mdui-card-content mdui-typo\"> ::BODY:: </div> </div> <script src=\"https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js\"></script> <script>var inst=new mdui.Drawer(\"#drawer\");document.getElementById(\"_menu\").addEventListener(\"click\",(function(){inst.toggle()}));const setCookie=(e,t,n)=>{var i=new Date;i.setTime(i.getTime()+(n||2592e6));var r=\"expires=\"+i.toGMTString();document.cookie=e+\"=\"+t+\"; \"+r},getCookie=e=>{for(var t=e+\"=\",n=document.cookie.split(\";\"),i=0;i<n.length;i++){var r=n[i].trim();if(0==r.indexOf(t))return r.substring(t.length,r.length)}return\"\"}</script> </body> </html>";
 // Exports
 /* harmony default export */ const install = (install_code);
-;// CONCATENATED MODULE: ./node_modules/html-loader/dist/cjs.js!./worker/src/html/install/src/lang.html
+;// CONCATENATED MODULE: ./node_modules/html-loader/dist/cjs.js!./worker/src/html/install/src/check.html
 // Module
-var lang_code = "选择你的语言|Choose your language： <select class=\"mdui-select\" id=\"lang\"> <option value=\"zh-CN\" selected=\"selected\">中文 - 简体</option> <option value=\"en-US\">English</option> </select> <button class=\"mdui-btn mdui-btn-raised mdui-ripple\" id=\"next\">下一步|NEXT</button> <script>document.getElementById(\"next\").addEventListener(\"click\",()=>{setCookie(\"hpp_lang\",document.getElementById(\"next\").value)})</script>";
+var check_code = "<div id=\"log\"></div> <script>(async()=>{window.gonext=()=>{document.location.search=\"?step=cf\"};const t=document.getElementById(\"log\");try{t.innerText+=\"[信息]此为基本检查程序，用于检查hpp基本运行环境\\n\",t.innerText+=\"[信息]正在检查所有的基本配置是否完成中...\\n\",t.innerText+=\"[信息]检查KV是否绑定...\\n\";const n=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=kv&s=${(new Date).valueOf()}`)).json()).ctx;console.log(n),t.innerText+=n?\"[成功]KV是绑定了的。\":\"[失败]KV没有绑定，错误代码(-10001)\",t.innerText+=\"\\n\",n?(t.innerText+=\"[信息]检查KV是否已存在配置...\\n\",t.innerText+=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=hkv&s=${(new Date).valueOf()}`)).json()).ctx?\"[警告]配置已存在，继续将覆盖其原有配置\":\"[成功]配置未存在，将进行全新安装\",t.innerText+=\"\\n\"):t.innerText+=\"[警告]KV没有绑定，绕过KV检查！！！\\n\",t.innerText+=\"[信息]检查用户名是否正常...\\n\";const e=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=user&s=${(new Date).valueOf()}`)).json()).ctx;t.innerText+=e?\"[成功]用户名是设置了的。\":\"[失败]用户名没有设置，错误代码(-10002)\",t.innerText+=\"\\n\",t.innerText+=\"[信息]检查密码是否正常...\\n\";const i=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=passwd&s=${(new Date).valueOf()}`)).json()).ctx;t.innerText+=i?\"[成功]密码是设置了的。\":\"[失败]密码没有设置，错误代码(-10003)\",t.innerText+=\"\\n\",n&&e&&i?(t.innerText+=\"[成功]点击下一步继续\\n\",t.innerHTML+='<button class=\"mdui-btn mdui-color-theme-accent mdui-ripple\" onclick=\"gonext()\">下一步</button>'):t.innerText+=\"[失败]并不是所有的检查都是通过的，请尝试排查错误，若不知道如何排查，请点击左上角菜单寻求帮助！\"}catch(n){t.innerText+=\"[异常]脚本检测时出现了未知的异常：\\n\"+n}})()</script>";
 // Exports
-/* harmony default export */ const src_lang = (lang_code);
+/* harmony default export */ const check = (check_code);
+;// CONCATENATED MODULE: ./node_modules/html-loader/dist/cjs.js!./worker/src/html/install/src/cf.html
+// Module
+var cf_code = "<p>你需要填写以下CloudFlare信息才能保证HPP工作正常</p> <div class=\"mdui-textfield mdui-textfield-floating-label\"> <label class=\"mdui-textfield-label\">CloudFlare登陆邮箱</label> <input class=\"mdui-textfield-input\" type=\"email\" id=\"Auth_Email\"/> </div> <div class=\"mdui-textfield mdui-textfield-floating-label\"> <label class=\"mdui-textfield-label\">CloudFlare Global Key</label> <input class=\"mdui-textfield-input\" type=\"password\" id=\"Auth_Key\"/> </div> <div class=\"mdui-textfield mdui-textfield-floating-label\"> <label class=\"mdui-textfield-label\">HPP占用的Worker名字</label> <input class=\"mdui-textfield-input\" type=\"text\" id=\"script_name\"/> </div> <div class=\"mdui-textfield mdui-textfield-floating-label\"> <label class=\"mdui-textfield-label\">CloudFlareWorker账户ID</label> <input class=\"mdui-textfield-input\" type=\"text\" id=\"account_identifier\"/> </div> <button class=\"mdui-btn mdui-color-theme-accent mdui-ripple\" onclick=\"gocheck()\" id=\"gocheck\">检查</button> <button class=\"mdui-btn mdui-color-theme-accent mdui-ripple\" style=\"display:none\" onclick=\"gonext()\" id=\"gonext\">下一步</button> <div id=\"log\"></div> <script>window.gocheck=async()=>{window.gonext=()=>{document.location.search=\"?step=player\"};const e=document.getElementById(\"log\");document.getElementById(\"gocheck\").disabled=!0,e.innerText=\"[信息]尝试检查CF信息中...\\n\";try{const t=await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=cf&mail=${document.getElementById(\"Auth_Email\").value}&key=${document.getElementById(\"Auth_Key\").value}&name=${document.getElementById(\"script_name\").value}&id=${document.getElementById(\"account_identifier\").value}&s=${(new Date).valueOf()}`)).json();let n=!1,c=!1;t.ctx.login?(n=!0,e.innerText+=\"[成功]账户已成功登陆。\\n\"):(n=!1,e.innerText+=\"[失败]账户登陆异常，错误代码(-10004)\\n\"),t.ctx.script?(c=!0,e.innerText+=\"[成功]已成功检测到脚本存在。\\n\"):(n=!1,e.innerText+=\"[失败]未能检测到此脚本，错误代码(-10005)\\n\"),n&&c?(e.innerText+=\"[成功]检测已完成，点击下一步继续\\n\",localStorage.setItem(\"config\",JSON.stringify({installed:!1,cors:\"*\",recaptcha:\"\",gh_token:\"\",cloudflare:{account_identifier:document.getElementById(\"account_identifier\").value,Auth_Key:document.getElementById(\"Auth_Key\").value,Auth_Email:document.getElementById(\"Auth_Email\").value,script_name:document.getElementById(\"script_name\").value}})),document.getElementById(\"gocheck\").disabled=!1,document.getElementById(\"gocheck\").innerText=\"下一步\",document.getElementById(\"gocheck\").style.display=\"none\",document.getElementById(\"gonext\").style.display=\"unset\"):(e.innerText+=\"[失败]并不是所有的检查都是通过的，请尝试排查错误，若不知道如何排查，请点击左上角菜单寻求帮助！\\n\",document.getElementById(\"gocheck\").disabled=!1,document.getElementById(\"gocheck\").innerText=\"重新检测\")}catch(t){e.innerText+=\"[异常]脚本检测时出现了未知的异常：\\n\"+t}}</script>";
+// Exports
+/* harmony default export */ const cf = (cf_code);
+;// CONCATENATED MODULE: ./node_modules/html-loader/dist/cjs.js!./worker/src/html/install/src/player.html
+// Module
+var player_code = "<div id=\"log\"></div> <div id=\"player\" style=\"display:none\"> <div class=\"mdui-card\"> <div class=\"mdui-card-media\"> <img src=\"https://api.cyfan.top/bing?day=1\"/> <div class=\"mdui-card-media-covered mdui-card-media-covered-top\"> <div class=\"mdui-card-primary\"> <div class=\"mdui-card-primary-title\">小白</div> <div class=\"mdui-card-primary-subtitle\">【全新安装】从零开始部署Hexo，没有仓库也不要紧！</div> </div> </div> </div> <div class=\"mdui-card-actions\"> <button class=\"mdui-btn mdui-ripple\">点我进入</button> </div> </div> <br> <div class=\"mdui-card\"> <div class=\"mdui-card-media\"> <img src=\"https://api.cyfan.top/bing?day=2\"/> <div class=\"mdui-card-media-covered mdui-card-media-covered-top\"> <div class=\"mdui-card-primary\"> <div class=\"mdui-card-primary-title\">用户</div> <div class=\"mdui-card-primary-subtitle\">【导入安装】导入已有的Hexo仓库</div> </div> </div> </div> <div class=\"mdui-card-actions\"> <button class=\"mdui-btn mdui-ripple\">点我进入</button> </div> </div> <br> <div class=\"mdui-card\"> <div class=\"mdui-card-media\"> <img src=\"https://api.cyfan.top/bing?day=3\"/> <div class=\"mdui-card-media-covered mdui-card-media-covered-top\"> <div class=\"mdui-card-primary\"> <div class=\"mdui-card-primary-title\">开发者</div> <div class=\"mdui-card-primary-subtitle\">【配置安装】牛逼哄哄，一步直达最后</div> </div> </div> </div> <div class=\"mdui-card-actions\"> <button class=\"mdui-btn mdui-ripple\">点我进入</button> </div> </div> </div> <script>(()=>{const e=document.getElementById(\"log\");e.innerText=\"[信息]检测安装信息...\\n\",null===localStorage.getItem(\"config\")||(()=>{try{JSON.parse(localStorage.getItem(\"config\"));return!1}catch(e){return!0}})()?(e.innerText+=\"[异常]本地安装信息异常或无法检测，请点击返回首页进行重新安装，错误代码(-10000)\\n\",window.goback=()=>{document.location.search=\"\"},document.getElementById(\"log\").innerHTML+='<button class=\"mdui-btn mdui-color-theme-accent mdui-ripple\" onclick=\"goback()\" id=\"gocheck\">返回首页</button>'):(e.innerText+=\"[正常]本地安装信息正常，请选择你的安装方式\\n\",document.getElementById(\"player\").style.display=\"unset\")})()</script>";
+// Exports
+/* harmony default export */ const player = (player_code);
 ;// CONCATENATED MODULE: ./worker/src/gethtml.js
 
 
@@ -396,15 +406,20 @@ var lang_code = "选择你的语言|Choose your language： <select class=\"mdui
 
 
 
-const gethtml_gethtml = (hinfo) => {
-  String.prototype.preout = function (html) {
 
+
+
+const gethtml_gethtml = (hinfo) => {
+  String.prototype.preout = function () {
+    let n = this
     for (var i in language) {
-      html = html.replace(new RegExp(`::LANG_${i}::`), language[i])
+      n = n.replace(new RegExp(`::${i}::`, "g"), language[i])
+
     }
 
-    return html
+    return n
       .replace(/::CDN::/g, hinfo.CDN)
+      .replace(/::VER::/g, hinfo.ver)
   }
   return {
 
@@ -412,19 +427,28 @@ const gethtml_gethtml = (hinfo) => {
     hello: () => {
       return hello
     }
-
     ,
-    lang:()=>{
-      return install.replace(/::VER::/g,hinfo.ver)
-      .replace(/::BODY::/g,src_lang)
+    check: () => {
+      return install.replace(/::BODY::/g, check)
+        .preout()
+    }
+    ,
+    cf: () => {
+      return install.replace(/::BODY::/g, cf)
+        .preout()
     }
 
     ,
+    player: () => {
+      return install.replace(/::BODY::/g, player)
+        .preout()
+    }
+    ,
     error: (errormsg, b) => {
       b = b ? b : [
-        { url: "https://hexoplusplus.js.org", des: "::LANG_DOCUMENT::" },
+        { url: "https://hexoplusplus.js.org", des: "::DOCUMENT::" },
         { url: "https://github.com/HexoPlusPlus/HexoPlusPlus", des: "Github" },
-        { url: "https://jq.qq.com/?_wv=1027&k=rAcnhzqK", des: "::LANG_HELP_FROM_QQGROUP::" }
+        { url: "https://jq.qq.com/?_wv=1027&k=rAcnhzqK", des: "::HELP_FROM_QQGROUP::" }
       ]
       return html_error
         .replace(/::NAV::/g, (() => {
@@ -448,28 +472,33 @@ const gethtml_gethtml = (hinfo) => {
 
 ;// CONCATENATED MODULE: ./worker/src/config.js
 const formatconfig = async () => {
-    const config =
-        await (async () => {
-            try {
-                return await HKV.get("hconfig", { type: "json" })
-            }
-            catch (p) {
-                return {
-                    nokv: true
+    try {
+        const config =
+            await (async () => {
+                try {
+                    return await HKV.get("hconfig", { type: "json" })
                 }
-            }
-        })()
-    if (config === null) { return defaultconfig }
-    if (config.nokv) { return config }
-    config.hexo.gh_docpath = config.hexo.gh_root + "source/_posts/"
-    config.hexo.gh_draftpath = config.hexo.gh_root + "source/_drafts/"
-    return config
+                catch (p) {
+                    return {
+                        nokv: true
+                    }
+                }
+            })()
+        if (config === null) { return defaultconfig }
+        if (config.nokv) { return config }
+        config.hexo.gh_docpath = config.hexo.gh_root + "source/_posts/"
+        config.hexo.gh_draftpath = config.hexo.gh_root + "source/_drafts/"
+        return config
+    } catch (n) {
+        return defaultconfig
+    }
 }
 
 const defaultconfig = {
     installed: false,
     cors: "*",
     recaptcha: "",
+    gh_token:"",
     dash: {
         image: "https://cdn.jsdelivr.net/gh/ChenYFan/CDN@master/img/hpp_upload/1612610340000.jpg",
         icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@master/doc_img/icon.png",
@@ -1411,7 +1440,7 @@ const gres = (c) => {
 
 
 
-const installpage = (req, hinfo) => {
+const installpage = async (req, hinfo) => {
   const urlStr = req.url
   const urlObj = new URL(urlStr)
   const sq = (key) => {
@@ -1419,11 +1448,110 @@ const installpage = (req, hinfo) => {
   }
   const h = src_gethtml(hinfo)
   switch (sq('step')) {
-    case 'lang':
+    case 'check':
       return src_gres({
         type: 'html',
-        ctx: h.lang()
+        ctx: h.check()
       })
+    case 'cf':
+      return src_gres({
+        type: 'html',
+        ctx: h.cf()
+      })
+
+    case 'player':
+      return src_gres({
+        type: 'html',
+        ctx: h.player()
+      })
+    case 'test':
+      switch (sq('type')) {
+        case "cf":
+          const n = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${sq('id')}/workers/scripts`, {
+            headers: {
+              "X-Auth-Email": sq("mail"),
+              "X-Auth-Key": sq("key")
+            }
+          })).json()
+
+          let r = {
+            login: false,
+            script: false
+          }
+          if (n.success) { r.login = true }
+          for (var i in n.result) {
+            if (n.result[i].id === sq("name")) {
+              r.script = true
+            }
+          }
+          return src_gres({
+            type: "json",
+            ctx: r
+          })
+        case "kv":
+          try {
+            const kv = await HKV.get('hconfig')
+            return src_gres({
+              type: "json",
+              ctx: true
+            })
+          } catch (p) {
+            return src_gres({
+              type: "json",
+              ctx: false,
+              msg: p
+            })
+          }
+        case "passwd":
+
+          try {
+            const passwd = hpp_password.split(",")
+            return src_gres({
+              type: "json",
+              ctx: true
+            })
+          } catch (p) {
+            return src_gres({
+              type: "json",
+              ctx: false,
+              msg: p
+            })
+          }
+        case "user":
+
+          try {
+            const user = hpp_username.split(",")
+            return src_gres({
+              type: "json",
+              ctx: true
+            })
+          } catch (p) {
+            return src_gres({
+              type: "json",
+              ctx: false,
+              msg: p
+            })
+          }
+        case "hkv":
+          const kv = await HKV.get('hconfig')
+          if (kv !== undefined) {
+            return src_gres({
+              type: "json",
+              ctx: true
+            })
+          } else {
+            return src_gres({
+              type: "json",
+              ctx: false
+            })
+          }
+        default:
+          return src_gres({
+            type: "json",
+            ctx: "ERROR"
+          })
+      }
+
     default:
       return src_gres({
         type: 'html',
@@ -1876,7 +2004,7 @@ const installpage = (req, hinfo) => {
 
 /* harmony default export */ const src_install = (installpage);
 ;// CONCATENATED MODULE: ./package.json
-const package_namespaceObject = JSON.parse('{"i8":"2.0.1-beta-9","G3":"https://cdn.jsdelivr.net/npm/hexoplusplus/"}');
+const package_namespaceObject = JSON.parse('{"i8":"2.0.1-dev-0","G3":"https://cdn.jsdelivr.net/npm/hexoplusplus/"}');
 ;// CONCATENATED MODULE: ./worker/src/captcha/recaptcha.js
 const recaptcha_recaptcha = async (secret, code, action) => {
     const n = await (await fetch(`https://www.recaptcha.net/recaptcha/api/siteverify?secret=${secret}&response=${code}`)).json()
@@ -2044,7 +2172,7 @@ addEventListener("fetch", event => {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(222);
+/******/ 	var __webpack_exports__ = __webpack_require__(798);
 /******/ 	
 /******/ })()
 ;

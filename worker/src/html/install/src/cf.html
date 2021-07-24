@@ -1,0 +1,82 @@
+<p>你需要填写以下CloudFlare信息才能保证HPP工作正常</p>
+
+
+<div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">CloudFlare登陆邮箱</label>
+    <input class="mdui-textfield-input" type="email" id="Auth_Email" />
+</div>
+
+<div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">CloudFlare Global Key</label>
+    <input class="mdui-textfield-input" type="password" id="Auth_Key" />
+</div>
+
+<div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">HPP占用的Worker名字</label>
+    <input class="mdui-textfield-input" type="text" id="script_name" />
+</div>
+
+<div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">CloudFlareWorker账户ID</label>
+    <input class="mdui-textfield-input" type="text" id="account_identifier" />
+</div>
+
+
+
+<button class="mdui-btn mdui-color-theme-accent mdui-ripple" onclick="gocheck()" id="gocheck">检查</button>
+<button class="mdui-btn mdui-color-theme-accent mdui-ripple" style="display:none" onclick="gonext()"
+    id="gonext">下一步</button>
+
+<div id="log"></div>
+<script>
+    window.gocheck = async () => {
+        window.gonext = () => { document.location.search = "?step=player" }
+        const setlog = document.getElementById('log')
+        document.getElementById("gocheck").disabled = true
+        setlog.innerText = `[信息]尝试检查CF信息中...\n`
+        try {
+            const res = await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=cf&mail=${document.getElementById("Auth_Email").value}&key=${document.getElementById("Auth_Key").value}&name=${document.getElementById("script_name").value}&id=${document.getElementById('account_identifier').value}&s=${(new Date()).valueOf()}`)).json()
+            let login = false, script = false
+            if (res.ctx.login) {
+                login = true;
+                setlog.innerText += `[成功]账户已成功登陆。\n`
+            } else {
+                login = false;
+                setlog.innerText += `[失败]账户登陆异常，错误代码(-10004)\n`
+            }
+            if (res.ctx.script) {
+                script = true;
+                setlog.innerText += `[成功]已成功检测到脚本存在。\n`
+            } else {
+                login = false;
+                setlog.innerText += `[失败]未能检测到此脚本，错误代码(-10005)\n`
+            }
+
+            if (login && script) {
+                setlog.innerText += `[成功]检测已完成，点击下一步继续\n`
+                localStorage.setItem("config", JSON.stringify({
+                    installed: false,
+                    cors: "*",
+                    recaptcha: "",
+                    gh_token: "",
+                    cloudflare: {
+                        account_identifier: document.getElementById("account_identifier").value,
+                        Auth_Key: document.getElementById("Auth_Key").value,
+                        Auth_Email: document.getElementById("Auth_Email").value,
+                        script_name: document.getElementById("script_name").value
+                    },
+                }));
+                document.getElementById("gocheck").disabled = false
+                document.getElementById("gocheck").innerText = "下一步"
+                document.getElementById("gocheck").style["display"] = "none"
+                document.getElementById("gonext").style["display"] = "unset"
+            } else {
+                setlog.innerText += `[失败]并不是所有的检查都是通过的，请尝试排查错误，若不知道如何排查，请点击左上角菜单寻求帮助！\n`
+                document.getElementById("gocheck").disabled = false
+                document.getElementById("gocheck").innerText = "重新检测"
+            }
+        } catch (n) {
+            setlog.innerText += `[异常]脚本检测时出现了未知的异常：\n` + n
+        }
+    }
+</script>

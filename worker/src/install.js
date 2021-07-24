@@ -5,7 +5,7 @@ import gres from './gres'
 
 
 
-const installpage = (req, hinfo) => {
+const installpage = async (req, hinfo) => {
   const urlStr = req.url
   const urlObj = new URL(urlStr)
   const sq = (key) => {
@@ -13,11 +13,116 @@ const installpage = (req, hinfo) => {
   }
   const h = gethtml(hinfo)
   switch (sq('step')) {
-    case 'lang':
+    case 'check':
       return gres({
         type: 'html',
-        ctx: h.lang()
+        ctx: h.check()
       })
+
+    case 'check':
+      return gres({
+        type: 'dash',
+        ctx: h.check()
+      })
+    case 'cf':
+      return gres({
+        type: 'html',
+        ctx: h.cf()
+      })
+
+    case 'player':
+      return gres({
+        type: 'html',
+        ctx: h.player()
+      })
+    case 'test':
+      switch (sq('type')) {
+        case "cf":
+          const n = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${sq('id')}/workers/scripts`, {
+            headers: {
+              "X-Auth-Email": sq("mail"),
+              "X-Auth-Key": sq("key")
+            }
+          })).json()
+
+          let r = {
+            login: false,
+            script: false
+          }
+          if (n.success) { r.login = true }
+          for (var i in n.result) {
+            if (n.result[i].id === sq("name")) {
+              r.script = true
+            }
+          }
+          return gres({
+            type: "json",
+            ctx: r
+          })
+        case "kv":
+          try {
+            const kv = await HKV.get('hconfig')
+            return gres({
+              type: "json",
+              ctx: true
+            })
+          } catch (p) {
+            return gres({
+              type: "json",
+              ctx: false,
+              msg: p
+            })
+          }
+        case "passwd":
+
+          try {
+            const passwd = hpp_password.split(",")
+            return gres({
+              type: "json",
+              ctx: true
+            })
+          } catch (p) {
+            return gres({
+              type: "json",
+              ctx: false,
+              msg: p
+            })
+          }
+        case "user":
+
+          try {
+            const user = hpp_username.split(",")
+            return gres({
+              type: "json",
+              ctx: true
+            })
+          } catch (p) {
+            return gres({
+              type: "json",
+              ctx: false,
+              msg: p
+            })
+          }
+        case "hkv":
+          const kv = await HKV.get('hconfig')
+          if (kv !== undefined) {
+            return gres({
+              type: "json",
+              ctx: true
+            })
+          } else {
+            return gres({
+              type: "json",
+              ctx: false
+            })
+          }
+        default:
+          return gres({
+            type: "json",
+            ctx: "ERROR"
+          })
+      }
+
     default:
       return gres({
         type: 'html',
