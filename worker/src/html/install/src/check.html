@@ -8,7 +8,7 @@
             setlog.innerText += "[信息]正在检查所有的基本配置是否完成中...\n"
             setlog.innerText += "[信息]检查KV是否绑定...\n"
             const kvflag = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=kv&s=${(new Date()).valueOf()}`)).json()).ctx
-            console.log(kvflag)
+       
             setlog.innerText += kvflag ? "[成功]KV是绑定了的。" : "[失败]KV没有绑定，错误代码(-10001)"
             setlog.innerText += "\n"
             if (kvflag) {

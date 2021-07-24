@@ -1,0 +1,22 @@
+<div id="log"></div>
+
+<div class="mdui-textfield mdui-textfield-floating-label">
+    <label class="mdui-textfield-label">输入你的GithubToken，享受解放双手的乐趣！</label>
+    <input class="mdui-textfield-input" type="password" id="gh_token" />
+</div>
+
+<button class="mdui-btn mdui-ripple" onclick="start()">检测Token有效性</button>
+
+
+<script>
+    (async () => {
+        const setlog = document.getElementById("log")
+        try {
+            window.start = () => {
+
+            }
+        } catch (o) {
+            setlog.innerText += "[异常]安装程序意外退出：\n" + o
+        }
+    })()
+</script>
