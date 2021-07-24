@@ -1,4 +1,4 @@
-import { lang } from './i18n/language'
+import lang from './i18n/language'
 export const getCookie = (request, name) => {
     let result = ""
     const cookieString = request.headers.get("Cookie")

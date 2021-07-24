@@ -1,15 +1,26 @@
 export const formatconfig = async () => {
-    const config = await HKV.get("hconfig", { type: "json" })
+    const config =
+        await (async () => {
+            try {
+                return await HKV.get("hconfig", { type: "json" })
+            }
+            catch (p) {
+                return {
+                    nokv: true
+                }
+            }
+        })()
     if (config === null) { return defaultconfig }
+    if (config.nokv) { return config }
     config.hexo.gh_docpath = config.hexo.gh_root + "source/_posts/"
     config.hexo.gh_draftpath = config.hexo.gh_root + "source/_drafts/"
     return config
 }
 
 const defaultconfig = {
-    installed: true,
+    installed: false,
     cors: "*",
-    recaptcha:"",
+    recaptcha: "",
     dash: {
         image: "https://cdn.jsdelivr.net/gh/ChenYFan/CDN@master/img/hpp_upload/1612610340000.jpg",
         icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@master/doc_img/icon.png",

@@ -60,8 +60,8 @@
 </body>
 <script>
     (() => {
-        window.randomjson = (arr) => {
-            return arr[Math.floor((Math.random() * arr.length))]
+        window.get = (t) => {
+            return all[t % (all.length)]
         }
         window.all = [
             "欢迎！点我开始安装",
@@ -72,8 +72,12 @@
         document.body.addEventListener('click', () => {
             document.location.search = "?step=lang"
         })
+        t = 0
         setInterval(() => {
-            document.getElementById("index").innerHTML = randomjson(all)
+            const o = get(t)
+            document.getElementById("index").innerHTML = o
+            document.title = o
+            t++
         }, 4000);
     })()
 </script>

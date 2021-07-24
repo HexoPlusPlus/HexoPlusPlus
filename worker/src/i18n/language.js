@@ -16,4 +16,6 @@ const langtype = (() => {
     }
 })()
 
-export const lang = all_lan[langtype]
+const lang = all_lan[langtype]
+
+export default  lang 

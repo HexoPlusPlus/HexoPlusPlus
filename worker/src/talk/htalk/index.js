@@ -1,6 +1,6 @@
-import { lang } from './../../i18n/language'
+import lang from './../../i18n/language'
 import { genres } from './genres'
-import recaptcha from '../../../captcha/recaptcha'
+import recaptcha from '../../captcha/recaptcha'
 export async function htalk(config, request, loginstatus, hinfo) {
     try {
         const r = await request.json()

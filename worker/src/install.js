@@ -1,25 +1,31 @@
-import hello from 'html-loader!./html/install/hello.html'
-import index from 'html-loader!./html/install/index.html'
-import lang from 'html-loader!./html/install/src/lang.html'
-export const install = (config, hinfo, req) => {
+import gethtml from './gethtml'
+
+
+import gres from './gres'
+
+
+
+const installpage = (req, hinfo) => {
   const urlStr = req.url
   const urlObj = new URL(urlStr)
   const sq = (key) => {
     return urlObj.searchParams.get(key)
   }
-
+  const h = gethtml(hinfo)
   switch (sq('step')) {
     case 'lang':
-      return new Response(index.replace(/::VER::/g,hinfo.ver)
-      .replace(/::BODY::/g,lang), {
-        headers: { "content-type": "text/html;charset=UTF-8" }
+      return gres({
+        type: 'html',
+        ctx: h.lang()
       })
     default:
-      return new Response(hello, {
-        headers: { "content-type": "text/html;charset=UTF-8" }
+      return gres({
+        type: 'html',
+        ctx: h.hello()
       })
 
   }
+
   /*
   if (rp(path) == '/hpp/admin/api/upconfig') {
             const config_r = JSON.stringify(await request.text())
@@ -461,3 +467,5 @@ export const install = (config, hinfo, req) => {
   </html>`*/
 
 }
+
+export default installpage

@@ -1,7 +1,7 @@
-import { lang } from './../i18n/language'
+import lang from './../i18n/language'
 import { ghupload, ghdel, ghget } from './../github/manager'
 import { ghtreelist, ghlist } from './../github/getlist'
-import { gethtml } from './../gethtml'
+import gethtml from './../gethtml'
 
 import { getCookie, getJsonLength, rp, formatconfig, getname, getsuffix, genjsonres } from './../scaffold'
 import { hppupdate, ghlatver, ghlatinfo } from './../update.js'

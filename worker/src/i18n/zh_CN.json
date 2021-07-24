@@ -49,5 +49,9 @@
     "EXIT": "退出登陆",
     "LOVE_SUCCESS": "点赞成功",
     "LOVE_ERROR": "点赞失败",
-    "RECAP_ERROR": "人机验证失败，可能是风险太高！"
+    "RECAP_ERROR": "人机验证失败，可能是风险太高！",
+
+
+    "DOCUMENT":"文档",
+    "HELP_FROM_QQGROUP":"QQ群寻求帮助"
 }

@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 751:
+/***/ 487:
 /***/ ((module) => {
 
 var charenc = {
@@ -41,7 +41,7 @@ module.exports = charenc;
 
 /***/ }),
 
-/***/ 41:
+/***/ 12:
 /***/ ((module) => {
 
 (function() {
@@ -144,7 +144,7 @@ module.exports = charenc;
 
 /***/ }),
 
-/***/ 34:
+/***/ 738:
 /***/ ((module) => {
 
 /*!
@@ -172,14 +172,14 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ 735:
+/***/ 568:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 (function(){
-  var crypt = __webpack_require__(41),
-      utf8 = __webpack_require__(751).utf8,
-      isBuffer = __webpack_require__(34),
-      bin = __webpack_require__(751).bin,
+  var crypt = __webpack_require__(12),
+      utf8 = __webpack_require__(487).utf8,
+      isBuffer = __webpack_require__(738),
+      bin = __webpack_require__(487).bin,
 
   // The core
   md5 = function (message, options) {
@@ -339,13 +339,13 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ 854:
+/***/ 222:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
 
 ;// CONCATENATED MODULE: ./worker/src/i18n/zh_CN.json
-const zh_CN_namespaceObject = JSON.parse('{"LANG":"中文 - 简体","EMPTY_HCONFIG":"配置文件是空的，请安装","START_INSTALL":"开始安装","CHECK_LOGIN_SUCCESS":"已登录！","CHECK_LOGIN_ERROR":"Ooops！尚未登陆！","ATTENDANCE_SUCCESS":"签到成功！","COMING_SOON":"即将到来！","UNKNOW_ACTION":"未知的操作","UNKNOW_ERROR":"未知的错误","DASHBOARD":"仪表盘","GH_UPLOAD_SUCCESS":"上传文件到Github成功！","GH_UPLOAD_ERROR":"上传文件到Github失败！","GH_DELETE_SUCCESS":"从Github删除文件成功！","GH_DELETE_ERROR":"从Github删除文件失败！","GH_GET_SUCCESS":"获取文件成功！","GH_LIST_SUCCESS":"列表成功！","GH_TREELIST_SUCCESS":"树状列表成功！","NEED_UPDATE":"需要更新！","NEED_NOT_UPDATE":"不需要更新！","LOGIN_TRUE":"已登录","LOGIN_FALSE":"未登录","HTALK":"HTALK组件信息","HTALK_INIT_SUCCESS":"初始化成功！","HTALK_GET_SUCCESS":"在${1}的状态下,已成功获得说说数据","HTALK_UPLOAD_SUCCESS":"已成功上传说说数据","HTALK_DEL_SUCCESS":"已成功删除id为${1}的数据","HTALK_VISIBLE_SUCCESS":"已改变id为${1}的数据的可见性","HTALK_INPUT_SUCCESS":"已导入${1}条!","UPDATE_SUCCESS":"更新是成功的！","UPDATE_ERROR":"更新是失败的！","LOGIN":"登陆","LOGIN_DASH":"Hexo后台管理系统","WELCOME":"欢迎！","USERNAME":"用户名","PASSWORD":"密码","DASH_404":"我们不知道您的需求","DASH_BACK_TO_HOME":"回到主页","HPP":"HexoPlusPlus后台","HOME":"主页","MANAGE_IMG":"图片管理","MANAGE_SITE":"站点管理","MANAGE_DOC":"文章管理","EDIT":"书写","TALK":"说说","TOOL":"工具","SETTING":"设置","ATTENDANCE":"签到","EXIT":"退出登陆","LOVE_SUCCESS":"点赞成功","LOVE_ERROR":"点赞失败","RECAP_ERROR":"人机验证失败，可能是风险太高！"}');
+const zh_CN_namespaceObject = JSON.parse('{"LANG":"中文 - 简体","EMPTY_HCONFIG":"配置文件是空的，请安装","START_INSTALL":"开始安装","CHECK_LOGIN_SUCCESS":"已登录！","CHECK_LOGIN_ERROR":"Ooops！尚未登陆！","ATTENDANCE_SUCCESS":"签到成功！","COMING_SOON":"即将到来！","UNKNOW_ACTION":"未知的操作","UNKNOW_ERROR":"未知的错误","DASHBOARD":"仪表盘","GH_UPLOAD_SUCCESS":"上传文件到Github成功！","GH_UPLOAD_ERROR":"上传文件到Github失败！","GH_DELETE_SUCCESS":"从Github删除文件成功！","GH_DELETE_ERROR":"从Github删除文件失败！","GH_GET_SUCCESS":"获取文件成功！","GH_LIST_SUCCESS":"列表成功！","GH_TREELIST_SUCCESS":"树状列表成功！","NEED_UPDATE":"需要更新！","NEED_NOT_UPDATE":"不需要更新！","LOGIN_TRUE":"已登录","LOGIN_FALSE":"未登录","HTALK":"HTALK组件信息","HTALK_INIT_SUCCESS":"初始化成功！","HTALK_GET_SUCCESS":"在${1}的状态下,已成功获得说说数据","HTALK_UPLOAD_SUCCESS":"已成功上传说说数据","HTALK_DEL_SUCCESS":"已成功删除id为${1}的数据","HTALK_VISIBLE_SUCCESS":"已改变id为${1}的数据的可见性","HTALK_INPUT_SUCCESS":"已导入${1}条!","UPDATE_SUCCESS":"更新是成功的！","UPDATE_ERROR":"更新是失败的！","LOGIN":"登陆","LOGIN_DASH":"Hexo后台管理系统","WELCOME":"欢迎！","USERNAME":"用户名","PASSWORD":"密码","DASH_404":"我们不知道您的需求","DASH_BACK_TO_HOME":"回到主页","HPP":"HexoPlusPlus后台","HOME":"主页","MANAGE_IMG":"图片管理","MANAGE_SITE":"站点管理","MANAGE_DOC":"文章管理","EDIT":"书写","TALK":"说说","TOOL":"工具","SETTING":"设置","ATTENDANCE":"签到","EXIT":"退出登陆","LOVE_SUCCESS":"点赞成功","LOVE_ERROR":"点赞失败","RECAP_ERROR":"人机验证失败，可能是风险太高！","DOCUMENT":"文档","HELP_FROM_QQGROUP":"QQ群寻求帮助"}');
 ;// CONCATENATED MODULE: ./worker/src/i18n/en_US.json
 const en_US_namespaceObject = JSON.parse('{"LANG":"English - United States of America","EMPTY_HCONFIG":"The configuration file is empty, please install!","START_INSTALL":"Installation has started","CHECK_LOGIN_SUCCESS":"Already logged in!","CHECK_LOGIN_ERROR":"Ooops! You are not logged in yet!","ATTENDANCE_SUCCESS":"check-in successfully!","COMING_SOON":"Coming soon!","UNKNOW_ACTION":"Unknown action","UNKNOW_ERROR":"Unknown error","DASHBOARD":"Dashboard","GH_UPLOAD_SUCCESS":"Upload file to GitHub successfully!","GH_UPLOAD_ERROR":"Error to upload file to GitHub!","GH_DELETE_SUCCESS":"File deleted from GitHub successfully!","GH_DELETE_ERROR":"Error to delete file from GitHub!","GH_GET_SUCCESS":"The file was successfully obtained!","GH_LIST_SUCCESS":"List successfully!","GH_TREELIST_SUCCESS":"Trees list successfully!","NEED_UPDATE":"Need to be updated!!!","NEED_NOT_UPDATE":"No need to be updated","LOGIN_TRUE":"Logged in","LOGIN_FALSE":"Not logged in","HTALK":"HTALK Component Info","HTALK_INIT_SUCCESS":"Initialization successful！","HTALK_GET_SUCCESS":"In the state of ${1}, the HTALK data has been successfully obtained","HTALK_UPLOAD_SUCCESS":"Successfully uploaded HTALK data","HTALK_DEL_SUCCESS":"The data with ID ${1} has been successfully deleted","HTALK_VISIBLE_SUCCESS":"Has changed the visibility of the data with ID ${1}","HTALK_INPUT_SUCCESS":"Imported ${1} items!","UPDATE_SUCCESS":"Update successful","UPDATE_ERROR":"Update failed","LOGIN":"Login","LOGIN_DASH":"Hexo Backend Management System","WELCOME":"Welcome!","USERNAME":"Username","PASSWORD":"Password","DASH_404":"We don\'t know what you need","DASH_BACK_TO_HOME":"Back to home","HPP":"HexoPlusPlus","HOME":"Home","MANAGE_IMG":"Image Management","MANAGE_SITE":"Site Management","MANAGE_DOC":"Article Management","EDIT":"Write","TALK":"HTALK","TOOL":"Tools","SETTING":"Settings","ATTENDANCE":"Check-in","EXIT":"Logout","LOVE_SUCCESS":"Like Success","LOVE_ERROR":"Failed to like","RECAP_ERROR":"CAPTCHA verification failed!"}');
 ;// CONCATENATED MODULE: ./worker/src/i18n/language.js
@@ -368,82 +368,23 @@ const langtype = (() => {
 })()
 
 const language_lang = all_lan[langtype]
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/login.html
-/* harmony default export */ const login = ("<!DOCTYPE html>\n<html lang=\"zh-cmn-Hans\">\n\n<head>\n    <meta charset=\"utf-8\" />\n    <meta name=\"viewport\"\n        content=\"width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no\" />\n    <title>\n        <!--lang.LOGIN_DASH-->\n    </title>\n    <!--LOGIN_STYLE-->\n    <link rel=\"stylesheet\" href=\"<!--hinfo.CDN-->login/login.css\" />\n</head>\n\n<body>\n    <div id=\"all\">\n        <div class=\"wrapper\">\n            <div class=\"bg-container\">\n                <div class=\"container\">\n                    <h1 style=\"margin: 0;\" id=\"bar\">\n                        <!--lang.WELCOME-->\n                    </h1>\n                    <form class=\"form\" id=\"fm\">\n                        <input id=\"username\" type=\"text\" placeholder=\"<!--lang.USERNAME-->\" value=\"\" name=\"username\" />\n                        <input id=\"password\" type=\"password\" placeholder=\"<!--lang.PASSWORD-->\" value=\"\"\n                            name=\"password\" />\n                        <button type=\"button\" id=\"login-button\">\n                            <!--lang.LOGIN-->\n                        </button>\n                        <br />\n                        <br />\n                        <a href=\"https://github.com/HexoPlusPlus/HexoPlusPlus\" id=\"tips\" style=\"color: #fff;\">💗\n                            <!--hinfo.ver-->\n                        </a>\n                    </form>\n                </div>\n            </div>\n            <ul class=\"bg-bubbles\">\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n                <li></li>\n            </ul>\n        </div>\n    </div>\n    <script src=\"<!--hinfo.CDN-->login/login.js\"></script>\n</body>\n\n</html>");
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/404.html
-/* harmony default export */ const _404 = ("<div class=\"content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-primary\">\n                        <h4 class=\"card-title\">404</h4>\n                        <p class=\"card-category\"><!--lang.DASH_404--></p>\n                    </div></br>\n                    <div class=\"card-body\"><a href=\"/hpp/admin/dash/home\"><!--lang.DASH_BACK_TO_HOME--></a></div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>");
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/home/index.html
-/* harmony default export */ const home = ("`<div class=\"content\">\n    <div class=\"container-fluid\">\n      <div class=\"row\">\n      ${(() => {\n            if (config.hexo.switch) {\n              return `<div class=\"col-lg-6 col-md-6 col-sm-6\">\n      <div class=\"card card-stats\">\n        <div class=\"card-header card-header-warning card-header-icon\">\n          <div class=\"card-icon\">\n            <i class=\"fa fa-file\"></i>\n          </div>\n          <p class=\"card-category\">总文档数</p>\n          <h3 class=\"card-title\" id=\"document_all\">NaN\n            <small>个</small>\n          </h3>\n        </div>\n        <div class=\"card-footer\">\n        <div class=\"stats\">\n            <a href=\"/hpp/admin/dash/edit\" style=\"color: #cf6ae0 !important\"><i class=\"fa fa-pencil\"></i>前往管理</a>\n          </div>\n        </div>\n      </div>\n    </div>`} else { return '' }\n          })()}\n        \n    \n    \n    ${(() => {\n            if (config.img.switch) {\n              return `<div class=\"col-lg-6 col-md-6 col-sm-6\">\n    <div class=\"card card-stats\">\n      <div class=\"card-header card-header-success card-header-icon\">\n        <div class=\"card-icon\">\n          <i class=\"fa fa-image\"></i>\n        </div>\n        <p class=\"card-category\">总图片数</p>\n        <h3 class=\"card-title\" id=\"img_all\">NaN\n          <small>张</small>\n        </h3>\n      </div>\n      <div class=\"card-footer\">\n      <div class=\"stats\">\n          <a href=\"/hpp/admin/dash/img_man\" style=\"color: #cf6ae0 !important\"><i class=\"fa fa-upload\"></i>前往管理</a>\n        </div>\n      </div>\n    </div>\n    </div>`\n            } else { return '' }\n          })()}\n        \n        <div class=\"col-lg-6 col-md- col-sm-6\">\n          <a href=\"javascript:checkUpdate()\">\n          <div class=\"card card-stats\">\n            <div class=\"card-header card-header-info card-header-icon\">\n              <div class=\"card-icon\">\n                <i class=\"fa fa-upload\"></i>\n              </div>\n              <p class=\"card-category\">当前版本</p>\n              <h3 class=\"card-title\">${hinfo.ver}</h3>\n            </div>\n            <div class=\"card-footer\">\n              <div class=\"stats\">\n                <i class=\"material-icons\">update</i>点击更新\n              </div>\n            </div>\n          </div>\n        </a>\n        </div>\n        \n        \n        \n        <div class=\"col-lg-6 col-md-6 col-sm-6\">\n          <a href=\"https://jq.qq.com/?_wv=1027&k=rAcnhzqK\" target=\"_blank\">\n          <div class=\"card card-stats\">\n            <div class=\"card-header card-header-success card-header-icon\">\n              <div class=\"card-icon\">\n                <i class=\"fa fa-qq\"></i>\n              </div>\n              <h3 class=\"card-title\">QQ群聊天去？</h3>\n            </div>\n            <div class=\"card-footer\">\n            诚聘小白鼠(bushi\n            </div>\n          </div>\n        </a>\n        </div>\n        \n        <div class=\"col-lg-6 col-md-6 col-sm-6\">\n          <a href=\"https://hexoplusplus.js.org\" target=\"_blank\">\n          <div class=\"card card-stats\">\n            <div class=\"card-header card-header-normal card-header-icon\">\n              <div class=\"card-icon\">\n                <i class=\"fa fa-book\"></i>\n              </div>\n              <h3 class=\"card-title\">文档地址</h3>\n            </div>\n            <div class=\"card-footer\">有多少人没看文档来提issues？\n            </div>\n          </div>\n        </a>\n        </div>\n        \n        <div class=\"col-lg-6 col-md-6 col-sm-6\">\n          <a href=\"https://github.com/HexoPlusPlus/HexoPlusPlus\" target=\"_blank\">\n          <div class=\"card card-stats\">\n            <div class=\"card-header card-header-primary card-header-icon\">\n              <div class=\"card-icon\">\n                <i class=\"fa fa-github\"></i>\n              </div>\n              <h3 class=\"card-title\">Github</h3>\n            </div>\n            <div class=\"card-footer\">\n            欢迎PR\n            </div>\n          </div>\n        </a>\n        </div>\n        \n      </div>\n    </div>\n    </div>`");
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/head.html
-/* harmony default export */ const head = ("<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\" />\n    <link rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"<!--config.dash.icon-->\">\n    <link rel=\"icon\" type=\"image/png\" href=\"<!--config.dash.icon-->\">\n    <title>\n        <!--config.dash.title-->\n    </title>\n    <meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\" name=\"viewport\" />\n    <!--DASH_STYLE-->\n    <link rel=\"stylesheet\"\n        href=\"https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.css\">\n    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css\">\n\n    <!--JS_CONFIG-->\n</head>\n\n<body class=\"<!--BODY_CLASS-->\">\n    <div class=\"wrapper \">\n        <div class=\"sidebar\" data-color=\"<!--config.dash.color-->\" data-background-color=\"<!--DASH_BACKGROUND_COLOR-->\"\n            data-image=\"<!--config.dash.back-->\">\n            <div class=\"logo\"><a class=\"simple-text logo-normal\">\n                    <!--config.dash.title-->\n                </a></div>\n            <div class=\"sidebar-wrapper\">\n                <ul class=\"nav\">\n\n\n                    <li class=\"nav-item<!--ainfo.hpp_home_act-->\">\n                        <a class=\"nav-link\" href=\"/hpp/admin/dash/home\">\n                            <i class=\"material-icons\">dashboard</i>\n                            <p>\n                                <!--lang.HOME-->\n                            </p>\n                        </a>\n                    </li>\n\n                    <!--config.hexo.switch-->\n\n\n\n\n                    <!--config.talk.switch.htalk-->\n\n\n\n\n                    <!--config.img.switch-->\n\n\n\n\n\n\n\n                    <li class=\"nav-item<!--ainfo.hpp_tool_act-->\">\n                        <a class=\"nav-link\" href=\"/hpp/admin/dash/tool\">\n                            <i class=\"material-icons\">widgets</i>\n                            <p>\n                                <!--lang.TOOL-->\n                            </p>\n                        </a>\n                    </li>\n                    <li class=\"nav-item<!--ainfo.hpp_set_act-->\">\n                        <a class=\"nav-link\" href=\"/hpp/admin/install?step=end\">\n                            <i class=\"material-icons\">settings</i>\n                            <p>\n                                <!--lang.SETTING-->\n                            </p>\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n        <div class=\"main-panel\">\n            <nav class=\"navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top \">\n                <div class=\"container-fluid\">\n                    <div class=\"navbar-wrapper\">\n                        <a class=\"navbar-brand\" href=\"javascript:;\">\n                            <!--lang.HPP-->\n                        </a>\n                    </div>\n                    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" aria-controls=\"navigation-index\"\n                        aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n                        <span class=\"sr-only\">Toggle navigation</span>\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\n                        <span class=\"navbar-toggler-icon icon-bar\"></span>\n                    </button>\n                    <div class=\"collapse navbar-collapse justify-content-end\">\n                        <ul class=\"navbar-nav\">\n                            <li class=\"nav-item dropdown\">\n                                <a class=\"nav-link\" href=\"javascript:;\" id=\"navbarDropdownProfile\"\n                                    data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                    <img src=\"<!--config.dash.image-->\"\n                                        style=\"width: 30px;border-radius: 50%;border: 0;\">\n                                    <p class=\"d-lg-none d-md-block\">\n                                        Account\n                                    </p>\n                                </a>\n                                <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdownProfile\">\n                                    <a class=\"dropdown-item\" id=\"kick\">\n                                        <!--lang.ATTENDANCE-->\n                                    </a>\n                                    <div class=\"dropdown-divider\"></div>\n                                    <a class=\"dropdown-item\" id=\"logout\">\n                                        <!--lang.EXIT-->\n                                    </a>\n                                </div>\n                            </li>\n                        </ul>\n                    </div>\n                </div>\n            </nav>\n            <!-- End Navbar -->\n\n            <!--innerHTMLSTART-->");
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/hexo.html
-/* harmony default export */ const hexo = ("<li class=\"nav-item<!--ainfo.hpp_edit_act-->\">\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/edit\">\n        <i class=\"material-icons\">create</i>\n        <p><!--lang.EDIT--></p>\n    </a>\n</li>\n\n<li class=\"nav-item<!--ainfo.hpp_site_act-->\">\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/site\">\n        <i class=\"mdui-icon material-icons\">wifi_tethering</i>\n        <p><!--lang.MANAGE_SITE--></p>\n    </a>\n</li>\n\n<li class=\"nav-item<!--ainfo.hpp_docs_man_act-->\">\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/docs_man\">\n        <i class=\"material-icons\">descriptionoutlined</i>\n        <p><!--lang.MANAGE_DOC--></p>\n    </a>\n</li>");
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/talk.html
-/* harmony default export */ const talk = ("<li class=\"nav-item<!--ainfo.hpp_talk_act-->\">\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/talk\">\n        <i class=\"material-icons\">chat</i>\n        <p><!--lang.TALK--></p>\n    </a>\n</li>");
-;// CONCATENATED MODULE: ./node_modules/_raw-loader@4.0.2@raw-loader/dist/cjs.js!./worker/src/html/dash/nav/img.html
-/* harmony default export */ const img = ("<li class=\"nav-item<!--ainfo.hpp_img_man_act-->\">\n    <a class=\"nav-link\" href=\"/hpp/admin/dash/img_man\">\n        <i class=\"material-icons\">imagerounded</i>\n        <p><!--lang.MANAGE_IMG--></p>\n    </a>\n</li>");
-;// CONCATENATED MODULE: ./worker/src/scaffold.js
 
-const getCookie = (request, name) => {
-    let result = ""
-    const cookieString = request.headers.get("Cookie")
-    if (cookieString) {
-        const cookies = cookieString.split(";")
-        cookies.forEach(cookie => {
-            const cookiePair = cookie.split("=", 2)
-            const cookieName = cookiePair[0].trim()
-            if (cookieName === name) {
-                const cookieVal = cookiePair[1]
-                result = cookieVal
-            }
-        })
-    }
-    return result
-}
-
-const getJsonLength = (jsonData) => {
-
-    var jsonLength = 0;
-
-    for (var item in jsonData) {
-
-        jsonLength++;
-
-    }
-
-    return jsonLength;
-}
-
-const rp = (path) => {
-    return path.split('?')[0]
-}
-const getname = (path) => {
-    const urllist = path.split('/')
-    return urllist[getJsonLength(urllist) - 1]
-}
-const getsuffix = (path) => {
-    const suffixlist = getname(path).split('.')
-    return suffixlist[getJsonLength(suffixlist) - 1]
-}
-
-const genjsonres = (msg, code, status, content) => {
-    let m = msg ? msg : language_lang.UNKNOW_ERROR
-    let c = (code || code == 0) ? code : -1
-    let s = status ? status : 500
-    let co = content ? content : ''
-    let r = {
-        msg: String(m),
-        code: c,
-        content: String(co)
-    }
-    return new Response(JSON.stringify(r), {
-        status: s, headers: {
-            "content-type": "application/javascript; charset=utf-8",
-            "Access-Control-Allow-Origin": '*'
-        }
-    })
-}
-
+/* harmony default export */ const language = (language_lang); 
+;// CONCATENATED MODULE: ./node_modules/html-loader/dist/cjs.js!./worker/src/html/install/hello.html
+// Module
+var code = "<!DOCTYPE html> <html> <head> <title>欢迎使用</title> </head> <link href=\"https://fonts.geekzu.org/css2?family=Noto+Sans+TC:wght@300&display=swap\" rel=\"stylesheet\"> <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no\"/> <style>body,html{width:100%;height:100%;margin:0;padding:0}body,div{display:flex;align-items:center;justify-content:center}*{font-family:'Noto Sans TC',sans-serif;text-align:center}.s{font-size:80px;animation:loading-fadein 4s infinite}.n{font-size:30px;animation:loading-fadein 8s infinite}@keyframes loading-fadein{0%{opacity:0}50%{opacity:.6}to{opacity:0}}</style> <body> <div> <h1 id=\"index\" class=\"s\">你好</h1> </div> </body> <script>window.get=e=>all[e%all.length],window.all=[\"欢迎！点我开始安装\",\"Welcome!Click Me To Install!\",\"Hola!¡Haga clic en mí para iniciar la instalación!\",\"你好！點擊我開始安裝！\"],document.body.addEventListener(\"click\",()=>{document.location.search=\"?step=lang\"}),t=0,setInterval(()=>{const e=get(t);document.getElementById(\"index\").innerHTML=e,document.title=e,t++},4e3)</script> </html>";
+// Exports
+/* harmony default export */ const hello = (code);
+;// CONCATENATED MODULE: ./node_modules/html-loader/dist/cjs.js!./worker/src/html/install/index.html
+// Module
+var install_code = "<!doctype html> <html lang=\"zh-cmn-Hans\"> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no\"/> <meta name=\"renderer\" content=\"webkit\"/> <meta name=\"force-rendering\" content=\"webkit\"/> <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/> <title>HexoPlusPlus Installation</title> <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css\"/> <style>.m-card{max-width:768px;margin:auto;margin-bottom:20px}</style> <title>Hello, world!</title> </head> <body> <div class=\"mdui-container\"> <div class=\"mdui-toolbar\"> <a class=\"mdui-btn mdui-btn-icon\" id=\"_menu\"><i class=\"mdui-icon material-icons\">menu</i></a> <span class=\"mdui-typo-title\">::VER::</span> <div class=\"mdui-toolbar-spacer\"></div> </div> </div> <div class=\"mdui-drawer mdui-drawer-close\" id=\"drawer\"> <ul class=\"mdui-list\"> <li class=\"mdui-list-item mdui-ripple\" onclick='window.location.href=\"https://hexoplusplus.js.org\"'> <i class=\"mdui-icon material-icons\">book</i> <div class=\"mdui-list-item-content\">文档|Document</div> </li> <li class=\"mdui-list-item mdui-ripple\" onclick='window.location.href=\"https://github.com/HexoPlusPlus/HexoPlusPlus\"'> <i class=\"mdui-icon material-icons\">code</i> <div class=\"mdui-list-item-content\">Github</div> </li> </ul> </div> <div class=\"mdui-card m-card\"> <div class=\"mdui-card-content mdui-typo\"> ::BODY:: </div> </div> <script src=\"https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js\"></script> <script>var inst=new mdui.Drawer(\"#drawer\");document.getElementById(\"_menu\").addEventListener(\"click\",(function(){inst.toggle()}));const setCookie=(e,t,n)=>{var i=new Date;i.setTime(i.getTime()+(n||2592e6));var r=\"expires=\"+i.toGMTString();document.cookie=e+\"=\"+t+\"; \"+r},getCookie=e=>{for(var t=e+\"=\",n=document.cookie.split(\";\"),i=0;i<n.length;i++){var r=n[i].trim();if(0==r.indexOf(t))return r.substring(t.length,r.length)}return\"\"}</script> </body> </html>";
+// Exports
+/* harmony default export */ const install = (install_code);
+;// CONCATENATED MODULE: ./node_modules/html-loader/dist/cjs.js!./worker/src/html/install/src/lang.html
+// Module
+var lang_code = "选择你的语言|Choose your language： <select class=\"mdui-select\" id=\"lang\"> <option value=\"zh-CN\" selected=\"selected\">中文 - 简体</option> <option value=\"en-US\">English</option> </select> <button class=\"mdui-btn mdui-btn-raised mdui-ripple\" id=\"next\">下一步|NEXT</button> <script>document.getElementById(\"next\").addEventListener(\"click\",()=>{setCookie(\"hpp_lang\",document.getElementById(\"next\").value)})</script>";
+// Exports
+/* harmony default export */ const src_lang = (lang_code);
 ;// CONCATENATED MODULE: ./worker/src/gethtml.js
 
 
@@ -454,403 +395,81 @@ const genjsonres = (msg, code, status, content) => {
 
 
 
-const gethtml = {
-  dash_head: (config, hinfo, ainfo) => {
-    return head.replace(/<!--config.dash.title-->/g, config.dash.title)
+
+const gethtml_gethtml = (hinfo) => {
+  String.prototype.preout = function (html) {
+
+    for (var i in language) {
+      html = html.replace(new RegExp(`::LANG_${i}::`), language[i])
+    }
+
+    return html
+      .replace(/::CDN::/g, hinfo.CDN)
+  }
+  return {
 
 
+    hello: () => {
+      return hello
+    }
 
+    ,
+    lang:()=>{
+      return install.replace(/::VER::/g,hinfo.ver)
+      .replace(/::BODY::/g,src_lang)
+    }
 
-      .replace(/<!--DASH_STYLE-->/g, (() => {
-        return `<link href="${hinfo.CDN}dash/theme/${(() => { if (config.dash.dark) { return 'dark' } else { return 'light' } })()}.css" rel="stylesheet" />`
-      })())
-      .replace(/JSON.stringify(config)/g, JSON.stringify(config))
-      .replace(/<!--BODY_CLASS-->/, (() => { if (config.dash.dark) { return 'dark-edition' } else { return '' } })())
-      .replace(/<!--config.dash.color-->/g, config.dash.color)
-      .replace(/<!--DASH_BACKGROUND_COLOR-->/g, (() => { if (config.dash.dark) { return 'default' } else { return config.dash.bgcolor } })())
-      .replace(/<!--config.dash.back-->/g, config.dash.back)
-      .replace(/<!--config.dash.image-->/g, config.dash.image)
-      .replace(/<!--config.dash.icon-->/g, config.dash.icon)
-      .replace(/<!--ainfo.hpp_home_act-->/g, ainfo.hpp_home_act)
-      .replace(/<!--ainfo.hpp_tool_act-->/g, ainfo.hpp_tool_act)
-      .replace(/<!--ainfo.hpp_set_act-->/g, ainfo.hpp_set_act)
-      .replace(/<!--config.hexo.switch-->/g, (() => {
-        if (config.hexo.switch) {
-          return hexo.replace(/<!--ainfo.hpp_edit_act-->/g, ainfo.hpp_edit_act)
-            .replace(/<!--ainfo.hpp_site_act-->/g, ainfo.hpp_site_act)
-            .replace(/<!--ainfo.hpp_docs_man_act-->/g, ainfo.hpp_docs_man_act)
-        } else {
-          return ""
-        }
-      })())
-      .replace(/<!--config.talk.switch.htalk-->/g, (() => {
-        if (config.talk.switch.htalk) {
-          return talk.replace(/<!--ainfo.hpp_talk_act-->/g, ainfo.hpp_talk_act)
-        }
-        else { return '' }
-      })())
-      .replace(/<!--config.img.switch-->/g, (() => {
-        if (config.img.switch && config.img.type == "gh") {
-          return img.replace(/<!--ainfo.hpp_img_man_act-->/g, ainfo.hpp_img_man_act)
-        }
-        else { return '' }
-      })())
-      .replace(/<!--JS_CONFIG-->/, `<script>window.config = ${JSON.stringify(config)}</script>`)
-
-
-      .replace(/<!--lang.HOME-->/g, language_lang.HOME)
-      .replace(/<!--lang.MANAGE_IMG-->/g, language_lang.MANAGE_IMG)
-      .replace(/<!--lang.EDIT-->/g, language_lang.EDIT)
-      .replace(/<!--lang.MANAGE_SITE-->/g, language_lang.MANAGE_SITE)
-      .replace(/<!--lang.MANAGE_DOC-->/g, language_lang.MANAGE_DOC)
-      .replace(/<!--lang.TALK-->/g, language_lang.TALK)
-      .replace(/<!--lang.TOOL-->/g, language_lang.TOOL)
-      .replace(/<!--lang.SETTING-->/g, language_lang.SETTING)
-      .replace(/<!--lang.HPP-->/, language_lang.HPP)
-      .replace(/<!--lang.ATTENDANCE-->/g, language_lang.ATTENDANCE)
-      .replace(/<!--lang.EXIT-->/g, language_lang.EXIT)
-  },
-  loginhtml: (config, hinfo) => {
-    const gc = { "#58C9B9": "#9DC8C8", "#77AF9C": "#D7FFF1", "#0396FF": "#ABDCFF" }
-    const hc = (() => {
-      let y = []
-      for (var i in gc) {
-        y.push(i)
-      }
-      return y
-    })()
-    const color = hc[Math.floor(Math.random() * hc.length)];
-    const lcolor = gc[color];
-    return login.replace(/<!--lang.LOGIN_DASH-->/g, language_lang.LOGIN_DASH)
-      .replace(/<!--hinfo.CDN-->/g, hinfo.CDN)
-      .replace(/<!--lang.WELCOME-->/g, language_lang.WELCOME)
-      .replace(/<!--lang.USERNAME-->/g, language_lang.USERNAME)
-      .replace(/<!--lang.PASSWORD-->/g, language_lang.PASSWORD)
-      .replace(/<!--lang.LOGIN-->/g, language_lang.LOGIN)
-      .replace(/<!--hinfo.ver-->/g, hinfo.ver)
-      .replace(/<!--LOGIN_STYLE-->/g, (() => {
-        return `<style>
-      .wrapper{
-        background: linear-gradient(to bottom right,${color} 0,${lcolor} 100%)!important;
-      }
-      button{
-      color:${color} !important
-      }
-        </style>`
-      })())
-  },
-  dash404: (() => {
-    return _404.replace(/<!--lang.DASH_404-->/g, language_lang.DASH_404)
-      .replace(/<!--lang.DASH_BACK_TO_HOME-->/g, language_lang.DASH_BACK_TO_HOME)
-  })(),
-  dashhome: (config, hinfo) => {
-    return home.replace()
-  },
-  dashedit: `<div class="content">
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header card-header-primary">
-          <h4 class="card-title">书写</h4>
-          <p class="card-category">Wrtie</p>
-        </div>
-      </br>
-        <div class="card-body">
-                  <div class="col-md-8">
-                      <label class="bmd-label-floating">文件选择</label>
-                      <select id="choo" class="form-control form-control-chosen" style="display: inline;"></select>
-                      <button type="submit" class="btn btn-success" onclick="javascript:hpp_get_md()">获取文章</button>
-                      <button type="submit" class="btn btn-normal" onclick="javascript:hpp_get_draft()">获取艹稿</button>
-                      <button type="submit" class="btn btn-danger" onclick="javascript:hpp_del_index()">徒手清索引</button>
-                  </div>
-                
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label>内容</label>
-                      <div class="form-group" id="hpp_doc_editor">
-                        
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-normal pull-right" onclick="javascript:hpp_upload_draft()">发布艹稿</button>
-                <button type="submit" class="btn btn-primary pull-right" onclick="javascript:hpp_upload_md()">发布文件</button>
-                <div class="clearfix"></div>
-                <input type="file" name="upload" id="upload_md" style="display:none"/>
-                <form id="upform" enctype='multipart/form-data' style="display:none;">
-<div class="form-group">
-<label for="upteainput">上传文件</label>
-<input type="file" id="input">
-</div>
-</form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>`,
-  dasheditjs: (config, hinfo) => {
-    return `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> 
-<script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/indrimuska/jquery-editable-select/dist/jquery-editable-select.min.js"></script>
-<script src='${hinfo.CDN}edit.js'></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>
-<link rel="stylesheet" href="${hinfo.CDN}OwO.min.css">
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/highlight.min.js"></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${config.dash.hljsstyle}.min.css' />`
-  },
-  dashtalk: `<div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header card-header-primary">
-              <h4 class="card-title">说说</h4>
-              <p class="card-category">Talk</p>
-            </div>
-          </br>
-            <div class="card-body">
-                      
-                    
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label>书写</label>
-                          <div class="form-group" id="hpp_talk_editor"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary pull-right" onclick="javascript:hpp_upload_md()">Upload</button>
-                    <div class="clearfix"></div>
-                    <input type="file" name="upload" id="upload_md" style="display:none"/>
-                    <form id="upform" enctype='multipart/form-data' style="display:none;">
-<div class="form-group">
-    <label for="upteainput">上传文件</label>
-    <input type="file" id="input">
-</div>
-</form><div id="hpp_talk"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>`,
-  dashtalkjs: (config, hinfo) => {
-    return `<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/notyf/notyf.min.css' /> 
-    <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script>
-    <link rel="stylesheet" href="${hinfo.CDN}talk.css" />
-    <script src='${hinfo.CDN}talk.js'></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>
-    <link rel="stylesheet" href="${hinfo.CDN}OwO.min.css">
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/highlight.min.js"></script>
-<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/${config.dash.hljsstyle}.min.css' />`
-  },
-  dashdocs: `
-<div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title ">文章列表</h4>
-                  <p class="card-category">这里列出了你所有文章</p>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-				  <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索文章...">
-                    <table class="table" id="hpp_table">
-                      <thead class="text-primary">
-                        <th>
-                          名称
-                        </th>
-                        <th>
-                          大小
-                        </th>
-                        <th>发布状态</th><th></th>
-                        <th></th><th></th><th></th>
-                      </thead>
-                      <tbody id="tbody_doc">
-						
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>`,
-  dashimg: `<div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header card-header-primary">
-                <h4 class="card-title ">图片列表</h4>
-                <p class="card-category">这里列出了你所有图片</p>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                <input type="text" id="search_Input" onkeyup="hpp_search()" placeholder="搜索图片...">
-                  <table class="table" id="hpp_table">
-                    <thead class=" text-primary">
-                      <th>
-                        名称
-                      </th>
-                      <th>
-                        大小
-                      </th><th>预览</th>
-                      <th></th>
-                      <th></th><th></th><th></th><th></th>
-                    </thead>
-                    <tbody id="tbody_img">
-                      
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>`,
-  dashtool: `<div class="content">
-    <div class="container-fluid">
-      <div class="row">
-    
-        
-        <div class="col-lg-6 col-md-6 col-sm-6">
-          <a href="javascript:hpp_artitalk_into_hpptalk()">
-          <div class="card card-stats">
-            <div class="card-header card-header-primary card-header-icon">
-              <div class="card-icon">
-                <i class="fa fa-download"></i>
-              </div>
-              <h3 class="card-title">从Artitalk中导入</h3>
-            </div>
-            <div class="card-footer">这不是抢生意啊喂
-            </div>
-          </div>
-        </a>
-        </div>
-        
-        <div class="col-lg-6 col-md-6 col-sm-6">
-          <a href="javascript:hpp_del_all()">
-          <div class="card card-stats">
-            <div class="card-header card-header-danger card-header-icon">
-              <div class="card-icon">
-                <i class="fa fa-close"></i>
-              </div>
-              <h3 class="card-title">销毁配置</h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons text-danger">warning</i>高危操作，你知道会发生什么的
-              </div>
-            </div>
-          </div>
-        </a>
-        </div>
-        
-        
-      </div>
-    </div>
-  </div>`,
-  dashimgjs: (config, hinfo) => {
-    return `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/css/swipebox.css">
-    <script src='${hinfo.CDN}img_man.js'></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-lazy@1.7.11/jquery.lazy.plugins.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/brutaldesign/swipebox/src/js/jquery.swipebox.min.js"></script>`
-
-  },
-  dashhomejs: (config, hinfo) => {
-    return `<script src='${hinfo.CDN}/dash/home.js'></script>`
-  },
-  dashdocsjs: (hinfo) => {
-    return `<script src='${hinfo.CDN}doc_man.js'></script>`
-  },
-  dashtooljs: (hinfo) => {
-    return `<script src='${hinfo.CDN}tool.js'></script>`
-  },
-  errorpage: (errormsg, hinfo, b) => {
-    b = b ? b : [
-      { url: "https://hexoplusplus.js.org", des: "文档" },
-      { url: "https://github.com/HexoPlusPlus/HexoPlusPlus", des: "Github" },
-      { url: "https://jq.qq.com/?_wv=1027&k=rAcnhzqK", des: "QQ群寻求帮助" }
-    ]
-    return `
-    <!DOCTYPE html>
-    <html lang="en" class="no-js">
-      <head>
-            <meta charset="UTF-8" />
-            <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-            <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" /> 
-            <title>HexoPlusPlusError</title>
-            <link rel="stylesheet" type="text/css" href="${hinfo.CDN}error/error.css" />
-      </head>
-      <body>
-        <div class="container demo-2">
-          <div class="content">
-                    <div id="large-header" class="large-header">
-                        <canvas id="demo-canvas"></canvas>
-                        <h1 class="main-title"><span>Error</span></h1>
-                    </div>
-                    <div class="codrops-header">
-                        <h1>HexoPlusPlus 异常<span>${errormsg}</span></h1>
-                        <nav class="codrops-demos">
-                ${(function () {
-        let rpb = ""
-        for (var k = 0; k < getJsonLength(b); k++) {
-          if (!!(b[k])) {
-            rpb += `<a class="current-demo" href="${b[k].url}">${b[k].des}</a>\n`
+    ,
+    error: (errormsg, b) => {
+      b = b ? b : [
+        { url: "https://hexoplusplus.js.org", des: "::LANG_DOCUMENT::" },
+        { url: "https://github.com/HexoPlusPlus/HexoPlusPlus", des: "Github" },
+        { url: "https://jq.qq.com/?_wv=1027&k=rAcnhzqK", des: "::LANG_HELP_FROM_QQGROUP::" }
+      ]
+      return html_error
+        .replace(/::NAV::/g, (() => {
+          let rpb = ""
+          for (var k = 0; k < getJsonLength(b); k++) {
+            if (!!(b[k])) {
+              rpb += `<a class="current-demo"
+                href="${b[k].url}">${b[k].des}</a>\n`
+            }
           }
-        }
-        return rpb
-      })()}
-                        </nav>
-                    </div>
-                </div>
-        </div>
-            <script src="${hinfo.CDN}error/error.js"></script>
-      </body>
-    </html>
-    `
-  },
+          return rpb
+        })())
+        .replace(/::ERROR_MSG::/g, errormsg ? errormsg : "LANG_UNKNOW_ERROR")
+        .preout()
+    }
 
-
-
-  dash_foot: (hinfo, hpp_js) => {
-    return `
-              <!--innerHTMLEND-->
-  </div>
-  </div>
-  <script src="${hinfo.CDN}dash/theme/dash.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert/dist/sweetalert.min.js"></script>
-  ${hpp_js}
-  </body>
-  
-  </html>`
   }
 }
 
+/* harmony default export */ const src_gethtml = (gethtml_gethtml);
+
 ;// CONCATENATED MODULE: ./worker/src/config.js
 const formatconfig = async () => {
-    const config = await HKV.get("hconfig", { type: "json" })
+    const config =
+        await (async () => {
+            try {
+                return await HKV.get("hconfig", { type: "json" })
+            }
+            catch (p) {
+                return {
+                    nokv: true
+                }
+            }
+        })()
     if (config === null) { return defaultconfig }
+    if (config.nokv) { return config }
     config.hexo.gh_docpath = config.hexo.gh_root + "source/_posts/"
     config.hexo.gh_draftpath = config.hexo.gh_root + "source/_drafts/"
     return config
 }
 
 const defaultconfig = {
-    installed: true,
+    installed: false,
     cors: "*",
-    recaptcha:"",
+    recaptcha: "",
     dash: {
         image: "https://cdn.jsdelivr.net/gh/ChenYFan/CDN@master/img/hpp_upload/1612610340000.jpg",
         icon: "https://cdn.jsdelivr.net/gh/HexoPlusPlus/CDN@master/doc_img/icon.png",
@@ -916,9 +535,71 @@ const defaultconfig = {
 
     }
 }
+;// CONCATENATED MODULE: ./worker/src/scaffold.js
+
+const getCookie = (request, name) => {
+    let result = ""
+    const cookieString = request.headers.get("Cookie")
+    if (cookieString) {
+        const cookies = cookieString.split(";")
+        cookies.forEach(cookie => {
+            const cookiePair = cookie.split("=", 2)
+            const cookieName = cookiePair[0].trim()
+            if (cookieName === name) {
+                const cookieVal = cookiePair[1]
+                result = cookieVal
+            }
+        })
+    }
+    return result
+}
+
+const scaffold_getJsonLength = (jsonData) => {
+
+    var jsonLength = 0;
+
+    for (var item in jsonData) {
+
+        jsonLength++;
+
+    }
+
+    return jsonLength;
+}
+
+const scaffold_rp = (path) => {
+    return path.split('?')[0]
+}
+const getname = (path) => {
+    const urllist = path.split('/')
+    return urllist[scaffold_getJsonLength(urllist) - 1]
+}
+const getsuffix = (path) => {
+    const suffixlist = getname(path).split('.')
+    return suffixlist[scaffold_getJsonLength(suffixlist) - 1]
+}
+
+const scaffold_genjsonres = (msg, code, status, content) => {
+    let m = msg ? msg : lang.UNKNOW_ERROR
+    let c = (code || code == 0) ? code : -1
+    let s = status ? status : 500
+    let co = content ? content : ''
+    let r = {
+        msg: String(m),
+        code: c,
+        content: String(co)
+    }
+    return new Response(JSON.stringify(r), {
+        status: s, headers: {
+            "content-type": "application/javascript; charset=utf-8",
+            "Access-Control-Allow-Origin": '*'
+        }
+    })
+}
+
 ;// CONCATENATED MODULE: ./worker/src/github/getlist.js
 
-async function ghlist(config) {
+async function getlist_ghlist(config) {
   const username = config.username
   const reponame = config.reponame
   const path = (() => {
@@ -947,7 +628,7 @@ async function ghlist(config) {
 }
 
 
-async function ghtreelist(config) {
+async function getlist_ghtreelist(config) {
   const username = config.username
   const reponame = config.reponame
   const path = (() => {
@@ -992,7 +673,7 @@ async function fetch_bfs(arr, url, getinit) {
 }
 ;// CONCATENATED MODULE: ./worker/src/github/getsha.js
 
-async function ghsha(config) {
+async function getsha_ghsha(config) {
     const list = await ghlist(config)
     try {
         return list.filter(function (fp) {
@@ -1005,7 +686,7 @@ async function ghsha(config) {
 }
 ;// CONCATENATED MODULE: ./worker/src/github/manager.js
 
-async function ghupload(config) {
+async function manager_ghupload(config) {
   const username = config.username
   const reponame = config.reponame
   const path = config.path
@@ -1037,7 +718,7 @@ async function ghupload(config) {
 }
 
 
-async function ghdel(config) {
+async function manager_ghdel(config) {
   const username = config.username
   const reponame = config.reponame
   const path = config.path
@@ -1067,7 +748,7 @@ async function ghdel(config) {
 }
 
 
-async function ghget(config) {
+async function manager_ghget(config) {
   const username = config.username
   const reponame = config.reponame
   const path = config.path
@@ -1100,10 +781,10 @@ async function ghstar(config) {
 
 ;// CONCATENATED MODULE: ./worker/src/update.js
 
-const hppupdate = async (config, newest) => {
+const update_hppupdate = async (config, newest) => {
   let ver = 'dist'
   if (!newest) {
-    ver = await ghlatver({
+    ver = await update_ghlatver({
       username: "HexoPlusPlus",
       reponame: "HexoPlusPlus",
       token: config.hpp_githubdoctoken || config.hpp_githubimagetoken || ''
@@ -1149,11 +830,11 @@ async function getlatinfo(config) {
 }
 
 
-async function ghlatver(config) {
+async function update_ghlatver(config) {
   return (await getlatinfo(config))["tag_name"]
 }
 
-async function ghlatinfo(config) {
+async function update_ghlatinfo(config) {
   return (await getlatinfo(config))["body"]
 }
 
@@ -1186,9 +867,9 @@ const githubroute = async (request, config, hinfo) => {
                         await HKV.delete("hpp_doc_list_index");
                         return genjsonres('新建文档成功！', 0, rs)
                     }*/
-                    return genjsonres(language_lang.GH_UPLOAD_SUCCESS, 0, rs)
+                    return genjsonres(lang.GH_UPLOAD_SUCCESS, 0, rs)
                 } else {
-                    return genjsonres(language_lang.GH_UPLOAD_ERROR, 1, rs)
+                    return genjsonres(lang.GH_UPLOAD_ERROR, 1, rs)
                 }
             case 'get':
                 r = await ghget({
@@ -1199,7 +880,7 @@ const githubroute = async (request, config, hinfo) => {
                     token: apireq.token
                 })
                 if (apireq.json) {
-                    return genjsonres(language_lang.GH_GET_SUCCESS, 0, 200, await r.text())
+                    return genjsonres(lang.GH_GET_SUCCESS, 0, 200, await r.text())
                 } else {
                     return r
                 }
@@ -1214,12 +895,12 @@ const githubroute = async (request, config, hinfo) => {
                 })
                 rs = r.status
                 if (rs == 200) {
-                    return genjsonres(language_lang.GH_DELETE_SUCCESS, 0, rs)
+                    return genjsonres(lang.GH_DELETE_SUCCESS, 0, rs)
                 } else {
-                    return genjsonres(language_lang.GH_DELETE_ERROR, 1, rs)
+                    return genjsonres(lang.GH_DELETE_ERROR, 1, rs)
                 }
             case 'list':
-                return genjsonres(language_lang.GH_LIST_SUCCESS, 0, 200, JSON.stringify(await ghlist({
+                return genjsonres(lang.GH_LIST_SUCCESS, 0, 200, JSON.stringify(await ghlist({
                     username: apireq.username,
                     reponame: apireq.reponame,
                     path: apireq.path,
@@ -1227,7 +908,7 @@ const githubroute = async (request, config, hinfo) => {
                     token: apireq.token
                 })))
             case 'listtree':
-                return genjsonres(language_lang.GH_TREELIST_SUCCESS, 0, 200, JSON.stringify(await ghtreelist({
+                return genjsonres(lang.GH_TREELIST_SUCCESS, 0, 200, JSON.stringify(await ghtreelist({
                     username: apireq.username,
                     reponame: apireq.reponame,
                     path: apireq.path,
@@ -1441,9 +1122,9 @@ const githubroute = async (request, config, hinfo) => {
                 return genjsonres('清除索引缓存成功!', 0, 200)
                 */
             default:
-                return genjsonres(language_lang.UNKNOW_ACTION, -1, 500)
+                return genjsonres(lang.UNKNOW_ACTION, -1, 500)
         }
-    } catch (lo) { return genjsonres(language_lang.UNKNOW_ERROR, -1, 500, lo) }
+    } catch (lo) { return genjsonres(lang.UNKNOW_ERROR, -1, 500, lo) }
 }
 
 const dashroute = async (request, config, hinfo) => {
@@ -1521,19 +1202,19 @@ const updateroute = async (request, config, hinfo) => {
                 }
             case 'check':
                 if (await ghlatver(config, false) != hinfo.ver) {
-                    return genjsonres(language_lang.NEED_UPDATE, 0, 200, await ghlatinfo(config))
+                    return genjsonres(lang.NEED_UPDATE, 0, 200, await ghlatinfo(config))
                 } else {
-                    return genjsonres(language_lang.NEED_NOT_UPDATE, 1, 200)
+                    return genjsonres(lang.NEED_NOT_UPDATE, 1, 200)
                 }
             default:
-                return genjsonres(language_lang.UNKNOW_ACTION, -1, 500)
+                return genjsonres(lang.UNKNOW_ACTION, -1, 500)
         }
     } catch (lo) { throw lo }
 }
 ;// CONCATENATED MODULE: ./worker/src/talk/htalk/genres.js
 
-async function genres(config, msg, status, code, content) {
-    const m = msg ? `${language_lang.HTALK}:${msg}` : `${language_lang.HTALK}:${language_lang.UNKNOW_ERROR}`
+async function genres_genres(config, msg, status, code, content) {
+    const m = msg ? `${lang.HTALK}:${msg}` : `${lang.HTALK}:${lang.UNKNOW_ERROR}`
     const c = (code || code == 0) ? code : -1
 
     const s = status ? status : 500
@@ -1551,16 +1232,6 @@ async function genres(config, msg, status, code, content) {
     })
 
 }
-;// CONCATENATED MODULE: ./worker/captcha/recaptcha.js
-const recaptcha = async (secret, code, action) => {
-    const n = await (await fetch(`https://www.recaptcha.net/recaptcha/api/siteverify?secret=${secret}&response=${code}`)).json()
-    if (n.success && n.score >= 0.7 && n.action == action) {
-        return true
-    } else {
-        return false
-    }
-}
-/* harmony default export */ const captcha_recaptcha = (recaptcha);
 ;// CONCATENATED MODULE: ./worker/src/talk/htalk/index.js
 
 
@@ -1575,7 +1246,7 @@ async function htalk(config, request, loginstatus, hinfo) {
             switch (r.action) {
                 case 'initialization':
                     await HKV.put("htalk", "{}")
-                    return genres(config, `${language_lang.HTALK}:${language_lang.HTALK_INIT_SUCCESS}`, 200, 0, '')
+                    return genres(config, `${lang.HTALK}:${lang.HTALK_INIT_SUCCESS}`, 200, 0, '')
                 case 'get':
                     htalk = await HKV.get("htalk", { type: "json" });
                     limit = r.limit
@@ -1598,7 +1269,7 @@ async function htalk(config, request, loginstatus, hinfo) {
                             p--
                         }
                     }
-                    return genres(config, language_lang.HTALK_GET_SUCCESS.replace("${1}", language_lang.LOGIN_TRUE), 200, 0, JSON.stringify(hres))
+                    return genres(config, lang.HTALK_GET_SUCCESS.replace("${1}", lang.LOGIN_TRUE), 200, 0, JSON.stringify(hres))
 
                 case 'add':
                     htalk = await HKV.get("htalk", { type: "json" })
@@ -1614,17 +1285,17 @@ async function htalk(config, request, loginstatus, hinfo) {
                     htalk.nid += 1
 
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, language_lang.HTALK_UPLOAD_SUCCESS, 200, 0, '')
+                    return genres(config, lang.HTALK_UPLOAD_SUCCESS, 200, 0, '')
                 case 'del':
                     htalk = await HKV.get("htalk", { type: "json" })
                     delete htalk.data[r.id]
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, language_lang.HTALK_DEL_SUCCESS.replace("${1}", r.id), 200, 0, '')
+                    return genres(config, lang.HTALK_DEL_SUCCESS.replace("${1}", r.id), 200, 0, '')
                 case 'visible':
                     htalk = await HKV.get("htalk", { type: "json" })
                     htalk.data[r.id].visible = htalk.data[r.id].visible ? false : true
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, language_lang.HTALK_VISIBLE_SUCCESS.replace("${1}", r.id), 200, 0, '')
+                    return genres(config, lang.HTALK_VISIBLE_SUCCESS.replace("${1}", r.id), 200, 0, '')
 
 
                 case 'inputartitalk':
@@ -1644,9 +1315,9 @@ async function htalk(config, request, loginstatus, hinfo) {
                         htalk.data[htalk.nid] = talk_init
                     }
                     await HKV.put("htalk", JSON.stringify(htalk))
-                    return genres(config, language_lang.HTALK_INPUT_SUCCESS.replace("${1}", r.ctx.length), 200, 0, '')
+                    return genres(config, lang.HTALK_INPUT_SUCCESS.replace("${1}", r.ctx.length), 200, 0, '')
                 default:
-                    return genres(config, language_lang.UNKNOW_ACTION, 500, -1, '')
+                    return genres(config, lang.UNKNOW_ACTION, 500, -1, '')
             }
         } else {
             switch (r.action) {
@@ -1676,9 +1347,9 @@ async function htalk(config, request, loginstatus, hinfo) {
                             p--
                         }
                     }
-                    return genres(config, language_lang.HTALK_GET_SUCCESS.replace("${1}", language_lang.LOGIN_FALSE), 200, 0, JSON.stringify(hres))
+                    return genres(config, lang.HTALK_GET_SUCCESS.replace("${1}", lang.LOGIN_FALSE), 200, 0, JSON.stringify(hres))
                 case 'love':
-                    if (!!config.recaptcha && await captcha_recaptcha(config.recaptcha, r.recaptcha, "love")) {
+                    if (!!config.recaptcha && await recaptcha(config.recaptcha, r.recaptcha, "love")) {
                         htalk = await HKV.get("htalk", { type: "json" });
                         htalk.data[r.id].love = (() => {
                             if (!htalk.data[r.id].love) {
@@ -1688,70 +1359,79 @@ async function htalk(config, request, loginstatus, hinfo) {
                             }
                         })()
                         await HKV.put("htalk", JSON.stringify(htalk))
-                        return genres(config, language_lang.LOVE_SUCCESS, 200, 0, htalk.data[r.id].love)
+                        return genres(config, lang.LOVE_SUCCESS, 200, 0, htalk.data[r.id].love)
                     } else {
-                        return genres(config, language_lang.LOVE_ERROR, 403, -1, language_lang.RECAP_ERROR)
+                        return genres(config, lang.LOVE_ERROR, 403, -1, lang.RECAP_ERROR)
                     }
                 default:
-                    return genres(config, language_lang.UNKNOW_ACTION, 500, -1, '')
+                    return genres(config, lang.UNKNOW_ACTION, 500, -1, '')
             }
         }
     }
     catch (lo2) { return genres(config, lo2, 500, -1, '') }
 }
-;// CONCATENATED MODULE: ./worker/src/getblogeractive.js
-async function genactiveres(config) {
-    const t = await HKV.get("hpp_activetime") || -1
-    var k = (Date.parse(new Date()) - (t)) / 1000
-    return genactres(config, k)
+;// CONCATENATED MODULE: ./worker/src/totp/totp.js
+const totp = (key)=>{
+    return true
 }
 
-function genactres(config, t) {
-    return new Response(JSON.stringify({ time: t }), {
-        headers: {
-            "content-type": "application/json; charset=utf-8",
-            "Access-Control-Allow-Origin": config.hpp_cors
-        }
-    })
+/* harmony default export */ const totp_totp = (totp);
+;// CONCATENATED MODULE: ./worker/src/gres.js
+const gres = (c) => {
+
+    switch (c.type) {
+        case "json":
+            return new Response(JSON.stringify({
+                ctx: c.ctx,
+                status: c.status === 0 ? 0 : c.status,
+                msg: c.msg ? c.msg : "没有额外的消息",
+                timestmp: (new Date()).valueOf()
+            }), {
+                status: c.status ? c.status : 200, headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+            })
+        case "html":
+            return new Response(c.ctx, {
+                status: c.status ? c.status : 200, headers: {
+                    "Content-Type": "text/html; charset=utf-8"
+                },
+            })
+        default:
+            return new Response(c.ctx)
+    }
 }
-;// CONCATENATED MODULE: ./node_modules/_html-loader@2.1.2@html-loader/dist/cjs.js!./worker/src/html/install/hello.html
-// Module
-var code = "<!DOCTYPE html> <html> <head> <title>欢迎使用</title> </head> <link href=\"https://fonts.geekzu.org/css2?family=Noto+Sans+TC:wght@300&display=swap\" rel=\"stylesheet\"> <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no\"/> <style>body,html{width:100%;height:100%;margin:0;padding:0}body,div{display:flex;align-items:center;justify-content:center}*{font-family:'Noto Sans TC',sans-serif;text-align:center}.s{font-size:80px;animation:loading-fadein 4s infinite}.n{font-size:30px;animation:loading-fadein 8s infinite}@keyframes loading-fadein{0%{opacity:0}50%{opacity:.6}to{opacity:0}}</style> <body> <div> <h1 id=\"index\" class=\"s\">你好</h1> </div> </body> <script>window.randomjson=n=>n[Math.floor(Math.random()*n.length)],window.all=[\"欢迎！点我开始安装\",\"Welcome!Click Me To Install!\",\"Hola!¡Haga clic en mí para iniciar la instalación!\",\"你好！點擊我開始安裝！\"],document.body.addEventListener(\"click\",()=>{document.location.search=\"?step=lang\"}),setInterval(()=>{document.getElementById(\"index\").innerHTML=randomjson(all)},4e3)</script> </html>";
-// Exports
-/* harmony default export */ const hello = (code);
-;// CONCATENATED MODULE: ./node_modules/_html-loader@2.1.2@html-loader/dist/cjs.js!./worker/src/html/install/index.html
-// Module
-var install_code = "<!doctype html> <html lang=\"zh-cmn-Hans\"> <head> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no\"/> <meta name=\"renderer\" content=\"webkit\"/> <meta name=\"force-rendering\" content=\"webkit\"/> <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/> <title>HexoPlusPlus Installation</title> <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css\"/> <style>.m-card{max-width:768px;margin:auto;margin-bottom:20px}</style> <title>Hello, world!</title> </head> <body> <div class=\"mdui-container\"> <div class=\"mdui-toolbar\"> <a class=\"mdui-btn mdui-btn-icon\" id=\"_menu\"><i class=\"mdui-icon material-icons\">menu</i></a> <span class=\"mdui-typo-title\">::VER::</span> <div class=\"mdui-toolbar-spacer\"></div> </div> </div> <div class=\"mdui-drawer mdui-drawer-close\" id=\"drawer\"> <ul class=\"mdui-list\"> <li class=\"mdui-list-item mdui-ripple\" onclick='window.location.href=\"https://hexoplusplus.js.org/\"'> <i class=\"mdui-icon material-icons\">book</i> <div class=\"mdui-list-item-content\">文档</div> </li> <li class=\"mdui-list-item mdui-ripple\" onclick='window.location.href=\"https://github.com/HexoPlusPlus/HexoPlusPlus\"'> <i class=\"mdui-icon material-icons\">code</i> <div class=\"mdui-list-item-content\">Github</div> </li> </ul> </div> <div class=\"mdui-card m-card\"> <div class=\"mdui-card-content mdui-typo\"> ::BODY:: </div> </div> <script src=\"https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js\"></script> <script>var inst=new mdui.Drawer(\"#drawer\");document.getElementById(\"_menu\").addEventListener(\"click\",(function(){inst.toggle()}));const setCookie=(e,t,n)=>{var i=new Date;i.setTime(i.getTime()+(n||2592e6));var r=\"expires=\"+i.toGMTString();document.cookie=e+\"=\"+t+\"; \"+r},getCookie=e=>{for(var t=e+\"=\",n=document.cookie.split(\";\"),i=0;i<n.length;i++){var r=n[i].trim();if(0==r.indexOf(t))return r.substring(t.length,r.length)}return\"\"}</script> </body> </html>";
-// Exports
-/* harmony default export */ const install = (install_code);
-;// CONCATENATED MODULE: ./node_modules/_html-loader@2.1.2@html-loader/dist/cjs.js!./worker/src/html/install/src/lang.html
-// Module
-var lang_code = "选择你的语言： <select class=\"mdui-select\" id=\"lang\"> <option value=\"zh-CN\" selected=\"selected\">中文 - 简体</option> </select> <button class=\"mdui-btn mdui-btn-raised mdui-ripple\" onclick=\"next()\">下一步</button> <script>const next=()=>{setCookie(\"hpp_lang\",document.getElementById(id).value),document.location.search=\"?step=choose\"}</script>";
-// Exports
-/* harmony default export */ const src_lang = (lang_code);
+
+/* harmony default export */ const src_gres = (gres);
 ;// CONCATENATED MODULE: ./worker/src/install.js
 
 
 
-const install_install = (config, hinfo, req) => {
+
+
+
+
+const installpage = (req, hinfo) => {
   const urlStr = req.url
   const urlObj = new URL(urlStr)
   const sq = (key) => {
     return urlObj.searchParams.get(key)
   }
-
+  const h = src_gethtml(hinfo)
   switch (sq('step')) {
     case 'lang':
-      return new Response(install.replace(/::VER::/g,hinfo.ver)
-      .replace(/::BODY::/g,src_lang), {
-        headers: { "content-type": "text/html;charset=UTF-8" }
+      return src_gres({
+        type: 'html',
+        ctx: h.lang()
       })
     default:
-      return new Response(hello, {
-        headers: { "content-type": "text/html;charset=UTF-8" }
+      return src_gres({
+        type: 'html',
+        ctx: h.hello()
       })
 
   }
+
   /*
   if (rp(path) == '/hpp/admin/api/upconfig') {
             const config_r = JSON.stringify(await request.text())
@@ -2193,89 +1873,27 @@ const install_install = (config, hinfo, req) => {
   </html>`*/
 
 }
-;// CONCATENATED MODULE: ./worker/src/hpage/index.js
-const hpage = (config) => {
-    return new Response(lang.COMING_SOON)
-    /* 
-            if (hpp_githubpage != "true") {
-        
-              
-            } else {
-              let p = path.split("?")[0].substr(1)
-              let init
-              if (p.split("/").slice(-1) == "") { p += "index.html" }
-              if (p == "2021/04/02/en/index.html" && urlObj.searchParams.get('pass') != "1234") {
-                init = { headers: { "content-type": "text/html; charset=utf-8" } }
-                let anss = `<html>
-        <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-        <meta charset="UTF-8"> 
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-        <meta name="renderer" content="webkit"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <title>该文章已被加密</title>
-        </head>
-        <body>
-            <div class="main">
-                <img class="alert" alt="文章已被加密" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIoAAACACAMAAADjwgEwAAAAOVBMVEUAAAD5dBr7dRj4dBn/cBD5cxr4cxn6chj7dBj/cBj5cxr5dBn6cxn4dBn5cxr6dRX5cxr5cxr5dBoQJfbPAAAAEnRSTlMAgD/AEPDgYEAgoLCQcFAw0J/MNdW8AAADg0lEQVR42s3b7W7iMBSEYWftxA75At//xW7VZRWnQ3WkvOKE+VmJMtjxg8Ek4Iy5e8zdmsLFSXmoz8QSrsw61CZxDJdlrsf0OVyUR5WALrDJh3SZ68uswT1rfZ3e/dpNff0lMTjnVr/yEVO01SZdWae6Z/CFNzYXxxa+kttqwTHl2ORHl95zWBrvl/BMM0e34JZ8XC+6phwWtD7ptv95uWBBdzIVMm0luGTshVYB+B5ccvt12Ubnt8Xt91Vb3JyzX/rk5Jy+cr2M3Jyzl8nMnOO6Bewc103TMee4btw5rpsmA+e4bm7O2boh57huS9twyaODc7Zu43fBR3J1bni1q0/Pv0bgHNNNl3cGzgHdyouhmqBzXLf9SZ2c01HXKsA5pptWcXJOV6hWAc5R3bQKcI7qplUcnLs3uhlV1Ln5bboZVd7rXGqdMKuoQ9ObdDOqAOeAbkYVY0fOdTOqAOeAblLFEOAdutlVbOe4bmYV4BzQzahiOId104DPrVw3uwp3zv5fdhXgHNDNqAKcs3Sbw4kqhnNAN7vK25yLhlFGFcM5pJtdBTtn65ZPVDGcY7rZVbhzpgmgitgEdQNV5DUx3UAV5pxebaCKOMd0A1WYcyoTqKJWIt1AFeSczi6rou+rQDdQBTmnEoAqzLn9cfvjYBXdmQLdQBXgnOrGq+j7PNANVAHOiW6gCnBO2idQBTunuvEqtnPoxE2rgJXJdNMqyCt8OqsnH8A5NoZ6HgScoyf5+ykZ+raGr7f97PCWwD4I6iYnquCbPa4b/0aA6OZwgo9/NwV2IEC3950YeP7GTp1DuhkBzpkDx2M7x3XTAOfMRWZn7OJwn5YETjCQbjqtw8qc47o95GHAOaTbUptswDmkm/6aPwLnsG65HpKQc/rqtvP3fRTgHNUt1kM67tx49u6RqR6SgXNIt30097mlzpXT5G+1zQD2c3zvFmV+kHM6aedgieDBz2GZyN5t2+87TGQ/131PGdu7pa7/Hs/M9nPDD2i3cCqllA3s5/bnjqKbY4bDDLXFQOiwxJaGe/BP2gcihCLQuiZKlV1f58zNDmr9lNtLSyg+C8jeKrSXbX/pCqqHxdyvwTO6j53qnvu8/nFLfgz1uGXJ9SMy/sP3A3J7fhq7Pv34f21fnkUWt3eUtDTVSzPL1u6SKGfjrV6TvtM98bhccMlMOYWXSWXpHJNLaPMXZ8oyOMxlLIsAAAAASUVORK5CYII=">
-                <form action="" method="GET" class="hpp-side-form">
-                    <h2 class="pw-tip">该文章已被加密</h2>
-                    <input type="password" name="pass" placeholder="请输入访问密码查看" required><button type="submit">提交</button>
-                    
-                    
-                </form>
-                <a href="/" class="return-home" title="点击回到网站首页">- 返回首页 - </a>
-            </div>
-            <style type="text/css">
-            *{font-family:"Microsoft Yahei",微软雅黑,"Helvetica Neue",Helvetica,"Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;box-sizing:border-box;margin:0px;padding:0px;font-size:14px;-webkit-transition:.2s;-moz-transition:.2s;-ms-transition:.2s;-o-transition:.2s;transition:.2s}
-            html,body{width:100%;height:100%}
-            body{background-color:#F4F6F9;color:#768093}
-            input,button{font-size:1em;border-radius:3px;-webkit-appearance:none}
-            input{width:100%;padding:5px;box-sizing:border-box;border:1px solid #e5e9ef;background-color:#f4f5f7;resize:vertical}
-            input:focus{background-color:#fff;outline:none}
-            button{border:0;background:#6abd09;color:#fff;cursor:pointer;opacity:1;user-select:none}
-            button:hover,button:focus{opacity:.9}
-            button:active{opacity:1}
-            .main{width:100%;max-width:500px;height:300px;padding:30px;background-color:#fff;border-radius:2px;box-shadow:0 10px 60px 0 rgba(29,29,31,0.09);transition:all .12s ease-out;position:absolute;left:0;top:0;bottom:0;right:0;margin:auto;text-align:center}
-            .alert{width:80px}
-            .hpp-side-form{margin-bottom:28px}
-            .hpp-side-form input{float:left;padding:2px 10px;width:77%;height:37px;border:1px solid #ebebeb;border-right-color:transparent;border-radius:2px 0 0 2px;line-height:37px}
-            .hpp-side-form button{position:relative;overflow:visible;width:23%;height:37px;border-radius:0 2px 2px 0;text-transform:uppercase}
-            .pw-tip{font-weight:normal;font-size:26px;text-align:center;margin:25px auto}
-            #pw-error {color: red;margin-top: 15px;margin-bottom: -20px;}
-            .return-home{text-decoration:none;color:#b1b1b1;font-size:16px}
-            .return-home:hover{color:#1E9FFF;letter-spacing:5px}
-            </style>
-        </body>
-        </html>`
-                return new Response(anss, init)
-              }
-              const anss = await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}${p}`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })
-        
-              if (await anss.status == 404) { init = { headers: { "content-type": "text/html; charset=utf-8" } }; return new Response(await (await fetch(`https://raw.githubusercontent.com/${hpp_githubpageusername}/${hpp_githubpagerepo}/${hpp_githubpagebranch}${hpp_githubpageroot}404.html`, { headers: { Accept: "application/vnd.github.v3.raw", Authorization: `token ${hpp_githubpagetoken}` } })).text(), init) }
-              if ((p.split("/").slice(-1))[0].split(".")[1] == "html") {
-                init = { headers: { "content-type": "text/html; charset=utf-8" } }
-                return new Response(await anss.text(), init)
-              }
-              if ((p.split("/").slice(-1))[0].split(".")[1] == "js") {
-                init = { headers: { "content-type": "application/javascript; charset=utf-8" } }
-                return new Response(await anss.text(), init)
-              }
-              if ((p.split("/").slice(-1))[0].split(".")[1] == "css") {
-                init = { headers: { "content-type": "text/css; charset=utf-8" } }
-                return new Response(await anss.text(), init)
-              }
-              return new Response(anss, init)
-        
-        
-            }
-        
-            */
-}
+
+/* harmony default export */ const src_install = (installpage);
 ;// CONCATENATED MODULE: ./package.json
 const package_namespaceObject = JSON.parse('{"i8":"2.0.1-beta-9","G3":"https://cdn.jsdelivr.net/npm/hexoplusplus/"}');
+;// CONCATENATED MODULE: ./worker/src/captcha/recaptcha.js
+const recaptcha_recaptcha = async (secret, code, action) => {
+    const n = await (await fetch(`https://www.recaptcha.net/recaptcha/api/siteverify?secret=${secret}&response=${code}`)).json()
+    if (n.success && n.score >= 0.7 && n.action == action) {
+        return true
+    } else {
+        return false
+    }
+}
+/* harmony default export */ const captcha_recaptcha = (recaptcha_recaptcha);
 ;// CONCATENATED MODULE: ./worker/kernel.js
-const md5 = __webpack_require__(735)
+/*
+TWO_FACTOR 变量 二步验证密钥
+totp 函数 二步验证
+*/
+
+const md5 = __webpack_require__(568)
 ;
 //import yaml from  'js-yaml'
 //yaml.load()
@@ -2289,198 +1907,103 @@ const md5 = __webpack_require__(735)
 
 
 
+
+
+
+
+
+
+
+
+
 let hinfo = {
   ver: package_namespaceObject.i8,
   CDN: package_namespaceObject.G3,
-  dev: true
+  dev: true,
+  login: false
 }
 
 if (hinfo.dev) { hinfo.CDN = 'https://127.0.0.1:9999/' }
 
 
-let hpp_logstatus
 async function hexoplusplus(request) {
-  try {
-    hpp_logstatus = false
-    const req = request
-    const urlStr = req.url
-    const urlObj = new URL(urlStr)
-    const path = urlObj.href.substr(urlObj.origin.length)
-    const domain = (urlStr.split('/'))[2]
-    const username = hpp_username.split(",");
-    const password = hpp_password.split(",");
-    const maph = new Map(request.headers);
-    hinfo.username = username
 
-    if (rp(path) == '/hpp/lang') {
-      return new Response(language_lang.LANG)
+  //初始化 - 变量绑定
+  const req = request
+  const urlStr = req.url
+  const urlObj = new URL(urlStr)
+  const path = urlObj.href.substr(urlObj.origin.length)
+  const domain = (urlStr.split('/'))[2]
+
+
+  //检查配置
+
+  hinfo.config = await formatconfig()
+
+
+
+  //检查安装
+
+
+  if (!hinfo.config.installed || hinfo.config.nokv) {
+    if (scaffold_rp(path) === '/hpp/admin/install') {
+      return src_install(req, hinfo)
+    } else {
+      return Response.redirect(`https://${domain}/hpp/admin/install`, 302)
     }
-
-
-
-
-
-    /*HPP Auth:Cookie&Basic*/
-    for (var w = 0; w < getJsonLength(username); w++) {
-      if ((getCookie(request, "h_cookie_auth") == `${md5(username[w])}:${md5(password[w])}`) || ((() => { try { if (maph.get('h_basic_auth') == `${md5(username[w])}:${md5(password[w])}`) { return true } else { return false } } catch (p) { return false } })())) {
-        hpp_logstatus = true
-      }
-    }
-
-    const config = await formatconfig()
-
-
-    if (rp(path) == '/hpp/admin/install' && hpp_logstatus) {
-      return install_install(config, hinfo, request)
-    }
-
-    if (!config.installed && hpp_logstatus) {
-      return new Response(gethtml.errorpage(language_lang.EMPTY_HCONFIG, hinfo, [
-        { url: `/hpp/admin/install`, des: language_lang.START_INSTALL }
-      ]), {
-        headers: { "content-type": "text/html;charset=UTF-8" }
-      })
-    }
-
-    if (path.startsWith('/hpp/admin')) {
-      if (rp(path) == "/hpp/admin/check") {
-        if (hpp_logstatus) {
-          return genjsonres(language_lang.CHECK_LOGIN_SUCCESS, 0, 200)
-        } else {
-          return genjsonres(language_lang.CHECK_LOGIN_ERROR, -1, 403)
-        }
-      }
-
-      if (hpp_logstatus) {
-
-        /*主面板*/
-        if (path.startsWith("/hpp/admin/dash")) {
-          return dashroute(request, config, hinfo)
-        }
-
-        /*GithubAPI*/
-        if (rp(path) == '/hpp/admin/api/github') {
-
-          return githubroute(request, config, hinfo)
-        }
-        /*更新*/
-        if (rp(path) == '/hpp/admin/api/update') {
-          return updateroute(request, config, hinfo)
-        }
-
-        /*签到*/
-        if (rp(path) == '/hpp/admin/api/kick') {
-          const now = Date.now(new Date())
-          await HKV.put("hpp_activetime", now)
-          return genjsonres(language_lang.ATTENDANCE_SUCCESS, 0, 200, "")
-        }
-
-        /*HTALK*/
-        if (rp(path) == '/hpp/admin/api/talk/htalk') {
-          return htalk(config, request, hpp_logstatus, hinfo)
-        }
-
-
-        if (rp(path) == '/hpp/admin/api/talk/artitalk') {
-          return new Response(language_lang.COMING_SOON)
-        }
-
-
-      }
-      else {
-        if (rp(path) == '/hpp/admin/login') {
-          return new Response(gethtml.loginhtml(config, hinfo), {
-            headers: { "content-type": "text/html;charset=UTF-8" }
-          })
-        }
-
-        return Response.redirect(`https://${domain}/hpp/admin/login`, 302)
-      }
-      return Response.redirect(`https://${domain}/hpp/admin/dash/home`, 302)
-    }
-    if (path.startsWith('/hpp/api')) {
-      /*游客端API*/
-      /*获得最近活跃时间*/
-      if (rp(path) == "/hpp/api/getblogeractive") {
-        return genactiveres(config)
-      }
-
-      if (path.startsWith('/hpp/api/talk/')) {
-        /*HTALK游客端*/
-        if (rp(path) == "/hpp/api/talk/htalk") {
-          return htalk(config, request, false, hinfo)
-        }
-
-        if (rp(path) == '/hpp/api/talk/artitalk') {
-          return new Response(language_lang.COMING_SOON)
-        }
-      }
-      if (path.startsWith('/hpp/api/comment/')) {
-
-        /*评论区，Feign为KV+Worker伪装后端，Agent为代理和隐藏前端重要数据*/
-        if (rp(path) == "/hpp/api/comment/Feign_Valine") {
-          return new Response(language_lang.COMING_SOON)
-        }
-        if (rp(path) == "/hpp/api/comment/Agent_Valine") {
-          return new Response(language_lang.COMING_SOON)
-        }
-
-
-
-        if (rp(path) == "/hpp/api/comment/Feign_Waline") {
-          return new Response(language_lang.COMING_SOON)
-        }
-        if (rp(path) == "/hpp/api/comment/Agent_Waline") {
-          return new Response(language_lang.COMING_SOON)
-        }
-
-
-        if (rp(path) == "/hpp/api/comment/Feign_Artalk") {
-          return new Response(language_lang.COMING_SOON)
-        }
-        if (rp(path) == "/hpp/api/comment/Agent_Artalk") {
-          return new Response(language_lang.COMING_SOON)
-        }
-
-
-        if (rp(path) == "/hpp/api/comment/Feign_Twikoo") {
-          return new Response(language_lang.COMING_SOON)
-        }
-        if (rp(path) == "/hpp/api/comment/Feign_Twikoo") {
-          return new Response(language_lang.COMING_SOON)
-        }
-
-        if (rp(path) == "/hpp/api/comment/Agent_Disqus") {
-          return new Response(language_lang.COMING_SOON)
-        }
-
-        if (rp(path) == "/hpp/api/comment/Agent_Gitalk") {
-          return new Response(language_lang.COMING_SOON)
-        }
-      }
-
-    }
-
-    /*HPAGE：支持PrivateRepo，提供类似于WorkerSite的功能*/
-    if (config.hpp_hpage) {
-      return hpage(config)
-    }
-
-
-    return new Response(gethtml.errorpage(language_lang.UNKNOW_ACTION, hinfo, [
-      { url: `/hpp/admin/dash/home`, des: language_lang.DASHBOARD }
-    ]), {
-      headers: { "content-type": "text/html;charset=UTF-8" }
-    })
-  } catch (e) {
-
-    return new Response(gethtml.errorpage(e, hinfo), {
-      headers: { "content-type": "text/html;charset=UTF-8" }
-    })
-
   }
-}
 
+
+
+  //检查登陆
+
+  const username = hpp_username.split(",");
+  const password = hpp_password.split(",");
+  const maph = new Map(request.headers);
+  hinfo.login = (() => {
+    for (var w = 0; w < scaffold_getJsonLength(username); w++) {
+      if (
+        (getCookie(request, "h_cookie_auth") === `${md5(username[w])}:${md5(password[w])}`)//Cookie登陆，此时要求人机验证
+        &&
+        (async () => {
+          if (hinfo.config.recaptcha !== "") {
+            return captcha_recaptcha(getCookie(request, "h_recaptcha_auth"))
+          } else {
+            return true
+          }
+        })()//人机验证
+        ||
+        ((() => {
+          try {
+            if (maph.get('h_basic_auth') === `${md5(username[w])}:${md5(password[w])}:${md5(totp_totp(TWO_FACTOR))}`) {
+              return true
+            } else {
+              return false
+            }
+          }
+          catch (p) {
+            return false
+          }
+        })())//Header登陆，要求二步验证
+
+      ) {
+        hinfo.username = username[w]
+        return true
+      } else {
+        hinfo.username = null
+        return false
+      }
+    }
+  })()
+
+  switch (scaffold_rp(path)) {
+    case '/hpp/lang':
+      return src_gres({ type: "json", ctx: language.LANG })
+    default:
+      return new Response('')
+  }
+
+}
 ;// CONCATENATED MODULE: ./worker/index.js
 
 addEventListener("fetch", event => {
@@ -2521,7 +2044,7 @@ addEventListener("fetch", event => {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(854);
+/******/ 	var __webpack_exports__ = __webpack_require__(222);
 /******/ 	
 /******/ })()
 ;
