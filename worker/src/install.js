@@ -3,8 +3,7 @@ import gethtml from './gethtml'
 
 import gres from './gres'
 
-
-
+import yaml from 'js-yaml'
 const installpage = async (req, hinfo) => {
   const urlStr = req.url
   const urlObj = new URL(urlStr)
@@ -21,8 +20,14 @@ const installpage = async (req, hinfo) => {
 
     case 'check':
       return gres({
-        type: 'dash',
+        type: 'html',
         ctx: h.check()
+      })
+
+    case 'start':
+      return gres({
+        type: 'html',
+        ctx: h.start()
       })
     case 'cf':
       return gres({
@@ -36,7 +41,138 @@ const installpage = async (req, hinfo) => {
         ctx: h.player()
       })
     case 'test':
+      let gh_header, res
       switch (sq('type')) {
+        case 'ghtoken_repo':
+          gh_header = {
+            "Authorization": `token ${sq("token")}`,
+            "user-agent": "hpp-fetcher"
+          }
+          const nrepocontent = await (await fetch(`https://api.github.com/repos/${sq('repo')}/contents?ref=${sq("branch")}`, {
+            headers: gh_header
+          })).json()
+          res = {
+            package: -1,
+            hexo: -1,
+            install_hexo: -1,
+            config: -1,
+            indexhtml: -1,
+            source: -1,
+            theme: undefined,
+            theme_config: undefined
+          }
+          for (var i in nrepocontent) {
+            if (nrepocontent[i]["name"] === "package.json" && nrepocontent[i]["type"] === "file") {
+              res.package = i
+            }
+            if (nrepocontent[i]["name"] === "_config.yml" && nrepocontent[i]["type"] === "file") {
+              res.config = i
+            }
+            if (nrepocontent[i]["name"] === "index.html" && nrepocontent[i]["type"] === "file") {
+              res.indexhtml = i
+            }
+            if (nrepocontent[i]["name"] === "source" && nrepocontent[i]["type"] === "dir") {
+              res.source = i
+            }
+          }
+          if (res.package !== -1) {
+            const npackage = await (await fetch(nrepocontent[res.package].download_url, {
+              headers: gh_header
+            })).json()
+            res.hexo = npackage.hexo ? npackage.hexo.version : -1
+            res.install_hexo = npackage.dependencies ? npackage.dependencies.hexo ? npackage.dependencies.hexo : -1 : -1
+          }
+          if (res.config !== -1) {
+            const nconfig = yaml.load(await (await fetch(nrepocontent[res.config].download_url, {
+              headers: gh_header
+            })).text())
+            res.theme = nconfig.theme ? nconfig.theme : -1
+          }
+          if (res.theme !== undefined) {
+            for (var j in nrepocontent) {
+              if (nrepocontent[j]["name"] === `_config.${res.theme}.yml` && nrepocontent[j]["type"] === "file") {
+                res.theme_config = `_config.${res.theme}.yml`
+              }
+            }
+            const theme_folder = await (await fetch(`https://api.github.com/repos/${sq('repo')}/contents/themes/${res.theme}?ref=${sq("branch")}`, { headers: gh_header })).json()
+
+            for (var p in theme_folder) {
+
+              if (theme_folder[p]["name"] === "_config.yml" && theme_folder[p]["type"] === "file") {
+                res.theme_config = `themes/${res.theme}/_config.yml`
+              }
+            }
+
+
+
+
+          }
+
+
+
+          return gres({
+            type: "json",
+            ctx: res
+          })
+        case 'ghtoken_branch':
+          gh_header = {
+            "Authorization": `token ${sq("token")}`,
+            "user-agent": "hpp-fetcher"
+          }
+          const nbranch = await (await fetch(`https://api.github.com/repos/${sq('repo')}/branches`, {
+            headers: gh_header
+          })).json()
+          res = {
+            branches: []
+
+          }
+          for (var u in nbranch) {
+            if (nbranch[u]["name"] != undefined) res.branches.push(nbranch[u]["name"])
+          }
+          return gres({
+            type: "json",
+            ctx: res
+          })
+        case 'ghtoken_user':
+          gh_header = {
+            "Authorization": `token ${sq("token")}`,
+            "user-agent": "hpp-fetcher"
+          }
+          const nuser = await (await fetch(`https://api.github.com/user`, {
+            headers: gh_header
+          })).json()
+          res = {
+            login: false,
+            repo: []
+          }
+          if (nuser.login != undefined) {
+            res.login = true
+            res.user = nuser.login
+
+            let page = 1
+            while (true) {
+              const nrepo = await (await fetch(`https://api.github.com/user/repos?per_page=100&page=${page}`, {
+                headers: gh_header
+              })).json()
+              for (var i in nrepo) {
+                if ((sq('org') !== "true" && nrepo[i].full_name.replace(`/${nrepo[i].name}`,"") === nuser.login)||sq('org') === "true") {
+                  
+                    res.repo.push(nrepo[i].full_name)
+                } 
+
+              }
+              console.log(JSON.stringify(nrepo))
+              if (JSON.stringify(nrepo) === "[]") { break; }
+              page += 1
+            }
+
+          }
+
+
+          return gres({
+            type: "json",
+            ctx: res
+          })
         case "cf":
           const n = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${sq('id')}/workers/scripts`, {
             headers: {

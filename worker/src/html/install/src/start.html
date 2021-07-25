@@ -1,0 +1,193 @@
+<div style="min-height: calc(60vh);">
+    <div id="dash">
+        <div class="mdui-textfield mdui-textfield-floating-label">
+            <label class="mdui-textfield-label">输入你的GithubToken，并选择原先Hexo安装的仓库</label>
+            <input class="mdui-textfield-input" type="password" id="gh_token" />
+            <label class="mdui-switch">
+                <input type="checkbox" checked id="org">
+                <i class="mdui-switch-icon"></i>
+                显示不直接属于自己的仓库[最多支持4900个仓库]
+            </label>
+        </div>
+    </div>
+    <button class="mdui-btn mdui-ripple" onclick="start()" id="button">检测Token有效性</button>
+    <button class="mdui-btn mdui-ripple" onclick="jump()" id="jump">不使用Hexo？点我直接跳过</button>
+    <h2>日志：</h2>
+    <div id="log"></div>
+</div>
+
+
+<script>
+    (async () => {
+        const setlog = document.getElementById("log")
+        let button = document.getElementById("button")
+        try {
+            window.jump = () => {
+                let gc = JSON.parse(localStorage.getItem("config"))
+                gc.hexo = {
+                    switch: false
+                }
+                localStorage.setItem("config", JSON.stringify(gc))
+                document.location.search = "?step=dispatch"
+            }
+            window.checkbranch = async (ghtoken, reponame) => {
+                button.disabled = true
+                setlog.innerText += "[信息]正在尝试拉取仓库信息...\n"
+                const branch = document.getElementById("branch").value
+                const c = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_repo&repo=${reponame}&branch=${branch}&token=${ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
+                setlog.innerText += "[信息]以下为分析数据结果...\n"
+                let fpack, fconf, fsource, fhexo, ftheme, fthemeconf;
+                if (c.package !== -1) {
+                    setlog.innerText += "[正常]我们在根目录下发现了package.json数据文件...\n"
+                    fpack = true
+                    if (c.hexo !== -1 || c.install_hexo !== -1) {
+                        //由于新版本的Hexo移除了在packagejson的hexo字段，版本主判断从hexo字段得知，若没有，只能从hexo安装器中得知，但并不完全准确
+                        setlog.innerText += `[正常]在找到package.json的前提下，我们的晓您的Hexo版本为${c.hexo !== -1 && c.hexo !== "" ? c.hexo : c.install_hexo}\n`
+                        fhexo = true
+                    } else {
+                        setlog.innerText += `[错误]我们找到了package.json文件，但我们未能从中得取Hexo版本信息，错误代码(-10012)\n`
+                        fhexo = false
+                    }
+                } else {
+                    setlog.innerText += "[错误]我们未能在根目录下发现package.json数据文件，错误代码(-10009)\n"
+                    fpack = false
+                }
+
+                if (c.config !== -1) {
+                    setlog.innerText += "[正常]我们在根目录下发现了_config.yml主题配置文件...\n"
+                    fconf = true
+                    if (!!c.theme) {
+                        setlog.innerText += `[正常]在发现Hexo配置文件的基础上，我们找到了您的主题，其名字为${c.theme}\n`
+                        ftheme = true
+                        if (!!c.theme_config) {
+                            setlog.innerText += `[正常]在发现主题名字的基础上，我们找到了您的主题配置文件，其路径为${c.theme_config}\n`
+                            ftheme_conf = true
+                        } else {
+                            setlog.innerText += `[异常]虽然我们发现了您的主题名字，但我们找不到您的主题配置文件，错误代码(-10014)\n`
+                            ftheme_conf = false
+                        }
+                    } else {
+                        setlog.innerText += `[错误]我们虽然找到了Hexo配置文件，但我们找不到您的主题(-10013)\n`
+                        ftheme = false
+                    }
+                } else {
+                    setlog.innerText += "[错误]我们未能在根目录下发现了_config.yml主题配置文件，错误代码(-10010)\n"
+                    fconf = false
+                }
+
+
+                if (c.source !== -1) {
+                    setlog.innerText += "[正常]我们在根目录下发现了source Hexo文章存储文件夹...\n"
+                    fsource = true
+                } else {
+                    setlog.innerText += "[错误]我们未能在根目录下发现了source Hexo文章存储文件夹，错误代码(-10011)\n"
+                    fsource = false
+                }
+
+                if (c.indexhtml !== -1) {
+                    setlog.innerText += "[警告]我们意外地发现您选择的仓库底下存在index.html，这虽然不代表您不能使用hpp，但也有可能告诉我们，您选择的分支有误，或者您的Hexo仓库没有实现集成部署，建议回滚至小白模式完成新建仓库！\n"
+                }
+
+                if (fpack && fconf && fsource && fhexo && ftheme && ftheme_conf) {
+
+                    setlog.innerText += "[成功]点击下一步，完成Hexo仓库的配置！\n"
+
+                    let gc = JSON.parse(localStorage.getItem("config"))
+                    gc.hexo = {
+                        switch: true,
+                        type: "gh",
+                        gh_username: reponame.split("/")[0],
+                        gh_reponame: reponame.split("/")[1],
+                        gh_branch: branch,
+                        gh_token: ghtoken,
+                        gh_root: "/",
+                        gh_theme: c.theme_config
+                    }
+                    gc.gh_token = ghtoken
+                    localStorage.setItem("config", JSON.stringify(gc))
+                    button.disabled = false
+                    button.innerText = "下一步"
+                    button.onclick = () => { document.location.search = "?step=dispatch" }
+                } else {
+                    setlog.innerText += "[失败]并不是所有的检查都是通过的，请尝试排查错误，若不知道如何排查，请点击左上角菜单寻求帮助！另外，请确保您的仓库完成集成部署！\n"
+                    button.disabled = false
+                    button.innerText = "重新检测"
+                }
+            }
+            window.branch = async (ghtoken) => {
+                button.disabled = true
+                setlog.innerText += "[信息]正在尝试拉取仓库分支信息...\n"
+                const reponame = document.getElementById("repo").value
+                const ghtoken_branch_ctx = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_branch&repo=${reponame}&token=${ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
+                const ghtoken_branch = ghtoken_branch_ctx.branches
+                const ghtoken_branchflag = ghtoken_branch !== [] ? true : false
+                if (ghtoken_branchflag) {
+                    setlog.innerText += "[成功]仓库分支信息已检索，请选择需要部署的分支\n"
+                    document.getElementById('dash').innerHTML = `<select class="mdui-select" id="branch" mdui-select>'
+                        ${(() => {
+                            let p = ""
+                            for (var i in ghtoken_branch) {
+                                p += `<option value="${ghtoken_branch[i]}">${ghtoken_branch[i]}</option>`
+                            }
+                            return p
+                        })()
+                        }
+                        </select>`
+
+                    button.onclick = () => { checkbranch(ghtoken, reponame) }
+
+                    mdui.mutation()
+                    button.innerText = "查询此分支仓库信息"
+                    button.disabled = false
+                } else {
+                    setlog.innerText += "[错误]没有检索到分支信息！错误代码(-10008)\n"
+                    button.innerText = "重新检测"
+                    button.disabled = false
+
+                }
+            }
+
+            window.start = async () => {
+                document.getElementById('jump').style["display"] = "none"
+                button.disabled = true
+                setlog.innerText += "[信息]正在尝试拉取Github信息...\n"
+                const ghtoken = document.getElementById("gh_token").value
+                const ghtoken_info = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${ghtoken}&org=${document.getElementById('org').checked}&s=${(new Date()).valueOf()}`)).json()).ctx
+                const ghtoken_flag = ghtoken_info.login
+                const ghtoken_repo = ghtoken_info.repo
+                if (ghtoken_flag) {
+                    const ghtoken_user = ghtoken_info.user
+                    if (ghtoken_repo !== []) {
+                        setlog.innerText += `[成功]此GithubToken对应的用户${ghtoken_user}，已显示其下属仓库\n`
+                        button.innerText = "选择并检查仓库分支"
+                        document.getElementById('dash').innerHTML = `<select class="mdui-select" id="repo" mdui-select>'
+                        ${(() => {
+                                let p = ""
+                                for (var i in ghtoken_repo) {
+                                    p += `<option value="${ghtoken_repo[i]}">${ghtoken_repo[i]}</option>`
+                                }
+                                return p
+                            })()
+                            }
+                        </select>`
+
+                        button.onclick = () => { branch(ghtoken) }
+
+                        mdui.mutation()
+                    } else {
+                        setlog.innerText += `[错误]此GithubToken对应的用户${ghtoken_user}，错误代码(-10007)：\n`
+                        button.innerText = "重新检测"
+
+                    }
+                } else {
+                    setlog.innerText += "[错误]此GithubToken无效，错误代码(-10006)：\n"
+                    button.innerText = "重新检测"
+
+                }
+                button.disabled = false
+            }
+        } catch (o) {
+            setlog.innerText += "[异常]安装程序意外退出：\n" + o
+        }
+    })()
+</script>

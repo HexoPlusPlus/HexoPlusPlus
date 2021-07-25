@@ -13,7 +13,9 @@
         const setlog = document.getElementById("log")
         try {
             window.start = () => {
-
+                const ghtoken = document.getElementById("gh_token").value
+                const ghtoken_info = (await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken&token=${ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
+                const ghtoken_flag = ghtoken_info.success
             }
         } catch (o) {
             setlog.innerText += "[异常]安装程序意外退出：\n" + o

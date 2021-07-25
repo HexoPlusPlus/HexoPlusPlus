@@ -74,10 +74,10 @@ export const defaultconfig = {
 
     },
     cloudflare: {
-        account_identifier: "",
+        Account_Identifier: "",
         Auth_Key: "",
         Auth_Email: "",
-        script_name: ""
+        Script_Name: ""
     },
     talk: {
         switch: {
