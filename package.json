@@ -1,6 +1,6 @@
 {
   "name": "hexoplusplus",
-  "version": "2.0.1-dev-0",
+  "version": "2.0.1-dev-1",
   "description": "A Serverless And Modern Hexo Backend DashBoard",
   "main": "worker/kernel.js",
   "CDN": "https://cdn.jsdelivr.net/npm/hexoplusplus/",

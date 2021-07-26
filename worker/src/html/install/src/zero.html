@@ -1,0 +1,33 @@
+<div style="min-height: calc(60vh);"></div>
+<div id="hello">
+    <p>很高兴，您选择了HexoPlusPlus作为您的博客首选编辑器。</p>
+    <p>我们致力于创造一个合理使用免费平台、但体验绝不亚于动态博客的静态博客动态后端。</p>
+    <p>在此模式下，您不需要学习NodeJS和无服务器底层框架，请保持您的鼠标按钮正常，键盘上Ctrl、C、V键工作正常，能够正常连接外网即可。</p>
+    <p>现在，请跟着向导，我们将引导您生成一个全新的、具有集成部署功能，可以选择公有/私有仓库，支持GithubPage、Vercel或CloudFlarePage的<del>大神级别的</del>、基于Github的Hexo云端仓库
+    </p>
+    <p>首先，请生成一个具有完全权限的GithubToken<a href="">[不会生成GithubToken]</a>，将内容保管好，粘贴到下面的框中，并点击检查Token</p>
+</div>
+<div id="dash">
+    <label class="mdui-switch">
+        <input type="checkbox" id="maintoken">
+        <i class="mdui-switch-icon"></i>
+        将GithubToken复制到我这里！
+    </label><br>
+</div>
+<button class="mdui-btn mdui-ripple" onclick="start()" id="button">检查Token</button>
+</div>
+<script>
+    (async () => {
+        const hel = document.getElementById('hello')
+        window.start = () => {
+            hel.innerText = "不要慌张，我们正在检查您的Token"
+            const c = (await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${ghtoken}&org=${document.getElementById('org').checked}&sponsor=${document.getElementById('star').checked}&s=${(new Date()).valueOf()}`)).json()).ctx
+            if (c.login) {
+                hel.innerText = `很棒！您的Github用户名为${ctx.username}，并且已登录！`
+            } else {
+                hel.innerText = `OhNo，我们没能登陆上去，错误代码(-10006)`
+                hel.innerText += `Tips：遇到错误代码时，请将代码复制或截图，发到QQ群里【点击左上角菜单找到QQ群地址】，群里的大佬都热心于解答问题！`
+            }
+        }
+    })()
+</script>

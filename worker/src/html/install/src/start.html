@@ -33,7 +33,7 @@
                     switch: false
                 }
                 localStorage.setItem("config", JSON.stringify(gc))
-                document.location.search = "?step=dispatch"
+                document.location.search = "?step=imghost"
             }
             window.checktotkenrepo = async (ghtoken, reponame, branch) => {
 
@@ -78,8 +78,10 @@
                             gh_token: ghtoken,
                             gh_theme: c.theme_config
                         }
-                        if (document.getElementById('maintoken').value) {
+                        if (document.getElementById('maintoken').checked) {
                             gc.gh_token = ghtoken
+                        } else {
+                            gc.gh_token = ""
                         }
                         localStorage.setItem("config", JSON.stringify(gc))
                         document.location.search = "?step=dispatch"
@@ -154,15 +156,15 @@
 
                     setlog.innerText += "[成功]点击下一步，检查此Token在这个仓库的权限！\n"
 
-                    button.disabled = false
                     document.getElementById('dash').innerHTML = ""
                     button.innerText = "下一步，检查仓库权限"
                     button.onclick = () => { checktotkenrepo(ghtoken, reponame, branch) }
                 } else {
                     setlog.innerText += "[失败]并不是所有的检查都是通过的，请尝试排查错误，若不知道如何排查，请点击左上角菜单寻求帮助！另外，请确保您的仓库完成集成部署！\n"
-                    button.disabled = false
+
                     button.innerText = "重新检测"
                 }
+                button.disabled = false
             }
             window.branch = async (ghtoken) => {
                 button.disabled = true
@@ -188,18 +190,20 @@
 
                     mdui.mutation()
                     button.innerText = "查询此分支仓库信息"
-                    button.disabled = false
                 } else {
                     setlog.innerText += "[错误]没有检索到分支信息！错误代码(-10008)\n"
                     button.innerText = "重新检测"
-                    button.disabled = false
+
 
                 }
+                button.disabled = false
             }
 
             window.start = async () => {
                 document.getElementById('jump').style["display"] = "none"
                 button.disabled = true
+                document.getElementById('org').disabled = true
+                document.getElementById('star').disabled = true
                 setlog.innerText += "[信息]正在尝试拉取Github信息...\n"
                 setlog.innerText += "[提醒]为了正常检查您的Token工作状态，我们会尝试Star本项目地址。Star是Github中类似于激励的方式，这不需要钱，也不需要您付出什么，当你按下检查按钮，这一切都会完成，但却可以给我们带来开发的动力！当然，如果您不愿意，您也随时可以前往我们的仓库取消Star...\n"
                 const ghtoken = document.getElementById("gh_token").value
@@ -230,16 +234,21 @@
 
                         mdui.mutation()
                     } else {
-                        setlog.innerText += `[错误]此GithubToken对应的用户${ghtoken_user}，错误代码(-10007)：\n`
+                        setlog.innerText += `[错误]此GithubToken对应的用户${ghtoken_user}没有仓库，错误代码(-10007)：\n`
                         button.innerText = "重新检测"
 
+                        document.getElementById('jump').style["display"] = "unset"
                     }
                 } else {
                     setlog.innerText += "[错误]此GithubToken无效，错误代码(-10006)：\n"
                     button.innerText = "重新检测"
+                    document.getElementById('jump').style["display"] = "unset"
+                   
 
                 }
                 button.disabled = false
+                document.getElementById('org').disabled = false
+                document.getElementById('star').disabled = false
             }
         } catch (o) {
             setlog.innerText += "[异常]安装程序意外退出：\n" + o

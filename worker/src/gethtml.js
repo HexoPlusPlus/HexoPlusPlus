@@ -12,7 +12,7 @@ import html_install_cf from 'html-loader!./html/install/src/cf.html'
 import html_install_player from 'html-loader!./html/install/src/player.html'
 
 import html_install_start from 'html-loader!./html/install/src/start.html'
-
+import html_install_dispatch from 'html-loader!./html/install/src/dispatch.html'
 const gethtml = (hinfo) => {
   String.prototype.preout = function () {
     let n = this
@@ -55,6 +55,11 @@ const gethtml = (hinfo) => {
     start: () => {
       return html_install_index
         .replace(/::BODY::/g, html_install_start)
+        .preout()
+    },
+    dispatch: () => {
+      return html_install_index
+        .replace(/::BODY::/g, html_install_dispatch)
         .preout()
     }
     ,

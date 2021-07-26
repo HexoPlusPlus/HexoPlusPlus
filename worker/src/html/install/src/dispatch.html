@@ -1,0 +1,241 @@
+<div style="min-height: calc(60vh);">
+    <div id="dash">
+        <p>
+            Dispatch功能指在hexo仓库有效更新时向指定仓库提交Action请求。此选项通常仅用于您的Hexo集成部署方式为GithubAction，并且源代码仓库和部署仓库分离，或者您使用外部编辑器时【如语雀】才开启，否则请点击【不开启DISPATCH】按钮跳过此步骤
+        </p>
+
+        <label class="mdui-textfield-label">输入你的GithubToken</label>
+        <input class="mdui-textfield-input" type="password" id="gh_token" />
+        <label class="mdui-switch">
+            <input type="checkbox" id="maintoken">
+            <i class="mdui-switch-icon"></i>
+            采用主Token
+        </label><br>
+        <label class="mdui-switch">
+            <input type="checkbox" checked id="org">
+            <i class="mdui-switch-icon"></i>
+            显示不直接属于自己的仓库[最多支持4900个仓库]
+        </label><br>
+        <label class="mdui-switch">
+            <input type="checkbox" checked id="star">
+            <i class="mdui-switch-icon"></i>
+            同时尝试Star赞助HPP的项目
+        </label>
+    </div>
+    <button class="mdui-btn mdui-ripple" onclick="start()" id="button">检测Token有效性</button>
+    <button class="mdui-btn mdui-ripple" onclick="gonext({switch:false})" id="jump">不使用Dispatch</button>
+    <h2>日志：</h2>
+    <div id="log"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/md5@2.3.0/dist/md5.min.js"></script>
+<script>
+    (async () => {
+        window.gonext = (ctx) => {
+
+            let gc = JSON.parse(localStorage.getItem("config"))
+            if (ctx.switch) {
+                gc.hexo.dispatch = {
+                    switch: true,
+                    gh_repo: ctx.reponame,
+                    gh_branch: ctx.branch,
+                    gh_token: ctx.ghtoken,
+                    gh_workflow: ctx.workflow,
+                    export:ctx.export
+                }
+            }else{
+                gc.hexo.dispatch = {
+                    switch: true
+                }
+            }
+            localStorage.setItem("config", JSON.stringify(gc))
+            document.location.search = "?step=imghost"
+        }
+        const setlog = document.getElementById('log')
+        try {
+
+            let gc = JSON.parse(localStorage.getItem("config"))
+            if (!gc.gh_token) {
+                document.getElementById("maintoken").disabled = true
+
+            } else {
+                document.getElementById("maintoken").addEventListener('click', () => {
+                    if (document.getElementById("maintoken").checked) {
+                        document.getElementById("gh_token").value = gc.gh_token
+                        start()
+                    } else {
+                        document.getElementById("gh_token").value = ""
+                    }
+                })
+            }
+            window.testworkflow = async (ghtoken, reponame, branch) => {
+                button.disabled = true
+                const workflow = document.getElementById("workflow").value
+                setlog.innerText += "[信息]正在尝试激活此workflow...\n"
+                const c = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_workflowtest&repo=${reponame}&workflow=${workflow}&branch=${branch}&token=${ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
+                if (c.success) {
+                    setlog.innerText += "[成功]仓库WorkFlow信息已激活，请选择是否暴露dispatch接口\n"
+                    document.getElementById('dash').innerHTML = `<label class="mdui-switch">
+            <input type="checkbox" id="export">
+            <i class="mdui-switch-icon"></i>
+           是否暴露dispatch目录到外部，如果是，则填入Dispatch密码【建议手滚键盘】【使用语雀等外部编辑器请开启此选项】
+        </label>
+        <div id="dispatch_token" style="display:none"> <label class="mdui-textfield-label">输入你的密码</label>
+        <input class="mdui-textfield-input" type="password" id="dispatch_token_input" /><p id="info"></p></div>`
+
+                    document.getElementById("export").addEventListener('click', () => {
+                        if (document.getElementById("export").checked) {
+                            document.getElementById("dispatch_token").style["display"] = "unset"
+                        } else {
+                            document.getElementById("dispatch_token").style["display"] = "none"
+                        }
+                    })
+                    document.getElementById("dispatch_token_input").addEventListener('change',()=>{
+                        document.getElementById('info').innerHTML = `<b>开启后，请在语雀的webhook中填入<i>https://${window.location.host}/hpp/api?type=dispatch&token=${MD5(document.getElementById("dispatch_token_input").value)}</i></b>`
+                    })
+                    button.innerText = "保存并继续"
+                    button.onclick = () => {
+                        gonext({
+                            switch: true,
+                            ghtoken: ghtoken,
+                            reponame: reponame,
+                            branch: branch,
+                            workflow: workflow,
+                            export: {
+                                switch: document.getElementById("export").checked,
+                                token: MD5(document.getElementById("dispatch_token_input").value)
+                            }
+                        })
+                    }
+
+                } else {
+                    setlog.innerText += "[错误]激活WorkFlow失败！请确认脚本中on字段有workflow_dispatch！错误代码(-10022)\n"
+                    button.innerText = "重新检测"
+
+
+                }
+                button.disabled = false
+            }
+            window.workflow = async (ghtoken, reponame) => {
+                button.disabled = true
+                const branch = document.getElementById("branch").value
+                setlog.innerText += "[信息]正在尝试拉取仓库WorkFlow信息...\n"
+                const c = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_workflow&repo=${reponame}&token=${ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
+                if (
+                    JSON.stringify(c.workflows) !== "[]"
+                ) {
+                    setlog.innerText += "[成功]仓库WorkFlow信息已检索，请选择需要Dispatch的WorkFlow\n"
+                    document.getElementById('dash').innerHTML = `<select class="mdui-select" id="workflow" mdui-select>'
+                        ${(() => {
+                            let p = ""
+                            for (var i in c.workflows) {
+                                p += `<option value="${c.workflows[i].id}">${c.workflows[i].name}</option>`
+                            }
+                            return p
+                        })()
+                        }
+                        </select>`
+
+                    button.onclick = () => { testworkflow(ghtoken, reponame, branch) }
+
+                    mdui.mutation()
+                    button.innerText = "测试此WorkFlow"
+                } else {
+                    setlog.innerText += "[错误]没有检索到WorkFlow信息，你确定你的仓库开启GithubAction吗？错误代码(-10021)\n"
+                    button.innerText = "重新检测"
+
+
+                }
+                button.disabled = false
+            }
+            window.branch = async (ghtoken) => {
+                button.disabled = true
+                setlog.innerText += "[信息]正在尝试拉取仓库分支信息...\n"
+                const reponame = document.getElementById("repo").value
+                const ghtoken_branch_ctx = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_branch&repo=${reponame}&token=${ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
+                const ghtoken_branch = ghtoken_branch_ctx.branches
+                const ghtoken_branchflag = ghtoken_branch !== [] ? true : false
+                if (ghtoken_branchflag) {
+                    setlog.innerText += "[成功]仓库分支信息已检索，请选择需要Dispatch的分支\n"
+                    document.getElementById('dash').innerHTML = `<select class="mdui-select" id="branch" mdui-select>'
+                        ${(() => {
+                            let p = ""
+                            for (var i in ghtoken_branch) {
+                                p += `<option value="${ghtoken_branch[i]}">${ghtoken_branch[i]}</option>`
+                            }
+                            return p
+                        })()
+                        }
+                        </select>`
+
+                    button.onclick = () => { workflow(ghtoken, reponame) }
+
+                    mdui.mutation()
+                    button.innerText = "查询此分支仓库信息"
+                } else {
+                    setlog.innerText += "[错误]没有检索到分支信息！错误代码(-10008)\n"
+                    button.innerText = "重新检测"
+
+
+                }
+                button.disabled = false
+            }
+
+            window.start = async () => {
+                document.getElementById('jump').style["display"] = "none"
+                button.disabled = true
+                document.getElementById('maintoken').disabled = true
+                document.getElementById('org').disabled = true
+                document.getElementById('star').disabled = true
+                setlog.innerText += "[信息]正在尝试拉取Github信息...\n"
+                setlog.innerText += "[提醒]为了正常检查您的Token工作状态，我们会尝试Star本项目地址。Star是Github中类似于激励的方式，这不需要钱，也不需要您付出什么，当你按下检查按钮，这一切都会完成，但却可以给我们带来开发的动力！当然，如果您不愿意，您也随时可以前往我们的仓库取消Star...\n"
+                const ghtoken = document.getElementById("gh_token").value
+                const ghtoken_info = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${ghtoken}&org=${document.getElementById('org').checked}&sponsor=${document.getElementById('star').checked}&s=${(new Date()).valueOf()}`)).json()).ctx
+                const ghtoken_flag = ghtoken_info.login
+                const ghtoken_repo = ghtoken_info.repo
+                const ghtoken_star = ghtoken_info.star
+                if (ghtoken_flag) {
+                    const ghtoken_user = ghtoken_info.user
+                    if (!ghtoken_star) {
+                        setlog.innerText += `[警告]Star是失败的！这虽然不会导致hpp无法工作，但也有可能标识这您的token权限没有勾选user！\n`
+                    }
+                    if (ghtoken_repo !== []) {
+                        setlog.innerText += `[成功]此GithubToken对应的用户${ghtoken_user}，已显示其下属仓库\n`
+                        button.innerText = "选择指定的仓库并检查仓库WorkFlow"
+                        document.getElementById('dash').innerHTML = `<select class="mdui-select" id="repo" mdui-select>'
+                        ${(() => {
+                                let p = ""
+                                for (var i in ghtoken_repo) {
+                                    p += `<option value="${ghtoken_repo[i]}">${ghtoken_repo[i]}</option>`
+                                }
+                                return p
+                            })()
+                            }
+                        </select>`
+
+                        button.onclick = () => { branch(ghtoken) }
+
+                        mdui.mutation()
+                    } else {
+                        setlog.innerText += `[错误]此GithubToken对应的用户${ghtoken_user}没有仓库，错误代码(-10007)：\n`
+                        button.innerText = "重新检测"
+                        document.getElementById('jump').style["display"] = "unset"
+                    }
+                } else {
+                    setlog.innerText += "[错误]此GithubToken无效，错误代码(-10006)：\n"
+                    button.innerText = "重新检测"
+
+                    document.getElementById('jump').style["display"] = "unset"
+                }
+                button.disabled = false
+                if (!!gc.gh_token) {
+                    document.getElementById("maintoken").disabled = false
+
+                }
+                document.getElementById('org').disabled = false
+                document.getElementById('star').disabled = false
+            }
+        } catch (o) {
+            setlog.innerText += "[异常]安装程序意外退出：\n" + o
+        }
+    })()
+</script>

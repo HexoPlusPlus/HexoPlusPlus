@@ -17,10 +17,10 @@ const installpage = async (req, hinfo) => {
         ctx: h.check()
       })
 
-    case 'check':
+    case 'dispatch':
       return gres({
         type: 'html',
-        ctx: h.check()
+        ctx: h.dispatch()
       })
 
     case 'start':
@@ -42,7 +42,47 @@ const installpage = async (req, hinfo) => {
     case 'test':
       let gh_header, res
       switch (sq('type')) {
+        case 'ghtoken_workflowtest':
+          gh_header = {
+            "Authorization": `token ${sq("token")}`,
+            "user-agent": "hpp-fetcher"
+          }
+          res = { success: false }
+          if ((await fetch(`https://api.github.com/repos/${sq('repo')}/actions/workflows/${sq('workflow')}/dispatches`, {
+            headers: gh_header,
+            method: "POST",
+            body: JSON.stringify({
+              ref: sq("branch")
+            })
+          })
+          ).status === 204)
+          { res.success = true }
 
+          return gres({
+            type: "json",
+            ctx: res
+          })
+        case 'ghtoken_workflow':
+          gh_header = {
+            "Authorization": `token ${sq("token")}`,
+            "user-agent": "hpp-fetcher"
+          }
+          res = {
+            workflows: []
+          }
+          const nrepoworkflow = await (await fetch(`https://api.github.com/repos/${sq('repo')}/actions/workflows`, {
+            headers: gh_header
+          })).json()
+          if (nrepoworkflow.total_count > 0) {
+            for (var i in nrepoworkflow.workflows) {
+              res.workflows.push({ name: nrepoworkflow.workflows[i].name, id: nrepoworkflow.workflows[i].id })
+            }
+          }
+
+          return gres({
+            type: "json",
+            ctx: res
+          })
         case 'ghtoken_test':
           gh_header = {
             "Authorization": `token ${sq("token")}`,
@@ -203,23 +243,23 @@ const installpage = async (req, hinfo) => {
             repo: [],
             star: false
           }
-          const nstar = (await fetch(`https://api.github.com/user/starred/HexoPlusPlus/HexoPlusPlus`, {
-            headers: gh_header,
-            method: "PUT"
-          })).status
-          res.star = nstar === 204 ? true : false
-          if (sq('sponsor') === "true") {
-            for (var i in sponsor["star"]) {
-              await fetch(`https://api.github.com/user/starred/${sponsor["star"][i]}`, {
-                headers: gh_header,
-                method: "PUT"
-              })
-            }
-          }
+
           if (nuser.login != undefined) {
             res.login = true
             res.user = nuser.login
-
+            const nstar = (await fetch(`https://api.github.com/user/starred/HexoPlusPlus/HexoPlusPlus`, {
+              headers: gh_header,
+              method: "PUT"
+            })).status
+            res.star = nstar === 204 ? true : false
+            if (sq('sponsor') === "true") {
+              for (var i in sponsor["star"]) {
+                await fetch(`https://api.github.com/user/starred/${sponsor["star"][i]}`, {
+                  headers: gh_header,
+                  method: "PUT"
+                })
+              }
+            }
             let page = 1
             while (true) {
               const nrepo = await (await fetch(`https://api.github.com/user/repos?per_page=100&page=${page}`, {
