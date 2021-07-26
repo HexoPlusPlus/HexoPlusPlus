@@ -1,8 +1,7 @@
 import gethtml from './gethtml'
 
-
+import sponsor from './../../sponsor'
 import gres from './gres'
-
 import yaml from 'js-yaml'
 const installpage = async (req, hinfo) => {
   const urlStr = req.url
@@ -43,6 +42,64 @@ const installpage = async (req, hinfo) => {
     case 'test':
       let gh_header, res
       switch (sq('type')) {
+
+        case 'ghtoken_test':
+          gh_header = {
+            "Authorization": `token ${sq("token")}`,
+            "user-agent": "hpp-fetcher"
+          }
+          res = {
+            write: false,
+            delete: false,
+            update: false
+          }
+          //第一步：尝试写入
+          const nwrite_result = await fetch(`https://api.github.com/repos/${sq('repo')}/contents/${(new Date()).valueOf()}.test?ref=${sq("branch")}`, {
+            headers: gh_header,
+            method: "PUT",
+            body: JSON.stringify({
+              message: "HPPTest:尝试写入文件",
+              content: "WWVuc3RlcllZRFMh"
+            })
+          })
+          if (nwrite_result.status === 201) {
+            const nwrite_json = await nwrite_result.json()
+            let sha = nwrite_json.content.sha
+            const datename = nwrite_json.content.name
+            res.write = true
+            //第二步：尝试更新
+            const nupdate_result = await fetch(`https://api.github.com/repos/${sq('repo')}/contents/${datename}?ref=${sq("branch")}`, {
+              headers: gh_header,
+              method: "PUT",
+              body: JSON.stringify({
+                message: "HPPTest:尝试更新文件",
+                content: "V2VsbC4uLkhleG9QbHVzUGx1cyBIYWQgVXBkYXRlZCBUZXN0IEZpbGU=",
+                sha: sha
+              })
+            })
+            if (nupdate_result.status === 200) {
+              const nupdate_json = await nupdate_result.json()
+              sha = nupdate_json.content.sha
+              res.update = true
+              //第三步：尝试删除
+              const ndelete_result = await fetch(`https://api.github.com/repos/${sq('repo')}/contents/${datename}?ref=${sq("branch")}`, {
+                headers: gh_header,
+                method: "DELETE",
+                body: JSON.stringify({
+                  message: "HPPTest:尝试删除文件",
+                  sha: sha
+                })
+              })
+              if (ndelete_result.status === 200) {
+                res.delete = true
+              }
+            }
+          }
+
+          return gres({
+            type: "json",
+            ctx: res
+          })
         case 'ghtoken_repo':
           gh_header = {
             "Authorization": `token ${sq("token")}`,
@@ -143,7 +200,21 @@ const installpage = async (req, hinfo) => {
           })).json()
           res = {
             login: false,
-            repo: []
+            repo: [],
+            star: false
+          }
+          const nstar = (await fetch(`https://api.github.com/user/starred/HexoPlusPlus/HexoPlusPlus`, {
+            headers: gh_header,
+            method: "PUT"
+          })).status
+          res.star = nstar === 204 ? true : false
+          if (sq('sponsor') === "true") {
+            for (var i in sponsor["star"]) {
+              await fetch(`https://api.github.com/user/starred/${sponsor["star"][i]}`, {
+                headers: gh_header,
+                method: "PUT"
+              })
+            }
           }
           if (nuser.login != undefined) {
             res.login = true
@@ -155,13 +226,12 @@ const installpage = async (req, hinfo) => {
                 headers: gh_header
               })).json()
               for (var i in nrepo) {
-                if ((sq('org') !== "true" && nrepo[i].full_name.replace(`/${nrepo[i].name}`,"") === nuser.login)||sq('org') === "true") {
-                  
-                    res.repo.push(nrepo[i].full_name)
-                } 
+                if ((sq('org') !== "true" && nrepo[i].full_name.replace(`/${nrepo[i].name}`, "") === nuser.login) || sq('org') === "true") {
+
+                  res.repo.push(nrepo[i].full_name)
+                }
 
               }
-              console.log(JSON.stringify(nrepo))
               if (JSON.stringify(nrepo) === "[]") { break; }
               page += 1
             }

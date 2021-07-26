@@ -7,6 +7,11 @@
                 <input type="checkbox" checked id="org">
                 <i class="mdui-switch-icon"></i>
                 显示不直接属于自己的仓库[最多支持4900个仓库]
+            </label><br>
+            <label class="mdui-switch">
+                <input type="checkbox" checked id="star">
+                <i class="mdui-switch-icon"></i>
+                同时尝试Star赞助HPP的项目
             </label>
         </div>
     </div>
@@ -30,6 +35,63 @@
                 localStorage.setItem("config", JSON.stringify(gc))
                 document.location.search = "?step=dispatch"
             }
+            window.checktotkenrepo = async (ghtoken, reponame, branch) => {
+
+                button.disabled = true
+                setlog.innerText += "[信息]正在尝试校验TOKEN权限...\n"
+                const c = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_test&repo=${reponame}&branch=${branch}&token=${ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
+                setlog.innerText += "[信息]以下为分析数据结果...\n"
+                if (c.write) {
+                    setlog.innerText += "[成功]写入测试文件是成功的\n"
+                } else {
+                    setlog.innerText += "[失败]写入是失败的！HPP将无法写入数据！错误代码(-10015)\n"
+                }
+
+                if (c.update) {
+                    setlog.innerText += "[成功]更新测试文件是成功的\n"
+                } else {
+                    setlog.innerText += "[失败]更新是失败的！HPP将无法更新数据！错误代码(-10016)\n"
+                }
+                if (c.delete) {
+                    setlog.innerText += "[成功]删除测试文件是成功的\n"
+                } else {
+                    setlog.innerText += "[失败]删除是失败的！HPP将无法删除数据！错误代码(-10017)\n"
+                }
+                if (c.write && c.update && c.delete) {
+                    setlog.innerText += "[成功]检查全部通过！点击下一步完成Hexo仓库配置！\n"
+
+                    document.getElementById('dash').innerHTML = ` <label class="mdui-switch">
+                <input type="checkbox" checked id="maintoken">
+                <i class="mdui-switch-icon"></i>
+                将此Token作为HPP的主Token，接下来的Github设置将自动填充
+            </label><br>`
+
+                    button.disabled = false
+                    button.innerText = "结束Hexo仓库的安装"
+                    button.onclick = () => {
+                        let gc = JSON.parse(localStorage.getItem("config"))
+                        gc.hexo = {
+                            switch: true,
+                            type: "gh",
+                            gh_repo: reponame,
+                            gh_branch: branch,
+                            gh_token: ghtoken,
+                            gh_theme: c.theme_config
+                        }
+                        if (document.getElementById('maintoken').value) {
+                            gc.gh_token = ghtoken
+                        }
+                        localStorage.setItem("config", JSON.stringify(gc))
+                        document.location.search = "?step=dispatch"
+                    }
+                } else {
+                    setlog.innerText += "[失败]并不是所有的检查都是通过的，请尝试排查错误，若不知道如何排查，请点击左上角菜单寻求帮助！另外，请确保您的仓库完成集成部署！\n"
+                    button.disabled = false
+                    button.innerText = "重新检测"
+                    button.onclick = () => { window.location.reload() }
+                }
+            }
+
             window.checkbranch = async (ghtoken, reponame) => {
                 button.disabled = true
                 setlog.innerText += "[信息]正在尝试拉取仓库信息...\n"
@@ -90,24 +152,12 @@
 
                 if (fpack && fconf && fsource && fhexo && ftheme && ftheme_conf) {
 
-                    setlog.innerText += "[成功]点击下一步，完成Hexo仓库的配置！\n"
+                    setlog.innerText += "[成功]点击下一步，检查此Token在这个仓库的权限！\n"
 
-                    let gc = JSON.parse(localStorage.getItem("config"))
-                    gc.hexo = {
-                        switch: true,
-                        type: "gh",
-                        gh_username: reponame.split("/")[0],
-                        gh_reponame: reponame.split("/")[1],
-                        gh_branch: branch,
-                        gh_token: ghtoken,
-                        gh_root: "/",
-                        gh_theme: c.theme_config
-                    }
-                    gc.gh_token = ghtoken
-                    localStorage.setItem("config", JSON.stringify(gc))
                     button.disabled = false
-                    button.innerText = "下一步"
-                    button.onclick = () => { document.location.search = "?step=dispatch" }
+                    document.getElementById('dash').innerHTML = ""
+                    button.innerText = "下一步，检查仓库权限"
+                    button.onclick = () => { checktotkenrepo(ghtoken, reponame, branch) }
                 } else {
                     setlog.innerText += "[失败]并不是所有的检查都是通过的，请尝试排查错误，若不知道如何排查，请点击左上角菜单寻求帮助！另外，请确保您的仓库完成集成部署！\n"
                     button.disabled = false
@@ -151,12 +201,17 @@
                 document.getElementById('jump').style["display"] = "none"
                 button.disabled = true
                 setlog.innerText += "[信息]正在尝试拉取Github信息...\n"
+                setlog.innerText += "[提醒]为了正常检查您的Token工作状态，我们会尝试Star本项目地址。Star是Github中类似于激励的方式，这不需要钱，也不需要您付出什么，当你按下检查按钮，这一切都会完成，但却可以给我们带来开发的动力！当然，如果您不愿意，您也随时可以前往我们的仓库取消Star...\n"
                 const ghtoken = document.getElementById("gh_token").value
-                const ghtoken_info = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${ghtoken}&org=${document.getElementById('org').checked}&s=${(new Date()).valueOf()}`)).json()).ctx
+                const ghtoken_info = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${ghtoken}&org=${document.getElementById('org').checked}&sponsor=${document.getElementById('star').checked}&s=${(new Date()).valueOf()}`)).json()).ctx
                 const ghtoken_flag = ghtoken_info.login
                 const ghtoken_repo = ghtoken_info.repo
+                const ghtoken_star = ghtoken_info.star
                 if (ghtoken_flag) {
                     const ghtoken_user = ghtoken_info.user
+                    if (!ghtoken_star) {
+                        setlog.innerText += `[警告]Star是失败的！这虽然不会导致hpp无法工作，但也有可能标识这您的token权限没有勾选user！\n`
+                    }
                     if (ghtoken_repo !== []) {
                         setlog.innerText += `[成功]此GithubToken对应的用户${ghtoken_user}，已显示其下属仓库\n`
                         button.innerText = "选择并检查仓库分支"

@@ -339,7 +339,7 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ 707:
+/***/ 520:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -397,7 +397,7 @@ var player_code = " <div id=\"player\" style=\"display:none\"> <div class=\"mdui
 /* harmony default export */ const player = (player_code);
 ;// CONCATENATED MODULE: ./node_modules/html-loader/dist/cjs.js!./worker/src/html/install/src/start.html
 // Module
-var start_code = "<div style=\"min-height:calc(60vh)\"> <div id=\"dash\"> <div class=\"mdui-textfield mdui-textfield-floating-label\"> <label class=\"mdui-textfield-label\">输入你的GithubToken，并选择原先Hexo安装的仓库</label> <input class=\"mdui-textfield-input\" type=\"password\" id=\"gh_token\"/> <label class=\"mdui-switch\"> <input type=\"checkbox\" checked=\"checked\" id=\"org\"> <i class=\"mdui-switch-icon\"></i> 显示不直接属于自己的仓库[最多支持4900个仓库] </label> </div> </div> <button class=\"mdui-btn mdui-ripple\" onclick=\"start()\" id=\"button\">检测Token有效性</button> <button class=\"mdui-btn mdui-ripple\" onclick=\"jump()\" id=\"jump\">不使用Hexo？点我直接跳过</button> <h2>日志：</h2> <div id=\"log\"></div> </div> <script>(async()=>{const e=document.getElementById(\"log\");let n=document.getElementById(\"button\");try{window.jump=()=>{let e=JSON.parse(localStorage.getItem(\"config\"));e.hexo={switch:!1},localStorage.setItem(\"config\",JSON.stringify(e)),document.location.search=\"?step=dispatch\"},window.checkbranch=async(t,o)=>{n.disabled=!0,e.innerText+=\"[信息]正在尝试拉取仓库信息...\\n\";const i=document.getElementById(\"branch\").value,c=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_repo&repo=${o}&branch=${i}&token=${t}&s=${(new Date).valueOf()}`)).json()).ctx;let a,s,r,l,h;if(e.innerText+=\"[信息]以下为分析数据结果...\\n\",-1!==c.package?(e.innerText+=\"[正常]我们在根目录下发现了package.json数据文件...\\n\",a=!0,-1!==c.hexo||-1!==c.install_hexo?(e.innerText+=`[正常]在找到package.json的前提下，我们的晓您的Hexo版本为${-1!==c.hexo&&\"\"!==c.hexo?c.hexo:c.install_hexo}\\n`,l=!0):(e.innerText+=\"[错误]我们找到了package.json文件，但我们未能从中得取Hexo版本信息，错误代码(-10012)\\n\",l=!1)):(e.innerText+=\"[错误]我们未能在根目录下发现package.json数据文件，错误代码(-10009)\\n\",a=!1),-1!==c.config?(e.innerText+=\"[正常]我们在根目录下发现了_config.yml主题配置文件...\\n\",s=!0,c.theme?(e.innerText+=`[正常]在发现Hexo配置文件的基础上，我们找到了您的主题，其名字为${c.theme}\\n`,h=!0,c.theme_config?(e.innerText+=`[正常]在发现主题名字的基础上，我们找到了您的主题配置文件，其路径为${c.theme_config}\\n`,ftheme_conf=!0):(e.innerText+=\"[异常]虽然我们发现了您的主题名字，但我们找不到您的主题配置文件，错误代码(-10014)\\n\",ftheme_conf=!1)):(e.innerText+=\"[错误]我们虽然找到了Hexo配置文件，但我们找不到您的主题(-10013)\\n\",h=!1)):(e.innerText+=\"[错误]我们未能在根目录下发现了_config.yml主题配置文件，错误代码(-10010)\\n\",s=!1),-1!==c.source?(e.innerText+=\"[正常]我们在根目录下发现了source Hexo文章存储文件夹...\\n\",r=!0):(e.innerText+=\"[错误]我们未能在根目录下发现了source Hexo文章存储文件夹，错误代码(-10011)\\n\",r=!1),-1!==c.indexhtml&&(e.innerText+=\"[警告]我们意外地发现您选择的仓库底下存在index.html，这虽然不代表您不能使用hpp，但也有可能告诉我们，您选择的分支有误，或者您的Hexo仓库没有实现集成部署，建议回滚至小白模式完成新建仓库！\\n\"),a&&s&&r&&l&&h&&ftheme_conf){e.innerText+=\"[成功]点击下一步，完成Hexo仓库的配置！\\n\";let a=JSON.parse(localStorage.getItem(\"config\"));a.hexo={switch:!0,type:\"gh\",gh_username:o.split(\"/\")[0],gh_reponame:o.split(\"/\")[1],gh_branch:i,gh_token:t,gh_root:\"/\",gh_theme:c.theme_config},a.gh_token=t,localStorage.setItem(\"config\",JSON.stringify(a)),n.disabled=!1,n.innerText=\"下一步\",n.onclick=()=>{document.location.search=\"?step=dispatch\"}}else e.innerText+=\"[失败]并不是所有的检查都是通过的，请尝试排查错误，若不知道如何排查，请点击左上角菜单寻求帮助！另外，请确保您的仓库完成集成部署！\\n\",n.disabled=!1,n.innerText=\"重新检测\"},window.branch=async t=>{n.disabled=!0,e.innerText+=\"[信息]正在尝试拉取仓库分支信息...\\n\";const o=document.getElementById(\"repo\").value,i=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_branch&repo=${o}&token=${t}&s=${(new Date).valueOf()}`)).json()).ctx.branches;i!==[]?(e.innerText+=\"[成功]仓库分支信息已检索，请选择需要部署的分支\\n\",document.getElementById(\"dash\").innerHTML=`<select class=\"mdui-select\" id=\"branch\" mdui-select>'\\n                        ${(()=>{let e=\"\";for(var n in i)e+=`<option value=\"${i[n]}\">${i[n]}</option>`;return e})()}\\n                        </select>`,n.onclick=()=>{checkbranch(t,o)},mdui.mutation(),n.innerText=\"查询此分支仓库信息\",n.disabled=!1):(e.innerText+=\"[错误]没有检索到分支信息！错误代码(-10008)\\n\",n.innerText=\"重新检测\",n.disabled=!1)},window.start=async()=>{document.getElementById(\"jump\").style.display=\"none\",n.disabled=!0,e.innerText+=\"[信息]正在尝试拉取Github信息...\\n\";const t=document.getElementById(\"gh_token\").value,o=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${t}&org=${document.getElementById(\"org\").checked}&s=${(new Date).valueOf()}`)).json()).ctx,i=o.login,c=o.repo;if(i){const i=o.user;c!==[]?(e.innerText+=`[成功]此GithubToken对应的用户${i}，已显示其下属仓库\\n`,n.innerText=\"选择并检查仓库分支\",document.getElementById(\"dash\").innerHTML=`<select class=\"mdui-select\" id=\"repo\" mdui-select>'\\n                        ${(()=>{let e=\"\";for(var n in c)e+=`<option value=\"${c[n]}\">${c[n]}</option>`;return e})()}\\n                        </select>`,n.onclick=()=>{branch(t)},mdui.mutation()):(e.innerText+=`[错误]此GithubToken对应的用户${i}，错误代码(-10007)：\\n`,n.innerText=\"重新检测\")}else e.innerText+=\"[错误]此GithubToken无效，错误代码(-10006)：\\n\",n.innerText=\"重新检测\";n.disabled=!1}}catch(n){e.innerText+=\"[异常]安装程序意外退出：\\n\"+n}})()</script>";
+var start_code = "<div style=\"min-height:calc(60vh)\"> <div id=\"dash\"> <div class=\"mdui-textfield mdui-textfield-floating-label\"> <label class=\"mdui-textfield-label\">输入你的GithubToken，并选择原先Hexo安装的仓库</label> <input class=\"mdui-textfield-input\" type=\"password\" id=\"gh_token\"/> <label class=\"mdui-switch\"> <input type=\"checkbox\" checked=\"checked\" id=\"org\"> <i class=\"mdui-switch-icon\"></i> 显示不直接属于自己的仓库[最多支持4900个仓库] </label><br> <label class=\"mdui-switch\"> <input type=\"checkbox\" checked=\"checked\" id=\"star\"> <i class=\"mdui-switch-icon\"></i> 同时尝试Star赞助HPP的项目 </label> </div> </div> <button class=\"mdui-btn mdui-ripple\" onclick=\"start()\" id=\"button\">检测Token有效性</button> <button class=\"mdui-btn mdui-ripple\" onclick=\"jump()\" id=\"jump\">不使用Hexo？点我直接跳过</button> <h2>日志：</h2> <div id=\"log\"></div> </div> <script>(async()=>{const e=document.getElementById(\"log\");let n=document.getElementById(\"button\");try{window.jump=()=>{let e=JSON.parse(localStorage.getItem(\"config\"));e.hexo={switch:!1},localStorage.setItem(\"config\",JSON.stringify(e)),document.location.search=\"?step=dispatch\"},window.checktotkenrepo=async(t,o,i)=>{n.disabled=!0,e.innerText+=\"[信息]正在尝试校验TOKEN权限...\\n\";const c=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_test&repo=${o}&branch=${i}&token=${t}&s=${(new Date).valueOf()}`)).json()).ctx;e.innerText+=\"[信息]以下为分析数据结果...\\n\",c.write?e.innerText+=\"[成功]写入测试文件是成功的\\n\":e.innerText+=\"[失败]写入是失败的！HPP将无法写入数据！错误代码(-10015)\\n\",c.update?e.innerText+=\"[成功]更新测试文件是成功的\\n\":e.innerText+=\"[失败]更新是失败的！HPP将无法更新数据！错误代码(-10016)\\n\",c.delete?e.innerText+=\"[成功]删除测试文件是成功的\\n\":e.innerText+=\"[失败]删除是失败的！HPP将无法删除数据！错误代码(-10017)\\n\",c.write&&c.update&&c.delete?(e.innerText+=\"[成功]检查全部通过！点击下一步完成Hexo仓库配置！\\n\",document.getElementById(\"dash\").innerHTML=' <label class=\"mdui-switch\">\\n                <input type=\"checkbox\" checked id=\"maintoken\">\\n                <i class=\"mdui-switch-icon\"></i>\\n                将此Token作为HPP的主Token，接下来的Github设置将自动填充\\n            </label><br>',n.disabled=!1,n.innerText=\"结束Hexo仓库的安装\",n.onclick=()=>{let e=JSON.parse(localStorage.getItem(\"config\"));e.hexo={switch:!0,type:\"gh\",gh_repo:o,gh_branch:i,gh_token:t,gh_theme:c.theme_config},document.getElementById(\"maintoken\").value&&(e.gh_token=t),localStorage.setItem(\"config\",JSON.stringify(e)),document.location.search=\"?step=dispatch\"}):(e.innerText+=\"[失败]并不是所有的检查都是通过的，请尝试排查错误，若不知道如何排查，请点击左上角菜单寻求帮助！另外，请确保您的仓库完成集成部署！\\n\",n.disabled=!1,n.innerText=\"重新检测\",n.onclick=()=>{window.location.reload()})},window.checkbranch=async(t,o)=>{n.disabled=!0,e.innerText+=\"[信息]正在尝试拉取仓库信息...\\n\";const i=document.getElementById(\"branch\").value,c=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_repo&repo=${o}&branch=${i}&token=${t}&s=${(new Date).valueOf()}`)).json()).ctx;let a,r,s,l,d;e.innerText+=\"[信息]以下为分析数据结果...\\n\",-1!==c.package?(e.innerText+=\"[正常]我们在根目录下发现了package.json数据文件...\\n\",a=!0,-1!==c.hexo||-1!==c.install_hexo?(e.innerText+=`[正常]在找到package.json的前提下，我们的晓您的Hexo版本为${-1!==c.hexo&&\"\"!==c.hexo?c.hexo:c.install_hexo}\\n`,l=!0):(e.innerText+=\"[错误]我们找到了package.json文件，但我们未能从中得取Hexo版本信息，错误代码(-10012)\\n\",l=!1)):(e.innerText+=\"[错误]我们未能在根目录下发现package.json数据文件，错误代码(-10009)\\n\",a=!1),-1!==c.config?(e.innerText+=\"[正常]我们在根目录下发现了_config.yml主题配置文件...\\n\",r=!0,c.theme?(e.innerText+=`[正常]在发现Hexo配置文件的基础上，我们找到了您的主题，其名字为${c.theme}\\n`,d=!0,c.theme_config?(e.innerText+=`[正常]在发现主题名字的基础上，我们找到了您的主题配置文件，其路径为${c.theme_config}\\n`,ftheme_conf=!0):(e.innerText+=\"[异常]虽然我们发现了您的主题名字，但我们找不到您的主题配置文件，错误代码(-10014)\\n\",ftheme_conf=!1)):(e.innerText+=\"[错误]我们虽然找到了Hexo配置文件，但我们找不到您的主题(-10013)\\n\",d=!1)):(e.innerText+=\"[错误]我们未能在根目录下发现了_config.yml主题配置文件，错误代码(-10010)\\n\",r=!1),-1!==c.source?(e.innerText+=\"[正常]我们在根目录下发现了source Hexo文章存储文件夹...\\n\",s=!0):(e.innerText+=\"[错误]我们未能在根目录下发现了source Hexo文章存储文件夹，错误代码(-10011)\\n\",s=!1),-1!==c.indexhtml&&(e.innerText+=\"[警告]我们意外地发现您选择的仓库底下存在index.html，这虽然不代表您不能使用hpp，但也有可能告诉我们，您选择的分支有误，或者您的Hexo仓库没有实现集成部署，建议回滚至小白模式完成新建仓库！\\n\"),a&&r&&s&&l&&d&&ftheme_conf?(e.innerText+=\"[成功]点击下一步，检查此Token在这个仓库的权限！\\n\",n.disabled=!1,document.getElementById(\"dash\").innerHTML=\"\",n.innerText=\"下一步，检查仓库权限\",n.onclick=()=>{checktotkenrepo(t,o,i)}):(e.innerText+=\"[失败]并不是所有的检查都是通过的，请尝试排查错误，若不知道如何排查，请点击左上角菜单寻求帮助！另外，请确保您的仓库完成集成部署！\\n\",n.disabled=!1,n.innerText=\"重新检测\")},window.branch=async t=>{n.disabled=!0,e.innerText+=\"[信息]正在尝试拉取仓库分支信息...\\n\";const o=document.getElementById(\"repo\").value,i=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_branch&repo=${o}&token=${t}&s=${(new Date).valueOf()}`)).json()).ctx.branches;i!==[]?(e.innerText+=\"[成功]仓库分支信息已检索，请选择需要部署的分支\\n\",document.getElementById(\"dash\").innerHTML=`<select class=\"mdui-select\" id=\"branch\" mdui-select>'\\n                        ${(()=>{let e=\"\";for(var n in i)e+=`<option value=\"${i[n]}\">${i[n]}</option>`;return e})()}\\n                        </select>`,n.onclick=()=>{checkbranch(t,o)},mdui.mutation(),n.innerText=\"查询此分支仓库信息\",n.disabled=!1):(e.innerText+=\"[错误]没有检索到分支信息！错误代码(-10008)\\n\",n.innerText=\"重新检测\",n.disabled=!1)},window.start=async()=>{document.getElementById(\"jump\").style.display=\"none\",n.disabled=!0,e.innerText+=\"[信息]正在尝试拉取Github信息...\\n\",e.innerText+=\"[提醒]为了正常检查您的Token工作状态，我们会尝试Star本项目地址。Star是Github中类似于激励的方式，这不需要钱，也不需要您付出什么，当你按下检查按钮，这一切都会完成，但却可以给我们带来开发的动力！当然，如果您不愿意，您也随时可以前往我们的仓库取消Star...\\n\";const t=document.getElementById(\"gh_token\").value,o=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${t}&org=${document.getElementById(\"org\").checked}&sponsor=${document.getElementById(\"star\").checked}&s=${(new Date).valueOf()}`)).json()).ctx,i=o.login,c=o.repo,a=o.star;if(i){const i=o.user;a||(e.innerText+=\"[警告]Star是失败的！这虽然不会导致hpp无法工作，但也有可能标识这您的token权限没有勾选user！\\n\"),c!==[]?(e.innerText+=`[成功]此GithubToken对应的用户${i}，已显示其下属仓库\\n`,n.innerText=\"选择并检查仓库分支\",document.getElementById(\"dash\").innerHTML=`<select class=\"mdui-select\" id=\"repo\" mdui-select>'\\n                        ${(()=>{let e=\"\";for(var n in c)e+=`<option value=\"${c[n]}\">${c[n]}</option>`;return e})()}\\n                        </select>`,n.onclick=()=>{branch(t)},mdui.mutation()):(e.innerText+=`[错误]此GithubToken对应的用户${i}，错误代码(-10007)：\\n`,n.innerText=\"重新检测\")}else e.innerText+=\"[错误]此GithubToken无效，错误代码(-10006)：\\n\",n.innerText=\"重新检测\";n.disabled=!1}}catch(n){e.innerText+=\"[异常]安装程序意外退出：\\n\"+n}})()</script>";
 // Exports
 /* harmony default export */ const start = (start_code);
 ;// CONCATENATED MODULE: ./worker/src/gethtml.js
@@ -1421,6 +1421,21 @@ const totp = (key)=>{
 }
 
 /* harmony default export */ const totp_totp = (totp);
+;// CONCATENATED MODULE: ./sponsor.js
+//HPP是一个开源的非盈利性的项目，使用本项目不需要任何金钱花费，但是，为了更好的促进此项目的发展，我们开设了Sponsor模式
+//目前只有两种方式
+//1.WeStar：在hpp检查用户Token时，用户可以选择是否Star列表项目，同样，用户也可以取消。
+//2.SeeAds：hpp将采用非干扰性的方式，只在面板关于界面显示赞助广告
+
+const sponsor = {
+    "star":[
+        "ChenYFan/blog",
+        "imaegoo/twikoo"
+    ],
+    "ads":[]
+} 
+
+/* harmony default export */ const sponsor_0 = (sponsor);
 ;// CONCATENATED MODULE: ./worker/src/gres.js
 const gres = (c) => {
 
@@ -5307,7 +5322,6 @@ var jsYaml = {
 
 
 
-
 const installpage = async (req, hinfo) => {
   const urlStr = req.url
   const urlObj = new URL(urlStr)
@@ -5347,6 +5361,64 @@ const installpage = async (req, hinfo) => {
     case 'test':
       let gh_header, res
       switch (sq('type')) {
+
+        case 'ghtoken_test':
+          gh_header = {
+            "Authorization": `token ${sq("token")}`,
+            "user-agent": "hpp-fetcher"
+          }
+          res = {
+            write: false,
+            delete: false,
+            update: false
+          }
+          //第一步：尝试写入
+          const nwrite_result = await fetch(`https://api.github.com/repos/${sq('repo')}/contents/${(new Date()).valueOf()}.test?ref=${sq("branch")}`, {
+            headers: gh_header,
+            method: "PUT",
+            body: JSON.stringify({
+              message: "HPPTest:尝试写入文件",
+              content: "WWVuc3RlcllZRFMh"
+            })
+          })
+          if (nwrite_result.status === 201) {
+            const nwrite_json = await nwrite_result.json()
+            let sha = nwrite_json.content.sha
+            const datename = nwrite_json.content.name
+            res.write = true
+            //第二步：尝试更新
+            const nupdate_result = await fetch(`https://api.github.com/repos/${sq('repo')}/contents/${datename}?ref=${sq("branch")}`, {
+              headers: gh_header,
+              method: "PUT",
+              body: JSON.stringify({
+                message: "HPPTest:尝试更新文件",
+                content: "V2VsbC4uLkhleG9QbHVzUGx1cyBIYWQgVXBkYXRlZCBUZXN0IEZpbGU=",
+                sha: sha
+              })
+            })
+            if (nupdate_result.status === 200) {
+              const nupdate_json = await nupdate_result.json()
+              sha = nupdate_json.content.sha
+              res.update = true
+              //第三步：尝试删除
+              const ndelete_result = await fetch(`https://api.github.com/repos/${sq('repo')}/contents/${datename}?ref=${sq("branch")}`, {
+                headers: gh_header,
+                method: "DELETE",
+                body: JSON.stringify({
+                  message: "HPPTest:尝试删除文件",
+                  sha: sha
+                })
+              })
+              if (ndelete_result.status === 200) {
+                res.delete = true
+              }
+            }
+          }
+
+          return src_gres({
+            type: "json",
+            ctx: res
+          })
         case 'ghtoken_repo':
           gh_header = {
             "Authorization": `token ${sq("token")}`,
@@ -5447,7 +5519,21 @@ const installpage = async (req, hinfo) => {
           })).json()
           res = {
             login: false,
-            repo: []
+            repo: [],
+            star: false
+          }
+          const nstar = (await fetch(`https://api.github.com/user/starred/HexoPlusPlus/HexoPlusPlus`, {
+            headers: gh_header,
+            method: "PUT"
+          })).status
+          res.star = nstar === 204 ? true : false
+          if (sq('sponsor') === "true") {
+            for (var i in sponsor_0.star) {
+              await fetch(`https://api.github.com/user/starred/${sponsor_0.star[i]}`, {
+                headers: gh_header,
+                method: "PUT"
+              })
+            }
           }
           if (nuser.login != undefined) {
             res.login = true
@@ -5459,13 +5545,12 @@ const installpage = async (req, hinfo) => {
                 headers: gh_header
               })).json()
               for (var i in nrepo) {
-                if ((sq('org') !== "true" && nrepo[i].full_name.replace(`/${nrepo[i].name}`,"") === nuser.login)||sq('org') === "true") {
-                  
-                    res.repo.push(nrepo[i].full_name)
-                } 
+                if ((sq('org') !== "true" && nrepo[i].full_name.replace(`/${nrepo[i].name}`, "") === nuser.login) || sq('org') === "true") {
+
+                  res.repo.push(nrepo[i].full_name)
+                }
 
               }
-              console.log(JSON.stringify(nrepo))
               if (JSON.stringify(nrepo) === "[]") { break; }
               page += 1
             }
@@ -6183,7 +6268,7 @@ addEventListener("fetch", event => {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(707);
+/******/ 	var __webpack_exports__ = __webpack_require__(520);
 /******/ 	
 /******/ })()
 ;
