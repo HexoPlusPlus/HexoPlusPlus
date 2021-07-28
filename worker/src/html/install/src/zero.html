@@ -1,33 +1,65 @@
-<div style="min-height: calc(60vh);"></div>
-<div id="hello">
-    <p>很高兴，您选择了HexoPlusPlus作为您的博客首选编辑器。</p>
-    <p>我们致力于创造一个合理使用免费平台、但体验绝不亚于动态博客的静态博客动态后端。</p>
-    <p>在此模式下，您不需要学习NodeJS和无服务器底层框架，请保持您的鼠标按钮正常，键盘上Ctrl、C、V键工作正常，能够正常连接外网即可。</p>
-    <p>现在，请跟着向导，我们将引导您生成一个全新的、具有集成部署功能，可以选择公有/私有仓库，支持GithubPage、Vercel或CloudFlarePage的<del>大神级别的</del>、基于Github的Hexo云端仓库
-    </p>
-    <p>首先，请生成一个具有完全权限的GithubToken<a href="">[不会生成GithubToken]</a>，将内容保管好，粘贴到下面的框中，并点击检查Token</p>
+<div style="min-height: calc(60vh);">
+    <div id="hello">
+        <p>很高兴，您选择了HexoPlusPlus作为您的博客首选编辑器。</p>
+        <p>我们致力于创造一个合理使用免费平台、但体验绝不亚于动态博客的静态博客动态后端。</p>
+        <p>在此模式下，您不需要学习NodeJS和无服务器底层框架，请保持您的鼠标按钮正常，键盘上Ctrl、C、V键工作正常，能够正常连接外网即可。</p>
+        <p>现在，请跟着向导，我们将引导您生成一个全新的、具有集成部署功能，可以选择公有/私有仓库，支持GithubPage、Vercel或CloudFlarePage的<del>大神级别的</del>、基于Github的Hexo云端仓库
+        </p>
+        <b>Tips：遇到错误代码时，请将代码复制或截图，发到QQ群里【点击左上角菜单找到QQ群地址】，群里的大佬都热心于解答问题</b>
+        <p>首先，请生成一个具有完全权限的GithubToken<a href="">[不会生成GithubToken]</a>，将内容保管好，粘贴到下面的框中，并点击检查Token</p>
+    </div>
+    <div id="dash">
+
+        <div class="mdui-textfield mdui-textfield-floating-label">
+            <label class="mdui-textfield-label">将GithubToken复制到我这里！</label>
+            <input class="mdui-textfield-input" type="password" id="gh_token" />
+        </div>
+
+
+    </div>
+    <button class="mdui-btn mdui-ripple" onclick="start()" id="button">检查Token</button>
 </div>
-<div id="dash">
-    <label class="mdui-switch">
-        <input type="checkbox" id="maintoken">
-        <i class="mdui-switch-icon"></i>
-        将GithubToken复制到我这里！
-    </label><br>
-</div>
-<button class="mdui-btn mdui-ripple" onclick="start()" id="button">检查Token</button>
 </div>
 <script>
     (async () => {
         const hel = document.getElementById('hello')
-        window.start = () => {
-            hel.innerText = "不要慌张，我们正在检查您的Token"
-            const c = (await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${ghtoken}&org=${document.getElementById('org').checked}&sponsor=${document.getElementById('star').checked}&s=${(new Date()).valueOf()}`)).json()).ctx
-            if (c.login) {
-                hel.innerText = `很棒！您的Github用户名为${ctx.username}，并且已登录！`
+        const dash = document.getElementById('dash')
+        const button = document.getElementById('button')
+        window.checkrepo = async (username, repolist, gh_token) => {
+            hel.innerText = "不要慌张，我们正在检查您的仓库冲突\n"
+            button.disabled = true
+            const reponame = document.getElementById('newreponame').value
+            if (repolist.indexOf(username + '/' + reponame) === -1) {
+                hel.innerText = `Nice！仓库名为${reponame}没有被占用！接下来，选择一个你喜欢的Hexo主题，其预览图片将会在下方显示\n`
+                dash.innerHTML = ``
+                button.innerText = "选择一个你喜欢的主题"
+                button.onclick = () => {
+                    //checkrepo(c.repo, gh_token)
+                }
             } else {
-                hel.innerText = `OhNo，我们没能登陆上去，错误代码(-10006)`
-                hel.innerText += `Tips：遇到错误代码时，请将代码复制或截图，发到QQ群里【点击左上角菜单找到QQ群地址】，群里的大佬都热心于解答问题！`
+                hel.innerText = `哦...仓库名为${reponame}已经被占用啦！换个名字试试吧\n`
             }
+            button.disabled = false
+        }
+        window.start = async () => {
+            hel.innerText = "不要慌张，我们正在检查您的Token\n"
+            button.disabled = true
+            const ghtoken = document.getElementById("gh_token").value
+            const c = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${ghtoken}&org=false&sponsor=true&s=${(new Date()).valueOf()}`)).json()).ctx
+            if (!!c.login && c.star) {
+                hel.innerText = `很棒！您的Github用户名为${ctx.username}，并且登录成功！输入新的仓库的名字，点击【检查新仓库】，进入下一步！\n`
+                dash.innerHTML = `      <div class="mdui-textfield mdui-textfield-floating-label"><label class="mdui-textfield-label">输入新仓库名字！</label>
+    <input class="mdui-textfield-input" type="text" id="newreponame" /></div>`
+                button.innerText = "检查新仓库"
+                button.onclick = () => {
+                    checkrepo(c.login, c.repo, gh_token)
+                }
+            } else if (!c.login) {
+                hel.innerText = `OhNo，我们没能登陆上去，错误代码(-10006)\n`
+            } else {
+                hel.innerText = `嗯...我们认为您没有将权限全部勾上，请尝试勾全权限，错误代码(-10030)\n`
+            }
+            button.disabled = false
         }
     })()
 </script>

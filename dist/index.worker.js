@@ -339,7 +339,7 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ 93:
+/***/ 762:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -405,7 +405,17 @@ var start_code = "<div style=\"min-height:calc(60vh)\"> <div id=\"dash\"> <div c
 var dispatch_code = "<div style=\"min-height:calc(60vh)\"> <div id=\"dash\"> <p> Dispatch功能指在hexo仓库有效更新时向指定仓库提交Action请求。此选项通常仅用于您的Hexo集成部署方式为GithubAction，并且源代码仓库和部署仓库分离，或者您使用外部编辑器时【如语雀】才开启，否则请点击【不开启DISPATCH】按钮跳过此步骤 </p> <label class=\"mdui-textfield-label\">输入你的GithubToken</label> <input class=\"mdui-textfield-input\" type=\"password\" id=\"gh_token\"/> <label class=\"mdui-switch\"> <input type=\"checkbox\" id=\"maintoken\"> <i class=\"mdui-switch-icon\"></i> 采用主Token </label><br> <label class=\"mdui-switch\"> <input type=\"checkbox\" checked=\"checked\" id=\"org\"> <i class=\"mdui-switch-icon\"></i> 显示不直接属于自己的仓库[最多支持4900个仓库] </label><br> <label class=\"mdui-switch\"> <input type=\"checkbox\" checked=\"checked\" id=\"star\"> <i class=\"mdui-switch-icon\"></i> 同时尝试Star赞助HPP的项目 </label> </div> <button class=\"mdui-btn mdui-ripple\" onclick=\"start()\" id=\"button\">检测Token有效性</button> <button class=\"mdui-btn mdui-ripple\" onclick=\"gonext({switch:!1})\" id=\"jump\">不使用Dispatch</button> <h2>日志：</h2> <div id=\"log\"></div> </div> <script src=\"https://cdn.jsdelivr.net/npm/md5@2.3.0/dist/md5.min.js\"></script> <script>(async()=>{window.gonext=e=>{let t=JSON.parse(localStorage.getItem(\"config\"));e.switch?t.hexo.dispatch={switch:!0,gh_repo:e.reponame,gh_branch:e.branch,gh_token:e.ghtoken,gh_workflow:e.workflow,export:e.export}:t.hexo.dispatch={switch:!0},localStorage.setItem(\"config\",JSON.stringify(t)),document.location.search=\"?step=imghost\"};const e=document.getElementById(\"log\");try{let t=JSON.parse(localStorage.getItem(\"config\"));t.gh_token?document.getElementById(\"maintoken\").addEventListener(\"click\",()=>{document.getElementById(\"maintoken\").checked?(document.getElementById(\"gh_token\").value=t.gh_token,start()):document.getElementById(\"gh_token\").value=\"\"}):document.getElementById(\"maintoken\").disabled=!0,window.testworkflow=async(t,n,o)=>{button.disabled=!0;const i=document.getElementById(\"workflow\").value;e.innerText+=\"[信息]正在尝试激活此workflow...\\n\";(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_workflowtest&repo=${n}&workflow=${i}&branch=${o}&token=${t}&s=${(new Date).valueOf()}`)).json()).ctx.success?(e.innerText+=\"[成功]仓库WorkFlow信息已激活，请选择是否暴露dispatch接口\\n\",document.getElementById(\"dash\").innerHTML='<label class=\"mdui-switch\">\\n            <input type=\"checkbox\" id=\"export\">\\n            <i class=\"mdui-switch-icon\"></i>\\n           是否暴露dispatch目录到外部，如果是，则填入Dispatch密码【建议手滚键盘】【使用语雀等外部编辑器请开启此选项】\\n        </label>\\n        <div id=\"dispatch_token\" style=\"display:none\"> <label class=\"mdui-textfield-label\">输入你的密码</label>\\n        <input class=\"mdui-textfield-input\" type=\"password\" id=\"dispatch_token_input\" /><p id=\"info\"></p></div>',document.getElementById(\"export\").addEventListener(\"click\",()=>{document.getElementById(\"export\").checked?document.getElementById(\"dispatch_token\").style.display=\"unset\":document.getElementById(\"dispatch_token\").style.display=\"none\"}),document.getElementById(\"dispatch_token_input\").addEventListener(\"change\",()=>{document.getElementById(\"info\").innerHTML=`<b>开启后，请在语雀的webhook中填入<i>https://${window.location.host}/hpp/api?type=dispatch&token=${MD5(document.getElementById(\"dispatch_token_input\").value)}</i></b>`}),button.innerText=\"保存并继续\",button.onclick=()=>{gonext({switch:!0,ghtoken:t,reponame:n,branch:o,workflow:i,export:{switch:document.getElementById(\"export\").checked,token:MD5(document.getElementById(\"dispatch_token_input\").value)}})}):(e.innerText+=\"[错误]激活WorkFlow失败！请确认脚本中on字段有workflow_dispatch！错误代码(-10022)\\n\",button.innerText=\"重新检测\"),button.disabled=!1},window.workflow=async(t,n)=>{button.disabled=!0;const o=document.getElementById(\"branch\").value;e.innerText+=\"[信息]正在尝试拉取仓库WorkFlow信息...\\n\";const i=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_workflow&repo=${n}&token=${t}&s=${(new Date).valueOf()}`)).json()).ctx;\"[]\"!==JSON.stringify(i.workflows)?(e.innerText+=\"[成功]仓库WorkFlow信息已检索，请选择需要Dispatch的WorkFlow\\n\",document.getElementById(\"dash\").innerHTML=`<select class=\"mdui-select\" id=\"workflow\" mdui-select>'\\n                        ${(()=>{let e=\"\";for(var t in i.workflows)e+=`<option value=\"${i.workflows[t].id}\">${i.workflows[t].name}</option>`;return e})()}\\n                        </select>`,button.onclick=()=>{testworkflow(t,n,o)},mdui.mutation(),button.innerText=\"测试此WorkFlow\"):(e.innerText+=\"[错误]没有检索到WorkFlow信息，你确定你的仓库开启GithubAction吗？错误代码(-10021)\\n\",button.innerText=\"重新检测\"),button.disabled=!1},window.branch=async t=>{button.disabled=!0,e.innerText+=\"[信息]正在尝试拉取仓库分支信息...\\n\";const n=document.getElementById(\"repo\").value,o=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_branch&repo=${n}&token=${t}&s=${(new Date).valueOf()}`)).json()).ctx.branches;o!==[]?(e.innerText+=\"[成功]仓库分支信息已检索，请选择需要Dispatch的分支\\n\",document.getElementById(\"dash\").innerHTML=`<select class=\"mdui-select\" id=\"branch\" mdui-select>'\\n                        ${(()=>{let e=\"\";for(var t in o)e+=`<option value=\"${o[t]}\">${o[t]}</option>`;return e})()}\\n                        </select>`,button.onclick=()=>{workflow(t,n)},mdui.mutation(),button.innerText=\"查询此分支仓库信息\"):(e.innerText+=\"[错误]没有检索到分支信息！错误代码(-10008)\\n\",button.innerText=\"重新检测\"),button.disabled=!1},window.start=async()=>{document.getElementById(\"jump\").style.display=\"none\",button.disabled=!0,document.getElementById(\"maintoken\").disabled=!0,document.getElementById(\"org\").disabled=!0,document.getElementById(\"star\").disabled=!0,e.innerText+=\"[信息]正在尝试拉取Github信息...\\n\",e.innerText+=\"[提醒]为了正常检查您的Token工作状态，我们会尝试Star本项目地址。Star是Github中类似于激励的方式，这不需要钱，也不需要您付出什么，当你按下检查按钮，这一切都会完成，但却可以给我们带来开发的动力！当然，如果您不愿意，您也随时可以前往我们的仓库取消Star...\\n\";const n=document.getElementById(\"gh_token\").value,o=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${n}&org=${document.getElementById(\"org\").checked}&sponsor=${document.getElementById(\"star\").checked}&s=${(new Date).valueOf()}`)).json()).ctx,i=o.login,d=o.repo,l=o.star;if(i){const t=o.user;l||(e.innerText+=\"[警告]Star是失败的！这虽然不会导致hpp无法工作，但也有可能标识这您的token权限没有勾选user！\\n\"),d!==[]?(e.innerText+=`[成功]此GithubToken对应的用户${t}，已显示其下属仓库\\n`,button.innerText=\"选择指定的仓库并检查仓库WorkFlow\",document.getElementById(\"dash\").innerHTML=`<select class=\"mdui-select\" id=\"repo\" mdui-select>'\\n                        ${(()=>{let e=\"\";for(var t in d)e+=`<option value=\"${d[t]}\">${d[t]}</option>`;return e})()}\\n                        </select>`,button.onclick=()=>{branch(n)},mdui.mutation()):(e.innerText+=`[错误]此GithubToken对应的用户${t}没有仓库，错误代码(-10007)：\\n`,button.innerText=\"重新检测\",document.getElementById(\"jump\").style.display=\"unset\")}else e.innerText+=\"[错误]此GithubToken无效，错误代码(-10006)：\\n\",button.innerText=\"重新检测\",document.getElementById(\"jump\").style.display=\"unset\";button.disabled=!1,t.gh_token&&(document.getElementById(\"maintoken\").disabled=!1),document.getElementById(\"org\").disabled=!1,document.getElementById(\"star\").disabled=!1}}catch(t){e.innerText+=\"[异常]安装程序意外退出：\\n\"+t}})()</script>";
 // Exports
 /* harmony default export */ const dispatch = (dispatch_code);
+;// CONCATENATED MODULE: ./node_modules/html-loader/dist/cjs.js!./worker/src/html/install/src/zero.html
+// Module
+var zero_code = "<div style=\"min-height:calc(60vh)\"> <div id=\"hello\"> <p>很高兴，您选择了HexoPlusPlus作为您的博客首选编辑器。</p> <p>我们致力于创造一个合理使用免费平台、但体验绝不亚于动态博客的静态博客动态后端。</p> <p>在此模式下，您不需要学习NodeJS和无服务器底层框架，请保持您的鼠标按钮正常，键盘上Ctrl、C、V键工作正常，能够正常连接外网即可。</p> <p>现在，请跟着向导，我们将引导您生成一个全新的、具有集成部署功能，可以选择公有/私有仓库，支持GithubPage、Vercel或CloudFlarePage的<del>大神级别的</del>、基于Github的Hexo云端仓库 </p> <b>Tips：遇到错误代码时，请将代码复制或截图，发到QQ群里【点击左上角菜单找到QQ群地址】，群里的大佬都热心于解答问题</b> <p>首先，请生成一个具有完全权限的GithubToken<a href=\"\">[不会生成GithubToken]</a>，将内容保管好，粘贴到下面的框中，并点击检查Token</p> </div> <div id=\"dash\"> <div class=\"mdui-textfield mdui-textfield-floating-label\"> <label class=\"mdui-textfield-label\">将GithubToken复制到我这里！</label> <input class=\"mdui-textfield-input\" type=\"password\" id=\"gh_token\"/> </div> </div> <button class=\"mdui-btn mdui-ripple\" onclick=\"start()\" id=\"button\">检查Token</button> </div>  <script>(async()=>{const e=document.getElementById(\"hello\"),n=document.getElementById(\"dash\"),t=document.getElementById(\"button\");window.checkrepo=async(i,l,o)=>{e.innerText=\"不要慌张，我们正在检查您的仓库冲突\\n\",t.disabled=!0;const d=document.getElementById(\"newreponame\").value;-1===l.indexOf(i+\"/\"+d)?(e.innerText=`Nice！仓库名为${d}没有被占用！接下来，选择一个你喜欢的Hexo主题，其预览图片将会在下方显示\\n`,n.innerHTML=\"\",t.innerText=\"选择一个你喜欢的主题\",t.onclick=()=>{}):e.innerText=`哦...仓库名为${d}已经被占用啦！换个名字试试吧\\n`,t.disabled=!1},window.start=async()=>{e.innerText=\"不要慌张，我们正在检查您的Token\\n\",t.disabled=!0;const i=document.getElementById(\"gh_token\").value,l=(await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${i}&org=false&sponsor=true&s=${(new Date).valueOf()}`)).json()).ctx;l.login&&l.star?(e.innerText=`很棒！您的Github用户名为${ctx.username}，并且登录成功！输入新的仓库的名字，点击【检查新仓库】，进入下一步！\\n`,n.innerHTML='      <div class=\"mdui-textfield mdui-textfield-floating-label\"><label class=\"mdui-textfield-label\">输入新仓库名字！</label>\\n    <input class=\"mdui-textfield-input\" type=\"text\" id=\"newreponame\" /></div>',t.innerText=\"检查新仓库\",t.onclick=()=>{checkrepo(l.login,l.repo,gh_token)}):l.login?e.innerText=\"嗯...我们认为您没有将权限全部勾上，请尝试勾全权限，错误代码(-10030)\\n\":e.innerText=\"OhNo，我们没能登陆上去，错误代码(-10006)\\n\",t.disabled=!1}})()</script>";
+// Exports
+/* harmony default export */ const zero = (zero_code);
 ;// CONCATENATED MODULE: ./worker/src/gethtml.js
+
+
+
+
+
 
 
 
@@ -459,6 +469,10 @@ const gethtml_gethtml = (hinfo) => {
 
     start: () => {
       return install.replace(/::BODY::/g, start)
+        .preout()
+    },
+    zero: () => {
+      return install.replace(/::BODY::/g, zero)
         .preout()
     },
     dispatch: () => {
@@ -5362,6 +5376,12 @@ const installpage = async (req, hinfo) => {
         ctx: h.cf()
       })
 
+    case 'zero':
+      return src_gres({
+        type: 'html',
+        ctx: h.zero()
+      })
+
     case 'player':
       return src_gres({
         type: 'html',
@@ -5383,8 +5403,7 @@ const installpage = async (req, hinfo) => {
               ref: sq("branch")
             })
           })
-          ).status === 204)
-          { res.success = true }
+          ).status === 204) { res.success = true }
 
           return src_gres({
             type: "json",
@@ -6317,7 +6336,7 @@ addEventListener("fetch", event => {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(93);
+/******/ 	var __webpack_exports__ = __webpack_require__(762);
 /******/ 	
 /******/ })()
 ;

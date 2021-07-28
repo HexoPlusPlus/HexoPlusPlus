@@ -34,6 +34,12 @@ const installpage = async (req, hinfo) => {
         ctx: h.cf()
       })
 
+    case 'zero':
+      return gres({
+        type: 'html',
+        ctx: h.zero()
+      })
+
     case 'player':
       return gres({
         type: 'html',
@@ -55,8 +61,7 @@ const installpage = async (req, hinfo) => {
               ref: sq("branch")
             })
           })
-          ).status === 204)
-          { res.success = true }
+          ).status === 204) { res.success = true }
 
           return gres({
             type: "json",
