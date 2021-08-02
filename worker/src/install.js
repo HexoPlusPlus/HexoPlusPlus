@@ -45,13 +45,16 @@ const installpage = async (req, hinfo) => {
         type: 'html',
         ctx: h.player()
       })
+    case 'getthemelist':
+      return fetch('https://raw.githubusercontent.com/hexojs/site/master/source/_data/themes.yml')
+      //CloudFlareWorker无法处理较大的yml文件
     case 'test':
       let gh_header, res
       switch (sq('type')) {
         case 'ghtoken_workflowtest':
           gh_header = {
             "Authorization": `token ${sq("token")}`,
-            "user-agent": "hpp-fetcher"
+            "user-agent": "hpp-install-fetcher"
           }
           res = { success: false }
           if ((await fetch(`https://api.github.com/repos/${sq('repo')}/actions/workflows/${sq('workflow')}/dispatches`, {
