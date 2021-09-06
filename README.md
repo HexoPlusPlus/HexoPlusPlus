@@ -36,12 +36,12 @@ HexoPlusPlus~~也叫Hexo艹~~，是一个基于CloudFlareWorkers和CloudFlareKV�
 
 HexoPlusPlus的诞生离不开以下项目的支持：
 
-- jquery
-- bootstrap
+- [JQuery](https://jquery.com)
+- [BootStrap](https://getbootstrap.com)
 - [material-dashboard](https://github.com/creativetimofficial/material-dashboard)
-- marked.js
-- sweetalert
-- notyf
+- [Marked.js](https://github.com/markedjs/marked)
+- [SweetAlert](https://github.com/t4t5/sweetalert)
+- [Notyf](https://github.com/caroso1222/notyf)
 
 
 > 由于仍处于快速迭代期,HPP尚未使用NPM发包,请使用Jsdelivr+Github访问静态资源
@@ -65,13 +65,13 @@ HPP项目较其他项目有些特殊，项目分为前端和后端部分
 
 ### 前端
 
-文件均存储与`/src/`以下
+文件均存储于`/src/`下
 
 ```sh
-npm run build-static //构建前端静态文件
-npm run server //运行基于http-server的https本地服务器
-npm run server-nossl //运行基于http-server的http本地服务器
-npm run build-static-server //构建并打开服务器
+$ npm run build:static //构建前端静态文件
+$ npm run server //运行基于http-server的https本地服务器
+$ npm run server:nossl //运行基于http-server的http本地服务器
+$ npm run build:static:server //构建并打开服务器
 ```
 
 ### 后端[WorkerJS]
@@ -79,8 +79,8 @@ npm run build-static-server //构建并打开服务器
 文件均存储与`/worker/`以下
 
 ```sh
-npm run build-worker //构建workerjs
-npm run build-worker-dev //构建workerjs并监控
+$ npm run build:worker //构建workerjs
+$ npm run build:worker-dev //构建workerjs并监控
 ```
 
 # 贡献名单
