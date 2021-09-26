@@ -1,78 +1,86 @@
-<p>你需要填写以下CloudFlare信息才能保证HPP工作正常</p>
+<div style="min-height: calc(60vh);">
+<div id="dash">
+    <p>你需要填写以下CloudFlare信息才能保证HPP工作正常</p>
 
 
-<div class="mdui-textfield mdui-textfield-floating-label">
-    <label class="mdui-textfield-label">CloudFlare登陆邮箱</label>
-    <input class="mdui-textfield-input" type="email" id="Auth_Email" />
+
+    <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">CloudFlare登陆邮箱</label>
+        <input class="mdui-textfield-input" type="email" id="Auth_Email" />
+    </div>
+
+    <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">CloudFlare Global Key</label>
+        <input class="mdui-textfield-input" type="password" id="Auth_Key" />
+    </div>
+
+    <div class="mdui-textfield mdui-textfield-floating-label">
+        <label class="mdui-textfield-label">CloudFlare Worker ID</label>
+        <input class="mdui-textfield-input" type="text" id="account_identifier" />
+    </div>
 </div>
-
-<div class="mdui-textfield mdui-textfield-floating-label">
-    <label class="mdui-textfield-label">CloudFlare Global Key</label>
-    <input class="mdui-textfield-input" type="password" id="Auth_Key" />
-</div>
-
-<div class="mdui-textfield mdui-textfield-floating-label">
-    <label class="mdui-textfield-label">HPP占用的Worker名字</label>
-    <input class="mdui-textfield-input" type="text" id="script_name" />
-</div>
-
-<div class="mdui-textfield mdui-textfield-floating-label">
-    <label class="mdui-textfield-label">CloudFlareWorker账户ID</label>
-    <input class="mdui-textfield-input" type="text" id="account_identifier" />
-</div>
-
 
 
 <button class="mdui-btn mdui-color-theme-accent mdui-ripple" onclick="gocheck()" id="gocheck">检查</button>
 <h2>日志：</h2>
-<div id="log"></div>
+<div id="log"></div></div>
 <script>
     window.gocheck = async () => {
         const setlog = document.getElementById('log')
         document.getElementById("gocheck").disabled = true
         setlog.innerText = `[信息]尝试检查CF信息中...\n`
         try {
-            const res = await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=cf&mail=${document.getElementById("Auth_Email").value}&key=${document.getElementById("Auth_Key").value}&name=${document.getElementById("script_name").value}&id=${document.getElementById('account_identifier').value}&s=${(new Date()).valueOf()}`)).json()
+            const Auth_Email = document.getElementById("Auth_Email").value
+            const Auth_Key = document.getElementById("Auth_Key").value
+            const account_identifier = document.getElementById('account_identifier').value
+            const res = await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=cf-getworker&mail=${Auth_Email}&key=${Auth_Key}&id=${account_identifier}&s=${(new Date()).valueOf()}`)).json()
             let login = false, script = false
+            const worker = res.ctx.worker
             if (res.ctx.login) {
                 login = true;
-                setlog.innerText += `[成功]账户已成功登陆。\n`
-            } else {
-                login = false;
-                setlog.innerText += `[失败]账户登陆异常，错误代码(-10004)\n`
-            }
-            if (res.ctx.script) {
-                script = true;
-                setlog.innerText += `[成功]已成功检测到脚本存在。\n`
-            } else {
-                login = false;
-                setlog.innerText += `[失败]未能检测到此脚本，错误代码(-10005)\n`
-            }
 
-            if (login && script) {
-                setlog.innerText += `[成功]检测已完成，点击下一步继续\n`
-                localStorage.setItem("config", JSON.stringify({
-                    installed: false,
-                    cors: "*",
-                    recaptcha: "",
-                    gh_token: "",
-                    cloudflare: {
-                        Account_Identifier: document.getElementById("account_identifier").value,
-                        Auth_Key: document.getElementById("Auth_Key").value,
-                        Auth_Email: document.getElementById("Auth_Email").value,
-                        Script_Name: document.getElementById("script_name").value
-                    },
-                }));
+                document.getElementById('dash').innerHTML = ` <p>选择HPP所在的Worker</p><select class="mdui-select" id="workername" mdui-select>'
+                        ${(() => {
+                        let p = ""
+                        for (var i in worker) {
+                            p += `<option value="${worker[i]}">${worker[i]}</option>`
+                        }
+                        return p
+                    })()
+                    }
+                        </select>`
+                setlog.innerText += `[成功]账户已登陆，请选择hpp所在的Worker名字，点击下一步继续\n`
+                mdui.mutation()
                 document.getElementById("gocheck").disabled = false
                 document.getElementById("gocheck").innerText = "下一步"
-                document.getElementById("gocheck").onclick = () => { document.location.search = "?step=player" }
+                document.getElementById('gocheck').onclick = () => {
+                    gonext(Auth_Email, Auth_Key, account_identifier)
+                }
             } else {
-                setlog.innerText += `[失败]并不是所有的检查都是通过的，请尝试排查错误，若不知道如何排查，请点击左上角菜单寻求帮助！\n`
+                login = false;
                 document.getElementById("gocheck").disabled = false
-                document.getElementById("gocheck").innerText = "重新检测"
+                setlog.innerText += `[失败]账户登陆异常，错误代码(-10004)\n`
             }
+
+
         } catch (n) {
             setlog.innerText += `[异常]脚本检测时出现了未知的异常：\n` + n
         }
+    }
+    window.gonext = (Auth_Email, Auth_Key, account_identifier) => {
+        const workername = document.getElementById("workername").value
+        localStorage.setItem("config", JSON.stringify({
+            installed: false,
+            cors: "*",
+            recaptcha: "",
+            gh_token: "",
+            cloudflare: {
+                Account_Identifier: account_identifier,
+                Auth_Key: Auth_Key,
+                Auth_Email: Auth_Email,
+                Script_Name: workername
+            },
+        }));
+        document.getElementById("gocheck").onclick = () => { document.location.search = "?step=player" }
     }
 </script>

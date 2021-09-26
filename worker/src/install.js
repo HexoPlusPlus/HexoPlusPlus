@@ -47,10 +47,15 @@ const installpage = async (req, hinfo) => {
       })
     case 'getthemelist':
       return fetch('https://raw.githubusercontent.com/hexojs/site/master/source/_data/themes.yml')
-      //CloudFlareWorker无法处理较大的yml文件
+    //CloudFlareWorker无法处理较大的yml文件
     case 'test':
       let gh_header, res
       switch (sq('type')) {
+        case 'gettheme':
+          return gres({
+            type: "json",
+            res: await (await fetch('https://hppcdn.pages.dev/theme.json')).json()
+          })
         case 'ghtoken_workflowtest':
           gh_header = {
             "Authorization": `token ${sq("token")}`,
@@ -291,7 +296,7 @@ const installpage = async (req, hinfo) => {
             type: "json",
             ctx: res
           })
-        case "cf":
+        case "cf-getworker":
           const n = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${sq('id')}/workers/scripts`, {
             headers: {
               "X-Auth-Email": sq("mail"),
@@ -301,14 +306,14 @@ const installpage = async (req, hinfo) => {
 
           let r = {
             login: false,
-            script: false
+            script: false,
+            worker: []
           }
           if (n.success) { r.login = true }
           for (var i in n.result) {
-            if (n.result[i].id === sq("name")) {
-              r.script = true
-            }
+            r.worker.push(n.result[i].id)
           }
+          console.log(r)
           return gres({
             type: "json",
             ctx: r
