@@ -11,6 +11,8 @@ const installpage = async (req, hinfo) => {
   }
   const h = gethtml(hinfo)
   switch (sq('step')) {
+    //Step获取当前进度返回html 
+    //Start
     case 'check':
       return gres({
         type: 'html',
@@ -48,14 +50,23 @@ const installpage = async (req, hinfo) => {
     case 'getthemelist':
       return fetch('https://raw.githubusercontent.com/hexojs/site/master/source/_data/themes.yml')
     //CloudFlareWorker无法处理较大的yml文件
+    //End
+
+    //程序检测API
+    //Start
     case 'test':
-      let gh_header, res
+      let gh_header, res, n
       switch (sq('type')) {
+
+        //获取主题
         case 'gettheme':
           return gres({
             type: "json",
             res: await (await fetch('https://hppcdn.pages.dev/theme.json')).json()
           })
+
+
+
         case 'ghtoken_workflowtest':
           gh_header = {
             "Authorization": `token ${sq("token")}`,
@@ -296,28 +307,51 @@ const installpage = async (req, hinfo) => {
             type: "json",
             ctx: res
           })
-        case "cf-getworker":
-          const n = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${sq('id')}/workers/scripts`, {
+        case "cf-list-worker":
+
+          n = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${sq('ai')}/workers/scripts`, {
             headers: {
               "X-Auth-Email": sq("mail"),
               "X-Auth-Key": sq("key")
             }
           })).json()
 
-          let r = {
-            login: false,
-            script: false,
+          res = {
             worker: []
           }
-          if (n.success) { r.login = true }
           for (var i in n.result) {
-            r.worker.push(n.result[i].id)
+            res.worker.push(n.result[i].id)
           }
-          console.log(r)
           return gres({
             type: "json",
-            ctx: r
+            ctx: res
           })
+        case "cf-login":
+          n = await (await fetch(`https://api.cloudflare.com/client/v4/accounts`, {
+            headers: {
+              "X-Auth-Email": sq("mail"),
+              "X-Auth-Key": sq("key")
+            }
+          })).json()
+          res = {
+            login: false,
+            Account_Identifier: []
+          }
+          if (n.success) {
+            res.login = true
+            for (var i in n.result) {
+              res.Account_Identifier.push(n.result[i].id)
+            }
+          }
+          return gres({
+            type: "json",
+            ctx: res
+          })
+        /*
+         */
+
+
+
         case "kv":
           try {
             const kv = await HKV.get('hconfig')

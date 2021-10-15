@@ -339,7 +339,7 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ 847:
+/***/ 539:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -387,7 +387,7 @@ var check_code = "<h2>日志：</h2> <div id=\"log\"></div> <script>(async()=>{w
 /* harmony default export */ const check = (check_code);
 ;// CONCATENATED MODULE: ./node_modules/_html-loader@2.1.2@html-loader/dist/cjs.js!./worker/src/html/install/src/cf.html
 // Module
-var cf_code = "<div style=\"min-height:calc(60vh)\"> <div id=\"dash\"> <p>你需要填写以下CloudFlare信息才能保证HPP工作正常</p> <div class=\"mdui-textfield mdui-textfield-floating-label\"> <label class=\"mdui-textfield-label\">CloudFlare登陆邮箱</label> <input class=\"mdui-textfield-input\" type=\"email\" id=\"Auth_Email\"/> </div> <div class=\"mdui-textfield mdui-textfield-floating-label\"> <label class=\"mdui-textfield-label\">CloudFlare Global Key</label> <input class=\"mdui-textfield-input\" type=\"password\" id=\"Auth_Key\"/> </div> <div class=\"mdui-textfield mdui-textfield-floating-label\"> <label class=\"mdui-textfield-label\">CloudFlare Worker ID</label> <input class=\"mdui-textfield-input\" type=\"text\" id=\"account_identifier\"/> </div> </div> <button class=\"mdui-btn mdui-color-theme-accent mdui-ripple\" onclick=\"gocheck()\" id=\"gocheck\">检查</button> <h2>日志：</h2> <div id=\"log\"></div></div> <script>window.gocheck=async()=>{const e=document.getElementById(\"log\");document.getElementById(\"gocheck\").disabled=!0,e.innerText=\"[信息]尝试检查CF信息中...\\n\";try{const t=document.getElementById(\"Auth_Email\").value,n=document.getElementById(\"Auth_Key\").value,c=document.getElementById(\"account_identifier\").value,o=await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=cf-getworker&mail=${t}&key=${n}&id=${c}&s=${(new Date).valueOf()}`)).json();let l=!1;const d=o.ctx.worker;o.ctx.login?(l=!0,document.getElementById(\"dash\").innerHTML=` <p>选择HPP所在的Worker</p><select class=\"mdui-select\" id=\"workername\" mdui-select>'\\n                        ${(()=>{let e=\"\";for(var t in d)e+=`<option value=\"${d[t]}\">${d[t]}</option>`;return e})()}\\n                        </select>`,e.innerText+=\"[成功]账户已登陆，请选择hpp所在的Worker名字，点击下一步继续\\n\",mdui.mutation(),document.getElementById(\"gocheck\").disabled=!1,document.getElementById(\"gocheck\").innerText=\"下一步\",document.getElementById(\"gocheck\").onclick=()=>{gonext(t,n,c)}):(l=!1,document.getElementById(\"gocheck\").disabled=!1,e.innerText+=\"[失败]账户登陆异常，错误代码(-10004)\\n\")}catch(t){e.innerText+=\"[异常]脚本检测时出现了未知的异常：\\n\"+t}},window.gonext=(e,t,n)=>{const c=document.getElementById(\"workername\").value;localStorage.setItem(\"config\",JSON.stringify({installed:!1,cors:\"*\",recaptcha:\"\",gh_token:\"\",cloudflare:{Account_Identifier:n,Auth_Key:t,Auth_Email:e,Script_Name:c}})),document.getElementById(\"gocheck\").onclick=()=>{document.location.search=\"?step=player\"}}</script>";
+var cf_code = "<div style=\"min-height:calc(60vh)\"> <div id=\"dash\"> <p>你需要填写以下CloudFlare信息才能保证HPP工作正常</p> <div class=\"mdui-textfield mdui-textfield-floating-label\"> <label class=\"mdui-textfield-label\">登陆邮箱</label> <input class=\"mdui-textfield-input\" type=\"email\" id=\"Auth_Email\"/> </div> <div class=\"mdui-textfield mdui-textfield-floating-label\"> <label class=\"mdui-textfield-label\">Global Key</label> <input class=\"mdui-textfield-input\" type=\"password\" id=\"Auth_Key\"/> </div> </div> <button class=\"mdui-btn mdui-color-theme-accent mdui-ripple\" onclick=\"gologin()\" id=\"button\">登陆我的CloudFlare</button> <h2>日志：</h2> <div id=\"log\"></div> </div> <script>window.i_config={},window.setlog=document.getElementById(\"log\"),window.goAI=async()=>{document.getElementById(\"button\").disabled=!0,setlog.innerText+=\"[信息]尝试根据Account_Identifier获取用户下的Worker...\\n\",i_config.AI=document.getElementById(\"Account_Identifier\").value;try{const e=await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=cf-list-worker&mail=${i_config.Auth_Email}&key=${i_config.Auth_Key}&ai=${i_config.AI}&s=${(new Date).valueOf()}`)).json();document.getElementById(\"button\").disabled=!1,setlog.innerText+=\"[成功]请选择安装着HexoPlusPlus的Worker名\\n\",i_config.WorkerList=e.ctx.worker,document.getElementById(\"dash\").innerHTML=` <p>HexoPlusPlus安装所在的Worker名</p><select class=\"mdui-select\" id=\"Worker\" mdui-select>'\\n                        ${(()=>{let e=\"\";for(var t in i_config.WorkerList)e+=`<option value=\"${i_config.WorkerList[t]}\">${i_config.WorkerList[t]}</option>`;return e})()}\\n                        </select>`,mdui.mutation(),document.getElementById(\"button\").innerText=\"结束CloudFlare部分的安装\",document.getElementById(\"button\").onclick=()=>{goEnd()}}catch(e){setlog.innerText+=\"[异常]脚本检测时出现了未知的异常：\\n\"+n}},window.gologin=async()=>{document.getElementById(\"button\").disabled=!0,setlog.innerText=\"[信息]尝试登陆CF信息中...\\n\";try{i_config.Auth_Email=document.getElementById(\"Auth_Email\").value,i_config.Auth_Key=document.getElementById(\"Auth_Key\").value;const e=await(await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=cf-login&mail=${i_config.Auth_Email}&key=${i_config.Auth_Key}&s=${(new Date).valueOf()}`)).json();document.getElementById(\"button\").disabled=!1,e.ctx.login?(setlog.innerText+=\"[成功]账户登陆成功，请选择你的Account_Identifier\\n\",i_config.AIList=e.ctx.Account_Identifier,document.getElementById(\"dash\").innerHTML=` <p>您账户所用的Account_Identifier</p><select class=\"mdui-select\" id=\"Account_Identifier\" mdui-select>'\\n                        ${(()=>{let e=\"\";for(var t in i_config.AIList)e+=`<option value=\"${i_config.AIList[t]}\">${i_config.AIList[t]}</option>`;return e})()}\\n                        </select>`,mdui.mutation(),document.getElementById(\"button\").innerText=\"下一步\",document.getElementById(\"button\").onclick=()=>{goAI()}):setlog.innerText+=\"[失败]账户登陆异常，错误代码(-10004)\\n\"}catch(e){setlog.innerText+=\"[异常]脚本检测时出现了未知的异常：\\n\"+e}},window.goEnd=()=>{i_config.Worker=document.getElementById(\"Worker\").value,localStorage.setItem(\"config\",JSON.stringify({installed:!1,cors:\"*\",recaptcha:\"\",gh_token:\"\",cloudflare:{Account_Identifier:i_config.Account_Identifier,Auth_Key:i_config.Auth_Key,Auth_Email:i_config.Auth_Email,Script_Name:i_config.Worker}})),document.location.search=\"?step=player\"}</script>";
 // Exports
 /* harmony default export */ const cf = (cf_code);
 ;// CONCATENATED MODULE: ./node_modules/_html-loader@2.1.2@html-loader/dist/cjs.js!./worker/src/html/install/src/player.html
@@ -5353,6 +5353,8 @@ const installpage = async (req, hinfo) => {
   }
   const h = src_gethtml(hinfo)
   switch (sq('step')) {
+    //Step获取当前进度返回html 
+    //Start
     case 'check':
       return src_gres({
         type: 'html',
@@ -5390,14 +5392,23 @@ const installpage = async (req, hinfo) => {
     case 'getthemelist':
       return fetch('https://raw.githubusercontent.com/hexojs/site/master/source/_data/themes.yml')
     //CloudFlareWorker无法处理较大的yml文件
+    //End
+
+    //程序检测API
+    //Start
     case 'test':
-      let gh_header, res
+      let gh_header, res, n
       switch (sq('type')) {
+
+        //获取主题
         case 'gettheme':
           return src_gres({
             type: "json",
             res: await (await fetch('https://hppcdn.pages.dev/theme.json')).json()
           })
+
+
+
         case 'ghtoken_workflowtest':
           gh_header = {
             "Authorization": `token ${sq("token")}`,
@@ -5638,28 +5649,51 @@ const installpage = async (req, hinfo) => {
             type: "json",
             ctx: res
           })
-        case "cf-getworker":
-          const n = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${sq('id')}/workers/scripts`, {
+        case "cf-list-worker":
+
+          n = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${sq('ai')}/workers/scripts`, {
             headers: {
               "X-Auth-Email": sq("mail"),
               "X-Auth-Key": sq("key")
             }
           })).json()
 
-          let r = {
-            login: false,
-            script: false,
+          res = {
             worker: []
           }
-          if (n.success) { r.login = true }
           for (var i in n.result) {
-            r.worker.push(n.result[i].id)
+            res.worker.push(n.result[i].id)
           }
-          console.log(r)
           return src_gres({
             type: "json",
-            ctx: r
+            ctx: res
           })
+        case "cf-login":
+          n = await (await fetch(`https://api.cloudflare.com/client/v4/accounts`, {
+            headers: {
+              "X-Auth-Email": sq("mail"),
+              "X-Auth-Key": sq("key")
+            }
+          })).json()
+          res = {
+            login: false,
+            Account_Identifier: []
+          }
+          if (n.success) {
+            res.login = true
+            for (var i in n.result) {
+              res.Account_Identifier.push(n.result[i].id)
+            }
+          }
+          return src_gres({
+            type: "json",
+            ctx: res
+          })
+        /*
+         */
+
+
+
         case "kv":
           try {
             const kv = await HKV.get('hconfig')
@@ -6344,7 +6378,7 @@ addEventListener("fetch", event => {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(847);
+/******/ 	var __webpack_exports__ = __webpack_require__(539);
 /******/ 	
 /******/ })()
 ;
