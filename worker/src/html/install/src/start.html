@@ -16,18 +16,19 @@
         </div>
     </div>
     <button class="mdui-btn mdui-ripple" onclick="start()" id="button">检测Token有效性</button>
-    <button class="mdui-btn mdui-ripple" onclick="jump()" id="jump">不使用Hexo？点我直接跳过</button>
+    <button class="mdui-btn mdui-ripple" onclick="skip()" id="skip">不使用Hexo？点我直接跳过</button>
     <h2>日志：</h2>
     <div id="log"></div>
 </div>
 
 
 <script>
+    window.i_config = {};
     (async () => {
         const setlog = document.getElementById("log")
         let button = document.getElementById("button")
         try {
-            window.jump = () => {
+            window.skip = () => {
                 let gc = JSON.parse(localStorage.getItem("config"))
                 gc.hexo = {
                     switch: false
@@ -35,11 +36,11 @@
                 localStorage.setItem("config", JSON.stringify(gc))
                 document.location.search = "?step=imghost"
             }
-            window.checktotkenrepo = async (ghtoken, reponame, branch) => {
+            window.checktotkenrepo = async () => {
 
                 button.disabled = true
                 setlog.innerText += "[信息]正在尝试校验TOKEN权限...\n"
-                const c = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_test&repo=${reponame}&branch=${branch}&token=${ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
+                const c = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_test&repo=${i_config.reponame}&branch=${i_config.branch}&token=${i_config.ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
                 setlog.innerText += "[信息]以下为分析数据结果...\n"
                 if (c.write) {
                     setlog.innerText += "[成功]写入测试文件是成功的\n"
@@ -65,7 +66,6 @@
                 <i class="mdui-switch-icon"></i>
                 将此Token作为HPP的主Token，接下来的Github设置将自动填充
             </label><br>`
-
                     button.disabled = false
                     button.innerText = "结束Hexo仓库的安装"
                     button.onclick = () => {
@@ -73,13 +73,13 @@
                         gc.hexo = {
                             switch: true,
                             type: "gh",
-                            gh_repo: reponame,
-                            gh_branch: branch,
-                            gh_token: ghtoken,
-                            gh_theme: c.theme_config
+                            gh_repo: i_config.reponame,
+                            gh_branch: i_config.branch,
+                            gh_token: i_config.ghtoken,
+                            gh_theme_conf: i_config.theme_config
                         }
                         if (document.getElementById('maintoken').checked) {
-                            gc.gh_token = ghtoken
+                            gc.gh_token =  i_config.ghtoken
                         } else {
                             gc.gh_token = ""
                         }
@@ -94,11 +94,11 @@
                 }
             }
 
-            window.checkbranch = async (ghtoken, reponame) => {
+            window.checkbranch = async () => {
                 button.disabled = true
                 setlog.innerText += "[信息]正在尝试拉取仓库信息...\n"
-                const branch = document.getElementById("branch").value
-                const c = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_repo&repo=${reponame}&branch=${branch}&token=${ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
+                i_config.branch = document.getElementById("branch").value
+                const c = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_repo&repo=${i_config.reponame}&branch=${i_config.branch}&token=${i_config.ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
                 setlog.innerText += "[信息]以下为分析数据结果...\n"
                 let fpack, fconf, fsource, fhexo, ftheme, fthemeconf;
                 if (c.package !== -1) {
@@ -118,7 +118,7 @@
                 }
 
                 if (c.config !== -1) {
-                    setlog.innerText += "[正常]我们在根目录下发现了_config.yml主题配置文件...\n"
+                    setlog.innerText += "[正常]我们在根目录下发现了_config.yml配置文件...\n"
                     fconf = true
                     if (!!c.theme) {
                         setlog.innerText += `[正常]在发现Hexo配置文件的基础上，我们找到了您的主题，其名字为${c.theme}\n`
@@ -135,7 +135,7 @@
                         ftheme = false
                     }
                 } else {
-                    setlog.innerText += "[错误]我们未能在根目录下发现了_config.yml主题配置文件，错误代码(-10010)\n"
+                    setlog.innerText += "[错误]我们未能在根目录下发现了_config.yml配置文件，错误代码(-10010)\n"
                     fconf = false
                 }
 
@@ -158,7 +158,7 @@
 
                     document.getElementById('dash').innerHTML = ""
                     button.innerText = "下一步，检查仓库权限"
-                    button.onclick = () => { checktotkenrepo(ghtoken, reponame, branch) }
+                    button.onclick = () => { checktotkenrepo() }
                 } else {
                     setlog.innerText += "[失败]并不是所有的检查都是通过的，请尝试排查错误，若不知道如何排查，请点击左上角菜单寻求帮助！另外，请确保您的仓库完成集成部署！\n"
 
@@ -166,11 +166,11 @@
                 }
                 button.disabled = false
             }
-            window.branch = async (ghtoken) => {
+            window.branch = async () => {
                 button.disabled = true
                 setlog.innerText += "[信息]正在尝试拉取仓库分支信息...\n"
-                const reponame = document.getElementById("repo").value
-                const ghtoken_branch_ctx = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_branch&repo=${reponame}&token=${ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
+                i_config.reponame = document.getElementById("repo").value
+                const ghtoken_branch_ctx = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_branch&repo=${i_config.reponame}&token=${i_config.ghtoken}&s=${(new Date()).valueOf()}`)).json()).ctx
                 const ghtoken_branch = ghtoken_branch_ctx.branches
                 const ghtoken_branchflag = ghtoken_branch !== [] ? true : false
                 if (ghtoken_branchflag) {
@@ -186,7 +186,7 @@
                         }
                         </select>`
 
-                    button.onclick = () => { checkbranch(ghtoken, reponame) }
+                    button.onclick = () => { checkbranch() }
 
                     mdui.mutation()
                     button.innerText = "查询此分支仓库信息"
@@ -200,14 +200,14 @@
             }
 
             window.start = async () => {
-                document.getElementById('jump').style["display"] = "none"
+                document.getElementById('skip').style["display"] = "none"
                 button.disabled = true
                 document.getElementById('org').disabled = true
                 document.getElementById('star').disabled = true
                 setlog.innerText += "[信息]正在尝试拉取Github信息...\n"
                 setlog.innerText += "[提醒]为了正常检查您的Token工作状态，我们会尝试Star本项目地址。Star是Github中类似于激励的方式，这不需要钱，也不需要您付出什么，当你按下检查按钮，这一切都会完成，但却可以给我们带来开发的动力！当然，如果您不愿意，您也随时可以前往我们的仓库取消Star...\n"
-                const ghtoken = document.getElementById("gh_token").value
-                const ghtoken_info = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${ghtoken}&org=${document.getElementById('org').checked}&sponsor=${document.getElementById('star').checked}&s=${(new Date()).valueOf()}`)).json()).ctx
+                i_config.ghtoken = document.getElementById("gh_token").value
+                const ghtoken_info = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${i_config.ghtoken}&org=${document.getElementById('org').checked}&sponsor=${document.getElementById('star').checked}&s=${(new Date()).valueOf()}`)).json()).ctx
                 const ghtoken_flag = ghtoken_info.login
                 const ghtoken_repo = ghtoken_info.repo
                 const ghtoken_star = ghtoken_info.star
@@ -230,25 +230,25 @@
                             }
                         </select>`
 
-                        button.onclick = () => { branch(ghtoken) }
+                        button.onclick = () => { branch() }
 
                         mdui.mutation()
                     } else {
                         setlog.innerText += `[错误]此GithubToken对应的用户${ghtoken_user}没有仓库，错误代码(-10007)：\n`
                         button.innerText = "重新检测"
 
-                        document.getElementById('jump').style["display"] = "unset"
+                        document.getElementById('skip').style["display"] = "unset"
                     }
                 } else {
                     setlog.innerText += "[错误]此GithubToken无效，错误代码(-10006)：\n"
                     button.innerText = "重新检测"
                     document.getElementById('jump').style["display"] = "unset"
-                   
+                    document.getElementById('org').disabled = false
+                    document.getElementById('star').disabled = false
 
                 }
                 button.disabled = false
-                document.getElementById('org').disabled = false
-                document.getElementById('star').disabled = false
+
             }
         } catch (o) {
             setlog.innerText += "[异常]安装程序意外退出：\n" + o

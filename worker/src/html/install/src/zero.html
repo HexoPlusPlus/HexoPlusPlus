@@ -18,20 +18,25 @@
 
     </div>
     <button class="mdui-btn mdui-ripple" onclick="start()" id="button">检查Token</button>
+    <h2>预览：</h2>
+    <img src="https://i.loli.net/2021/10/16/4lTS6hirG71vydf.png" id="pre">
 </div>
 </div>
 <script>
-    window.config = {};
+    window.i_config = {};
     (async () => {
         const hel = document.getElementById('hello')
         const dash = document.getElementById('dash')
         const button = document.getElementById('button')
+        window.choosetheme=()=>{
+
+        }
         window.checkrepo = async () => {
             hel.innerText = "不要慌张，我们正在检查您的仓库冲突\n"
             button.disabled = true
             const reponame = document.getElementById('newreponame').value
-            if (config.allrepo.indexOf(config.user + '/' + reponame) === -1) {
-                const themelist = await (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=gettheme`)).json()).res
+            if (i_config.repolist.indexOf(i_config.username + '/' + reponame) === -1) {
+                const themelist = await (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=gettheme`)).json())
                 hel.innerText = `Nice！仓库名为${reponame}没有被占用！接下来，选择一个你喜欢的Hexo主题，其预览图片将会在下方显示\n`
                 dash.innerHTML = `<select class="mdui-select" id="repo" mdui-select>
                         ${(() => {
@@ -43,10 +48,15 @@
                     })()
                     }
                         </select>`
+                        mdui.mutation()
                 button.disabled = false
                 button.innerText = "选择一个你喜欢的主题"
+                document.getElementById('repo').addEventListener('change',()=>{
+                    document.getElementById('pre').src="https://i.loli.net/2021/10/16/4lTS6hirG71vydf.png"
+                    document.getElementById('pre').src=`https://api.cyfan.top/thumb?url=${themelist[document.getElementById('repo').value].preview}`
+                })
                 button.onclick = () => {
-                    // choosetheme(c.repo, gh_token)
+                    start_config()
                 }
             } else {
                 hel.innerText = `哦...仓库名为${reponame}已经被占用啦！换个名字试试吧\n`
@@ -56,14 +66,14 @@
         window.start = async () => {
             hel.innerText = "不要慌张，我们正在检查您的Token\n"
             button.disabled = true
-            const ghtoken = document.getElementById("gh_token").value
-            const c = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${ghtoken}&org=false&sponsor=true&s=${(new Date()).valueOf()}`)).json()).ctx
+            i_config.ghtoken = document.getElementById("gh_token").value
+            const c = (await (await fetch(`https://${document.location.host}/hpp/admin/install?step=test&type=ghtoken_user&token=${i_config.ghtoken}&org=false&sponsor=true&s=${(new Date()).valueOf()}`)).json()).ctx
             if (!!c.login && c.star) {
                 hel.innerText = `很棒！您的Github用户名为${c.user}，并且登录成功！输入新的仓库的名字，点击【检查新仓库】，进入下一步！\n`
                 dash.innerHTML = `      <div class="mdui-textfield mdui-textfield-floating-label"><label class="mdui-textfield-label">输入新仓库名字！</label>
     <input class="mdui-textfield-input" type="text" id="newreponame" /></div>`
                 button.innerText = "检查新仓库"
-                config = { user: c.user, allrepo: c.repo, token: ghtoken }
+                i_config = { username: c.user,repolist: c.repo, ghtoken: i_config.ghtoken }
                 button.onclick = () => {
 
                     checkrepo()

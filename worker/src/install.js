@@ -60,10 +60,7 @@ const installpage = async (req, hinfo) => {
 
         //获取主题
         case 'gettheme':
-          return gres({
-            type: "json",
-            res: await (await fetch('https://hppcdn.pages.dev/theme.json')).json()
-          })
+          return fetch('https://hppcdn.pages.dev/theme.json')
 
 
 
@@ -352,66 +349,48 @@ const installpage = async (req, hinfo) => {
 
 
 
-        case "kv":
-          try {
-            const kv = await HKV.get('hconfig')
-            return gres({
-              type: "json",
-              ctx: true
-            })
-          } catch (p) {
-            return gres({
-              type: "json",
-              ctx: false,
-              msg: p
-            })
+        case "pcheck":
+
+          res = {
+            kv: false,
+            hkv: false,
+            username: false,
+            password: false
           }
-        case "passwd":
 
           try {
-            const passwd = hpp_password.split(",")
-            return gres({
-              type: "json",
-              ctx: true
-            })
+            const test_kv = await HKV.get('hconfig')
+            res.kv = true
+            if (test_kv !== undefined) {
+              res.hkv = true
+            }
           } catch (p) {
-            return gres({
-              type: "json",
-              ctx: false,
-              msg: p
-            })
+            res.kv = false
           }
-        case "user":
 
           try {
-            const user = hpp_username.split(",")
-            return gres({
-              type: "json",
-              ctx: true
-            })
+            const test_passwd = hpp_password
+            res.password = true
           } catch (p) {
-            return gres({
-              type: "json",
-              ctx: false,
-              msg: p
-            })
+            res.password = false
           }
-        case "hkv":
-          const kv = await HKV.get('hconfig')
-          if (kv !== undefined) {
-            return gres({
-              type: "json",
-              ctx: true
-            })
-          } else {
-            return gres({
-              type: "json",
-              ctx: false
-            })
+
+          try {
+            const test_username = hpp_username
+            res.username = test_username
+          } catch (p) {
+            res.username = false
           }
+
+          return gres({
+            type: 'json',
+            ctx: res
+          })
+
+
+
         default:
           return gres({
-            type: "json",
             ctx: "ERROR"
           })
       }
