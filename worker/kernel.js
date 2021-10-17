@@ -17,7 +17,7 @@ import { genactiveres } from './src/getblogeractive'
 
 import totp from './src/totp/totp'
 
-import installpage from './src/install'
+//import installpage from './src/install'
 
 import { hpage } from './src/hpage'
 import pack from './../package.json'
@@ -53,7 +53,7 @@ export async function hexoplusplus(request) {
 
 
   //检查安装
-
+/* 
 
   if (!hinfo.config.installed || hinfo.config.nokv) {
     if (rp(path) === '/hpp/admin/install') {
@@ -64,11 +64,11 @@ export async function hexoplusplus(request) {
   }
 
 
-
+*/
   //检查登陆
 
-  const username = hpp_username.split(",");
-  const password = hpp_password.split(",");
+  const username = hpp_username
+  const password = hpp_password
   const maph = new Map(request.headers);
   hinfo.login = (() => {
     for (var w = 0; w < getJsonLength(username); w++) {
