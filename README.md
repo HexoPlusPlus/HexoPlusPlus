@@ -1,3 +1,12 @@
+# 项目已停止维护
+
+此仓库将处于归档状态.**不过,为什么不试试[Wexagonal](https://github.com/Wexagonal/Wexagonal)呢?**Wexa更快,支持的平台和数据库更多,并且有着更强大的功能.
+
+
+
+
+
+
 # HexoPlusPlus
 ## A powerful Hexo dashboard
 
